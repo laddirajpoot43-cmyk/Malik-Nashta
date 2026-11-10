@@ -1,0 +1,5182 @@
+{
+  "sequences": {
+    "receipt_seq": 1012,
+    "order_seq": 12,
+    "refund_seq": 103,
+    "hold_seq": 3,
+    "purchase_seq": 1004,
+    "vendor_pay_seq": 1000
+  },
+  "profiles": [
+    {
+      "id": "11111111-1111-1111-1111-111111111101",
+      "email": "admin@maliknashta.pk",
+      "full_name": "Malik Ammar",
+      "display_name": "Malik Ammar (Admin)",
+      "role": "admin",
+      "status": "active",
+      "pin_code": "1234",
+      "created_at": "2026-11-10T09:52:55.024+00:00",
+      "updated_at": null
+    },
+    {
+      "id": "11111111-1111-1111-1111-111111111102",
+      "email": "cashier@maliknashta.pk",
+      "full_name": "Muhammad Bilal",
+      "display_name": "Bilal Cashier",
+      "role": "cashier",
+      "status": "active",
+      "pin_code": "0000",
+      "created_at": "2026-11-10T09:52:55.025+00:00",
+      "updated_at": null
+    }
+  ],
+  "pos_settings": [
+    {
+      "id": "33333333-3333-3333-3333-333333333301",
+      "business_name": "MALIK TASTY NASHTA POINT",
+      "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+      "phone": "0300-1234567",
+      "greeting_message": "Fresh & Crispy Nashta Everyday",
+      "admin_pin": "1234",
+      "cash_rounding_enabled": true,
+      "require_admin_pin_refunds": true,
+      "default_tax_rate": 0,
+      "max_cashier_discount_percent": 15,
+      "receipt_template": {
+        "tagline": "Super Crispy Nashta Everyday",
+        "ntn_strn": "NTN: 998877-6",
+        "font_size": "medium",
+        "paper_size": "80mm",
+        "show_addons": true,
+        "header_message": "Fresh Puri & Hot Chai Served Fast",
+        "show_cashier_name": true,
+        "show_order_number": true,
+        "show_customer_info": true,
+        "show_kitchen_notes": true,
+        "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+        "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+        "show_duplicate_watermark": true
+      },
+      "created_at": "2026-11-10T09:52:55.025+00:00",
+      "updated_at": null
+    }
+  ],
+  "categories": [
+    {
+      "id": "22222222-2222-2222-2222-222222222201",
+      "name": "Nashta Special",
+      "display_order": 1,
+      "is_active": true,
+      "created_at": "2026-11-10T09:52:55.025+00:00"
+    },
+    {
+      "id": "22222222-2222-2222-2222-222222222202",
+      "name": "Paratha & Roti",
+      "display_order": 2,
+      "is_active": true,
+      "created_at": "2026-11-10T09:52:55.025+00:00"
+    },
+    {
+      "id": "22222222-2222-2222-2222-222222222203",
+      "name": "Eggs & Omelette",
+      "display_order": 3,
+      "is_active": true,
+      "created_at": "2026-11-10T09:52:55.026+00:00"
+    },
+    {
+      "id": "22222222-2222-2222-2222-222222222204",
+      "name": "Chai & Beverages",
+      "display_order": 4,
+      "is_active": true,
+      "created_at": "2026-11-10T09:52:55.026+00:00"
+    }
+  ],
+  "products": [
+    {
+      "id": "44444444-4444-4444-4444-444444444401",
+      "category_id": "22222222-2222-2222-2222-222222222201",
+      "name": "Channay (Salan)",
+      "short_name": "Channay",
+      "selling_price": 260,
+      "cost_price": 130,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 1,
+      "created_at": "2026-11-10T14:02:37.00904+00:00"
+    },
+    {
+      "id": "44444444-4444-4444-4444-444444444402",
+      "category_id": "22222222-2222-2222-2222-222222222201",
+      "name": "Shahi Daleem",
+      "short_name": "Daleem",
+      "selling_price": 280,
+      "cost_price": 140,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 2,
+      "created_at": "2026-11-10T14:02:37.00904+00:00"
+    },
+    {
+      "id": "44444444-4444-4444-4444-444444444403",
+      "category_id": "22222222-2222-2222-2222-222222222201",
+      "name": "Bong Paye (Special)",
+      "short_name": "Bong Paye",
+      "selling_price": 550,
+      "cost_price": 320,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 3,
+      "created_at": "2026-11-10T14:02:37.00904+00:00"
+    },
+    {
+      "id": "44444444-4444-4444-4444-444444444404",
+      "category_id": "22222222-2222-2222-2222-222222222201",
+      "name": "Desi Maghaz Fry",
+      "short_name": "Maghaz Fry",
+      "selling_price": 600,
+      "cost_price": 360,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 4,
+      "created_at": "2026-11-10T14:02:37.00904+00:00"
+    },
+    {
+      "id": "44444444-4444-4444-4444-444444444405",
+      "category_id": "22222222-2222-2222-2222-222222222201",
+      "name": "Kofta Channay",
+      "short_name": "Qoftay",
+      "selling_price": 300,
+      "cost_price": 160,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 5,
+      "created_at": "2026-11-10T14:02:37.00904+00:00"
+    },
+    {
+      "id": "44444444-4444-4444-4444-444444444406",
+      "category_id": "22222222-2222-2222-2222-222222222201",
+      "name": "Choley Puri (2 Purian + Chana + Halwa)",
+      "short_name": "Choley Puri",
+      "selling_price": 180,
+      "cost_price": 90,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 6,
+      "created_at": "2026-11-10T14:02:37.00904+00:00"
+    },
+    {
+      "id": "44444444-4444-4444-4444-444444444407",
+      "category_id": "22222222-2222-2222-2222-222222222202",
+      "name": "Crispy Lachha Paratha",
+      "short_name": "Lachha Paratha",
+      "selling_price": 80,
+      "cost_price": 38,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 7,
+      "created_at": "2026-11-10T14:02:37.00904+00:00"
+    },
+    {
+      "id": "44444444-4444-4444-4444-444444444408",
+      "category_id": "22222222-2222-2222-2222-222222222202",
+      "name": "Desi Ghee Aloo Paratha",
+      "short_name": "Aloo Paratha",
+      "selling_price": 120,
+      "cost_price": 55,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 8,
+      "created_at": "2026-11-10T14:02:37.00904+00:00"
+    },
+    {
+      "id": "44444444-4444-4444-4444-444444444409",
+      "category_id": "22222222-2222-2222-2222-222222222202",
+      "name": "Tandoori Saada Naan",
+      "short_name": "Saada Naan",
+      "selling_price": 30,
+      "cost_price": 15,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 9,
+      "created_at": "2026-11-10T14:02:37.00904+00:00"
+    },
+    {
+      "id": "44444444-4444-4444-4444-444444444410",
+      "category_id": "22222222-2222-2222-2222-222222222203",
+      "name": "Desi Anda Omelette (Pyaz Mirch)",
+      "short_name": "Desi Omelette",
+      "selling_price": 120,
+      "cost_price": 60,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 10,
+      "created_at": "2026-11-10T14:02:37.00904+00:00"
+    },
+    {
+      "id": "44444444-4444-4444-4444-444444444411",
+      "category_id": "22222222-2222-2222-2222-222222222203",
+      "name": "Half Fry Anda",
+      "short_name": "Half Fry",
+      "selling_price": 80,
+      "cost_price": 40,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 11,
+      "created_at": "2026-11-10T14:02:37.00904+00:00"
+    },
+    {
+      "id": "44444444-4444-4444-4444-444444444412",
+      "category_id": "22222222-2222-2222-2222-222222222204",
+      "name": "Special Doodh Patti Chai",
+      "short_name": "Doodh Patti",
+      "selling_price": 90,
+      "cost_price": 45,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 12,
+      "created_at": "2026-11-10T14:02:37.00904+00:00"
+    },
+    {
+      "id": "44444444-4444-4444-4444-444444444413",
+      "category_id": "22222222-2222-2222-2222-222222222204",
+      "name": "Karak Hotel Chai",
+      "short_name": "Karak Chai",
+      "selling_price": 60,
+      "cost_price": 28,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 13,
+      "created_at": "2026-11-10T14:02:37.00904+00:00"
+    }
+  ],
+  "product_addons": [
+    {
+      "id": "a1",
+      "name": "Makhan / Fresh Butter",
+      "price": 50,
+      "is_active": true,
+      "created_at": "2026-11-10T14:02:37.905555+00:00"
+    },
+    {
+      "id": "a2",
+      "name": "Desi Ghee Chhanka",
+      "price": 60,
+      "is_active": true,
+      "created_at": "2026-11-10T14:02:37.905555+00:00"
+    },
+    {
+      "id": "a3",
+      "name": "Extra Tari / Roghan Gravy",
+      "price": 30,
+      "is_active": true,
+      "created_at": "2026-11-10T14:02:37.905555+00:00"
+    },
+    {
+      "id": "a4",
+      "name": "Dahi Raita Piyali",
+      "price": 40,
+      "is_active": true,
+      "created_at": "2026-11-10T14:02:37.905555+00:00"
+    },
+    {
+      "id": "a5",
+      "name": "Fresh Salad",
+      "price": 30,
+      "is_active": true,
+      "created_at": "2026-11-10T14:02:37.905555+00:00"
+    }
+  ],
+  "register_sessions": [
+    {
+      "id": "dd397171-a341-4878-b180-874cf051cf56",
+      "user_id": null,
+      "user_name_snapshot": "Bilal Cashier",
+      "opening_amount": 5000,
+      "opening_note": null,
+      "expected_amount": null,
+      "actual_amount": null,
+      "difference": null,
+      "closing_note": null,
+      "status": "open",
+      "opened_at": "2026-11-10T14:37:26.636+00:00",
+      "closed_at": null
+    },
+    {
+      "id": "5f128d30-240f-4cdd-bd2a-6725dff3caa9",
+      "user_id": null,
+      "user_name_snapshot": "Admin",
+      "opening_amount": 5000,
+      "opening_note": null,
+      "expected_amount": 7234,
+      "actual_amount": 7234,
+      "difference": 0,
+      "closing_note": "Shift balanced and verified",
+      "status": "closed",
+      "opened_at": "2026-11-10T13:28:16.331+00:00",
+      "closed_at": "2026-11-10T13:42:19.12+00:00"
+    },
+    {
+      "id": "73bf2130-f867-4c79-a90e-af742b336aa9",
+      "user_id": null,
+      "user_name_snapshot": "Malik Ammar (Admin)",
+      "opening_amount": 5000,
+      "opening_note": null,
+      "expected_amount": 7333,
+      "actual_amount": 7333,
+      "difference": 0,
+      "closing_note": "Shift balanced and verified",
+      "status": "closed",
+      "opened_at": "2026-11-10T10:10:44.856+00:00",
+      "closed_at": "2026-11-10T11:05:29.936+00:00"
+    },
+    {
+      "id": "90296205-a9ff-41fc-81af-00fe61b3595b",
+      "user_id": null,
+      "user_name_snapshot": "Malik Ammar",
+      "opening_amount": 5000,
+      "opening_note": null,
+      "expected_amount": 7234,
+      "actual_amount": 7234,
+      "difference": 0,
+      "closing_note": "Shift balanced and verified",
+      "status": "closed",
+      "opened_at": "2026-11-10T09:57:34.575+00:00",
+      "closed_at": "2026-11-10T09:57:34.846+00:00"
+    }
+  ],
+  "register_transactions": [
+    {
+      "id": "3fa9d802-ed2d-418c-82e8-101bc0ae5052",
+      "register_session_id": "dd397171-a341-4878-b180-874cf051cf56",
+      "type": "OPENING",
+      "amount": 5000,
+      "order_id": null,
+      "refund_id": null,
+      "reason": "Shift Opening Float",
+      "note": "Opened by Bilal Cashier",
+      "user_name_snapshot": "Bilal Cashier",
+      "created_at": "2026-11-10T14:37:26.636+00:00"
+    },
+    {
+      "id": "b8a6c0a0-b107-4195-b514-0f750ca935d9",
+      "register_session_id": "5f128d30-240f-4cdd-bd2a-6725dff3caa9",
+      "type": "REFUND",
+      "amount": 234,
+      "order_id": "0ca88b29-e18b-45f2-985d-8f8684828d7e",
+      "refund_id": "ea3e0281-af97-43f4-8511-34b355810ad7",
+      "reason": "Refund Voucher #REF-000103",
+      "note": "Reason: Mirch zyada thi",
+      "user_name_snapshot": "Malik Ammar",
+      "created_at": "2026-11-10T13:42:19.102+00:00"
+    },
+    {
+      "id": "d4b1e665-8ace-4a09-b80b-3d9674704169",
+      "register_session_id": "5f128d30-240f-4cdd-bd2a-6725dff3caa9",
+      "type": "SALE",
+      "amount": 468,
+      "order_id": "0ca88b29-e18b-45f2-985d-8f8684828d7e",
+      "refund_id": null,
+      "reason": "Cash Sale #MTN-0001011",
+      "note": "Customer: Chaudhry Rashid",
+      "user_name_snapshot": "Malik Ammar",
+      "created_at": "2026-11-10T13:42:16.058+00:00"
+    },
+    {
+      "id": "3c80ef93-8ab7-4290-ab4b-888867b7a11b",
+      "register_session_id": "5f128d30-240f-4cdd-bd2a-6725dff3caa9",
+      "type": "CASH_IN",
+      "amount": 2000,
+      "order_id": null,
+      "refund_id": null,
+      "reason": "Change float addition",
+      "note": "",
+      "user_name_snapshot": "Malik Ammar",
+      "created_at": "2026-11-10T13:42:13.01+00:00"
+    },
+    {
+      "id": "4a6602c0-5561-4df9-adaf-fd1292c6b8b0",
+      "register_session_id": "5f128d30-240f-4cdd-bd2a-6725dff3caa9",
+      "type": "OPENING",
+      "amount": 5000,
+      "order_id": null,
+      "refund_id": null,
+      "reason": "Shift Opening Float",
+      "note": "Opened by Admin",
+      "user_name_snapshot": "Admin",
+      "created_at": "2026-11-10T13:28:16.331+00:00"
+    },
+    {
+      "id": "33514ebf-7ed1-4264-bd2e-a3f40ac2615a",
+      "register_session_id": "73bf2130-f867-4c79-a90e-af742b336aa9",
+      "type": "REFUND",
+      "amount": 234,
+      "order_id": "4b071873-b751-44fb-b29a-3b076fc3ab29",
+      "refund_id": "a997520b-3357-42e2-afa8-d86215383bf2",
+      "reason": "Refund Voucher #REF-000102",
+      "note": "Reason: Mirch zyada thi",
+      "user_name_snapshot": "Malik Ammar",
+      "created_at": "2026-11-10T11:05:29.919+00:00"
+    },
+    {
+      "id": "a9e48272-f85d-4ff0-8ead-51ae1aa5ec01",
+      "register_session_id": "73bf2130-f867-4c79-a90e-af742b336aa9",
+      "type": "SALE",
+      "amount": 468,
+      "order_id": "4b071873-b751-44fb-b29a-3b076fc3ab29",
+      "refund_id": null,
+      "reason": "Cash Sale #MTN-0001005",
+      "note": "Customer: Chaudhry Rashid",
+      "user_name_snapshot": "Malik Ammar",
+      "created_at": "2026-11-10T11:05:26.859+00:00"
+    },
+    {
+      "id": "d2dd0ada-07d4-4325-b6d3-4f83ce832152",
+      "register_session_id": "73bf2130-f867-4c79-a90e-af742b336aa9",
+      "type": "CASH_IN",
+      "amount": 2000,
+      "order_id": null,
+      "refund_id": null,
+      "reason": "Change float addition",
+      "note": "",
+      "user_name_snapshot": "Malik Ammar",
+      "created_at": "2026-11-10T11:05:23.823+00:00"
+    },
+    {
+      "id": "baa9fed9-c3e2-43d2-9e3e-2d7818dc7862",
+      "register_session_id": "73bf2130-f867-4c79-a90e-af742b336aa9",
+      "type": "SALE",
+      "amount": 99,
+      "order_id": "b6f27791-6d2b-4358-83c5-82079698a8fb",
+      "refund_id": null,
+      "reason": "Cash Sale #MTN-0001003",
+      "note": "Customer: Walk-in Guest",
+      "user_name_snapshot": "Bilal Cashier",
+      "created_at": "2026-11-10T10:13:12.686+00:00"
+    },
+    {
+      "id": "5aa1f7fe-6bd5-40bd-885e-d1c982fb8839",
+      "register_session_id": "73bf2130-f867-4c79-a90e-af742b336aa9",
+      "type": "OPENING",
+      "amount": 5000,
+      "order_id": null,
+      "refund_id": null,
+      "reason": "Shift Opening Float",
+      "note": "Opened by Malik Ammar (Admin)",
+      "user_name_snapshot": "Malik Ammar (Admin)",
+      "created_at": "2026-11-10T10:10:44.856+00:00"
+    },
+    {
+      "id": "ebabbcec-7b16-47df-a9ae-df52846c5a87",
+      "register_session_id": "90296205-a9ff-41fc-81af-00fe61b3595b",
+      "type": "REFUND",
+      "amount": 234,
+      "order_id": "69b8dab1-8511-4706-b103-b81cf7cdb199",
+      "refund_id": "96e6839a-c08e-482b-95d9-525e351142b2",
+      "reason": "Refund Voucher #REF-000101",
+      "note": "Reason: Mirch zyada thi",
+      "user_name_snapshot": "Malik Ammar",
+      "created_at": "2026-11-10T09:57:34.831+00:00"
+    },
+    {
+      "id": "3bd53f25-a0a8-488b-9bb3-d79211c18d4e",
+      "register_session_id": "90296205-a9ff-41fc-81af-00fe61b3595b",
+      "type": "SALE",
+      "amount": 468,
+      "order_id": "69b8dab1-8511-4706-b103-b81cf7cdb199",
+      "refund_id": null,
+      "reason": "Cash Sale #MTN-0001001",
+      "note": "Customer: Chaudhry Rashid",
+      "user_name_snapshot": "Malik Ammar",
+      "created_at": "2026-11-10T09:57:34.8+00:00"
+    },
+    {
+      "id": "7c2cdba6-56a9-4455-b4ad-40647a829e84",
+      "register_session_id": "90296205-a9ff-41fc-81af-00fe61b3595b",
+      "type": "CASH_IN",
+      "amount": 2000,
+      "order_id": null,
+      "refund_id": null,
+      "reason": "Change float addition",
+      "note": "",
+      "user_name_snapshot": "Malik Ammar",
+      "created_at": "2026-11-10T09:57:34.584+00:00"
+    },
+    {
+      "id": "7baf7df9-df24-48d8-b12a-7cfba13a2149",
+      "register_session_id": "90296205-a9ff-41fc-81af-00fe61b3595b",
+      "type": "OPENING",
+      "amount": 5000,
+      "order_id": null,
+      "refund_id": null,
+      "reason": "Shift Opening Float",
+      "note": "Opened by Malik Ammar",
+      "user_name_snapshot": "Malik Ammar",
+      "created_at": "2026-11-10T09:57:34.575+00:00"
+    }
+  ],
+  "orders": [
+    {
+      "id": "508528fe-2b0e-49e5-a421-44cab80e4261",
+      "receipt_number": "MTN-0001012",
+      "order_number": "ORD-20261110-0012",
+      "register_session_id": "5f128d30-240f-4cdd-bd2a-6725dff3caa9",
+      "cashier_id": null,
+      "cashier_name_snapshot": "Bilal Cashier",
+      "customer_name": "Sheikh Waqas",
+      "customer_phone": null,
+      "order_note": null,
+      "subtotal": 330,
+      "discount_type": null,
+      "discount_value": 0,
+      "discount_amount": 0,
+      "discount_reason": null,
+      "tax_rate": 0,
+      "tax_amount": 0,
+      "rounding_amount": 0,
+      "grand_total": 330,
+      "total_paid": 330,
+      "change_returned": 0,
+      "status": "voided",
+      "reprint_count": 0,
+      "idempotency_key": null,
+      "void_reason": "Customer cancelled digital transaction",
+      "voided_by": null,
+      "voided_at": null,
+      "items": [
+        {
+          "id": "ed033f8c-b965-4025-9042-72785a5868f3",
+          "note": null,
+          "addons": [
+            {
+              "name": "Makhan",
+              "price": 50,
+              "addon_id": "a1"
+            }
+          ],
+          "order_id": "508528fe-2b0e-49e5-a421-44cab80e4261",
+          "quantity": 1,
+          "created_at": "2026-11-10T13:42:19.076Z",
+          "line_total": 330,
+          "product_id": "44444444-4444-4444-4444-444444444402",
+          "unit_price": 280,
+          "addons_total": 50,
+          "item_discount": 0,
+          "item_subtotal": 280,
+          "refunded_quantity": 0,
+          "product_name_snapshot": "Shahi Daleem"
+        }
+      ],
+      "payments": [
+        {
+          "id": "73256cb2-03fb-4895-af44-c3963833cc1d",
+          "amount": 330,
+          "order_id": "508528fe-2b0e-49e5-a421-44cab80e4261",
+          "method_id": "jazzcash",
+          "created_at": "2026-11-10T13:42:19.076Z",
+          "amount_tendered": 330,
+          "change_returned": 0
+        }
+      ],
+      "created_at": "2026-11-10T13:42:19.08+00:00"
+    },
+    {
+      "id": "0ca88b29-e18b-45f2-985d-8f8684828d7e",
+      "receipt_number": "MTN-0001011",
+      "order_number": "ORD-20261110-0011",
+      "register_session_id": "5f128d30-240f-4cdd-bd2a-6725dff3caa9",
+      "cashier_id": null,
+      "cashier_name_snapshot": "Malik Ammar",
+      "customer_name": "Chaudhry Rashid",
+      "customer_phone": null,
+      "order_note": null,
+      "subtotal": 520,
+      "discount_type": "percentage",
+      "discount_value": 10,
+      "discount_amount": 52,
+      "discount_reason": null,
+      "tax_rate": 0,
+      "tax_amount": 0,
+      "rounding_amount": 0,
+      "grand_total": 468,
+      "total_paid": 468,
+      "change_returned": 32,
+      "status": "partially_refunded",
+      "reprint_count": 1,
+      "idempotency_key": "e2e-test-sale-1-1794318133035",
+      "void_reason": null,
+      "voided_by": null,
+      "voided_at": null,
+      "items": [
+        {
+          "id": "96259bec-f6c9-4980-a9a4-4e7ad8cd1f40",
+          "note": "Mirch kam",
+          "addons": [],
+          "order_id": "0ca88b29-e18b-45f2-985d-8f8684828d7e",
+          "quantity": 2,
+          "created_at": "2026-11-10T13:42:16.054Z",
+          "line_total": 520,
+          "product_id": "44444444-4444-4444-4444-444444444401",
+          "unit_price": 260,
+          "addons_total": 0,
+          "item_discount": 0,
+          "item_subtotal": 520,
+          "refunded_quantity": 1,
+          "product_name_snapshot": "Channay (Salan)"
+        }
+      ],
+      "payments": [
+        {
+          "id": "5c67aeac-33b4-4cd2-88a8-b173b550dd43",
+          "amount": 468,
+          "order_id": "0ca88b29-e18b-45f2-985d-8f8684828d7e",
+          "method_id": "cash",
+          "created_at": "2026-11-10T13:42:16.054Z",
+          "amount_tendered": 500,
+          "change_returned": 32
+        }
+      ],
+      "created_at": "2026-11-10T13:42:16.058+00:00"
+    },
+    {
+      "id": "fda9b129-c691-419e-a4d0-aeac0298ce90",
+      "receipt_number": "MTN-0001006",
+      "order_number": "ORD-20261110-0006",
+      "register_session_id": "73bf2130-f867-4c79-a90e-af742b336aa9",
+      "cashier_id": null,
+      "cashier_name_snapshot": "Bilal Cashier",
+      "customer_name": "Sheikh Waqas",
+      "customer_phone": null,
+      "order_note": null,
+      "subtotal": 330,
+      "discount_type": null,
+      "discount_value": 0,
+      "discount_amount": 0,
+      "discount_reason": null,
+      "tax_rate": 0,
+      "tax_amount": 0,
+      "rounding_amount": 0,
+      "grand_total": 330,
+      "total_paid": 330,
+      "change_returned": 0,
+      "status": "voided",
+      "reprint_count": 0,
+      "idempotency_key": null,
+      "void_reason": "Customer cancelled digital transaction",
+      "voided_by": null,
+      "voided_at": null,
+      "items": [
+        {
+          "id": "48e932e4-d178-435c-bf8c-8198e3364674",
+          "note": null,
+          "addons": [
+            {
+              "name": "Makhan",
+              "price": 50,
+              "addon_id": "a1"
+            }
+          ],
+          "order_id": "fda9b129-c691-419e-a4d0-aeac0298ce90",
+          "quantity": 1,
+          "created_at": "2026-11-10T11:05:29.886Z",
+          "line_total": 330,
+          "product_id": "44444444-4444-4444-4444-444444444402",
+          "unit_price": 280,
+          "addons_total": 50,
+          "item_discount": 0,
+          "item_subtotal": 280,
+          "refunded_quantity": 0,
+          "product_name_snapshot": "Shahi Daleem"
+        }
+      ],
+      "payments": [
+        {
+          "id": "d670c926-6733-4b2c-8762-341c0aabd7c8",
+          "amount": 330,
+          "order_id": "fda9b129-c691-419e-a4d0-aeac0298ce90",
+          "method_id": "jazzcash",
+          "created_at": "2026-11-10T11:05:29.887Z",
+          "amount_tendered": 330,
+          "change_returned": 0
+        }
+      ],
+      "created_at": "2026-11-10T11:05:29.891+00:00"
+    },
+    {
+      "id": "4b071873-b751-44fb-b29a-3b076fc3ab29",
+      "receipt_number": "MTN-0001005",
+      "order_number": "ORD-20261110-0005",
+      "register_session_id": "73bf2130-f867-4c79-a90e-af742b336aa9",
+      "cashier_id": null,
+      "cashier_name_snapshot": "Malik Ammar",
+      "customer_name": "Chaudhry Rashid",
+      "customer_phone": null,
+      "order_note": null,
+      "subtotal": 520,
+      "discount_type": "percentage",
+      "discount_value": 10,
+      "discount_amount": 52,
+      "discount_reason": null,
+      "tax_rate": 0,
+      "tax_amount": 0,
+      "rounding_amount": 0,
+      "grand_total": 468,
+      "total_paid": 468,
+      "change_returned": 32,
+      "status": "partially_refunded",
+      "reprint_count": 1,
+      "idempotency_key": "e2e-test-sale-1-1794308723844",
+      "void_reason": null,
+      "voided_by": null,
+      "voided_at": null,
+      "items": [
+        {
+          "id": "36f77ca3-96e3-4f5b-a36e-d64c7e7f1b4a",
+          "note": "Mirch kam",
+          "addons": [],
+          "order_id": "4b071873-b751-44fb-b29a-3b076fc3ab29",
+          "quantity": 2,
+          "created_at": "2026-11-10T11:05:26.856Z",
+          "line_total": 520,
+          "product_id": "44444444-4444-4444-4444-444444444401",
+          "unit_price": 260,
+          "addons_total": 0,
+          "item_discount": 0,
+          "item_subtotal": 520,
+          "refunded_quantity": 1,
+          "product_name_snapshot": "Channay (Salan)"
+        }
+      ],
+      "payments": [
+        {
+          "id": "130d73a0-63f2-4984-98a9-2f72ab1e96ac",
+          "amount": 468,
+          "order_id": "4b071873-b751-44fb-b29a-3b076fc3ab29",
+          "method_id": "cash",
+          "created_at": "2026-11-10T11:05:26.856Z",
+          "amount_tendered": 500,
+          "change_returned": 32
+        }
+      ],
+      "created_at": "2026-11-10T11:05:26.859+00:00"
+    },
+    {
+      "id": "b6f27791-6d2b-4358-83c5-82079698a8fb",
+      "receipt_number": "MTN-0001003",
+      "order_number": "ORD-20261110-0003",
+      "register_session_id": "73bf2130-f867-4c79-a90e-af742b336aa9",
+      "cashier_id": null,
+      "cashier_name_snapshot": "Bilal Cashier",
+      "customer_name": "Walk-in Guest",
+      "customer_phone": null,
+      "order_note": null,
+      "subtotal": 98.8,
+      "discount_type": "percentage",
+      "discount_value": 0,
+      "discount_amount": 0,
+      "discount_reason": null,
+      "tax_rate": 0,
+      "tax_amount": 0,
+      "rounding_amount": 0.2,
+      "grand_total": 99,
+      "total_paid": 99,
+      "change_returned": 0,
+      "status": "completed",
+      "reprint_count": 1,
+      "idempotency_key": "sale-1794305591192-whorn4v",
+      "void_reason": null,
+      "voided_by": null,
+      "voided_at": null,
+      "items": [
+        {
+          "id": "a7867db8-1033-46bd-980c-d8d2e3fd06f1",
+          "note": null,
+          "addons": [],
+          "order_id": "b6f27791-6d2b-4358-83c5-82079698a8fb",
+          "quantity": 0.38,
+          "created_at": "2026-11-10T10:13:12.684Z",
+          "line_total": 98.8,
+          "product_id": "44444444-4444-4444-4444-444444444401",
+          "unit_price": 260,
+          "addons_total": 0,
+          "item_discount": 0,
+          "item_subtotal": 98.8,
+          "refunded_quantity": 0,
+          "product_name_snapshot": "Channay (Salan)"
+        }
+      ],
+      "payments": [
+        {
+          "id": "75a4a2dc-5c4f-4aa3-ab43-9ddc38b5f510",
+          "amount": 99,
+          "order_id": "b6f27791-6d2b-4358-83c5-82079698a8fb",
+          "method_id": "cash",
+          "created_at": "2026-11-10T10:13:12.684Z",
+          "amount_tendered": 99,
+          "change_returned": 0
+        }
+      ],
+      "created_at": "2026-11-10T10:13:12.686+00:00"
+    },
+    {
+      "id": "99a0946a-49ed-46bf-bf16-03f712918df1",
+      "receipt_number": "MTN-0001002",
+      "order_number": "ORD-20261110-0002",
+      "register_session_id": "90296205-a9ff-41fc-81af-00fe61b3595b",
+      "cashier_id": null,
+      "cashier_name_snapshot": "Bilal Cashier",
+      "customer_name": "Sheikh Waqas",
+      "customer_phone": null,
+      "order_note": null,
+      "subtotal": 330,
+      "discount_type": null,
+      "discount_value": 0,
+      "discount_amount": 0,
+      "discount_reason": null,
+      "tax_rate": 0,
+      "tax_amount": 0,
+      "rounding_amount": 0,
+      "grand_total": 330,
+      "total_paid": 330,
+      "change_returned": 0,
+      "status": "voided",
+      "reprint_count": 0,
+      "idempotency_key": null,
+      "void_reason": "Customer cancelled digital transaction",
+      "voided_by": null,
+      "voided_at": null,
+      "items": [
+        {
+          "id": "fa3fb85f-6a18-4cdd-beac-26c7fd7b8c66",
+          "note": null,
+          "addons": [
+            {
+              "name": "Makhan",
+              "price": 50,
+              "addon_id": "a1"
+            }
+          ],
+          "order_id": "99a0946a-49ed-46bf-bf16-03f712918df1",
+          "quantity": 1,
+          "created_at": "2026-11-10T09:57:34.814Z",
+          "line_total": 330,
+          "product_id": "44444444-4444-4444-4444-444444444402",
+          "unit_price": 280,
+          "addons_total": 50,
+          "item_discount": 0,
+          "item_subtotal": 280,
+          "refunded_quantity": 0,
+          "product_name_snapshot": "Shahi Daleem"
+        }
+      ],
+      "payments": [
+        {
+          "id": "39b94c3f-6c01-49be-b445-1774fea87efc",
+          "amount": 330,
+          "order_id": "99a0946a-49ed-46bf-bf16-03f712918df1",
+          "method_id": "jazzcash",
+          "created_at": "2026-11-10T09:57:34.814Z",
+          "amount_tendered": 330,
+          "change_returned": 0
+        }
+      ],
+      "created_at": "2026-11-10T09:57:34.815+00:00"
+    },
+    {
+      "id": "69b8dab1-8511-4706-b103-b81cf7cdb199",
+      "receipt_number": "MTN-0001001",
+      "order_number": "ORD-20261110-0001",
+      "register_session_id": "90296205-a9ff-41fc-81af-00fe61b3595b",
+      "cashier_id": null,
+      "cashier_name_snapshot": "Malik Ammar",
+      "customer_name": "Chaudhry Rashid",
+      "customer_phone": null,
+      "order_note": null,
+      "subtotal": 520,
+      "discount_type": "percentage",
+      "discount_value": 10,
+      "discount_amount": 52,
+      "discount_reason": null,
+      "tax_rate": 0,
+      "tax_amount": 0,
+      "rounding_amount": 0,
+      "grand_total": 468,
+      "total_paid": 468,
+      "change_returned": 32,
+      "status": "partially_refunded",
+      "reprint_count": 1,
+      "idempotency_key": "e2e-test-sale-1-1794304654605",
+      "void_reason": null,
+      "voided_by": null,
+      "voided_at": null,
+      "items": [
+        {
+          "id": "651d4e4b-9f4d-4011-85a7-066326317fdc",
+          "note": "Mirch kam",
+          "addons": [],
+          "order_id": "69b8dab1-8511-4706-b103-b81cf7cdb199",
+          "quantity": 2,
+          "created_at": "2026-11-10T09:57:34.799Z",
+          "line_total": 520,
+          "product_id": "44444444-4444-4444-4444-444444444401",
+          "unit_price": 260,
+          "addons_total": 0,
+          "item_discount": 0,
+          "item_subtotal": 520,
+          "refunded_quantity": 1,
+          "product_name_snapshot": "Channay (Salan)"
+        }
+      ],
+      "payments": [
+        {
+          "id": "f25bfc57-a9ad-4c4b-899d-41c972d953eb",
+          "amount": 468,
+          "order_id": "69b8dab1-8511-4706-b103-b81cf7cdb199",
+          "method_id": "cash",
+          "created_at": "2026-11-10T09:57:34.799Z",
+          "amount_tendered": 500,
+          "change_returned": 32
+        }
+      ],
+      "created_at": "2026-11-10T09:57:34.8+00:00"
+    }
+  ],
+  "order_items": [
+    {
+      "id": "651d4e4b-9f4d-4011-85a7-066326317fdc",
+      "order_id": "69b8dab1-8511-4706-b103-b81cf7cdb199",
+      "product_id": "44444444-4444-4444-4444-444444444401",
+      "product_name_snapshot": "Channay (Salan)",
+      "unit_price": 260,
+      "cost_price": 0,
+      "quantity": 2,
+      "addons": [],
+      "addons_total": 0,
+      "item_discount_type": null,
+      "item_discount_value": 0,
+      "item_discount_amount": 0,
+      "kitchen_note": null,
+      "line_subtotal": 0,
+      "line_total": 520,
+      "refunded_quantity": 1,
+      "item_subtotal": 520,
+      "item_discount": 0,
+      "note": "Mirch kam",
+      "created_at": "2026-11-10T09:57:34.799+00:00"
+    },
+    {
+      "id": "fa3fb85f-6a18-4cdd-beac-26c7fd7b8c66",
+      "order_id": "99a0946a-49ed-46bf-bf16-03f712918df1",
+      "product_id": "44444444-4444-4444-4444-444444444402",
+      "product_name_snapshot": "Shahi Daleem",
+      "unit_price": 280,
+      "cost_price": 0,
+      "quantity": 1,
+      "addons": [
+        {
+          "name": "Makhan",
+          "price": 50,
+          "addon_id": "a1"
+        }
+      ],
+      "addons_total": 50,
+      "item_discount_type": null,
+      "item_discount_value": 0,
+      "item_discount_amount": 0,
+      "kitchen_note": null,
+      "line_subtotal": 0,
+      "line_total": 330,
+      "refunded_quantity": 0,
+      "item_subtotal": 280,
+      "item_discount": 0,
+      "note": null,
+      "created_at": "2026-11-10T09:57:34.814+00:00"
+    },
+    {
+      "id": "a7867db8-1033-46bd-980c-d8d2e3fd06f1",
+      "order_id": "b6f27791-6d2b-4358-83c5-82079698a8fb",
+      "product_id": "44444444-4444-4444-4444-444444444401",
+      "product_name_snapshot": "Channay (Salan)",
+      "unit_price": 260,
+      "cost_price": 0,
+      "quantity": 0.38,
+      "addons": [],
+      "addons_total": 0,
+      "item_discount_type": null,
+      "item_discount_value": 0,
+      "item_discount_amount": 0,
+      "kitchen_note": null,
+      "line_subtotal": 0,
+      "line_total": 98.8,
+      "refunded_quantity": 0,
+      "item_subtotal": 98.8,
+      "item_discount": 0,
+      "note": null,
+      "created_at": "2026-11-10T10:13:12.684+00:00"
+    },
+    {
+      "id": "36f77ca3-96e3-4f5b-a36e-d64c7e7f1b4a",
+      "order_id": "4b071873-b751-44fb-b29a-3b076fc3ab29",
+      "product_id": "44444444-4444-4444-4444-444444444401",
+      "product_name_snapshot": "Channay (Salan)",
+      "unit_price": 260,
+      "cost_price": 0,
+      "quantity": 2,
+      "addons": [],
+      "addons_total": 0,
+      "item_discount_type": null,
+      "item_discount_value": 0,
+      "item_discount_amount": 0,
+      "kitchen_note": null,
+      "line_subtotal": 0,
+      "line_total": 520,
+      "refunded_quantity": 1,
+      "item_subtotal": 520,
+      "item_discount": 0,
+      "note": "Mirch kam",
+      "created_at": "2026-11-10T11:05:26.856+00:00"
+    },
+    {
+      "id": "48e932e4-d178-435c-bf8c-8198e3364674",
+      "order_id": "fda9b129-c691-419e-a4d0-aeac0298ce90",
+      "product_id": "44444444-4444-4444-4444-444444444402",
+      "product_name_snapshot": "Shahi Daleem",
+      "unit_price": 280,
+      "cost_price": 0,
+      "quantity": 1,
+      "addons": [
+        {
+          "name": "Makhan",
+          "price": 50,
+          "addon_id": "a1"
+        }
+      ],
+      "addons_total": 50,
+      "item_discount_type": null,
+      "item_discount_value": 0,
+      "item_discount_amount": 0,
+      "kitchen_note": null,
+      "line_subtotal": 0,
+      "line_total": 330,
+      "refunded_quantity": 0,
+      "item_subtotal": 280,
+      "item_discount": 0,
+      "note": null,
+      "created_at": "2026-11-10T11:05:29.886+00:00"
+    },
+    {
+      "id": "96259bec-f6c9-4980-a9a4-4e7ad8cd1f40",
+      "order_id": "0ca88b29-e18b-45f2-985d-8f8684828d7e",
+      "product_id": "44444444-4444-4444-4444-444444444401",
+      "product_name_snapshot": "Channay (Salan)",
+      "unit_price": 260,
+      "cost_price": 0,
+      "quantity": 2,
+      "addons": [],
+      "addons_total": 0,
+      "item_discount_type": null,
+      "item_discount_value": 0,
+      "item_discount_amount": 0,
+      "kitchen_note": null,
+      "line_subtotal": 0,
+      "line_total": 520,
+      "refunded_quantity": 1,
+      "item_subtotal": 520,
+      "item_discount": 0,
+      "note": "Mirch kam",
+      "created_at": "2026-11-10T13:42:16.054+00:00"
+    },
+    {
+      "id": "ed033f8c-b965-4025-9042-72785a5868f3",
+      "order_id": "508528fe-2b0e-49e5-a421-44cab80e4261",
+      "product_id": "44444444-4444-4444-4444-444444444402",
+      "product_name_snapshot": "Shahi Daleem",
+      "unit_price": 280,
+      "cost_price": 0,
+      "quantity": 1,
+      "addons": [
+        {
+          "name": "Makhan",
+          "price": 50,
+          "addon_id": "a1"
+        }
+      ],
+      "addons_total": 50,
+      "item_discount_type": null,
+      "item_discount_value": 0,
+      "item_discount_amount": 0,
+      "kitchen_note": null,
+      "line_subtotal": 0,
+      "line_total": 330,
+      "refunded_quantity": 0,
+      "item_subtotal": 280,
+      "item_discount": 0,
+      "note": null,
+      "created_at": "2026-11-10T13:42:19.076+00:00"
+    }
+  ],
+  "order_payments": [
+    {
+      "id": "f25bfc57-a9ad-4c4b-899d-41c972d953eb",
+      "order_id": "69b8dab1-8511-4706-b103-b81cf7cdb199",
+      "method_id": "cash",
+      "method_name": null,
+      "amount": 468,
+      "amount_tendered": 500,
+      "reference_number": null,
+      "created_at": "2026-11-10T09:57:34.799+00:00",
+      "change_returned": 32
+    },
+    {
+      "id": "39b94c3f-6c01-49be-b445-1774fea87efc",
+      "order_id": "99a0946a-49ed-46bf-bf16-03f712918df1",
+      "method_id": "jazzcash",
+      "method_name": null,
+      "amount": 330,
+      "amount_tendered": 330,
+      "reference_number": null,
+      "created_at": "2026-11-10T09:57:34.814+00:00",
+      "change_returned": 0
+    },
+    {
+      "id": "75a4a2dc-5c4f-4aa3-ab43-9ddc38b5f510",
+      "order_id": "b6f27791-6d2b-4358-83c5-82079698a8fb",
+      "method_id": "cash",
+      "method_name": null,
+      "amount": 99,
+      "amount_tendered": 99,
+      "reference_number": null,
+      "created_at": "2026-11-10T10:13:12.684+00:00",
+      "change_returned": 0
+    },
+    {
+      "id": "130d73a0-63f2-4984-98a9-2f72ab1e96ac",
+      "order_id": "4b071873-b751-44fb-b29a-3b076fc3ab29",
+      "method_id": "cash",
+      "method_name": null,
+      "amount": 468,
+      "amount_tendered": 500,
+      "reference_number": null,
+      "created_at": "2026-11-10T11:05:26.856+00:00",
+      "change_returned": 32
+    },
+    {
+      "id": "d670c926-6733-4b2c-8762-341c0aabd7c8",
+      "order_id": "fda9b129-c691-419e-a4d0-aeac0298ce90",
+      "method_id": "jazzcash",
+      "method_name": null,
+      "amount": 330,
+      "amount_tendered": 330,
+      "reference_number": null,
+      "created_at": "2026-11-10T11:05:29.887+00:00",
+      "change_returned": 0
+    },
+    {
+      "id": "5c67aeac-33b4-4cd2-88a8-b173b550dd43",
+      "order_id": "0ca88b29-e18b-45f2-985d-8f8684828d7e",
+      "method_id": "cash",
+      "method_name": null,
+      "amount": 468,
+      "amount_tendered": 500,
+      "reference_number": null,
+      "created_at": "2026-11-10T13:42:16.054+00:00",
+      "change_returned": 32
+    },
+    {
+      "id": "73256cb2-03fb-4895-af44-c3963833cc1d",
+      "order_id": "508528fe-2b0e-49e5-a421-44cab80e4261",
+      "method_id": "jazzcash",
+      "method_name": null,
+      "amount": 330,
+      "amount_tendered": 330,
+      "reference_number": null,
+      "created_at": "2026-11-10T13:42:19.076+00:00",
+      "change_returned": 0
+    }
+  ],
+  "held_orders": [
+    {
+      "id": "c6624059-da7f-44ed-834f-2b3dc0074cd5",
+      "hold_number": "HOLD-003",
+      "customer_name": "Table 4 - Chaudhry Sahib",
+      "customer_phone": null,
+      "cart_snapshot": null,
+      "subtotal": 0,
+      "note": null,
+      "cashier_name_snapshot": null,
+      "status": "resumed",
+      "created_at": "2026-11-10T13:42:13.022+00:00",
+      "cart_data": {
+        "cart": [
+          {
+            "quantity": 2,
+            "line_total": 520,
+            "product_id": "44444444-4444-4444-4444-444444444401"
+          }
+        ]
+      },
+      "cashier_name": "Bilal Cashier"
+    },
+    {
+      "id": "dd630ef1-8739-44d9-97fd-702aed1e46de",
+      "hold_number": "HOLD-002",
+      "customer_name": "Table 4 - Chaudhry Sahib",
+      "customer_phone": null,
+      "cart_snapshot": null,
+      "subtotal": 0,
+      "note": null,
+      "cashier_name_snapshot": null,
+      "status": "resumed",
+      "created_at": "2026-11-10T11:05:23.833+00:00",
+      "cart_data": {
+        "cart": [
+          {
+            "quantity": 2,
+            "line_total": 520,
+            "product_id": "44444444-4444-4444-4444-444444444401"
+          }
+        ]
+      },
+      "cashier_name": "Bilal Cashier"
+    },
+    {
+      "id": "1f7dacae-f98b-4027-b19a-34765e421255",
+      "hold_number": "HOLD-001",
+      "customer_name": "Table 4 - Chaudhry Sahib",
+      "customer_phone": null,
+      "cart_snapshot": null,
+      "subtotal": 0,
+      "note": null,
+      "cashier_name_snapshot": null,
+      "status": "resumed",
+      "created_at": "2026-11-10T09:57:34.593+00:00",
+      "cart_data": {
+        "cart": [
+          {
+            "quantity": 2,
+            "line_total": 520,
+            "product_id": "44444444-4444-4444-4444-444444444401"
+          }
+        ]
+      },
+      "cashier_name": "Bilal Cashier"
+    }
+  ],
+  "refunds": [
+    {
+      "id": "ea3e0281-af97-43f4-8511-34b355810ad7",
+      "refund_number": "REF-000103",
+      "order_id": "0ca88b29-e18b-45f2-985d-8f8684828d7e",
+      "receipt_number_snapshot": null,
+      "register_session_id": "5f128d30-240f-4cdd-bd2a-6725dff3caa9",
+      "refund_type": null,
+      "total_refund_amount": 0,
+      "refund_method": null,
+      "reason": "Mirch zyada thi",
+      "authorized_by": null,
+      "items": [
+        {
+          "id": "2074b878-fbea-401a-bbd9-cdaa6f30400e",
+          "amount": 234,
+          "quantity": 1,
+          "refund_id": "ea3e0281-af97-43f4-8511-34b355810ad7",
+          "created_at": "2026-11-10T13:42:19.101Z",
+          "product_name": "Channay (Salan)",
+          "order_item_id": "96259bec-f6c9-4980-a9a4-4e7ad8cd1f40"
+        }
+      ],
+      "created_at": "2026-11-10T13:42:19.102+00:00",
+      "amount": 234,
+      "admin_pin_used": true,
+      "cashier_name": "Malik Ammar"
+    },
+    {
+      "id": "a997520b-3357-42e2-afa8-d86215383bf2",
+      "refund_number": "REF-000102",
+      "order_id": "4b071873-b751-44fb-b29a-3b076fc3ab29",
+      "receipt_number_snapshot": null,
+      "register_session_id": "73bf2130-f867-4c79-a90e-af742b336aa9",
+      "refund_type": null,
+      "total_refund_amount": 0,
+      "refund_method": null,
+      "reason": "Mirch zyada thi",
+      "authorized_by": null,
+      "items": [
+        {
+          "id": "1b211630-bc1a-47a7-8873-3b471723eed4",
+          "amount": 234,
+          "quantity": 1,
+          "refund_id": "a997520b-3357-42e2-afa8-d86215383bf2",
+          "created_at": "2026-11-10T11:05:29.918Z",
+          "product_name": "Channay (Salan)",
+          "order_item_id": "36f77ca3-96e3-4f5b-a36e-d64c7e7f1b4a"
+        }
+      ],
+      "created_at": "2026-11-10T11:05:29.919+00:00",
+      "amount": 234,
+      "admin_pin_used": true,
+      "cashier_name": "Malik Ammar"
+    },
+    {
+      "id": "96e6839a-c08e-482b-95d9-525e351142b2",
+      "refund_number": "REF-000101",
+      "order_id": "69b8dab1-8511-4706-b103-b81cf7cdb199",
+      "receipt_number_snapshot": null,
+      "register_session_id": "90296205-a9ff-41fc-81af-00fe61b3595b",
+      "refund_type": null,
+      "total_refund_amount": 0,
+      "refund_method": null,
+      "reason": "Mirch zyada thi",
+      "authorized_by": null,
+      "items": [
+        {
+          "id": "00a2f740-d4c7-4759-86e3-4f4d6dbb7bc9",
+          "amount": 234,
+          "quantity": 1,
+          "refund_id": "96e6839a-c08e-482b-95d9-525e351142b2",
+          "created_at": "2026-11-10T09:57:34.830Z",
+          "product_name": "Channay (Salan)",
+          "order_item_id": "651d4e4b-9f4d-4011-85a7-066326317fdc"
+        }
+      ],
+      "created_at": "2026-11-10T09:57:34.831+00:00",
+      "amount": 234,
+      "admin_pin_used": true,
+      "cashier_name": "Malik Ammar"
+    }
+  ],
+  "refund_items": [
+    {
+      "id": "00a2f740-d4c7-4759-86e3-4f4d6dbb7bc9",
+      "refund_id": "96e6839a-c08e-482b-95d9-525e351142b2",
+      "order_item_id": "651d4e4b-9f4d-4011-85a7-066326317fdc",
+      "product_name_snapshot": null,
+      "quantity": 1,
+      "refund_amount": 0,
+      "product_name": "Channay (Salan)",
+      "amount": 234,
+      "created_at": "2026-11-10T09:57:34.83+00:00"
+    },
+    {
+      "id": "1b211630-bc1a-47a7-8873-3b471723eed4",
+      "refund_id": "a997520b-3357-42e2-afa8-d86215383bf2",
+      "order_item_id": "36f77ca3-96e3-4f5b-a36e-d64c7e7f1b4a",
+      "product_name_snapshot": null,
+      "quantity": 1,
+      "refund_amount": 0,
+      "product_name": "Channay (Salan)",
+      "amount": 234,
+      "created_at": "2026-11-10T11:05:29.918+00:00"
+    },
+    {
+      "id": "2074b878-fbea-401a-bbd9-cdaa6f30400e",
+      "refund_id": "ea3e0281-af97-43f4-8511-34b355810ad7",
+      "order_item_id": "96259bec-f6c9-4980-a9a4-4e7ad8cd1f40",
+      "product_name_snapshot": null,
+      "quantity": 1,
+      "refund_amount": 0,
+      "product_name": "Channay (Salan)",
+      "amount": 234,
+      "created_at": "2026-11-10T13:42:19.101+00:00"
+    }
+  ],
+  "vendors": [
+    {
+      "id": "55555555-5555-5555-5555-555555555501",
+      "name": "Madina Atta Chakki",
+      "phone": "0301-7654321",
+      "category": "Flour",
+      "address": "Ghalla Mandi, Hasilpur",
+      "opening_balance": 15000,
+      "current_balance": 15000,
+      "is_active": true,
+      "created_at": "2026-11-10T09:52:55.026+00:00",
+      "updated_at": null
+    },
+    {
+      "id": "55555555-5555-5555-5555-555555555502",
+      "name": "Haji Ghee & Oil Traders",
+      "phone": "0302-8889991",
+      "category": "Oil & Ghee",
+      "address": "Baldia Road, Hasilpur",
+      "opening_balance": 24000,
+      "current_balance": 24000,
+      "is_active": true,
+      "created_at": "2026-11-10T09:52:55.026+00:00",
+      "updated_at": null
+    },
+    {
+      "id": "55555555-5555-5555-5555-555555555503",
+      "name": "Al-Rehman Dairy Farm",
+      "phone": "0304-4433221",
+      "category": "Dairy",
+      "address": "Vehari By-pass, Hasilpur",
+      "opening_balance": 8500,
+      "current_balance": 8500,
+      "is_active": true,
+      "created_at": "2026-11-10T09:52:55.026+00:00",
+      "updated_at": null
+    },
+    {
+      "id": "55555555-5555-5555-5555-555555555504",
+      "name": "Bismillah Kiryana Store",
+      "phone": "0300-9988776",
+      "category": "Groceries",
+      "address": "Rail Bazaar, Hasilpur",
+      "opening_balance": 6200,
+      "current_balance": 6200,
+      "is_active": true,
+      "created_at": "2026-11-10T09:52:55.026+00:00",
+      "updated_at": null
+    }
+  ],
+  "raw_materials": [
+    {
+      "id": "66666666-6666-6666-6666-666666666601",
+      "name": "Chakki Atta",
+      "unit": "bori (50kg)",
+      "default_price": 4800,
+      "category": "Flour",
+      "is_active": true,
+      "created_at": "2026-11-10T14:02:40.300101+00:00",
+      "updated_at": null
+    },
+    {
+      "id": "66666666-6666-6666-6666-666666666602",
+      "name": "Fine Maida",
+      "unit": "bori (50kg)",
+      "default_price": 5200,
+      "category": "Flour",
+      "is_active": true,
+      "created_at": "2026-11-10T14:02:40.300101+00:00",
+      "updated_at": null
+    },
+    {
+      "id": "66666666-6666-6666-6666-666666666603",
+      "name": "Cooking Ghee (Tin)",
+      "unit": "tin (16L)",
+      "default_price": 8400,
+      "category": "Oil & Ghee",
+      "is_active": true,
+      "created_at": "2026-11-10T14:02:40.300101+00:00",
+      "updated_at": null
+    },
+    {
+      "id": "66666666-6666-6666-6666-666666666604",
+      "name": "Khaalis Doodh (Milk)",
+      "unit": "liter",
+      "default_price": 180,
+      "category": "Dairy",
+      "is_active": true,
+      "created_at": "2026-11-10T14:02:40.300101+00:00",
+      "updated_at": null
+    },
+    {
+      "id": "66666666-6666-6666-6666-666666666605",
+      "name": "Safaid Channay",
+      "unit": "kg",
+      "default_price": 360,
+      "category": "Pulses",
+      "is_active": true,
+      "created_at": "2026-11-10T14:02:40.300101+00:00",
+      "updated_at": null
+    },
+    {
+      "id": "66666666-6666-6666-6666-666666666606",
+      "name": "Desi Eggs (Anday)",
+      "unit": "crate",
+      "default_price": 850,
+      "category": "Poultry",
+      "is_active": true,
+      "created_at": "2026-11-10T14:02:40.300101+00:00",
+      "updated_at": null
+    },
+    {
+      "id": "66666666-6666-6666-6666-666666666607",
+      "name": "Doodh Patti Chai Patti",
+      "unit": "kg",
+      "default_price": 1400,
+      "category": "Groceries",
+      "is_active": true,
+      "created_at": "2026-11-10T14:02:40.300101+00:00",
+      "updated_at": null
+    }
+  ],
+  "purchase_invoices": [],
+  "purchase_items": [],
+  "vendor_payments": [],
+  "audit_logs": [
+    {
+      "id": "3d4c9a95-bb97-4597-a8e9-03b687b6c3f7",
+      "user_id": null,
+      "user_name": "Bilal Cashier",
+      "action": "REGISTER_OPEN",
+      "entity_type": "register_session",
+      "entity_id": "dd397171-a341-4878-b180-874cf051cf56",
+      "description": "Cash register shift opened with Rs. 5000 float by Bilal Cashier",
+      "old_values": null,
+      "new_values": {
+        "opening_amount": 5000
+      },
+      "created_at": "2026-11-10T14:37:26.636+00:00"
+    },
+    {
+      "id": "6027c3bc-d084-472e-a0cc-401272d30563",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "fea949d1-aade-4c4d-a42d-3b7245c36ee6",
+      "description": "Staff account updated for Zahid Cashier",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T13:35:31.255+00:00"
+    },
+    {
+      "id": "f348507f-76c4-4d6c-83d2-d56220f15b7c",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_DELETED",
+      "entity_type": "category",
+      "entity_id": "715878eb-1ac9-43bf-879d-ae192faae9fe",
+      "description": "Category \"Test Parathay Category (Renamed)\" deleted by Admin",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T13:30:10.581+00:00"
+    },
+    {
+      "id": "f370de9f-832d-4692-855b-46e67fd223ff",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "13338311-db3a-4ecf-8dc8-cc8a50042e4d",
+      "description": "Staff account updated for Zahid Cashier",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T11:02:15.56+00:00"
+    },
+    {
+      "id": "9745807b-7d1f-4642-afb9-fae7ce3a33c5",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-10T13:42:19.132+00:00"
+    },
+    {
+      "id": "a84d3e7e-a35e-42cb-b546-3be5c054b13f",
+      "user_id": null,
+      "user_name": "Malik Ammar",
+      "action": "REGISTER_CLOSE",
+      "entity_type": "register_session",
+      "entity_id": "5f128d30-240f-4cdd-bd2a-6725dff3caa9",
+      "description": "Shift closed. Expected: Rs. 7234, Actual: Rs. 7234, Discrepancy: Rs. 0",
+      "old_values": null,
+      "new_values": {
+        "difference": 0,
+        "closing_note": "Shift balanced and verified",
+        "actual_amount": 7234,
+        "expected_amount": 7234
+      },
+      "created_at": "2026-11-10T13:42:19.12+00:00"
+    },
+    {
+      "id": "6086cfd5-5435-4d65-91d7-4ff02245c582",
+      "user_id": null,
+      "user_name": "Malik Ammar",
+      "action": "ORDER_VOIDED",
+      "entity_type": "order",
+      "entity_id": "508528fe-2b0e-49e5-a421-44cab80e4261",
+      "description": "Order MTN-0001012 voided by Malik Ammar. Reason: Customer cancelled digital transaction",
+      "old_values": {
+        "status": "completed",
+        "grand_total": 330
+      },
+      "new_values": {
+        "status": "voided",
+        "void_reason": "Customer cancelled digital transaction",
+        "cash_reverted": 0
+      },
+      "created_at": "2026-11-10T13:42:19.111+00:00"
+    },
+    {
+      "id": "b6bd0966-1c37-491d-9bb7-9357288df6b0",
+      "user_id": null,
+      "user_name": "Malik Ammar",
+      "action": "REFUND_CREATED",
+      "entity_type": "refund",
+      "entity_id": "ea3e0281-af97-43f4-8511-34b355810ad7",
+      "description": "Refund REF-000103 of Rs. 234 issued for order MTN-0001011. Reason: Mirch zyada thi",
+      "old_values": null,
+      "new_values": {
+        "amount": 234,
+        "status": "partially_refunded",
+        "refund_number": "REF-000103"
+      },
+      "created_at": "2026-11-10T13:42:19.103+00:00"
+    },
+    {
+      "id": "f0de1a91-18f4-4a6e-8cb7-7f3fbc8795a3",
+      "user_id": null,
+      "user_name": "Bilal Cashier",
+      "action": "RECEIPT_REPRINT",
+      "entity_type": "order",
+      "entity_id": "0ca88b29-e18b-45f2-985d-8f8684828d7e",
+      "description": "Thermal receipt reprint #1 requested for receipt MTN-0001011 by Bilal Cashier",
+      "old_values": null,
+      "new_values": {
+        "reprint_count": 1
+      },
+      "created_at": "2026-11-10T13:42:19.092+00:00"
+    },
+    {
+      "id": "4edbe4c9-bf6c-43bc-855d-cdb7ed69d85f",
+      "user_id": null,
+      "user_name": "Bilal Cashier",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "508528fe-2b0e-49e5-a421-44cab80e4261",
+      "description": "Order MTN-0001012 finalized for 330 PKR (Bilal Cashier)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 330,
+        "items_count": 1,
+        "receipt_number": "MTN-0001012"
+      },
+      "created_at": "2026-11-10T13:42:19.08+00:00"
+    },
+    {
+      "id": "7bd5c2d5-1e27-4756-ae36-6dcadc9244da",
+      "user_id": null,
+      "user_name": "Malik Ammar",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "0ca88b29-e18b-45f2-985d-8f8684828d7e",
+      "description": "Order MTN-0001011 finalized for 468 PKR (Malik Ammar)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 468,
+        "items_count": 1,
+        "receipt_number": "MTN-0001011"
+      },
+      "created_at": "2026-11-10T13:42:16.058+00:00"
+    },
+    {
+      "id": "f6e15ba8-a40d-4397-813c-139714869781",
+      "user_id": null,
+      "user_name": "Bilal Cashier",
+      "action": "ORDER_HELD",
+      "entity_type": "held_order",
+      "entity_id": "c6624059-da7f-44ed-834f-2b3dc0074cd5",
+      "description": "Cart temporarily held as HOLD-003 for \"Table 4 - Chaudhry Sahib\"",
+      "old_values": null,
+      "new_values": {
+        "hold_number": "HOLD-003"
+      },
+      "created_at": "2026-11-10T13:42:13.022+00:00"
+    },
+    {
+      "id": "9ac01e2a-3891-4724-b7eb-2ead4d16a8d0",
+      "user_id": null,
+      "user_name": "Malik Ammar",
+      "action": "CASH_IN",
+      "entity_type": "register_transaction",
+      "entity_id": "3c80ef93-8ab7-4290-ab4b-888867b7a11b",
+      "description": "Cash In: Rs. 2000 added to drawer (Change float addition) by Malik Ammar",
+      "old_values": null,
+      "new_values": {
+        "amount": 2000,
+        "reason": "Change float addition"
+      },
+      "created_at": "2026-11-10T13:42:13.01+00:00"
+    },
+    {
+      "id": "706375f7-192b-444c-b1ed-5120701be101",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "PURCHASE_DELETED",
+      "entity_type": "purchase_invoice",
+      "entity_id": "dec726fb-ea82-4900-8c4e-c54d130d7175",
+      "description": "Purchase invoice PUR-01004 (Rs. 13000) deleted by Admin",
+      "old_values": {
+        "id": "dec726fb-ea82-4900-8c4e-c54d130d7175",
+        "items": [
+          {
+            "id": "d21eab08-a2bd-40e0-9dfb-d4f4722ea70f",
+            "unit": "bag",
+            "quantity": 2,
+            "line_total": 13000,
+            "unit_price": 6500,
+            "raw_material_id": null,
+            "raw_material_name": "Test Fine Maida 50kg",
+            "purchase_invoice_id": "dec726fb-ea82-4900-8c4e-c54d130d7175"
+          }
+        ],
+        "subtotal": 13000,
+        "vendor_id": null,
+        "created_at": "2026-11-10T13:39:45.300Z",
+        "paid_amount": 10000,
+        "invoice_date": "2026-11-10",
+        "total_amount": 13000,
+        "balance_amount": 3000,
+        "invoice_number": "PUR-01004",
+        "payment_method": "cash",
+        "payment_status": "partial",
+        "discount_amount": 0,
+        "deduct_from_register": false,
+        "vendor_name_snapshot": "Market Supplier"
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:39:45.601+00:00"
+    },
+    {
+      "id": "b49df266-6525-4189-abbc-73f9eef25023",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "PURCHASE_CREATED",
+      "entity_type": "purchase_invoice",
+      "entity_id": "dec726fb-ea82-4900-8c4e-c54d130d7175",
+      "description": "Purchase invoice PUR-01004 created for Market Supplier. Total: Rs. 13000, Paid: Rs. 10000, Udhaar: Rs. 3000",
+      "old_values": null,
+      "new_values": {
+        "total_amount": 13000,
+        "balance_amount": 3000,
+        "invoice_number": "PUR-01004"
+      },
+      "created_at": "2026-11-10T13:39:45.3+00:00"
+    },
+    {
+      "id": "log-001",
+      "user_id": null,
+      "user_name": "Malik Ammar",
+      "action": "SYSTEM_INIT",
+      "entity_type": "system",
+      "entity_id": "sys",
+      "description": "Malik Tasty Nashta Point POS Enterprise v2.4.0 Initialized",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T09:52:55.026+00:00"
+    },
+    {
+      "id": "2463694a-9833-4ee6-a1dd-b8db0132cb17",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ORDER_DELETED",
+      "entity_type": "order",
+      "entity_id": "1b75443e-d110-4be6-806b-7e16c67edd96",
+      "description": "Order MTN-0001010 (Rs. 260) deleted by Admin. Reason: Test Cleanup",
+      "old_values": {
+        "id": "1b75443e-d110-4be6-806b-7e16c67edd96",
+        "items": [
+          {
+            "id": "c3ffd211-16eb-49ef-917d-cddb743a50e1",
+            "note": null,
+            "addons": [],
+            "order_id": "1b75443e-d110-4be6-806b-7e16c67edd96",
+            "quantity": 1,
+            "created_at": "2026-11-10T13:39:45.181Z",
+            "line_total": 260,
+            "product_id": "44444444-4444-4444-4444-444444444401",
+            "unit_price": 260,
+            "addons_total": 0,
+            "item_discount": 0,
+            "item_subtotal": 260,
+            "refunded_quantity": 0,
+            "product_name_snapshot": "Channay (Salan)"
+          }
+        ],
+        "status": "completed",
+        "payments": [
+          {
+            "id": "e91077de-684e-476b-9f4d-350ff39dd828",
+            "amount": 260,
+            "order_id": "1b75443e-d110-4be6-806b-7e16c67edd96",
+            "method_id": "cash",
+            "created_at": "2026-11-10T13:39:45.181Z",
+            "amount_tendered": 500,
+            "change_returned": 240
+          }
+        ],
+        "subtotal": 260,
+        "created_at": "2026-11-10T13:39:45.219Z",
+        "total_paid": 260,
+        "grand_total": 260,
+        "void_reason": null,
+        "order_number": "ORD-20261110-0010",
+        "customer_name": null,
+        "discount_type": null,
+        "reprint_count": 0,
+        "customer_phone": null,
+        "discount_value": 0,
+        "receipt_number": "MTN-0001010",
+        "change_returned": 240,
+        "discount_amount": 0,
+        "idempotency_key": null,
+        "rounding_amount": 0,
+        "register_session_id": "5f128d30-240f-4cdd-bd2a-6725dff3caa9",
+        "cashier_name_snapshot": "Admin"
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:39:45.236+00:00"
+    },
+    {
+      "id": "46c43abb-5d88-4ce7-bc4f-cd5a138fbd32",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "1b75443e-d110-4be6-806b-7e16c67edd96",
+      "description": "Order MTN-0001010 finalized for 260 PKR (Admin)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 260,
+        "items_count": 1,
+        "receipt_number": "MTN-0001010"
+      },
+      "created_at": "2026-11-10T13:39:45.219+00:00"
+    },
+    {
+      "id": "8abc4073-dc46-475e-bed5-08ee106c6552",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "large",
+          "paper_size": "58mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-10T13:39:42.146+00:00"
+    },
+    {
+      "id": "08f7b562-fadc-4fea-808b-80fe10b43636",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-10T13:39:42.135+00:00"
+    },
+    {
+      "id": "41ea82ad-0f30-461e-8646-6d85e147f851",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_DELETED",
+      "entity_type": "profile",
+      "entity_id": "239e315a-30df-442c-82d8-06245b36e349",
+      "description": "Staff account \"Zahid Cashier\" (cashier) deleted by Admin",
+      "old_values": {
+        "id": "239e315a-30df-442c-82d8-06245b36e349",
+        "role": "cashier",
+        "email": "test_cashier@maliknashta.pk",
+        "status": "active",
+        "pin_code": "5678",
+        "full_name": "Zahid Cashier",
+        "created_at": "2026-11-10T13:39:42.099Z",
+        "display_name": "Zahid Shift A"
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:39:42.116+00:00"
+    },
+    {
+      "id": "33f56532-8366-4773-8d55-dbbded56ac2d",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "239e315a-30df-442c-82d8-06245b36e349",
+      "description": "Staff account updated for Zahid Cashier",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T13:39:42.106+00:00"
+    },
+    {
+      "id": "c11d8821-a194-4c27-b89e-96dc67381d15",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_CREATED",
+      "entity_type": "profile",
+      "entity_id": "239e315a-30df-442c-82d8-06245b36e349",
+      "description": "Staff account created for Zahid Cashier (cashier)",
+      "old_values": null,
+      "new_values": {
+        "role": "cashier",
+        "email": "test_cashier@maliknashta.pk",
+        "full_name": "Zahid Cashier"
+      },
+      "created_at": "2026-11-10T13:39:42.099+00:00"
+    },
+    {
+      "id": "4a2ad62b-fd83-4eea-b5e6-3542f3ccbdf5",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "VENDOR_DELETED",
+      "entity_type": "vendor",
+      "entity_id": "e1e667de-0426-48e7-86fc-923e7b5722c2",
+      "description": "Vendor \"Al-Madina Flour Traders (Test)\" deleted by Admin",
+      "old_values": {
+        "id": "e1e667de-0426-48e7-86fc-923e7b5722c2",
+        "name": "Al-Madina Flour Traders (Test)",
+        "phone": "0300-9998888",
+        "address": "Hasilpur Galla Mandi",
+        "category": "Flour",
+        "is_active": true,
+        "created_at": "2026-11-10T13:39:42.076Z",
+        "current_balance": 5000,
+        "opening_balance": 5000
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:39:42.091+00:00"
+    },
+    {
+      "id": "ed63a50e-1e90-400c-8231-c1b2b9e196fd",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "VENDOR_UPDATED",
+      "entity_type": "vendor",
+      "entity_id": "e1e667de-0426-48e7-86fc-923e7b5722c2",
+      "description": "Vendor \"Al-Madina Flour Traders (Test)\" profile updated",
+      "old_values": {
+        "id": "e1e667de-0426-48e7-86fc-923e7b5722c2",
+        "name": "Al-Madina Flour Traders (Test)",
+        "phone": "0300-5551234",
+        "address": null,
+        "category": "Flour",
+        "is_active": true,
+        "created_at": "2026-11-10T13:39:42.076Z",
+        "current_balance": 5000,
+        "opening_balance": 5000
+      },
+      "new_values": {
+        "id": "e1e667de-0426-48e7-86fc-923e7b5722c2",
+        "name": "Al-Madina Flour Traders (Test)",
+        "phone": "0300-9998888",
+        "address": "Hasilpur Galla Mandi",
+        "category": "Flour",
+        "is_active": true,
+        "created_at": "2026-11-10T13:39:42.076Z",
+        "current_balance": 5000,
+        "opening_balance": 5000
+      },
+      "created_at": "2026-11-10T13:39:42.084+00:00"
+    },
+    {
+      "id": "7476b526-175d-4a36-972b-f2c6066e9292",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "VENDOR_CREATED",
+      "entity_type": "vendor",
+      "entity_id": "e1e667de-0426-48e7-86fc-923e7b5722c2",
+      "description": "New vendor \"Al-Madina Flour Traders (Test)\" created with opening balance Rs. 5000",
+      "old_values": null,
+      "new_values": {
+        "name": "Al-Madina Flour Traders (Test)",
+        "opening_balance": 5000
+      },
+      "created_at": "2026-11-10T13:39:42.076+00:00"
+    },
+    {
+      "id": "87b635b8-2540-42c8-b86c-f5b4d26d294d",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "RAW_MATERIAL_DELETED",
+      "entity_type": "raw_material",
+      "entity_id": "26debc06-a11a-4868-8faa-61b2cfec0c8b",
+      "description": "Raw material \"Test Desi Makhan Raw\" deleted by Admin",
+      "old_values": {
+        "id": "26debc06-a11a-4868-8faa-61b2cfec0c8b",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T13:39:42.047Z",
+        "default_price": 1900
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:39:42.068+00:00"
+    },
+    {
+      "id": "556d6b74-6542-4cd8-ae6a-e34de7d50275",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "RAW_MATERIAL_UPDATED",
+      "entity_type": "raw_material",
+      "entity_id": "26debc06-a11a-4868-8faa-61b2cfec0c8b",
+      "description": "Raw material \"Test Desi Makhan Raw\" updated",
+      "old_values": {
+        "id": "26debc06-a11a-4868-8faa-61b2cfec0c8b",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T13:39:42.047Z",
+        "default_price": 1800
+      },
+      "new_values": {
+        "id": "26debc06-a11a-4868-8faa-61b2cfec0c8b",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T13:39:42.047Z",
+        "default_price": 1900
+      },
+      "created_at": "2026-11-10T13:39:42.058+00:00"
+    },
+    {
+      "id": "f4c2319a-945e-4707-9e68-4a0b8acfd722",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_CREATED",
+      "entity_type": "profile",
+      "entity_id": "fea949d1-aade-4c4d-a42d-3b7245c36ee6",
+      "description": "Staff account created for Zahid Cashier (cashier)",
+      "old_values": null,
+      "new_values": {
+        "role": "cashier",
+        "email": "test_cashier@maliknashta.pk",
+        "full_name": "Zahid Cashier"
+      },
+      "created_at": "2026-11-10T13:35:31.246+00:00"
+    },
+    {
+      "id": "bdab4be7-bc8f-44b5-b729-2d66c31cfaca",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "RAW_MATERIAL_CREATED",
+      "entity_type": "raw_material",
+      "entity_id": "26debc06-a11a-4868-8faa-61b2cfec0c8b",
+      "description": "New raw ingredient \"Test Desi Makhan Raw\" added at Rs. 1800/kg",
+      "old_values": null,
+      "new_values": {
+        "id": "26debc06-a11a-4868-8faa-61b2cfec0c8b",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T13:39:42.047Z",
+        "default_price": 1900
+      },
+      "created_at": "2026-11-10T13:39:42.047+00:00"
+    },
+    {
+      "id": "1157d455-9eb9-4b59-b31f-33246f499a0e",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_DELETED",
+      "entity_type": "category",
+      "entity_id": "2e91efb6-d8d6-4fa4-ad71-b6509805cd22",
+      "description": "Category \"Test Parathay Category (Renamed)\" deleted by Admin",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T13:39:42.038+00:00"
+    },
+    {
+      "id": "d2bb3fd0-e4bd-4f82-8c2f-2f3474bc2dd5",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_UPDATED",
+      "entity_type": "category",
+      "entity_id": "2e91efb6-d8d6-4fa4-ad71-b6509805cd22",
+      "description": "Category \"Test Parathay Category (Renamed)\" updated",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T13:39:42.03+00:00"
+    },
+    {
+      "id": "8b8aeb1a-5268-4a75-aaeb-63024f53cae1",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_CREATED",
+      "entity_type": "category",
+      "entity_id": "2e91efb6-d8d6-4fa4-ad71-b6509805cd22",
+      "description": "Category \"Test Parathay Category\" created",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T13:39:42.021+00:00"
+    },
+    {
+      "id": "17b96ffc-1f17-4b8a-95c4-3e605b8c9231",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ADDON_DELETED",
+      "entity_type": "addon",
+      "entity_id": "52822e07-0fe8-41c6-90fb-eda33db6265c",
+      "description": "Addon \"Fresh Dahi Piyali (Updated)\" deleted by Admin",
+      "old_values": {
+        "id": "52822e07-0fe8-41c6-90fb-eda33db6265c",
+        "name": "Fresh Dahi Piyali (Updated)",
+        "price": 50,
+        "is_active": true
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:39:42.01+00:00"
+    },
+    {
+      "id": "51205b88-6a54-4f19-b387-0389f01942a2",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ADDON_UPDATED",
+      "entity_type": "addon",
+      "entity_id": "52822e07-0fe8-41c6-90fb-eda33db6265c",
+      "description": "Addon \"Fresh Dahi Piyali (Updated)\" updated. Price: Rs. 45 -> Rs. 50",
+      "old_values": null,
+      "new_values": {
+        "id": "52822e07-0fe8-41c6-90fb-eda33db6265c",
+        "name": "Fresh Dahi Piyali (Updated)",
+        "price": 50,
+        "is_active": true
+      },
+      "created_at": "2026-11-10T13:39:41.995+00:00"
+    },
+    {
+      "id": "590241f8-2d35-4eac-9913-d53b7388e262",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ADDON_CREATED",
+      "entity_type": "addon",
+      "entity_id": "52822e07-0fe8-41c6-90fb-eda33db6265c",
+      "description": "New addon \"Fresh Dahi Piyali (Test)\" created at Rs. 45",
+      "old_values": null,
+      "new_values": {
+        "id": "52822e07-0fe8-41c6-90fb-eda33db6265c",
+        "name": "Fresh Dahi Piyali (Updated)",
+        "price": 50,
+        "is_active": true
+      },
+      "created_at": "2026-11-10T13:39:41.974+00:00"
+    },
+    {
+      "id": "4fe036d8-0a81-423c-b27f-b27f1e374ce5",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "PURCHASE_DELETED",
+      "entity_type": "purchase_invoice",
+      "entity_id": "d9098e44-ea7a-4ded-a893-c2dfb1f915ad",
+      "description": "Purchase invoice PUR-01003 (Rs. 13000) deleted by Admin",
+      "old_values": {
+        "id": "d9098e44-ea7a-4ded-a893-c2dfb1f915ad",
+        "items": [
+          {
+            "id": "5a0c82fc-c436-4aab-88ef-537dcb59f8a9",
+            "unit": "bag",
+            "quantity": 2,
+            "line_total": 13000,
+            "unit_price": 6500,
+            "raw_material_id": null,
+            "raw_material_name": "Raw Ingredient",
+            "purchase_invoice_id": "d9098e44-ea7a-4ded-a893-c2dfb1f915ad"
+          }
+        ],
+        "subtotal": 13000,
+        "vendor_id": null,
+        "created_at": "2026-11-10T13:35:34.353Z",
+        "paid_amount": 10000,
+        "invoice_date": "2026-11-10",
+        "total_amount": 13000,
+        "balance_amount": 3000,
+        "invoice_number": "PUR-01003",
+        "payment_method": "cash",
+        "payment_status": "partial",
+        "discount_amount": 0,
+        "deduct_from_register": false,
+        "vendor_name_snapshot": "Market Supplier"
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:35:34.629+00:00"
+    },
+    {
+      "id": "b5912a93-7908-4ddf-ad63-b2ac3078c1b6",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "PURCHASE_CREATED",
+      "entity_type": "purchase_invoice",
+      "entity_id": "d9098e44-ea7a-4ded-a893-c2dfb1f915ad",
+      "description": "Purchase invoice PUR-01003 created for Market Supplier. Total: Rs. 13000, Paid: Rs. 10000, Udhaar: Rs. 3000",
+      "old_values": null,
+      "new_values": {
+        "total_amount": 13000,
+        "balance_amount": 3000,
+        "invoice_number": "PUR-01003"
+      },
+      "created_at": "2026-11-10T13:35:34.353+00:00"
+    },
+    {
+      "id": "e0d9f692-972f-4598-8c59-a8963e8863ca",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ORDER_DELETED",
+      "entity_type": "order",
+      "entity_id": "c0574ce6-778a-40da-a665-95c909ad9899",
+      "description": "Order MTN-0001009 (Rs. 260) deleted by Admin. Reason: Test Cleanup",
+      "old_values": {
+        "id": "c0574ce6-778a-40da-a665-95c909ad9899",
+        "items": [
+          {
+            "id": "83098f2a-7e77-42db-964e-3b74eef5b839",
+            "note": null,
+            "addons": [],
+            "order_id": "c0574ce6-778a-40da-a665-95c909ad9899",
+            "quantity": 1,
+            "created_at": "2026-11-10T13:35:34.326Z",
+            "line_total": 260,
+            "product_id": "44444444-4444-4444-4444-444444444401",
+            "unit_price": 260,
+            "addons_total": 0,
+            "item_discount": 0,
+            "item_subtotal": 260,
+            "refunded_quantity": 0,
+            "product_name_snapshot": "Channay (Salan)"
+          }
+        ],
+        "status": "completed",
+        "payments": [
+          {
+            "id": "2c812c31-39c9-4bea-ae88-f9ab8af67120",
+            "amount": 260,
+            "order_id": "c0574ce6-778a-40da-a665-95c909ad9899",
+            "method_id": "cash",
+            "created_at": "2026-11-10T13:35:34.326Z",
+            "amount_tendered": 500,
+            "change_returned": 240
+          }
+        ],
+        "subtotal": 260,
+        "created_at": "2026-11-10T13:35:34.330Z",
+        "total_paid": 260,
+        "grand_total": 260,
+        "void_reason": null,
+        "order_number": "ORD-20261110-0009",
+        "customer_name": null,
+        "discount_type": null,
+        "reprint_count": 0,
+        "customer_phone": null,
+        "discount_value": 0,
+        "receipt_number": "MTN-0001009",
+        "change_returned": 240,
+        "discount_amount": 0,
+        "idempotency_key": null,
+        "rounding_amount": 0,
+        "register_session_id": "5f128d30-240f-4cdd-bd2a-6725dff3caa9",
+        "cashier_name_snapshot": "Admin"
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:35:34.34+00:00"
+    },
+    {
+      "id": "2d75addb-8120-472f-9165-7242df0f0c3a",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "c0574ce6-778a-40da-a665-95c909ad9899",
+      "description": "Order MTN-0001009 finalized for 260 PKR (Admin)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 260,
+        "items_count": 1,
+        "receipt_number": "MTN-0001009"
+      },
+      "created_at": "2026-11-10T13:35:34.33+00:00"
+    },
+    {
+      "id": "5d6f26b1-6ee2-4259-82b6-26d487989f3d",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "large",
+          "paper_size": "58mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-10T13:35:31.299+00:00"
+    },
+    {
+      "id": "c62a5ee0-4974-4f0e-8558-50881df066e9",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-10T13:35:31.285+00:00"
+    },
+    {
+      "id": "edb02604-c167-4732-a46e-dd5927f546a6",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_DELETED",
+      "entity_type": "profile",
+      "entity_id": "fea949d1-aade-4c4d-a42d-3b7245c36ee6",
+      "description": "Staff account \"Zahid Cashier\" (cashier) deleted by Admin",
+      "old_values": {
+        "id": "fea949d1-aade-4c4d-a42d-3b7245c36ee6",
+        "role": "cashier",
+        "email": "test_cashier@maliknashta.pk",
+        "status": "active",
+        "pin_code": "5678",
+        "full_name": "Zahid Cashier",
+        "created_at": "2026-11-10T13:35:31.246Z",
+        "display_name": "Zahid Shift A"
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:35:31.262+00:00"
+    },
+    {
+      "id": "ef8a38ac-6b3c-4cb0-bb88-f5de225ad9ae",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "VENDOR_DELETED",
+      "entity_type": "vendor",
+      "entity_id": "9c4911b2-db48-41ca-8d54-9a0a72ed225b",
+      "description": "Vendor \"Al-Madina Flour Traders (Test)\" deleted by Admin",
+      "old_values": {
+        "id": "9c4911b2-db48-41ca-8d54-9a0a72ed225b",
+        "name": "Al-Madina Flour Traders (Test)",
+        "phone": "0300-9998888",
+        "address": "Hasilpur Galla Mandi",
+        "category": "Flour",
+        "is_active": true,
+        "created_at": "2026-11-10T13:35:31.221Z",
+        "current_balance": 5000,
+        "opening_balance": 5000
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:35:31.238+00:00"
+    },
+    {
+      "id": "8d145a2c-0b86-4175-8e2d-6d2892c1d22b",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "VENDOR_UPDATED",
+      "entity_type": "vendor",
+      "entity_id": "9c4911b2-db48-41ca-8d54-9a0a72ed225b",
+      "description": "Vendor \"Al-Madina Flour Traders (Test)\" profile updated",
+      "old_values": {
+        "id": "9c4911b2-db48-41ca-8d54-9a0a72ed225b",
+        "name": "Al-Madina Flour Traders (Test)",
+        "phone": "0300-5551234",
+        "address": null,
+        "category": "Flour",
+        "is_active": true,
+        "created_at": "2026-11-10T13:35:31.221Z",
+        "current_balance": 5000,
+        "opening_balance": 5000
+      },
+      "new_values": {
+        "id": "9c4911b2-db48-41ca-8d54-9a0a72ed225b",
+        "name": "Al-Madina Flour Traders (Test)",
+        "phone": "0300-9998888",
+        "address": "Hasilpur Galla Mandi",
+        "category": "Flour",
+        "is_active": true,
+        "created_at": "2026-11-10T13:35:31.221Z",
+        "current_balance": 5000,
+        "opening_balance": 5000
+      },
+      "created_at": "2026-11-10T13:35:31.229+00:00"
+    },
+    {
+      "id": "5709c19f-7d13-4c20-af22-10e11c73af66",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "VENDOR_CREATED",
+      "entity_type": "vendor",
+      "entity_id": "9c4911b2-db48-41ca-8d54-9a0a72ed225b",
+      "description": "New vendor \"Al-Madina Flour Traders (Test)\" created with opening balance Rs. 5000",
+      "old_values": null,
+      "new_values": {
+        "name": "Al-Madina Flour Traders (Test)",
+        "opening_balance": 5000
+      },
+      "created_at": "2026-11-10T13:35:31.221+00:00"
+    },
+    {
+      "id": "5b95fe10-45ce-4fdf-a63b-202810e285e6",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "RAW_MATERIAL_DELETED",
+      "entity_type": "raw_material",
+      "entity_id": "db3d7ba9-d7e6-4eb6-9f08-bbf4aa81ecd1",
+      "description": "Raw material \"Test Desi Makhan Raw\" deleted by Admin",
+      "old_values": {
+        "id": "db3d7ba9-d7e6-4eb6-9f08-bbf4aa81ecd1",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T13:35:31.190Z",
+        "default_price": 1900
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:35:31.211+00:00"
+    },
+    {
+      "id": "2ff1de8e-e4c2-4863-a43d-67aa2ae431a0",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "RAW_MATERIAL_UPDATED",
+      "entity_type": "raw_material",
+      "entity_id": "db3d7ba9-d7e6-4eb6-9f08-bbf4aa81ecd1",
+      "description": "Raw material \"Test Desi Makhan Raw\" updated",
+      "old_values": {
+        "id": "db3d7ba9-d7e6-4eb6-9f08-bbf4aa81ecd1",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T13:35:31.190Z",
+        "default_price": 1800
+      },
+      "new_values": {
+        "id": "db3d7ba9-d7e6-4eb6-9f08-bbf4aa81ecd1",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T13:35:31.190Z",
+        "default_price": 1900
+      },
+      "created_at": "2026-11-10T13:35:31.203+00:00"
+    },
+    {
+      "id": "cc367148-dc85-428a-b4c7-763d59e8550a",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "RAW_MATERIAL_CREATED",
+      "entity_type": "raw_material",
+      "entity_id": "db3d7ba9-d7e6-4eb6-9f08-bbf4aa81ecd1",
+      "description": "New raw ingredient \"Test Desi Makhan Raw\" added at Rs. 1800/kg",
+      "old_values": null,
+      "new_values": {
+        "id": "db3d7ba9-d7e6-4eb6-9f08-bbf4aa81ecd1",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T13:35:31.190Z",
+        "default_price": 1900
+      },
+      "created_at": "2026-11-10T13:35:31.19+00:00"
+    },
+    {
+      "id": "4258ec08-1d70-4757-b2a9-652dc47ea287",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_DELETED",
+      "entity_type": "category",
+      "entity_id": "aca9eef1-b6a0-4b5a-bcfb-56eca021386b",
+      "description": "Category \"Test Parathay Category (Renamed)\" deleted by Admin",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T13:35:31.181+00:00"
+    },
+    {
+      "id": "6106f6f9-cad9-4658-8997-354d188eaad4",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_UPDATED",
+      "entity_type": "category",
+      "entity_id": "aca9eef1-b6a0-4b5a-bcfb-56eca021386b",
+      "description": "Category \"Test Parathay Category (Renamed)\" updated",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T13:35:31.171+00:00"
+    },
+    {
+      "id": "61b760ad-1c93-4e3c-beba-6bbf713759b0",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_CREATED",
+      "entity_type": "category",
+      "entity_id": "aca9eef1-b6a0-4b5a-bcfb-56eca021386b",
+      "description": "Category \"Test Parathay Category\" created",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T13:35:31.162+00:00"
+    },
+    {
+      "id": "ae4109f0-2507-4b0b-abfc-9de73935852a",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ADDON_DELETED",
+      "entity_type": "addon",
+      "entity_id": "094f7a87-df22-4e1d-aa18-66fd97eb028c",
+      "description": "Addon \"Fresh Dahi Piyali (Updated)\" deleted by Admin",
+      "old_values": {
+        "id": "094f7a87-df22-4e1d-aa18-66fd97eb028c",
+        "name": "Fresh Dahi Piyali (Updated)",
+        "price": 50,
+        "is_active": true
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:35:31.15+00:00"
+    },
+    {
+      "id": "e7251b39-e1d5-4c79-97d5-31a40c220116",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ADDON_UPDATED",
+      "entity_type": "addon",
+      "entity_id": "094f7a87-df22-4e1d-aa18-66fd97eb028c",
+      "description": "Addon \"Fresh Dahi Piyali (Updated)\" updated. Price: Rs. 45 -> Rs. 50",
+      "old_values": null,
+      "new_values": {
+        "id": "094f7a87-df22-4e1d-aa18-66fd97eb028c",
+        "name": "Fresh Dahi Piyali (Updated)",
+        "price": 50,
+        "is_active": true
+      },
+      "created_at": "2026-11-10T13:35:31.132+00:00"
+    },
+    {
+      "id": "b74a2ce7-ebca-4c3c-b1df-e47239a45f1f",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ADDON_CREATED",
+      "entity_type": "addon",
+      "entity_id": "094f7a87-df22-4e1d-aa18-66fd97eb028c",
+      "description": "New addon \"Fresh Dahi Piyali (Test)\" created at Rs. 45",
+      "old_values": null,
+      "new_values": {
+        "id": "094f7a87-df22-4e1d-aa18-66fd97eb028c",
+        "name": "Fresh Dahi Piyali (Updated)",
+        "price": 50,
+        "is_active": true
+      },
+      "created_at": "2026-11-10T13:35:31.11+00:00"
+    },
+    {
+      "id": "399b8ec6-2ab9-440e-8373-afa35614afa1",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "PURCHASE_DELETED",
+      "entity_type": "purchase_invoice",
+      "entity_id": "aa350646-b9b7-4c33-b496-310f4c0cc924",
+      "description": "Purchase invoice PUR-01002 (Rs. 13000) deleted by Admin",
+      "old_values": {
+        "id": "aa350646-b9b7-4c33-b496-310f4c0cc924",
+        "items": [
+          {
+            "id": "256b0d00-06ec-4490-af08-e609295f5e24",
+            "unit": "bag",
+            "quantity": 2,
+            "line_total": 13000,
+            "unit_price": 6500,
+            "raw_material_id": null,
+            "raw_material_name": "Raw Ingredient",
+            "purchase_invoice_id": "aa350646-b9b7-4c33-b496-310f4c0cc924"
+          }
+        ],
+        "subtotal": 13000,
+        "vendor_id": null,
+        "created_at": "2026-11-10T13:30:13.711Z",
+        "paid_amount": 10000,
+        "invoice_date": "2026-11-10",
+        "total_amount": 13000,
+        "balance_amount": 3000,
+        "invoice_number": "PUR-01002",
+        "payment_method": "cash",
+        "payment_status": "partial",
+        "discount_amount": 0,
+        "deduct_from_register": false,
+        "vendor_name_snapshot": "Market Supplier"
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:30:13.941+00:00"
+    },
+    {
+      "id": "c76b0395-b770-42fb-b133-790f48a63b68",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "PURCHASE_CREATED",
+      "entity_type": "purchase_invoice",
+      "entity_id": "aa350646-b9b7-4c33-b496-310f4c0cc924",
+      "description": "Purchase invoice PUR-01002 created for Market Supplier. Total: Rs. 13000, Paid: Rs. 10000, Udhaar: Rs. 3000",
+      "old_values": null,
+      "new_values": {
+        "total_amount": 13000,
+        "balance_amount": 3000,
+        "invoice_number": "PUR-01002"
+      },
+      "created_at": "2026-11-10T13:30:13.711+00:00"
+    },
+    {
+      "id": "a0eed3ce-968a-4172-97a4-f19b0da9f617",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ORDER_DELETED",
+      "entity_type": "order",
+      "entity_id": "d3689c09-144f-44fa-a097-e89b0debd652",
+      "description": "Order MTN-0001008 (Rs. 260) deleted by Admin. Reason: Test Cleanup",
+      "old_values": {
+        "id": "d3689c09-144f-44fa-a097-e89b0debd652",
+        "items": [
+          {
+            "id": "888c84af-d7e3-440c-8226-166518473597",
+            "note": null,
+            "addons": [],
+            "order_id": "d3689c09-144f-44fa-a097-e89b0debd652",
+            "quantity": 1,
+            "created_at": "2026-11-10T13:30:13.693Z",
+            "line_total": 260,
+            "product_id": "44444444-4444-4444-4444-444444444401",
+            "unit_price": 260,
+            "addons_total": 0,
+            "item_discount": 0,
+            "item_subtotal": 260,
+            "refunded_quantity": 0,
+            "product_name_snapshot": "Channay (Salan)"
+          }
+        ],
+        "status": "completed",
+        "payments": [
+          {
+            "id": "01c622f1-06d1-4ce3-b1e9-3ed202553d7d",
+            "amount": 260,
+            "order_id": "d3689c09-144f-44fa-a097-e89b0debd652",
+            "method_id": "cash",
+            "created_at": "2026-11-10T13:30:13.693Z",
+            "amount_tendered": 500,
+            "change_returned": 240
+          }
+        ],
+        "subtotal": 260,
+        "created_at": "2026-11-10T13:30:13.695Z",
+        "total_paid": 260,
+        "grand_total": 260,
+        "void_reason": null,
+        "order_number": "ORD-20261110-0008",
+        "customer_name": null,
+        "discount_type": null,
+        "reprint_count": 0,
+        "customer_phone": null,
+        "discount_value": 0,
+        "receipt_number": "MTN-0001008",
+        "change_returned": 240,
+        "discount_amount": 0,
+        "idempotency_key": null,
+        "rounding_amount": 0,
+        "register_session_id": "5f128d30-240f-4cdd-bd2a-6725dff3caa9",
+        "cashier_name_snapshot": "Admin"
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:30:13.703+00:00"
+    },
+    {
+      "id": "ed214acb-a3b7-40be-8370-d9187ab1d7a5",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "d3689c09-144f-44fa-a097-e89b0debd652",
+      "description": "Order MTN-0001008 finalized for 260 PKR (Admin)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 260,
+        "items_count": 1,
+        "receipt_number": "MTN-0001008"
+      },
+      "created_at": "2026-11-10T13:30:13.695+00:00"
+    },
+    {
+      "id": "930bccda-529a-48b5-8587-c7c67da63a0d",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "large",
+          "paper_size": "58mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-10T13:30:10.671+00:00"
+    },
+    {
+      "id": "99458147-7e36-4add-9536-a3b1d82d8a8c",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-10T13:30:10.663+00:00"
+    },
+    {
+      "id": "995c7ed2-9b90-4e38-9805-99dce3c0f2b3",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_DELETED",
+      "entity_type": "profile",
+      "entity_id": "c9c9428c-0338-42f2-bcb6-30665efa7bd5",
+      "description": "Staff account \"Zahid Cashier\" (cashier) deleted by Admin",
+      "old_values": {
+        "id": "c9c9428c-0338-42f2-bcb6-30665efa7bd5",
+        "role": "cashier",
+        "email": "test_cashier@maliknashta.pk",
+        "status": "active",
+        "pin_code": "5678",
+        "full_name": "Zahid Cashier",
+        "created_at": "2026-11-10T13:30:10.634Z",
+        "display_name": "Zahid Shift A"
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:30:10.646+00:00"
+    },
+    {
+      "id": "266540f5-5d7d-4203-9a89-8e385c276128",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "c9c9428c-0338-42f2-bcb6-30665efa7bd5",
+      "description": "Staff account updated for Zahid Cashier",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T13:30:10.641+00:00"
+    },
+    {
+      "id": "c15ab892-9d15-432c-8906-e68c07bdff70",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_CREATED",
+      "entity_type": "profile",
+      "entity_id": "c9c9428c-0338-42f2-bcb6-30665efa7bd5",
+      "description": "Staff account created for Zahid Cashier (cashier)",
+      "old_values": null,
+      "new_values": {
+        "role": "cashier",
+        "email": "test_cashier@maliknashta.pk",
+        "full_name": "Zahid Cashier"
+      },
+      "created_at": "2026-11-10T13:30:10.634+00:00"
+    },
+    {
+      "id": "47b08948-9c9c-4912-9298-761c05cf1b9c",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "VENDOR_DELETED",
+      "entity_type": "vendor",
+      "entity_id": "68b7a01a-0ead-4bf2-b3d1-2a982779fcc0",
+      "description": "Vendor \"Al-Madina Flour Traders (Test)\" deleted by Admin",
+      "old_values": {
+        "id": "68b7a01a-0ead-4bf2-b3d1-2a982779fcc0",
+        "name": "Al-Madina Flour Traders (Test)",
+        "phone": "0300-9998888",
+        "address": "Hasilpur Galla Mandi",
+        "category": "Flour",
+        "is_active": true,
+        "created_at": "2026-11-10T13:30:10.615Z",
+        "current_balance": 5000,
+        "opening_balance": 5000
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:30:10.628+00:00"
+    },
+    {
+      "id": "bc0e97aa-b1ae-432a-9dba-64d40d008666",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "VENDOR_UPDATED",
+      "entity_type": "vendor",
+      "entity_id": "68b7a01a-0ead-4bf2-b3d1-2a982779fcc0",
+      "description": "Vendor \"Al-Madina Flour Traders (Test)\" profile updated",
+      "old_values": {
+        "id": "68b7a01a-0ead-4bf2-b3d1-2a982779fcc0",
+        "name": "Al-Madina Flour Traders (Test)",
+        "phone": "0300-5551234",
+        "address": null,
+        "category": "Flour",
+        "is_active": true,
+        "created_at": "2026-11-10T13:30:10.615Z",
+        "current_balance": 5000,
+        "opening_balance": 5000
+      },
+      "new_values": {
+        "id": "68b7a01a-0ead-4bf2-b3d1-2a982779fcc0",
+        "name": "Al-Madina Flour Traders (Test)",
+        "phone": "0300-9998888",
+        "address": "Hasilpur Galla Mandi",
+        "category": "Flour",
+        "is_active": true,
+        "created_at": "2026-11-10T13:30:10.615Z",
+        "current_balance": 5000,
+        "opening_balance": 5000
+      },
+      "created_at": "2026-11-10T13:30:10.622+00:00"
+    },
+    {
+      "id": "be0eb350-2162-4eaa-a9a9-5344708fc790",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "VENDOR_CREATED",
+      "entity_type": "vendor",
+      "entity_id": "68b7a01a-0ead-4bf2-b3d1-2a982779fcc0",
+      "description": "New vendor \"Al-Madina Flour Traders (Test)\" created with opening balance Rs. 5000",
+      "old_values": null,
+      "new_values": {
+        "name": "Al-Madina Flour Traders (Test)",
+        "opening_balance": 5000
+      },
+      "created_at": "2026-11-10T13:30:10.615+00:00"
+    },
+    {
+      "id": "5a43e8ec-5ba1-49c0-a65c-f010fb05023b",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "RAW_MATERIAL_DELETED",
+      "entity_type": "raw_material",
+      "entity_id": "b19c8aee-5915-4c74-9a3e-c435d25e8ff0",
+      "description": "Raw material \"Test Desi Makhan Raw\" deleted by Admin",
+      "old_values": {
+        "id": "b19c8aee-5915-4c74-9a3e-c435d25e8ff0",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T13:30:10.592Z",
+        "default_price": 1900
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:30:10.608+00:00"
+    },
+    {
+      "id": "9e6b6f65-7904-4934-bfd1-c740ab9b2f98",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "RAW_MATERIAL_UPDATED",
+      "entity_type": "raw_material",
+      "entity_id": "b19c8aee-5915-4c74-9a3e-c435d25e8ff0",
+      "description": "Raw material \"Test Desi Makhan Raw\" updated",
+      "old_values": {
+        "id": "b19c8aee-5915-4c74-9a3e-c435d25e8ff0",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T13:30:10.592Z",
+        "default_price": 1800
+      },
+      "new_values": {
+        "id": "b19c8aee-5915-4c74-9a3e-c435d25e8ff0",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T13:30:10.592Z",
+        "default_price": 1900
+      },
+      "created_at": "2026-11-10T13:30:10.6+00:00"
+    },
+    {
+      "id": "ba75f69b-b35e-41f6-9aad-ea7226980e43",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "RAW_MATERIAL_CREATED",
+      "entity_type": "raw_material",
+      "entity_id": "b19c8aee-5915-4c74-9a3e-c435d25e8ff0",
+      "description": "New raw ingredient \"Test Desi Makhan Raw\" added at Rs. 1800/kg",
+      "old_values": null,
+      "new_values": {
+        "id": "b19c8aee-5915-4c74-9a3e-c435d25e8ff0",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T13:30:10.592Z",
+        "default_price": 1900
+      },
+      "created_at": "2026-11-10T13:30:10.592+00:00"
+    },
+    {
+      "id": "4175fbdd-726e-4e70-820f-a7b81c3fb1a6",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_UPDATED",
+      "entity_type": "category",
+      "entity_id": "715878eb-1ac9-43bf-879d-ae192faae9fe",
+      "description": "Category \"Test Parathay Category (Renamed)\" updated",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T13:30:10.574+00:00"
+    },
+    {
+      "id": "19b44ba1-b5b9-4db3-9090-ecd32aa857a8",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_CREATED",
+      "entity_type": "category",
+      "entity_id": "715878eb-1ac9-43bf-879d-ae192faae9fe",
+      "description": "Category \"Test Parathay Category\" created",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T13:30:10.566+00:00"
+    },
+    {
+      "id": "0f64864c-8df6-4c87-8169-5a399a1055b7",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ADDON_DELETED",
+      "entity_type": "addon",
+      "entity_id": "fb79ee13-73c0-4916-88f8-f206a96558b3",
+      "description": "Addon \"Fresh Dahi Piyali (Updated)\" deleted by Admin",
+      "old_values": {
+        "id": "fb79ee13-73c0-4916-88f8-f206a96558b3",
+        "name": "Fresh Dahi Piyali (Updated)",
+        "price": 50,
+        "is_active": true
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:30:10.558+00:00"
+    },
+    {
+      "id": "a75cbef1-1699-4a96-b187-6c32ec025f71",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ADDON_UPDATED",
+      "entity_type": "addon",
+      "entity_id": "fb79ee13-73c0-4916-88f8-f206a96558b3",
+      "description": "Addon \"Fresh Dahi Piyali (Updated)\" updated. Price: Rs. 45 -> Rs. 50",
+      "old_values": null,
+      "new_values": {
+        "id": "fb79ee13-73c0-4916-88f8-f206a96558b3",
+        "name": "Fresh Dahi Piyali (Updated)",
+        "price": 50,
+        "is_active": true
+      },
+      "created_at": "2026-11-10T13:30:10.543+00:00"
+    },
+    {
+      "id": "898addb8-b3a0-47c8-85eb-597642b76bf2",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ADDON_CREATED",
+      "entity_type": "addon",
+      "entity_id": "fb79ee13-73c0-4916-88f8-f206a96558b3",
+      "description": "New addon \"Fresh Dahi Piyali (Test)\" created at Rs. 45",
+      "old_values": null,
+      "new_values": {
+        "id": "fb79ee13-73c0-4916-88f8-f206a96558b3",
+        "name": "Fresh Dahi Piyali (Updated)",
+        "price": 50,
+        "is_active": true
+      },
+      "created_at": "2026-11-10T13:30:10.524+00:00"
+    },
+    {
+      "id": "fc8e7dee-b80b-458d-b85d-24d918e65190",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "VENDOR_CREATED",
+      "entity_type": "vendor",
+      "entity_id": "24d8dc4d-c2f8-4a6f-bb6b-8eb6dc19e7a7",
+      "description": "New vendor \"Al-Madina Flour Traders (Test)\" created with opening balance Rs. 5000",
+      "old_values": null,
+      "new_values": {
+        "name": "Al-Madina Flour Traders (Test)",
+        "opening_balance": 5000
+      },
+      "created_at": "2026-11-10T13:28:16.262+00:00"
+    },
+    {
+      "id": "59aabad0-241d-44be-b9a9-3020e9f4b342",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "PURCHASE_DELETED",
+      "entity_type": "purchase_invoice",
+      "entity_id": "ae4d2928-3e2e-4e68-b5bb-7b9137c48e86",
+      "description": "Purchase invoice PUR-01001 (Rs. 13000) deleted by Admin",
+      "old_values": {
+        "id": "ae4d2928-3e2e-4e68-b5bb-7b9137c48e86",
+        "items": [
+          {
+            "id": "2074d512-c29e-4e58-a862-124d7521439f",
+            "unit": "bag",
+            "quantity": 2,
+            "line_total": 13000,
+            "unit_price": 6500,
+            "raw_material_id": null,
+            "raw_material_name": "Raw Ingredient",
+            "purchase_invoice_id": "ae4d2928-3e2e-4e68-b5bb-7b9137c48e86"
+          }
+        ],
+        "subtotal": 13000,
+        "vendor_id": null,
+        "created_at": "2026-11-10T13:28:19.385Z",
+        "paid_amount": 10000,
+        "invoice_date": "2026-11-10",
+        "total_amount": 13000,
+        "balance_amount": 3000,
+        "invoice_number": "PUR-01001",
+        "payment_method": "cash",
+        "payment_status": "partial",
+        "discount_amount": 0,
+        "deduct_from_register": false,
+        "vendor_name_snapshot": "Market Supplier"
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:28:19.83+00:00"
+    },
+    {
+      "id": "b97e838a-d67c-42c1-ba27-5cc44e7126ae",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "PURCHASE_CREATED",
+      "entity_type": "purchase_invoice",
+      "entity_id": "ae4d2928-3e2e-4e68-b5bb-7b9137c48e86",
+      "description": "Purchase invoice PUR-01001 created for Market Supplier. Total: Rs. 13000, Paid: Rs. 10000, Udhaar: Rs. 3000",
+      "old_values": null,
+      "new_values": {
+        "total_amount": 13000,
+        "balance_amount": 3000,
+        "invoice_number": "PUR-01001"
+      },
+      "created_at": "2026-11-10T13:28:19.385+00:00"
+    },
+    {
+      "id": "2f2fc6b9-226f-4757-85e1-a67b6ea5d02f",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ORDER_DELETED",
+      "entity_type": "order",
+      "entity_id": "2ce83b4a-a347-49a6-87d0-a837de486346",
+      "description": "Order MTN-0001007 (Rs. 260) deleted by Admin. Reason: Test Cleanup",
+      "old_values": {
+        "id": "2ce83b4a-a347-49a6-87d0-a837de486346",
+        "items": [
+          {
+            "id": "c4053441-353b-4217-baa0-54e2825a02f7",
+            "note": null,
+            "addons": [],
+            "order_id": "2ce83b4a-a347-49a6-87d0-a837de486346",
+            "quantity": 1,
+            "created_at": "2026-11-10T13:28:19.350Z",
+            "line_total": 260,
+            "product_id": "44444444-4444-4444-4444-444444444401",
+            "unit_price": 260,
+            "addons_total": 0,
+            "item_discount": 0,
+            "item_subtotal": 260,
+            "refunded_quantity": 0,
+            "product_name_snapshot": "Channay (Salan)"
+          }
+        ],
+        "status": "completed",
+        "payments": [
+          {
+            "id": "a2115dc8-bc33-4852-a5ef-e5782634f582",
+            "amount": 260,
+            "order_id": "2ce83b4a-a347-49a6-87d0-a837de486346",
+            "method_id": "cash",
+            "created_at": "2026-11-10T13:28:19.350Z",
+            "amount_tendered": 500,
+            "change_returned": 240
+          }
+        ],
+        "subtotal": 260,
+        "created_at": "2026-11-10T13:28:19.355Z",
+        "total_paid": 260,
+        "grand_total": 260,
+        "void_reason": null,
+        "order_number": "ORD-20261110-0007",
+        "customer_name": null,
+        "discount_type": null,
+        "reprint_count": 0,
+        "customer_phone": null,
+        "discount_value": 0,
+        "receipt_number": "MTN-0001007",
+        "change_returned": 240,
+        "discount_amount": 0,
+        "idempotency_key": null,
+        "rounding_amount": 0,
+        "register_session_id": "5f128d30-240f-4cdd-bd2a-6725dff3caa9",
+        "cashier_name_snapshot": "Admin"
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:28:19.371+00:00"
+    },
+    {
+      "id": "bc74566a-18ca-40c8-9abb-9fcddf9a0548",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "2ce83b4a-a347-49a6-87d0-a837de486346",
+      "description": "Order MTN-0001007 finalized for 260 PKR (Admin)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 260,
+        "items_count": 1,
+        "receipt_number": "MTN-0001007"
+      },
+      "created_at": "2026-11-10T13:28:19.355+00:00"
+    },
+    {
+      "id": "eab77227-30cc-467e-8dff-8d02da310c04",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "REGISTER_OPEN",
+      "entity_type": "register_session",
+      "entity_id": "5f128d30-240f-4cdd-bd2a-6725dff3caa9",
+      "description": "Cash register shift opened with Rs. 5000 float by Admin",
+      "old_values": null,
+      "new_values": {
+        "opening_amount": 5000
+      },
+      "created_at": "2026-11-10T13:28:16.331+00:00"
+    },
+    {
+      "id": "8feaac45-e3f2-4951-a88c-dc573c60fc0c",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "large",
+          "paper_size": "58mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-10T13:28:16.324+00:00"
+    },
+    {
+      "id": "4848a159-0168-423e-a926-cf10fcda2b76",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-10T13:28:16.313+00:00"
+    },
+    {
+      "id": "1f6103c5-a5ee-482a-a028-b77f14a84be2",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_DELETED",
+      "entity_type": "profile",
+      "entity_id": "7167f9fd-1888-4edb-96c7-34271d5df97f",
+      "description": "Staff account \"Zahid Cashier\" (cashier) deleted by Admin",
+      "old_values": {
+        "id": "7167f9fd-1888-4edb-96c7-34271d5df97f",
+        "role": "cashier",
+        "email": "test_cashier@maliknashta.pk",
+        "status": "active",
+        "pin_code": "5678",
+        "full_name": "Zahid Cashier",
+        "created_at": "2026-11-10T13:28:16.283Z",
+        "display_name": "Zahid Shift A"
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:28:16.296+00:00"
+    },
+    {
+      "id": "6061afd3-ac86-4e0a-b732-34a62553d893",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "7167f9fd-1888-4edb-96c7-34271d5df97f",
+      "description": "Staff account updated for Zahid Cashier",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T13:28:16.29+00:00"
+    },
+    {
+      "id": "6eafb811-bc63-456d-a366-8d3c5f6530e6",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_CREATED",
+      "entity_type": "profile",
+      "entity_id": "7167f9fd-1888-4edb-96c7-34271d5df97f",
+      "description": "Staff account created for Zahid Cashier (cashier)",
+      "old_values": null,
+      "new_values": {
+        "role": "cashier",
+        "email": "test_cashier@maliknashta.pk",
+        "full_name": "Zahid Cashier"
+      },
+      "created_at": "2026-11-10T13:28:16.283+00:00"
+    },
+    {
+      "id": "cb8acb22-04d4-4197-ade3-e42b55d3c81f",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "VENDOR_DELETED",
+      "entity_type": "vendor",
+      "entity_id": "24d8dc4d-c2f8-4a6f-bb6b-8eb6dc19e7a7",
+      "description": "Vendor \"Al-Madina Flour Traders (Test)\" deleted by Admin",
+      "old_values": {
+        "id": "24d8dc4d-c2f8-4a6f-bb6b-8eb6dc19e7a7",
+        "name": "Al-Madina Flour Traders (Test)",
+        "phone": "0300-9998888",
+        "address": "Hasilpur Galla Mandi",
+        "category": "Flour",
+        "is_active": true,
+        "created_at": "2026-11-10T13:28:16.262Z",
+        "current_balance": 5000,
+        "opening_balance": 5000
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:28:16.276+00:00"
+    },
+    {
+      "id": "724aa108-ba5b-46ba-aa81-810764c4dc9d",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "VENDOR_UPDATED",
+      "entity_type": "vendor",
+      "entity_id": "24d8dc4d-c2f8-4a6f-bb6b-8eb6dc19e7a7",
+      "description": "Vendor \"Al-Madina Flour Traders (Test)\" profile updated",
+      "old_values": {
+        "id": "24d8dc4d-c2f8-4a6f-bb6b-8eb6dc19e7a7",
+        "name": "Al-Madina Flour Traders (Test)",
+        "phone": "0300-5551234",
+        "address": null,
+        "category": "Flour",
+        "is_active": true,
+        "created_at": "2026-11-10T13:28:16.262Z",
+        "current_balance": 5000,
+        "opening_balance": 5000
+      },
+      "new_values": {
+        "id": "24d8dc4d-c2f8-4a6f-bb6b-8eb6dc19e7a7",
+        "name": "Al-Madina Flour Traders (Test)",
+        "phone": "0300-9998888",
+        "address": "Hasilpur Galla Mandi",
+        "category": "Flour",
+        "is_active": true,
+        "created_at": "2026-11-10T13:28:16.262Z",
+        "current_balance": 5000,
+        "opening_balance": 5000
+      },
+      "created_at": "2026-11-10T13:28:16.27+00:00"
+    },
+    {
+      "id": "73b434f6-41da-43fd-8adb-73449e74e655",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "RAW_MATERIAL_DELETED",
+      "entity_type": "raw_material",
+      "entity_id": "ec4d8e1b-afb9-4cd1-849e-044415ce7c5b",
+      "description": "Raw material \"Test Desi Makhan Raw\" deleted by Admin",
+      "old_values": {
+        "id": "ec4d8e1b-afb9-4cd1-849e-044415ce7c5b",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T13:28:16.237Z",
+        "default_price": 1900
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:28:16.254+00:00"
+    },
+    {
+      "id": "d7313ec5-3afd-4871-b93e-719f35d5ba2a",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "RAW_MATERIAL_UPDATED",
+      "entity_type": "raw_material",
+      "entity_id": "ec4d8e1b-afb9-4cd1-849e-044415ce7c5b",
+      "description": "Raw material \"Test Desi Makhan Raw\" updated",
+      "old_values": {
+        "id": "ec4d8e1b-afb9-4cd1-849e-044415ce7c5b",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T13:28:16.237Z",
+        "default_price": 1800
+      },
+      "new_values": {
+        "id": "ec4d8e1b-afb9-4cd1-849e-044415ce7c5b",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T13:28:16.237Z",
+        "default_price": 1900
+      },
+      "created_at": "2026-11-10T13:28:16.246+00:00"
+    },
+    {
+      "id": "87f2d930-95c2-4635-996f-571c4fcf3f1b",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "RAW_MATERIAL_CREATED",
+      "entity_type": "raw_material",
+      "entity_id": "ec4d8e1b-afb9-4cd1-849e-044415ce7c5b",
+      "description": "New raw ingredient \"Test Desi Makhan Raw\" added at Rs. 1800/kg",
+      "old_values": null,
+      "new_values": {
+        "id": "ec4d8e1b-afb9-4cd1-849e-044415ce7c5b",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T13:28:16.237Z",
+        "default_price": 1900
+      },
+      "created_at": "2026-11-10T13:28:16.237+00:00"
+    },
+    {
+      "id": "a589254d-1aaa-44f0-af9f-6f872d7d603b",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_DELETED",
+      "entity_type": "category",
+      "entity_id": "fa91767a-ce27-406c-9e02-a10aba26361d",
+      "description": "Category \"Test Parathay Category (Renamed)\" deleted by Admin",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T13:28:16.229+00:00"
+    },
+    {
+      "id": "5f5e9a69-772e-4646-a1c5-37ce42606cc1",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_UPDATED",
+      "entity_type": "category",
+      "entity_id": "fa91767a-ce27-406c-9e02-a10aba26361d",
+      "description": "Category \"Test Parathay Category (Renamed)\" updated",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T13:28:16.221+00:00"
+    },
+    {
+      "id": "2949610e-9e23-43a7-a497-a34ee07db6e7",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_CREATED",
+      "entity_type": "category",
+      "entity_id": "fa91767a-ce27-406c-9e02-a10aba26361d",
+      "description": "Category \"Test Parathay Category\" created",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T13:28:16.213+00:00"
+    },
+    {
+      "id": "3b8b2ebf-e414-4252-a315-1b199cd065e5",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ADDON_DELETED",
+      "entity_type": "addon",
+      "entity_id": "d41402d3-a7e4-4937-8362-05269a135383",
+      "description": "Addon \"Fresh Dahi Piyali (Updated)\" deleted by Admin",
+      "old_values": {
+        "id": "d41402d3-a7e4-4937-8362-05269a135383",
+        "name": "Fresh Dahi Piyali (Updated)",
+        "price": 50,
+        "is_active": true
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T13:28:16.204+00:00"
+    },
+    {
+      "id": "0a032b1c-988b-4d6e-bbd3-e76883bac835",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ADDON_UPDATED",
+      "entity_type": "addon",
+      "entity_id": "d41402d3-a7e4-4937-8362-05269a135383",
+      "description": "Addon \"Fresh Dahi Piyali (Updated)\" updated. Price: Rs. 45 -> Rs. 50",
+      "old_values": null,
+      "new_values": {
+        "id": "d41402d3-a7e4-4937-8362-05269a135383",
+        "name": "Fresh Dahi Piyali (Updated)",
+        "price": 50,
+        "is_active": true
+      },
+      "created_at": "2026-11-10T13:28:16.189+00:00"
+    },
+    {
+      "id": "a3b13368-d76a-424b-8cc1-31a882f8a730",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ADDON_CREATED",
+      "entity_type": "addon",
+      "entity_id": "d41402d3-a7e4-4937-8362-05269a135383",
+      "description": "New addon \"Fresh Dahi Piyali (Test)\" created at Rs. 45",
+      "old_values": null,
+      "new_values": {
+        "id": "d41402d3-a7e4-4937-8362-05269a135383",
+        "name": "Fresh Dahi Piyali (Updated)",
+        "price": 50,
+        "is_active": true
+      },
+      "created_at": "2026-11-10T13:28:16.169+00:00"
+    },
+    {
+      "id": "fc52c701-8f71-4cf2-ad11-d881428aba2f",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-10T11:05:29.948+00:00"
+    },
+    {
+      "id": "b660fa64-0c15-454a-9bdc-3e5522c9c7a7",
+      "user_id": null,
+      "user_name": "Malik Ammar",
+      "action": "REGISTER_CLOSE",
+      "entity_type": "register_session",
+      "entity_id": "73bf2130-f867-4c79-a90e-af742b336aa9",
+      "description": "Shift closed. Expected: Rs. 7333, Actual: Rs. 7333, Discrepancy: Rs. 0",
+      "old_values": null,
+      "new_values": {
+        "difference": 0,
+        "closing_note": "Shift balanced and verified",
+        "actual_amount": 7333,
+        "expected_amount": 7333
+      },
+      "created_at": "2026-11-10T11:05:29.936+00:00"
+    },
+    {
+      "id": "828f0704-1c02-4f4e-9aa4-74eb4b637a90",
+      "user_id": null,
+      "user_name": "Malik Ammar",
+      "action": "ORDER_VOIDED",
+      "entity_type": "order",
+      "entity_id": "fda9b129-c691-419e-a4d0-aeac0298ce90",
+      "description": "Order MTN-0001006 voided by Malik Ammar. Reason: Customer cancelled digital transaction",
+      "old_values": {
+        "status": "completed",
+        "grand_total": 330
+      },
+      "new_values": {
+        "status": "voided",
+        "void_reason": "Customer cancelled digital transaction",
+        "cash_reverted": 0
+      },
+      "created_at": "2026-11-10T11:05:29.926+00:00"
+    },
+    {
+      "id": "e96e3e49-3704-47c4-bedb-af1492800495",
+      "user_id": null,
+      "user_name": "Malik Ammar",
+      "action": "REFUND_CREATED",
+      "entity_type": "refund",
+      "entity_id": "a997520b-3357-42e2-afa8-d86215383bf2",
+      "description": "Refund REF-000102 of Rs. 234 issued for order MTN-0001005. Reason: Mirch zyada thi",
+      "old_values": null,
+      "new_values": {
+        "amount": 234,
+        "status": "partially_refunded",
+        "refund_number": "REF-000102"
+      },
+      "created_at": "2026-11-10T11:05:29.919+00:00"
+    },
+    {
+      "id": "c98d3f4c-35d5-4c3a-8066-ba0f59608496",
+      "user_id": null,
+      "user_name": "Bilal Cashier",
+      "action": "RECEIPT_REPRINT",
+      "entity_type": "order",
+      "entity_id": "4b071873-b751-44fb-b29a-3b076fc3ab29",
+      "description": "Thermal receipt reprint #1 requested for receipt MTN-0001005 by Bilal Cashier",
+      "old_values": null,
+      "new_values": {
+        "reprint_count": 1
+      },
+      "created_at": "2026-11-10T11:05:29.908+00:00"
+    },
+    {
+      "id": "393671cc-ea98-44a1-9725-b89841cb05ff",
+      "user_id": null,
+      "user_name": "Bilal Cashier",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "fda9b129-c691-419e-a4d0-aeac0298ce90",
+      "description": "Order MTN-0001006 finalized for 330 PKR (Bilal Cashier)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 330,
+        "items_count": 1,
+        "receipt_number": "MTN-0001006"
+      },
+      "created_at": "2026-11-10T11:05:29.891+00:00"
+    },
+    {
+      "id": "aca118c2-050a-41f6-a279-a910aa274f13",
+      "user_id": null,
+      "user_name": "Malik Ammar",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "4b071873-b751-44fb-b29a-3b076fc3ab29",
+      "description": "Order MTN-0001005 finalized for 468 PKR (Malik Ammar)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 468,
+        "items_count": 1,
+        "receipt_number": "MTN-0001005"
+      },
+      "created_at": "2026-11-10T11:05:26.859+00:00"
+    },
+    {
+      "id": "5b5fbbb1-5a37-462c-8bf5-780277f386a1",
+      "user_id": null,
+      "user_name": "Bilal Cashier",
+      "action": "ORDER_HELD",
+      "entity_type": "held_order",
+      "entity_id": "dd630ef1-8739-44d9-97fd-702aed1e46de",
+      "description": "Cart temporarily held as HOLD-002 for \"Table 4 - Chaudhry Sahib\"",
+      "old_values": null,
+      "new_values": {
+        "hold_number": "HOLD-002"
+      },
+      "created_at": "2026-11-10T11:05:23.833+00:00"
+    },
+    {
+      "id": "d722d26a-07f4-41fc-8052-cb614440f5f5",
+      "user_id": null,
+      "user_name": "Malik Ammar",
+      "action": "CASH_IN",
+      "entity_type": "register_transaction",
+      "entity_id": "d2dd0ada-07d4-4325-b6d3-4f83ce832152",
+      "description": "Cash In: Rs. 2000 added to drawer (Change float addition) by Malik Ammar",
+      "old_values": null,
+      "new_values": {
+        "amount": 2000,
+        "reason": "Change float addition"
+      },
+      "created_at": "2026-11-10T11:05:23.823+00:00"
+    },
+    {
+      "id": "420e9ced-f307-4a2c-a3fb-81a4f47b65a4",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_DELETED",
+      "entity_type": "category",
+      "entity_id": "1ef56b5a-e7e3-4ae3-ba4e-0d3a36ae0a76",
+      "description": "Category \"Test Parathay Category (Renamed)\" deleted by Admin",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T11:02:15.504+00:00"
+    },
+    {
+      "id": "a591832a-d045-4865-b0a9-4b9628ed8fda",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_UPDATED",
+      "entity_type": "category",
+      "entity_id": "1ef56b5a-e7e3-4ae3-ba4e-0d3a36ae0a76",
+      "description": "Category \"Test Parathay Category (Renamed)\" updated",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T11:02:15.497+00:00"
+    },
+    {
+      "id": "ab329fd9-adc1-4a19-aa3c-5063f48e7b92",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_CREATED",
+      "entity_type": "category",
+      "entity_id": "1ef56b5a-e7e3-4ae3-ba4e-0d3a36ae0a76",
+      "description": "Category \"Test Parathay Category\" created",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T11:02:15.49+00:00"
+    },
+    {
+      "id": "acd77613-69e6-4b96-9349-e4cc5203fc58",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ADDON_DELETED",
+      "entity_type": "addon",
+      "entity_id": "eed980ec-d872-4bc5-b45c-d0c5cbbb5a60",
+      "description": "Addon \"Fresh Dahi Piyali (Updated)\" deleted by Admin",
+      "old_values": {
+        "id": "eed980ec-d872-4bc5-b45c-d0c5cbbb5a60",
+        "name": "Fresh Dahi Piyali (Updated)",
+        "price": 50,
+        "is_active": true
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T11:02:15.482+00:00"
+    },
+    {
+      "id": "b1011716-acd7-4fff-bfa4-926da8dd1408",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ADDON_UPDATED",
+      "entity_type": "addon",
+      "entity_id": "eed980ec-d872-4bc5-b45c-d0c5cbbb5a60",
+      "description": "Addon \"Fresh Dahi Piyali (Updated)\" updated. Price: Rs. 45 -> Rs. 50",
+      "old_values": null,
+      "new_values": {
+        "id": "eed980ec-d872-4bc5-b45c-d0c5cbbb5a60",
+        "name": "Fresh Dahi Piyali (Updated)",
+        "price": 50,
+        "is_active": true
+      },
+      "created_at": "2026-11-10T11:02:15.468+00:00"
+    },
+    {
+      "id": "dcac2f22-1a9f-4fee-9276-d55d2fab76ad",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ORDER_DELETED",
+      "entity_type": "order",
+      "entity_id": "b239940a-c992-403d-a29d-8e1238c320eb",
+      "description": "Order MTN-0001004 (Rs. undefined) deleted by Admin. Reason: Test Cleanup",
+      "old_values": {
+        "id": "b239940a-c992-403d-a29d-8e1238c320eb",
+        "items": [
+          {
+            "id": "7aea03c6-a4e6-488f-9f73-7155e50c5587",
+            "note": null,
+            "addons": [],
+            "order_id": "b239940a-c992-403d-a29d-8e1238c320eb",
+            "quantity": 1,
+            "created_at": "2026-11-10T11:02:18.616Z",
+            "line_total": 260,
+            "product_id": "44444444-4444-4444-4444-444444444401",
+            "unit_price": 260,
+            "addons_total": 0,
+            "item_discount": 0,
+            "item_subtotal": 260,
+            "refunded_quantity": 0,
+            "product_name_snapshot": "Channay (Salan)"
+          }
+        ],
+        "status": "completed",
+        "payments": [
+          {
+            "id": "6f7e2cd0-264e-41f0-9f71-8f6ef37b531c",
+            "amount": 260,
+            "order_id": "b239940a-c992-403d-a29d-8e1238c320eb",
+            "method_id": "cash",
+            "created_at": "2026-11-10T11:02:18.616Z",
+            "amount_tendered": 500,
+            "change_returned": 240
+          }
+        ],
+        "subtotal": 260,
+        "created_at": "2026-11-10T11:02:18.619Z",
+        "total_paid": 260,
+        "grand_total": 260,
+        "void_reason": null,
+        "order_number": "ORD-20261110-0004",
+        "customer_name": null,
+        "discount_type": null,
+        "reprint_count": 0,
+        "customer_phone": null,
+        "discount_value": 0,
+        "receipt_number": "MTN-0001004",
+        "change_returned": 240,
+        "discount_amount": 0,
+        "idempotency_key": null,
+        "rounding_amount": 0,
+        "register_session_id": "73bf2130-f867-4c79-a90e-af742b336aa9",
+        "cashier_name_snapshot": "Admin"
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T11:02:18.631+00:00"
+    },
+    {
+      "id": "d27b0ab9-f1b1-45f2-9c0c-445cbef2ffbe",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "b239940a-c992-403d-a29d-8e1238c320eb",
+      "description": "Order MTN-0001004 finalized for 260 PKR (Admin)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 260,
+        "items_count": 1,
+        "receipt_number": "MTN-0001004"
+      },
+      "created_at": "2026-11-10T11:02:18.619+00:00"
+    },
+    {
+      "id": "14673cce-b3d0-49fb-9f1c-5183d37f7539",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "large",
+          "paper_size": "58mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-10T11:02:15.586+00:00"
+    },
+    {
+      "id": "e1a698f0-5f16-46f7-af4c-f2221098e081",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-10T11:02:15.578+00:00"
+    },
+    {
+      "id": "61040a64-20bb-4b65-b5ff-7646387e9111",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_DELETED",
+      "entity_type": "profile",
+      "entity_id": "13338311-db3a-4ecf-8dc8-cc8a50042e4d",
+      "description": "Staff account \"Zahid Cashier\" (cashier) deleted by Admin",
+      "old_values": {
+        "id": "13338311-db3a-4ecf-8dc8-cc8a50042e4d",
+        "role": "cashier",
+        "email": "test_cashier@maliknashta.pk",
+        "status": "active",
+        "pin_code": "5678",
+        "full_name": "Zahid Cashier",
+        "created_at": "2026-11-10T11:02:15.554Z",
+        "display_name": "Zahid Shift A"
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T11:02:15.565+00:00"
+    },
+    {
+      "id": "74c49a8c-0dd3-4bd8-b7b1-1f7c6e6b02b0",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_CREATED",
+      "entity_type": "profile",
+      "entity_id": "13338311-db3a-4ecf-8dc8-cc8a50042e4d",
+      "description": "Staff account created for Zahid Cashier (cashier)",
+      "old_values": null,
+      "new_values": {
+        "role": "cashier",
+        "email": "test_cashier@maliknashta.pk",
+        "full_name": "Zahid Cashier"
+      },
+      "created_at": "2026-11-10T11:02:15.554+00:00"
+    },
+    {
+      "id": "a142bbfb-7847-4adb-90f2-5ab0866c8730",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "VENDOR_DELETED",
+      "entity_type": "vendor",
+      "entity_id": "578379cd-1f19-40c4-ba70-1a3f20ea0a4b",
+      "description": "Vendor \"Al-Madina Flour Traders (Test)\" deleted by Admin",
+      "old_values": {
+        "id": "578379cd-1f19-40c4-ba70-1a3f20ea0a4b",
+        "name": "Al-Madina Flour Traders (Test)",
+        "phone": "0300-9998888",
+        "address": "Hasilpur Galla Mandi",
+        "category": "Flour",
+        "is_active": true,
+        "created_at": "2026-11-10T11:02:15.537Z",
+        "current_balance": 5000,
+        "opening_balance": 5000
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T11:02:15.548+00:00"
+    },
+    {
+      "id": "1caa1a4f-af32-48f7-8d15-27f51d1209ee",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "VENDOR_UPDATED",
+      "entity_type": "vendor",
+      "entity_id": "578379cd-1f19-40c4-ba70-1a3f20ea0a4b",
+      "description": "Vendor \"Al-Madina Flour Traders (Test)\" profile updated",
+      "old_values": {
+        "id": "578379cd-1f19-40c4-ba70-1a3f20ea0a4b",
+        "name": "Al-Madina Flour Traders (Test)",
+        "phone": "0300-5551234",
+        "address": null,
+        "category": "Flour",
+        "is_active": true,
+        "created_at": "2026-11-10T11:02:15.537Z",
+        "current_balance": 5000,
+        "opening_balance": 5000
+      },
+      "new_values": {
+        "id": "578379cd-1f19-40c4-ba70-1a3f20ea0a4b",
+        "name": "Al-Madina Flour Traders (Test)",
+        "phone": "0300-9998888",
+        "address": "Hasilpur Galla Mandi",
+        "category": "Flour",
+        "is_active": true,
+        "created_at": "2026-11-10T11:02:15.537Z",
+        "current_balance": 5000,
+        "opening_balance": 5000
+      },
+      "created_at": "2026-11-10T11:02:15.543+00:00"
+    },
+    {
+      "id": "2aa8cd38-1886-432b-9266-9b18df7deba8",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "VENDOR_CREATED",
+      "entity_type": "vendor",
+      "entity_id": "578379cd-1f19-40c4-ba70-1a3f20ea0a4b",
+      "description": "New vendor \"Al-Madina Flour Traders (Test)\" created with opening balance Rs. 5000",
+      "old_values": null,
+      "new_values": {
+        "name": "Al-Madina Flour Traders (Test)",
+        "opening_balance": 5000
+      },
+      "created_at": "2026-11-10T11:02:15.537+00:00"
+    },
+    {
+      "id": "6455a004-7507-43a7-a9d8-d509ddbe674a",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "RAW_MATERIAL_DELETED",
+      "entity_type": "raw_material",
+      "entity_id": "2ad29441-56ee-4acd-8780-ec66a096b3aa",
+      "description": "Raw material \"Test Desi Makhan Raw\" deleted by Admin",
+      "old_values": {
+        "id": "2ad29441-56ee-4acd-8780-ec66a096b3aa",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T11:02:15.513Z",
+        "default_price": 1900
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T11:02:15.528+00:00"
+    },
+    {
+      "id": "8651035b-029c-4d48-bdab-539ae87a33d8",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "RAW_MATERIAL_UPDATED",
+      "entity_type": "raw_material",
+      "entity_id": "2ad29441-56ee-4acd-8780-ec66a096b3aa",
+      "description": "Raw material \"Test Desi Makhan Raw\" updated",
+      "old_values": {
+        "id": "2ad29441-56ee-4acd-8780-ec66a096b3aa",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T11:02:15.513Z",
+        "default_price": 1800
+      },
+      "new_values": {
+        "id": "2ad29441-56ee-4acd-8780-ec66a096b3aa",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T11:02:15.513Z",
+        "default_price": 1900
+      },
+      "created_at": "2026-11-10T11:02:15.52+00:00"
+    },
+    {
+      "id": "9e2c1865-b524-4e18-8dda-67dce27da985",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "RAW_MATERIAL_CREATED",
+      "entity_type": "raw_material",
+      "entity_id": "2ad29441-56ee-4acd-8780-ec66a096b3aa",
+      "description": "New raw ingredient \"Test Desi Makhan Raw\" added at Rs. 1800/kg",
+      "old_values": null,
+      "new_values": {
+        "id": "2ad29441-56ee-4acd-8780-ec66a096b3aa",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T11:02:15.513Z",
+        "default_price": 1900
+      },
+      "created_at": "2026-11-10T11:02:15.513+00:00"
+    },
+    {
+      "id": "3ed62bbd-a15e-4c3f-a252-3a68c39ea4b1",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ADDON_CREATED",
+      "entity_type": "addon",
+      "entity_id": "eed980ec-d872-4bc5-b45c-d0c5cbbb5a60",
+      "description": "New addon \"Fresh Dahi Piyali (Test)\" created at Rs. 45",
+      "old_values": null,
+      "new_values": {
+        "id": "eed980ec-d872-4bc5-b45c-d0c5cbbb5a60",
+        "name": "Fresh Dahi Piyali (Updated)",
+        "price": 50,
+        "is_active": true
+      },
+      "created_at": "2026-11-10T11:02:15.447+00:00"
+    },
+    {
+      "id": "ded63363-3070-48af-aa79-2a3f3177682d",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "large",
+          "paper_size": "58mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-10T11:01:02.789+00:00"
+    },
+    {
+      "id": "4a2986e5-2d25-41bd-af74-2d22665396f1",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-10T11:01:02.78+00:00"
+    },
+    {
+      "id": "24793d1c-9089-4fa1-a648-09bf3e9fd5b3",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_DELETED",
+      "entity_type": "profile",
+      "entity_id": "3d980491-ba5a-47dd-93e8-6218543dd517",
+      "description": "Staff account \"Zahid Cashier\" (cashier) deleted by Admin",
+      "old_values": {
+        "id": "3d980491-ba5a-47dd-93e8-6218543dd517",
+        "role": "cashier",
+        "email": "test_cashier@maliknashta.pk",
+        "status": "active",
+        "pin_code": "5678",
+        "full_name": "Zahid Cashier",
+        "created_at": "2026-11-10T11:01:02.758Z",
+        "display_name": "Zahid Shift A"
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T11:01:02.768+00:00"
+    },
+    {
+      "id": "6662cac1-889f-46de-9187-a580fee2c50a",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "3d980491-ba5a-47dd-93e8-6218543dd517",
+      "description": "Staff account updated for Zahid Cashier",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T11:01:02.763+00:00"
+    },
+    {
+      "id": "700b1e6b-ec72-4226-ae39-faffed3bcf5a",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_CREATED",
+      "entity_type": "profile",
+      "entity_id": "3d980491-ba5a-47dd-93e8-6218543dd517",
+      "description": "Staff account created for Zahid Cashier (cashier)",
+      "old_values": null,
+      "new_values": {
+        "role": "cashier",
+        "email": "test_cashier@maliknashta.pk",
+        "full_name": "Zahid Cashier"
+      },
+      "created_at": "2026-11-10T11:01:02.758+00:00"
+    },
+    {
+      "id": "a2dbf530-a17c-47fd-8f07-6d7fba34c285",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "VENDOR_DELETED",
+      "entity_type": "vendor",
+      "entity_id": "ff288a40-ea17-489a-9d38-6623054d4766",
+      "description": "Vendor \"Al-Madina Flour Traders (Test)\" deleted by Admin",
+      "old_values": {
+        "id": "ff288a40-ea17-489a-9d38-6623054d4766",
+        "name": "Al-Madina Flour Traders (Test)",
+        "phone": "0300-9998888",
+        "address": "Hasilpur Galla Mandi",
+        "category": "Flour",
+        "is_active": true,
+        "created_at": "2026-11-10T11:01:02.738Z",
+        "current_balance": 5000,
+        "opening_balance": 5000
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T11:01:02.75+00:00"
+    },
+    {
+      "id": "a113ffa5-6b19-4a02-a068-e86bb7c8c1c0",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "VENDOR_UPDATED",
+      "entity_type": "vendor",
+      "entity_id": "ff288a40-ea17-489a-9d38-6623054d4766",
+      "description": "Vendor \"Al-Madina Flour Traders (Test)\" profile updated",
+      "old_values": {
+        "id": "ff288a40-ea17-489a-9d38-6623054d4766",
+        "name": "Al-Madina Flour Traders (Test)",
+        "phone": "0300-5551234",
+        "address": null,
+        "category": "Flour",
+        "is_active": true,
+        "created_at": "2026-11-10T11:01:02.738Z",
+        "current_balance": 5000,
+        "opening_balance": 5000
+      },
+      "new_values": {
+        "id": "ff288a40-ea17-489a-9d38-6623054d4766",
+        "name": "Al-Madina Flour Traders (Test)",
+        "phone": "0300-9998888",
+        "address": "Hasilpur Galla Mandi",
+        "category": "Flour",
+        "is_active": true,
+        "created_at": "2026-11-10T11:01:02.738Z",
+        "current_balance": 5000,
+        "opening_balance": 5000
+      },
+      "created_at": "2026-11-10T11:01:02.744+00:00"
+    },
+    {
+      "id": "f113d609-99fa-4cd5-9cac-0b3aba004d0b",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "VENDOR_CREATED",
+      "entity_type": "vendor",
+      "entity_id": "ff288a40-ea17-489a-9d38-6623054d4766",
+      "description": "New vendor \"Al-Madina Flour Traders (Test)\" created with opening balance Rs. 5000",
+      "old_values": null,
+      "new_values": {
+        "name": "Al-Madina Flour Traders (Test)",
+        "opening_balance": 5000
+      },
+      "created_at": "2026-11-10T11:01:02.738+00:00"
+    },
+    {
+      "id": "63f53a44-eaa8-4308-a51b-b64ad1799928",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "RAW_MATERIAL_DELETED",
+      "entity_type": "raw_material",
+      "entity_id": "2920eab0-29eb-4d7e-9b90-14a290502264",
+      "description": "Raw material \"Test Desi Makhan Raw\" deleted by Admin",
+      "old_values": {
+        "id": "2920eab0-29eb-4d7e-9b90-14a290502264",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T11:01:02.716Z",
+        "default_price": 1900
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T11:01:02.731+00:00"
+    },
+    {
+      "id": "f278336e-7233-42e2-a266-9c7e0f01e6d1",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "RAW_MATERIAL_UPDATED",
+      "entity_type": "raw_material",
+      "entity_id": "2920eab0-29eb-4d7e-9b90-14a290502264",
+      "description": "Raw material \"Test Desi Makhan Raw\" updated",
+      "old_values": {
+        "id": "2920eab0-29eb-4d7e-9b90-14a290502264",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T11:01:02.716Z",
+        "default_price": 1800
+      },
+      "new_values": {
+        "id": "2920eab0-29eb-4d7e-9b90-14a290502264",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T11:01:02.716Z",
+        "default_price": 1900
+      },
+      "created_at": "2026-11-10T11:01:02.724+00:00"
+    },
+    {
+      "id": "88fb250a-e208-4967-b369-8e1c5267d54a",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "RAW_MATERIAL_CREATED",
+      "entity_type": "raw_material",
+      "entity_id": "2920eab0-29eb-4d7e-9b90-14a290502264",
+      "description": "New raw ingredient \"Test Desi Makhan Raw\" added at Rs. 1800/kg",
+      "old_values": null,
+      "new_values": {
+        "id": "2920eab0-29eb-4d7e-9b90-14a290502264",
+        "name": "Test Desi Makhan Raw",
+        "unit": "kg",
+        "category": "Dairy",
+        "is_active": true,
+        "created_at": "2026-11-10T11:01:02.716Z",
+        "default_price": 1900
+      },
+      "created_at": "2026-11-10T11:01:02.716+00:00"
+    },
+    {
+      "id": "2bedd6f3-db29-403b-b9fc-bbed719df00c",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_DELETED",
+      "entity_type": "category",
+      "entity_id": "3992a014-f877-4401-9918-05059fed505d",
+      "description": "Category \"Test Parathay Category (Renamed)\" deleted by Admin",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T11:01:02.708+00:00"
+    },
+    {
+      "id": "cfadbc81-5afd-454c-aba8-c059205b740e",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_UPDATED",
+      "entity_type": "category",
+      "entity_id": "3992a014-f877-4401-9918-05059fed505d",
+      "description": "Category \"Test Parathay Category (Renamed)\" updated",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T11:01:02.701+00:00"
+    },
+    {
+      "id": "b027d5ac-1ee2-4b07-bbbb-1bd0312a78bc",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_CREATED",
+      "entity_type": "category",
+      "entity_id": "3992a014-f877-4401-9918-05059fed505d",
+      "description": "Category \"Test Parathay Category\" created",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-10T11:01:02.694+00:00"
+    },
+    {
+      "id": "a8e92875-df1a-4eef-bef4-aaefb3a49324",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ADDON_DELETED",
+      "entity_type": "addon",
+      "entity_id": "a13d4541-6871-4acf-b1e1-72306b0c04ea",
+      "description": "Addon \"Fresh Dahi Piyali (Updated)\" deleted by Admin",
+      "old_values": {
+        "id": "a13d4541-6871-4acf-b1e1-72306b0c04ea",
+        "name": "Fresh Dahi Piyali (Updated)",
+        "price": 50,
+        "is_active": true
+      },
+      "new_values": null,
+      "created_at": "2026-11-10T11:01:02.686+00:00"
+    },
+    {
+      "id": "3d4c586f-9b2b-430c-a895-3dc02cd927de",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ADDON_UPDATED",
+      "entity_type": "addon",
+      "entity_id": "a13d4541-6871-4acf-b1e1-72306b0c04ea",
+      "description": "Addon \"Fresh Dahi Piyali (Updated)\" updated. Price: Rs. 45 -> Rs. 50",
+      "old_values": null,
+      "new_values": {
+        "id": "a13d4541-6871-4acf-b1e1-72306b0c04ea",
+        "name": "Fresh Dahi Piyali (Updated)",
+        "price": 50,
+        "is_active": true
+      },
+      "created_at": "2026-11-10T11:01:02.672+00:00"
+    },
+    {
+      "id": "9c1dcd50-2aaa-4214-85dd-65fed806f5ca",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "ADDON_CREATED",
+      "entity_type": "addon",
+      "entity_id": "a13d4541-6871-4acf-b1e1-72306b0c04ea",
+      "description": "New addon \"Fresh Dahi Piyali (Test)\" created at Rs. 45",
+      "old_values": null,
+      "new_values": {
+        "id": "a13d4541-6871-4acf-b1e1-72306b0c04ea",
+        "name": "Fresh Dahi Piyali (Updated)",
+        "price": 50,
+        "is_active": true
+      },
+      "created_at": "2026-11-10T11:01:02.654+00:00"
+    },
+    {
+      "id": "3c604222-046f-4f0d-b791-c773d4e35605",
+      "user_id": null,
+      "user_name": "Bilal Cashier",
+      "action": "RECEIPT_REPRINT",
+      "entity_type": "order",
+      "entity_id": "b6f27791-6d2b-4358-83c5-82079698a8fb",
+      "description": "Thermal receipt reprint #1 requested for receipt MTN-0001003 by Bilal Cashier",
+      "old_values": null,
+      "new_values": {
+        "reprint_count": 1
+      },
+      "created_at": "2026-11-10T10:14:12.839+00:00"
+    },
+    {
+      "id": "36feefef-d49c-4939-a6d7-58640bcaf064",
+      "user_id": null,
+      "user_name": "Bilal Cashier",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "b6f27791-6d2b-4358-83c5-82079698a8fb",
+      "description": "Order MTN-0001003 finalized for 99 PKR (Bilal Cashier)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 99,
+        "items_count": 1,
+        "receipt_number": "MTN-0001003"
+      },
+      "created_at": "2026-11-10T10:13:12.686+00:00"
+    },
+    {
+      "id": "1ed80b3f-0546-4f80-aed8-b081f47cfc23",
+      "user_id": null,
+      "user_name": "Malik Ammar (Admin)",
+      "action": "REGISTER_OPEN",
+      "entity_type": "register_session",
+      "entity_id": "73bf2130-f867-4c79-a90e-af742b336aa9",
+      "description": "Cash register shift opened with Rs. 5000 float by Malik Ammar (Admin)",
+      "old_values": null,
+      "new_values": {
+        "opening_amount": 5000
+      },
+      "created_at": "2026-11-10T10:10:44.856+00:00"
+    },
+    {
+      "id": "627566b3-183a-4eec-b643-5e494706bedd",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0300-1234567",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025Z",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-10T09:57:34.859+00:00"
+    },
+    {
+      "id": "98856242-eb78-4334-bba8-2bfc26bbc6f2",
+      "user_id": null,
+      "user_name": "Malik Ammar",
+      "action": "REGISTER_CLOSE",
+      "entity_type": "register_session",
+      "entity_id": "90296205-a9ff-41fc-81af-00fe61b3595b",
+      "description": "Shift closed. Expected: Rs. 7234, Actual: Rs. 7234, Discrepancy: Rs. 0",
+      "old_values": null,
+      "new_values": {
+        "difference": 0,
+        "closing_note": "Shift balanced and verified",
+        "actual_amount": 7234,
+        "expected_amount": 7234
+      },
+      "created_at": "2026-11-10T09:57:34.846+00:00"
+    },
+    {
+      "id": "be182824-0003-43b9-92cf-b7e66f81cdfb",
+      "user_id": null,
+      "user_name": "Malik Ammar",
+      "action": "ORDER_VOIDED",
+      "entity_type": "order",
+      "entity_id": "99a0946a-49ed-46bf-bf16-03f712918df1",
+      "description": "Order MTN-0001002 voided by Malik Ammar. Reason: Customer cancelled digital transaction",
+      "old_values": {
+        "status": "completed",
+        "grand_total": 330
+      },
+      "new_values": {
+        "status": "voided",
+        "void_reason": "Customer cancelled digital transaction",
+        "cash_reverted": 0
+      },
+      "created_at": "2026-11-10T09:57:34.837+00:00"
+    },
+    {
+      "id": "154454fb-e8f7-46b9-9ad5-9934d714a3d6",
+      "user_id": null,
+      "user_name": "Malik Ammar",
+      "action": "REFUND_CREATED",
+      "entity_type": "refund",
+      "entity_id": "96e6839a-c08e-482b-95d9-525e351142b2",
+      "description": "Refund REF-000101 of Rs. 234 issued for order MTN-0001001. Reason: Mirch zyada thi",
+      "old_values": null,
+      "new_values": {
+        "amount": 234,
+        "status": "partially_refunded",
+        "refund_number": "REF-000101"
+      },
+      "created_at": "2026-11-10T09:57:34.831+00:00"
+    },
+    {
+      "id": "96109951-342f-4ab0-97dd-7f224af0b09a",
+      "user_id": null,
+      "user_name": "Bilal Cashier",
+      "action": "RECEIPT_REPRINT",
+      "entity_type": "order",
+      "entity_id": "69b8dab1-8511-4706-b103-b81cf7cdb199",
+      "description": "Thermal receipt reprint #1 requested for receipt MTN-0001001 by Bilal Cashier",
+      "old_values": null,
+      "new_values": {
+        "reprint_count": 1
+      },
+      "created_at": "2026-11-10T09:57:34.823+00:00"
+    },
+    {
+      "id": "fd6ba575-4197-4ce6-811d-be489d51cf26",
+      "user_id": null,
+      "user_name": "Bilal Cashier",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "99a0946a-49ed-46bf-bf16-03f712918df1",
+      "description": "Order MTN-0001002 finalized for 330 PKR (Bilal Cashier)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 330,
+        "items_count": 1,
+        "receipt_number": "MTN-0001002"
+      },
+      "created_at": "2026-11-10T09:57:34.815+00:00"
+    },
+    {
+      "id": "0c172502-6bc9-4a5a-9d64-d7296b7c65f4",
+      "user_id": null,
+      "user_name": "Malik Ammar",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "69b8dab1-8511-4706-b103-b81cf7cdb199",
+      "description": "Order MTN-0001001 finalized for 468 PKR (Malik Ammar)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 468,
+        "items_count": 1,
+        "receipt_number": "MTN-0001001"
+      },
+      "created_at": "2026-11-10T09:57:34.8+00:00"
+    },
+    {
+      "id": "a097eb25-b635-4216-a8a5-81839d48cb24",
+      "user_id": null,
+      "user_name": "Bilal Cashier",
+      "action": "ORDER_HELD",
+      "entity_type": "held_order",
+      "entity_id": "1f7dacae-f98b-4027-b19a-34765e421255",
+      "description": "Cart temporarily held as HOLD-001 for \"Table 4 - Chaudhry Sahib\"",
+      "old_values": null,
+      "new_values": {
+        "hold_number": "HOLD-001"
+      },
+      "created_at": "2026-11-10T09:57:34.593+00:00"
+    },
+    {
+      "id": "ab6c8ea6-e0ea-4318-aba1-d799d1e7ab03",
+      "user_id": null,
+      "user_name": "Malik Ammar",
+      "action": "CASH_IN",
+      "entity_type": "register_transaction",
+      "entity_id": "7c2cdba6-56a9-4455-b4ad-40647a829e84",
+      "description": "Cash In: Rs. 2000 added to drawer (Change float addition) by Malik Ammar",
+      "old_values": null,
+      "new_values": {
+        "amount": 2000,
+        "reason": "Change float addition"
+      },
+      "created_at": "2026-11-10T09:57:34.584+00:00"
+    },
+    {
+      "id": "2f4f6bac-684f-4735-9bbb-e16fcdf92bf4",
+      "user_id": null,
+      "user_name": "Malik Ammar",
+      "action": "REGISTER_OPEN",
+      "entity_type": "register_session",
+      "entity_id": "90296205-a9ff-41fc-81af-00fe61b3595b",
+      "description": "Cash register shift opened with Rs. 5000 float by Malik Ammar",
+      "old_values": null,
+      "new_values": {
+        "opening_amount": 5000
+      },
+      "created_at": "2026-11-10T09:57:34.575+00:00"
+    }
+  ]
+}
