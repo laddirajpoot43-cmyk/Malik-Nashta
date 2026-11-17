@@ -516,8 +516,6 @@ export default function POSPage() {
         {activeProductForSelection && (
           <ProductPricingSelector
             product={activeProductForSelection}
-            addonsList={addons}
-            quickNotes={quickNotes}
             onAdd={handleAddItemFromSelector}
             onCancel={() => {
               setActiveProductForSelection(null);

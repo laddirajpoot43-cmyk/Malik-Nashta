@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useSettings } from '@/context/SettingsContext';
 import { useAuth } from '@/context/AuthContext';
 import { usePOS } from '@/context/POSContext';
-import { Product, ProductAddon, Category, Profile } from '@/types/pos';
+import { Product, Category, Profile } from '@/types/pos';
 import { formatMoney } from '@/lib/money';
 import { AdminGuard } from '@/components/auth/AdminGuard';
 import { ReceiptTemplateEditor } from '@/components/settings/ReceiptTemplateEditor';
@@ -23,7 +23,6 @@ import {
   Edit2,
   Boxes,
   Layers,
-  Sparkles,
   X,
   Lock,
 } from 'lucide-react';
@@ -32,7 +31,7 @@ export default function SettingsPage() {
   return (
     <AdminGuard
       fallbackTitle="System Settings & Admin Control Center"
-      fallbackDescription="Please enter Admin PIN to configure receipt templates, products, categories, addons, raw materials, and staff accounts."
+      fallbackDescription="Please enter Admin PIN to configure receipt templates, products, categories, raw materials, and staff accounts."
     >
       <SettingsContent />
     </AdminGuard>
@@ -45,7 +44,7 @@ function SettingsContent() {
   const { refreshPOSData } = usePOS();
 
   const [activeTab, setActiveTab] = useState<
-    'slip' | 'menu' | 'categories' | 'addons' | 'raw' | 'users' | 'business' | 'security'
+    'slip' | 'menu' | 'categories' | 'raw' | 'users' | 'business' | 'security'
   >('slip');
 
   // Business form
@@ -63,7 +62,6 @@ function SettingsContent() {
   // Entities state
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [addons, setAddons] = useState<ProductAddon[]>([]);
   const [rawMaterials, setRawMaterials] = useState<any[]>([]);
   const [loadingData, setLoadingData] = useState(false);
 
@@ -92,11 +90,6 @@ function SettingsContent() {
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [categoryName, setCategoryName] = useState('');
   const [categoryOrder, setCategoryOrder] = useState('1');
-
-  const [showAddonModal, setShowAddonModal] = useState(false);
-  const [editingAddon, setEditingAddon] = useState<ProductAddon | null>(null);
-  const [addonName, setAddonName] = useState('');
-  const [addonPrice, setAddonPrice] = useState('');
 
   const [showRawModal, setShowRawModal] = useState(false);
   const [editingRaw, setEditingRaw] = useState<any | null>(null);
@@ -138,16 +131,14 @@ function SettingsContent() {
   const loadAllData = async () => {
     setLoadingData(true);
     try {
-      const [pRes, cRes, aRes, rRes] = await Promise.all([
+      const [pRes, cRes, rRes] = await Promise.all([
         fetch('/api/products').then((r) => r.json()),
         fetch('/api/categories').then((r) => r.json()),
-        fetch('/api/addons').then((r) => r.json()),
         fetch('/api/raw-materials?include_inactive=true').then((r) => r.json()),
       ]);
 
       if (pRes.success) setProducts(pRes.products || []);
       if (cRes.success) setCategories(cRes.categories || []);
-      if (aRes.success) setAddons(aRes.addons || []);
       if (rRes.success) setRawMaterials(rRes.rawMaterials || []);
       refreshPOSData();
     } catch (e: any) {
@@ -311,53 +302,7 @@ function SettingsContent() {
     }
   };
 
-  // --- ADDON CRUD ---
-  const handleSaveAddon = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const method = editingAddon ? 'PUT' : 'POST';
-      const body: any = {
-        name: addonName,
-        price: parseFloat(addonPrice) || 0,
-        cashier_name: currentUser?.display_name || 'Admin',
-      };
-      if (editingAddon) body.id = editingAddon.id;
 
-      const res = await fetch('/api/addons', {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
-      const data = await res.json();
-      if (data.success) {
-        showNotice(editingAddon ? 'Addon updated!' : 'Addon created!');
-        setShowAddonModal(false);
-        loadAllData();
-      } else {
-        showNotice(data.error || 'Failed to save addon', 'error');
-      }
-    } catch (e: any) {
-      showNotice(e.message, 'error');
-    }
-  };
-
-  const handleDeleteAddon = async (id: string, name: string) => {
-    if (!confirm(`Delete addon "${name}"?`)) return;
-    try {
-      const res = await fetch(`/api/addons?id=${id}&cashier_name=${encodeURIComponent(currentUser?.display_name || 'Admin')}`, {
-        method: 'DELETE',
-      });
-      const data = await res.json();
-      if (data.success) {
-        showNotice(`Addon "${name}" deleted.`);
-        loadAllData();
-      } else {
-        showNotice(data.error || 'Failed to delete addon', 'error');
-      }
-    } catch (e: any) {
-      showNotice(e.message, 'error');
-    }
-  };
 
   // --- RAW MATERIALS CRUD ---
   const handleSaveRaw = async (e: React.FormEvent) => {
@@ -464,7 +409,6 @@ function SettingsContent() {
     { id: 'slip', label: 'Slip Template Customizer', icon: Printer },
     { id: 'menu', label: 'Menu Products', icon: Utensils },
     { id: 'categories', label: 'Categories', icon: Layers },
-    { id: 'addons', label: 'Addons (Makhan/Tari)', icon: Sparkles },
     { id: 'raw', label: 'Raw Materials (Mandi)', icon: Boxes },
     { id: 'users', label: 'Staff Accounts', icon: Users },
     { id: 'business', label: 'Business Profile', icon: Store },
@@ -487,7 +431,7 @@ function SettingsContent() {
               </span>
             </h1>
             <p className="text-xs text-slate-400">
-              Complete administrative authority: customize thermal receipt slips, manage menu items, categories, addons, raw materials, staff profiles, and security PINs
+              Complete administrative authority: customize thermal receipt slips, manage menu items, categories, raw materials, staff profiles, and security PINs
             </p>
           </div>
         </div>
@@ -582,85 +526,95 @@ function SettingsContent() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/60">
-                  {products.map((p) => (
-                    <tr key={p.id} className="hover:bg-slate-800/50 transition">
-                      <td className="px-4 py-3 font-bold text-slate-200">
-                        <div>{p.name}</div>
-                        {p.short_name && <div className="text-[10px] text-slate-500 font-normal">Button: {p.short_name}</div>}
-                      </td>
-                      <td className="px-4 py-3 text-slate-400">{p.category_name}</td>
-                      <td className="px-4 py-3 font-bold text-emerald-400">{formatMoney(p.selling_price)}</td>
-                      <td className="px-4 py-3">
-                        <div className="flex flex-wrap gap-1">
-                          {p.pricing_config?.enable_by_plate !== false && (
-                            <span className="px-1.5 py-0.5 rounded text-[10px] bg-slate-800 text-emerald-300 border border-emerald-500/30">
-                              Plate: Full ({formatMoney(p.pricing_config?.full_plate_price || p.selling_price)})
-                              {p.pricing_config?.half_plate_price ? ` / Half (${formatMoney(p.pricing_config.half_plate_price)})` : ''}
-                            </span>
-                          )}
-                          {p.pricing_config?.enable_by_price && (
-                            <span className="px-1.5 py-0.5 rounded text-[10px] bg-slate-800 text-teal-300 border border-teal-500/30">
-                              By Price {p.pricing_config.min_price ? `(min Rs. ${p.pricing_config.min_price})` : ''}
-                            </span>
-                          )}
-                          {p.pricing_config?.enable_custom_price && (
-                            <span className="px-1.5 py-0.5 rounded text-[10px] bg-slate-800 text-amber-300 border border-amber-500/30">
-                              {p.pricing_config.custom_price_label || 'Half Rate'}
-                              {p.pricing_config.custom_price ? ` (${formatMoney(p.pricing_config.custom_price)})` : ''}
-                            </span>
-                          )}
-                        </div>
-                      </td>
-                      <td className="px-4 py-3">
-                        <span
-                          className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                            p.availability === 'available'
-                              ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                              : p.availability === 'sold_out'
-                              ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                              : 'bg-slate-800 text-slate-400'
-                          }`}
-                        >
-                          {p.availability}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-right space-x-2">
-                        <button
-                          onClick={() => {
-                            setEditingProduct(p);
-                            setProductForm({
-                              name: p.name,
-                              short_name: p.short_name || p.name,
-                              category_id: p.category_id,
-                              selling_price: String(p.selling_price),
-                              cost_price: String(p.cost_price || 0),
-                              availability: p.availability,
-                              enable_by_plate: p.pricing_config?.enable_by_plate !== false,
-                              full_plate_price: String(p.pricing_config?.full_plate_price || p.selling_price || ''),
-                              half_plate_price: String(p.pricing_config?.half_plate_price || ''),
-                              enable_by_price: p.pricing_config?.enable_by_price !== false,
-                              min_price: String(p.pricing_config?.min_price || ''),
-                              enable_custom_price: p.pricing_config?.enable_custom_price !== false,
-                              custom_price_label: p.pricing_config?.custom_price_label || 'Half Rate',
-                              custom_price: String(p.pricing_config?.custom_price || ''),
-                            });
-                            setShowProductModal(true);
-                          }}
-                          className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-semibold transition inline-flex items-center gap-1"
-                        >
-                          <Edit2 className="w-3 h-3 text-amber-400" />
-                          <span>Edit</span>
-                        </button>
-                        <button
-                          onClick={() => handleDeleteProduct(p.id, p.name)}
-                          className="px-2.5 py-1 bg-rose-950/60 hover:bg-rose-900/80 text-rose-300 border border-rose-500/30 rounded-lg text-xs font-semibold transition inline-flex items-center gap-1"
-                        >
-                          <Trash2 className="w-3 h-3 text-rose-400" />
-                          <span>Delete</span>
-                        </button>
+                  {products.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} className="px-4 py-12 text-center text-slate-500 text-xs">
+                        <Utensils className="w-8 h-8 mx-auto mb-2 opacity-30 text-emerald-400" />
+                        <p className="font-semibold text-slate-300">No menu products configured.</p>
+                        <p className="text-[11px] text-slate-500 mt-1">All previous products have been removed. Click &quot;Add New Menu Product&quot; to add items.</p>
                       </td>
                     </tr>
-                  ))}
+                  ) : (
+                    products.map((p) => (
+                      <tr key={p.id} className="hover:bg-slate-800/50 transition">
+                        <td className="px-4 py-3 font-bold text-slate-200">
+                          <div>{p.name}</div>
+                          {p.short_name && <div className="text-[10px] text-slate-500 font-normal">Button: {p.short_name}</div>}
+                        </td>
+                        <td className="px-4 py-3 text-slate-400">{p.category_name}</td>
+                        <td className="px-4 py-3 font-bold text-emerald-400">{formatMoney(p.selling_price)}</td>
+                        <td className="px-4 py-3">
+                          <div className="flex flex-wrap gap-1">
+                            {p.pricing_config?.enable_by_plate !== false && (
+                              <span className="px-1.5 py-0.5 rounded text-[10px] bg-slate-800 text-emerald-300 border border-emerald-500/30">
+                                Plate: Full ({formatMoney(p.pricing_config?.full_plate_price || p.selling_price)})
+                                {p.pricing_config?.half_plate_price ? ` / Half (${formatMoney(p.pricing_config.half_plate_price)})` : ''}
+                              </span>
+                            )}
+                            {p.pricing_config?.enable_by_price && (
+                              <span className="px-1.5 py-0.5 rounded text-[10px] bg-slate-800 text-teal-300 border border-teal-500/30">
+                                By Price {p.pricing_config.min_price ? `(min Rs. ${p.pricing_config.min_price})` : ''}
+                              </span>
+                            )}
+                            {p.pricing_config?.enable_custom_price && (
+                              <span className="px-1.5 py-0.5 rounded text-[10px] bg-slate-800 text-amber-300 border border-amber-500/30">
+                                {p.pricing_config.custom_price_label || 'Half Rate'}
+                                {p.pricing_config.custom_price ? ` (${formatMoney(p.pricing_config.custom_price)})` : ''}
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                        <td className="px-4 py-3">
+                          <span
+                            className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                              p.availability === 'available'
+                                ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                                : p.availability === 'sold_out'
+                                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                                : 'bg-slate-800 text-slate-400'
+                            }`}
+                          >
+                            {p.availability}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 text-right space-x-2">
+                          <button
+                            onClick={() => {
+                              setEditingProduct(p);
+                              setProductForm({
+                                name: p.name,
+                                short_name: p.short_name || p.name,
+                                category_id: p.category_id,
+                                selling_price: String(p.selling_price),
+                                cost_price: String(p.cost_price || 0),
+                                availability: p.availability,
+                                enable_by_plate: p.pricing_config?.enable_by_plate !== false,
+                                full_plate_price: String(p.pricing_config?.full_plate_price || p.selling_price || ''),
+                                half_plate_price: String(p.pricing_config?.half_plate_price || ''),
+                                enable_by_price: p.pricing_config?.enable_by_price !== false,
+                                min_price: String(p.pricing_config?.min_price || ''),
+                                enable_custom_price: p.pricing_config?.enable_custom_price !== false,
+                                custom_price_label: p.pricing_config?.custom_price_label || 'Half Rate',
+                                custom_price: String(p.pricing_config?.custom_price || ''),
+                              });
+                              setShowProductModal(true);
+                            }}
+                            className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-semibold transition inline-flex items-center gap-1"
+                          >
+                            <Edit2 className="w-3 h-3 text-amber-400" />
+                            <span>Edit</span>
+                          </button>
+                          <button
+                            onClick={() => handleDeleteProduct(p.id, p.name)}
+                            className="px-2.5 py-1 bg-rose-950/60 hover:bg-rose-900/80 text-rose-300 border border-rose-500/30 rounded-lg text-xs font-semibold transition inline-flex items-center gap-1"
+                          >
+                            <Trash2 className="w-3 h-3 text-rose-400" />
+                            <span>Delete</span>
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
@@ -739,77 +693,6 @@ function SettingsContent() {
         </div>
       )}
 
-      {/* TAB 4: ADDONS CRUD */}
-      {activeTab === 'addons' && (
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-amber-400" />
-              <span>Addons & Extra Servings (Makhan, Desi Ghee, Tari) ({addons.length})</span>
-            </h3>
-
-            <button
-              onClick={() => {
-                setEditingAddon(null);
-                setAddonName('');
-                setAddonPrice('');
-                setShowAddonModal(true);
-              }}
-              className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Add New Addon</span>
-            </button>
-          </div>
-
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-slate-950/70 border-b border-slate-800 text-slate-400 uppercase font-semibold text-[10px]">
-                <tr>
-                  <th className="px-4 py-3">Addon Item</th>
-                  <th className="px-4 py-3">Price (PKR)</th>
-                  <th className="px-4 py-3">Status</th>
-                  <th className="px-4 py-3 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800/60">
-                {addons.map((a) => (
-                  <tr key={a.id} className="hover:bg-slate-800/50 transition">
-                    <td className="px-4 py-3 font-bold text-white">{a.name}</td>
-                    <td className="px-4 py-3 font-black text-amber-400">+{formatMoney(a.price)}</td>
-                    <td className="px-4 py-3">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                        {a.is_active ? 'Active' : 'Disabled'}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-right space-x-2">
-                      <button
-                        onClick={() => {
-                          setEditingAddon(a);
-                          setAddonName(a.name);
-                          setAddonPrice(String(a.price));
-                          setShowAddonModal(true);
-                        }}
-                        className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-semibold transition inline-flex items-center gap-1"
-                      >
-                        <Edit2 className="w-3 h-3 text-amber-400" />
-                        <span>Edit</span>
-                      </button>
-                      <button
-                        onClick={() => handleDeleteAddon(a.id, a.name)}
-                        className="px-2.5 py-1 bg-rose-950/60 hover:bg-rose-900/80 text-rose-300 border border-rose-500/30 rounded-lg text-xs font-semibold transition inline-flex items-center gap-1"
-                      >
-                        <Trash2 className="w-3 h-3 text-rose-400" />
-                        <span>Delete</span>
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
 
       {/* TAB 5: RAW MATERIALS CRUD */}
       {activeTab === 'raw' && (
@@ -1390,64 +1273,6 @@ function SettingsContent() {
         </div>
       )}
 
-      {/* ADDON MODAL */}
-      {showAddonModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <form onSubmit={handleSaveAddon} className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-sm p-5 space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-              <h3 className="font-bold text-sm text-white">
-                {editingAddon ? 'Edit Addon' : 'Add New Addon'}
-              </h3>
-              <button type="button" onClick={() => setShowAddonModal(false)} className="text-slate-400 hover:text-white">
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="space-y-3">
-              <div>
-                <label className="block text-[11px] font-semibold text-slate-400 mb-1">Addon Name:</label>
-                <input
-                  type="text"
-                  required
-                  value={addonName}
-                  onChange={(e) => setAddonName(e.target.value)}
-                  placeholder="e.g. Makhan / Fresh Butter"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-[11px] font-semibold text-slate-400 mb-1">Addon Price (PKR):</label>
-                <input
-                  type="number"
-                  step="any"
-                  required
-                  value={addonPrice}
-                  onChange={(e) => setAddonPrice(e.target.value)}
-                  placeholder="50"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-amber-400 font-bold focus:outline-none"
-                />
-              </div>
-            </div>
-
-            <div className="flex gap-2 pt-2">
-              <button
-                type="button"
-                onClick={() => setShowAddonModal(false)}
-                className="flex-1 py-2 text-xs font-semibold text-slate-300 bg-slate-800 rounded-xl"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="flex-1 py-2 text-xs font-bold text-slate-950 bg-amber-500 hover:bg-amber-400 rounded-xl shadow"
-              >
-                Save Addon
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
 
       {/* RAW MATERIAL MODAL */}
       {showRawModal && (

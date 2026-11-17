@@ -92,331 +92,8 @@
       "created_at": "2026-11-10T09:52:55.026+00:00"
     }
   ],
-  "products": [
-    {
-      "id": "44444444-4444-4444-4444-444444444401",
-      "category_id": "22222222-2222-2222-2222-222222222201",
-      "name": "Channay (Salan)",
-      "short_name": "Channay",
-      "selling_price": 180,
-      "cost_price": 130,
-      "availability": "available",
-      "is_active": true,
-      "sort_order": 1,
-      "created_at": "2026-11-10T14:02:37.00904+00:00",
-      "pricing_config": {
-        "enable_by_plate": true,
-        "full_plate_price": 180,
-        "half_plate_price": 100,
-        "enable_by_price": true,
-        "min_price": 25,
-        "enable_custom_price": true,
-        "custom_price_label": "Half Rate",
-        "custom_price": 100
-      }
-    },
-    {
-      "id": "44444444-4444-4444-4444-444444444402",
-      "category_id": "22222222-2222-2222-2222-222222222201",
-      "name": "Shahi Daleem",
-      "short_name": "Daleem",
-      "selling_price": 280,
-      "cost_price": 140,
-      "availability": "available",
-      "is_active": true,
-      "sort_order": 2,
-      "created_at": "2026-11-10T14:02:37.00904+00:00",
-      "pricing_config": {
-        "enable_by_plate": true,
-        "full_plate_price": 280,
-        "half_plate_price": 150,
-        "enable_by_price": true,
-        "min_price": 10,
-        "enable_custom_price": true,
-        "custom_price_label": "Half Rate",
-        "custom_price": 150
-      }
-    },
-    {
-      "id": "44444444-4444-4444-4444-444444444403",
-      "category_id": "22222222-2222-2222-2222-222222222201",
-      "name": "Bong Paye (Special)",
-      "short_name": "Bong Paye",
-      "selling_price": 550,
-      "cost_price": 320,
-      "availability": "available",
-      "is_active": true,
-      "sort_order": 3,
-      "created_at": "2026-11-10T14:02:37.00904+00:00",
-      "pricing_config": {
-        "enable_by_plate": true,
-        "full_plate_price": 550,
-        "half_plate_price": 300,
-        "enable_by_price": true,
-        "min_price": 10,
-        "enable_custom_price": true,
-        "custom_price_label": "Half Rate",
-        "custom_price": 300
-      }
-    },
-    {
-      "id": "44444444-4444-4444-4444-444444444404",
-      "category_id": "22222222-2222-2222-2222-222222222201",
-      "name": "Desi Maghaz Fry",
-      "short_name": "Maghaz Fry",
-      "selling_price": 600,
-      "cost_price": 360,
-      "availability": "available",
-      "is_active": true,
-      "sort_order": 4,
-      "created_at": "2026-11-10T14:02:37.00904+00:00",
-      "pricing_config": {
-        "enable_by_plate": true,
-        "full_plate_price": 600,
-        "half_plate_price": 330,
-        "enable_by_price": true,
-        "min_price": 10,
-        "enable_custom_price": true,
-        "custom_price_label": "Half Rate",
-        "custom_price": 330
-      }
-    },
-    {
-      "id": "44444444-4444-4444-4444-444444444405",
-      "category_id": "22222222-2222-2222-2222-222222222201",
-      "name": "Kofta Channay",
-      "short_name": "Qoftay",
-      "selling_price": 300,
-      "cost_price": 160,
-      "availability": "available",
-      "is_active": true,
-      "sort_order": 5,
-      "created_at": "2026-11-10T14:02:37.00904+00:00",
-      "pricing_config": {
-        "enable_by_plate": true,
-        "full_plate_price": 180,
-        "half_plate_price": 100,
-        "enable_by_price": true,
-        "min_price": 20,
-        "enable_custom_price": true,
-        "custom_price_label": "Half Rate",
-        "custom_price": 100
-      }
-    },
-    {
-      "id": "44444444-4444-4444-4444-444444444406",
-      "category_id": "22222222-2222-2222-2222-222222222201",
-      "name": "Choley Puri (2 Purian + Chana + Halwa)",
-      "short_name": "Choley Puri",
-      "selling_price": 180,
-      "cost_price": 90,
-      "availability": "available",
-      "is_active": true,
-      "sort_order": 6,
-      "created_at": "2026-11-10T14:02:37.00904+00:00",
-      "pricing_config": {
-        "enable_by_plate": true,
-        "full_plate_price": 180,
-        "half_plate_price": 100,
-        "enable_by_price": true,
-        "min_price": 20,
-        "enable_custom_price": true,
-        "custom_price_label": "Half Rate",
-        "custom_price": 100
-      }
-    },
-    {
-      "id": "44444444-4444-4444-4444-444444444407",
-      "category_id": "22222222-2222-2222-2222-222222222202",
-      "name": "Crispy Lachha Paratha",
-      "short_name": "Lachha Paratha",
-      "selling_price": 80,
-      "cost_price": 38,
-      "availability": "available",
-      "is_active": true,
-      "sort_order": 7,
-      "created_at": "2026-11-10T14:02:37.00904+00:00",
-      "pricing_config": {
-        "enable_by_plate": true,
-        "full_plate_price": 80,
-        "half_plate_price": 40,
-        "enable_by_price": true,
-        "min_price": 10,
-        "enable_custom_price": true,
-        "custom_price_label": "Half Rate",
-        "custom_price": 40
-      }
-    },
-    {
-      "id": "44444444-4444-4444-4444-444444444408",
-      "category_id": "22222222-2222-2222-2222-222222222202",
-      "name": "Desi Ghee Aloo Paratha",
-      "short_name": "Aloo Paratha",
-      "selling_price": 120,
-      "cost_price": 55,
-      "availability": "available",
-      "is_active": true,
-      "sort_order": 8,
-      "created_at": "2026-11-10T14:02:37.00904+00:00",
-      "pricing_config": {
-        "enable_by_plate": true,
-        "full_plate_price": 120,
-        "half_plate_price": 70,
-        "enable_by_price": true,
-        "min_price": 10,
-        "enable_custom_price": true,
-        "custom_price_label": "Half Rate",
-        "custom_price": 70
-      }
-    },
-    {
-      "id": "44444444-4444-4444-4444-444444444409",
-      "category_id": "22222222-2222-2222-2222-222222222202",
-      "name": "Tandoori Saada Naan",
-      "short_name": "Saada Naan",
-      "selling_price": 30,
-      "cost_price": 15,
-      "availability": "available",
-      "is_active": true,
-      "sort_order": 9,
-      "created_at": "2026-11-10T14:02:37.00904+00:00",
-      "pricing_config": {
-        "enable_by_plate": true,
-        "full_plate_price": 30,
-        "half_plate_price": 20,
-        "enable_by_price": true,
-        "min_price": 10,
-        "enable_custom_price": true,
-        "custom_price_label": "Half Rate",
-        "custom_price": 20
-      }
-    },
-    {
-      "id": "44444444-4444-4444-4444-444444444410",
-      "category_id": "22222222-2222-2222-2222-222222222203",
-      "name": "Desi Anda Omelette (Pyaz Mirch)",
-      "short_name": "Desi Omelette",
-      "selling_price": 120,
-      "cost_price": 60,
-      "availability": "available",
-      "is_active": true,
-      "sort_order": 10,
-      "created_at": "2026-11-10T14:02:37.00904+00:00",
-      "pricing_config": {
-        "enable_by_plate": true,
-        "full_plate_price": 120,
-        "half_plate_price": 70,
-        "enable_by_price": true,
-        "min_price": 10,
-        "enable_custom_price": true,
-        "custom_price_label": "Half Rate",
-        "custom_price": 70
-      }
-    },
-    {
-      "id": "44444444-4444-4444-4444-444444444411",
-      "category_id": "22222222-2222-2222-2222-222222222203",
-      "name": "Half Fry Anda",
-      "short_name": "Half Fry",
-      "selling_price": 80,
-      "cost_price": 40,
-      "availability": "available",
-      "is_active": true,
-      "sort_order": 11,
-      "created_at": "2026-11-10T14:02:37.00904+00:00",
-      "pricing_config": {
-        "enable_by_plate": true,
-        "full_plate_price": 80,
-        "half_plate_price": 40,
-        "enable_by_price": true,
-        "min_price": 10,
-        "enable_custom_price": true,
-        "custom_price_label": "Half Rate",
-        "custom_price": 40
-      }
-    },
-    {
-      "id": "44444444-4444-4444-4444-444444444412",
-      "category_id": "22222222-2222-2222-2222-222222222204",
-      "name": "Special Doodh Patti Chai",
-      "short_name": "Doodh Patti",
-      "selling_price": 90,
-      "cost_price": 45,
-      "availability": "available",
-      "is_active": true,
-      "sort_order": 12,
-      "created_at": "2026-11-10T14:02:37.00904+00:00",
-      "pricing_config": {
-        "enable_by_plate": true,
-        "full_plate_price": 90,
-        "half_plate_price": 50,
-        "enable_by_price": true,
-        "min_price": 10,
-        "enable_custom_price": true,
-        "custom_price_label": "Half Rate",
-        "custom_price": 50
-      }
-    },
-    {
-      "id": "44444444-4444-4444-4444-444444444413",
-      "category_id": "22222222-2222-2222-2222-222222222204",
-      "name": "Karak Hotel Chai",
-      "short_name": "Karak Chai",
-      "selling_price": 60,
-      "cost_price": 28,
-      "availability": "available",
-      "is_active": true,
-      "sort_order": 13,
-      "created_at": "2026-11-10T14:02:37.00904+00:00",
-      "pricing_config": {
-        "enable_by_plate": true,
-        "full_plate_price": 60,
-        "half_plate_price": 30,
-        "enable_by_price": true,
-        "min_price": 10,
-        "enable_custom_price": true,
-        "custom_price_label": "Half Rate",
-        "custom_price": 30
-      }
-    }
-  ],
-  "product_addons": [
-    {
-      "id": "a1",
-      "name": "Makhan / Fresh Butter",
-      "price": 50,
-      "is_active": true,
-      "created_at": "2026-11-10T14:02:37.905555+00:00"
-    },
-    {
-      "id": "a2",
-      "name": "Desi Ghee Chhanka",
-      "price": 60,
-      "is_active": true,
-      "created_at": "2026-11-10T14:02:37.905555+00:00"
-    },
-    {
-      "id": "a3",
-      "name": "Extra Tari / Roghan Gravy",
-      "price": 30,
-      "is_active": true,
-      "created_at": "2026-11-10T14:02:37.905555+00:00"
-    },
-    {
-      "id": "a4",
-      "name": "Dahi Raita Piyali",
-      "price": 40,
-      "is_active": true,
-      "created_at": "2026-11-10T14:02:37.905555+00:00"
-    },
-    {
-      "id": "a5",
-      "name": "Fresh Salad",
-      "price": 30,
-      "is_active": true,
-      "created_at": "2026-11-10T14:02:37.905555+00:00"
-    }
-  ],
+  "products": [],
+  "product_addons": [],
   "register_sessions": [
     {
       "id": "dd397171-a341-4878-b180-874cf051cf56",
@@ -476,66 +153,6 @@
     }
   ],
   "register_transactions": [
-    {
-      "id": "34f2f653-1982-49d9-bf9f-c590c7e10665",
-      "register_session_id": "dd397171-a341-4878-b180-874cf051cf56",
-      "type": "SALE",
-      "amount": 580,
-      "order_id": "cecab244-dfeb-4d4c-bf65-4cd07d6d8d7d",
-      "refund_id": null,
-      "reason": "Cash Sale #MTN-0001015",
-      "note": "Customer: Tariq Butt",
-      "user_name_snapshot": "Bilal Cashier",
-      "created_at": "2026-11-17T08:06:44.248Z"
-    },
-    {
-      "id": "d44c8cb5-54ba-428b-84a8-d958a12715c0",
-      "register_session_id": "dd397171-a341-4878-b180-874cf051cf56",
-      "type": "SALE",
-      "amount": 15,
-      "order_id": "c4b5800b-6e53-44d7-aad4-43a6ef22c508",
-      "refund_id": null,
-      "reason": "Cash Sale #MTN-0001014",
-      "note": "Customer: Walk-in",
-      "user_name_snapshot": "Bilal Cashier",
-      "created_at": "2026-11-17T08:03:43.961+00:00"
-    },
-    {
-      "id": "385b46ff-b1aa-4e16-bf43-0ba7a1261953",
-      "register_session_id": "dd397171-a341-4878-b180-874cf051cf56",
-      "type": "SALE",
-      "amount": 580,
-      "order_id": "0b84aae3-a8f9-4a6c-9b0c-5bacfaea3228",
-      "refund_id": null,
-      "reason": "Cash Sale #MTN-0001013",
-      "note": "Customer: Tariq Butt",
-      "user_name_snapshot": "Bilal Cashier",
-      "created_at": "2026-11-17T08:03:43.924+00:00"
-    },
-    {
-      "id": "3fa9d802-ed2d-418c-82e8-101bc0ae5052",
-      "register_session_id": "dd397171-a341-4878-b180-874cf051cf56",
-      "type": "OPENING",
-      "amount": 5000,
-      "order_id": null,
-      "refund_id": null,
-      "reason": "Shift Opening Float",
-      "note": "Opened by Bilal Cashier",
-      "user_name_snapshot": "Bilal Cashier",
-      "created_at": "2026-11-10T14:37:26.636+00:00"
-    },
-    {
-      "id": "b8a6c0a0-b107-4195-b514-0f750ca935d9",
-      "register_session_id": "5f128d30-240f-4cdd-bd2a-6725dff3caa9",
-      "type": "REFUND",
-      "amount": 234,
-      "order_id": "0ca88b29-e18b-45f2-985d-8f8684828d7e",
-      "refund_id": "ea3e0281-af97-43f4-8511-34b355810ad7",
-      "reason": "Refund Voucher #REF-000103",
-      "note": "Reason: Mirch zyada thi",
-      "user_name_snapshot": "Malik Ammar",
-      "created_at": "2026-11-10T13:42:19.102+00:00"
-    },
     {
       "id": "d4b1e665-8ace-4a09-b80b-3d9674704169",
       "register_session_id": "5f128d30-240f-4cdd-bd2a-6725dff3caa9",
@@ -609,6 +226,54 @@
       "created_at": "2026-11-10T11:05:23.823+00:00"
     },
     {
+      "id": "34f2f653-1982-49d9-bf9f-c590c7e10665",
+      "register_session_id": "dd397171-a341-4878-b180-874cf051cf56",
+      "type": "SALE",
+      "amount": 580,
+      "order_id": "cecab244-dfeb-4d4c-bf65-4cd07d6d8d7d",
+      "refund_id": null,
+      "reason": "Cash Sale #MTN-0001015",
+      "note": "Customer: Tariq Butt",
+      "user_name_snapshot": "Bilal Cashier",
+      "created_at": "2026-11-17T08:06:44.248+00:00"
+    },
+    {
+      "id": "d44c8cb5-54ba-428b-84a8-d958a12715c0",
+      "register_session_id": "dd397171-a341-4878-b180-874cf051cf56",
+      "type": "SALE",
+      "amount": 15,
+      "order_id": "c4b5800b-6e53-44d7-aad4-43a6ef22c508",
+      "refund_id": null,
+      "reason": "Cash Sale #MTN-0001014",
+      "note": "Customer: Walk-in",
+      "user_name_snapshot": "Bilal Cashier",
+      "created_at": "2026-11-17T08:03:43.961+00:00"
+    },
+    {
+      "id": "385b46ff-b1aa-4e16-bf43-0ba7a1261953",
+      "register_session_id": "dd397171-a341-4878-b180-874cf051cf56",
+      "type": "SALE",
+      "amount": 580,
+      "order_id": "0b84aae3-a8f9-4a6c-9b0c-5bacfaea3228",
+      "refund_id": null,
+      "reason": "Cash Sale #MTN-0001013",
+      "note": "Customer: Tariq Butt",
+      "user_name_snapshot": "Bilal Cashier",
+      "created_at": "2026-11-17T08:03:43.924+00:00"
+    },
+    {
+      "id": "3fa9d802-ed2d-418c-82e8-101bc0ae5052",
+      "register_session_id": "dd397171-a341-4878-b180-874cf051cf56",
+      "type": "OPENING",
+      "amount": 5000,
+      "order_id": null,
+      "refund_id": null,
+      "reason": "Shift Opening Float",
+      "note": "Opened by Bilal Cashier",
+      "user_name_snapshot": "Bilal Cashier",
+      "created_at": "2026-11-10T14:37:26.636+00:00"
+    },
+    {
       "id": "baa9fed9-c3e2-43d2-9e3e-2d7818dc7862",
       "register_session_id": "73bf2130-f867-4c79-a90e-af742b336aa9",
       "type": "SALE",
@@ -679,98 +344,21 @@
       "note": "Opened by Malik Ammar",
       "user_name_snapshot": "Malik Ammar",
       "created_at": "2026-11-10T09:57:34.575+00:00"
+    },
+    {
+      "id": "b8a6c0a0-b107-4195-b514-0f750ca935d9",
+      "register_session_id": "5f128d30-240f-4cdd-bd2a-6725dff3caa9",
+      "type": "REFUND",
+      "amount": 234,
+      "order_id": "0ca88b29-e18b-45f2-985d-8f8684828d7e",
+      "refund_id": "ea3e0281-af97-43f4-8511-34b355810ad7",
+      "reason": "Refund Voucher #REF-000103",
+      "note": "Reason: Mirch zyada thi",
+      "user_name_snapshot": "Malik Ammar",
+      "created_at": "2026-11-10T13:42:19.102+00:00"
     }
   ],
   "orders": [
-    {
-      "id": "cecab244-dfeb-4d4c-bf65-4cd07d6d8d7d",
-      "order_number": "ORD-20261117-0015",
-      "receipt_number": "MTN-0001015",
-      "register_session_id": "dd397171-a341-4878-b180-874cf051cf56",
-      "status": "completed",
-      "subtotal": 580,
-      "discount_type": null,
-      "discount_value": 0,
-      "discount_amount": 0,
-      "rounding_amount": 0,
-      "grand_total": 580,
-      "total_paid": 580,
-      "change_returned": 20,
-      "customer_name": "Tariq Butt",
-      "customer_phone": "0300-7654321",
-      "void_reason": null,
-      "reprint_count": 0,
-      "idempotency_key": null,
-      "cashier_name_snapshot": "Bilal Cashier",
-      "created_at": "2026-11-17T08:06:44.247Z",
-      "items": [
-        {
-          "id": "5cd5c7a2-bc2a-4f40-a339-016610c0f132",
-          "order_id": "cecab244-dfeb-4d4c-bf65-4cd07d6d8d7d",
-          "product_id": "44444444-4444-4444-4444-444444444401",
-          "product_name_snapshot": "Channay (Salan)",
-          "pricing_method": "Half Plate",
-          "pricing_type": "half_plate",
-          "unit_price": 100,
-          "quantity": 1,
-          "item_subtotal": 100,
-          "addons_total": 0,
-          "item_discount": 0,
-          "line_total": 100,
-          "note": null,
-          "refunded_quantity": 0,
-          "addons": [],
-          "created_at": "2026-11-17T08:06:44.243Z"
-        },
-        {
-          "id": "f5cb4e52-2e34-4aa7-83dc-923332aa1e58",
-          "order_id": "cecab244-dfeb-4d4c-bf65-4cd07d6d8d7d",
-          "product_id": "44444444-4444-4444-4444-444444444401",
-          "product_name_snapshot": "Channay (Salan)",
-          "pricing_method": "Full Plate",
-          "pricing_type": "full_plate",
-          "unit_price": 180,
-          "quantity": 2,
-          "item_subtotal": 360,
-          "addons_total": 0,
-          "item_discount": 0,
-          "line_total": 360,
-          "note": null,
-          "refunded_quantity": 0,
-          "addons": [],
-          "created_at": "2026-11-17T08:06:44.244Z"
-        },
-        {
-          "id": "778a2bad-bb60-40fa-8d38-9316c0e80e15",
-          "order_id": "cecab244-dfeb-4d4c-bf65-4cd07d6d8d7d",
-          "product_id": "44444444-4444-4444-4444-444444444401",
-          "product_name_snapshot": "Channay (Salan)",
-          "pricing_method": "Custom Price",
-          "pricing_type": "by_price",
-          "unit_price": 120,
-          "quantity": 1,
-          "item_subtotal": 120,
-          "addons_total": 0,
-          "item_discount": 0,
-          "line_total": 120,
-          "note": null,
-          "refunded_quantity": 0,
-          "addons": [],
-          "created_at": "2026-11-17T08:06:44.244Z"
-        }
-      ],
-      "payments": [
-        {
-          "id": "11ba48ce-6d76-4097-9166-e83b16d4720a",
-          "order_id": "cecab244-dfeb-4d4c-bf65-4cd07d6d8d7d",
-          "method_id": "cash",
-          "amount": 580,
-          "amount_tendered": 600,
-          "change_returned": 20,
-          "created_at": "2026-11-17T08:06:44.244Z"
-        }
-      ]
-    },
     {
       "id": "c4b5800b-6e53-44d7-aad4-43a6ef22c508",
       "receipt_number": "MTN-0001014",
@@ -832,6 +420,37 @@
       "items": null,
       "payments": null,
       "created_at": "2026-11-17T08:03:43.924+00:00"
+    },
+    {
+      "id": "cecab244-dfeb-4d4c-bf65-4cd07d6d8d7d",
+      "receipt_number": "MTN-0001015",
+      "order_number": "ORD-20261117-0015",
+      "register_session_id": "dd397171-a341-4878-b180-874cf051cf56",
+      "cashier_id": null,
+      "cashier_name_snapshot": "Bilal Cashier",
+      "customer_name": "Tariq Butt",
+      "customer_phone": "0300-7654321",
+      "order_note": null,
+      "subtotal": 580,
+      "discount_type": null,
+      "discount_value": 0,
+      "discount_amount": 0,
+      "discount_reason": null,
+      "tax_rate": null,
+      "tax_amount": null,
+      "rounding_amount": 0,
+      "grand_total": 580,
+      "total_paid": 580,
+      "change_returned": 20,
+      "status": "completed",
+      "reprint_count": 0,
+      "idempotency_key": null,
+      "void_reason": null,
+      "voided_by": null,
+      "voided_at": null,
+      "items": null,
+      "payments": null,
+      "created_at": "2026-11-17T08:06:44.247+00:00"
     },
     {
       "id": "508528fe-2b0e-49e5-a421-44cab80e4261",
@@ -1430,60 +1049,6 @@
       "item_discount": 0,
       "note": null,
       "created_at": "2026-11-10T13:42:19.076+00:00"
-    },
-    {
-      "id": "5cd5c7a2-bc2a-4f40-a339-016610c0f132",
-      "order_id": "cecab244-dfeb-4d4c-bf65-4cd07d6d8d7d",
-      "product_id": "44444444-4444-4444-4444-444444444401",
-      "product_name_snapshot": "Channay (Salan)",
-      "pricing_method": "Half Plate",
-      "pricing_type": "half_plate",
-      "unit_price": 100,
-      "quantity": 1,
-      "item_subtotal": 100,
-      "addons_total": 0,
-      "item_discount": 0,
-      "line_total": 100,
-      "note": null,
-      "refunded_quantity": 0,
-      "addons": [],
-      "created_at": "2026-11-17T08:06:44.243Z"
-    },
-    {
-      "id": "f5cb4e52-2e34-4aa7-83dc-923332aa1e58",
-      "order_id": "cecab244-dfeb-4d4c-bf65-4cd07d6d8d7d",
-      "product_id": "44444444-4444-4444-4444-444444444401",
-      "product_name_snapshot": "Channay (Salan)",
-      "pricing_method": "Full Plate",
-      "pricing_type": "full_plate",
-      "unit_price": 180,
-      "quantity": 2,
-      "item_subtotal": 360,
-      "addons_total": 0,
-      "item_discount": 0,
-      "line_total": 360,
-      "note": null,
-      "refunded_quantity": 0,
-      "addons": [],
-      "created_at": "2026-11-17T08:06:44.244Z"
-    },
-    {
-      "id": "778a2bad-bb60-40fa-8d38-9316c0e80e15",
-      "order_id": "cecab244-dfeb-4d4c-bf65-4cd07d6d8d7d",
-      "product_id": "44444444-4444-4444-4444-444444444401",
-      "product_name_snapshot": "Channay (Salan)",
-      "pricing_method": "Custom Price",
-      "pricing_type": "by_price",
-      "unit_price": 120,
-      "quantity": 1,
-      "item_subtotal": 120,
-      "addons_total": 0,
-      "item_discount": 0,
-      "line_total": 120,
-      "note": null,
-      "refunded_quantity": 0,
-      "addons": [],
-      "created_at": "2026-11-17T08:06:44.244Z"
     }
   ],
   "order_payments": [
@@ -1590,10 +1155,12 @@
       "id": "11ba48ce-6d76-4097-9166-e83b16d4720a",
       "order_id": "cecab244-dfeb-4d4c-bf65-4cd07d6d8d7d",
       "method_id": "cash",
+      "method_name": null,
       "amount": 580,
       "amount_tendered": 600,
-      "change_returned": 20,
-      "created_at": "2026-11-17T08:06:44.244Z"
+      "reference_number": null,
+      "created_at": "2026-11-17T08:06:44.244+00:00",
+      "change_returned": 20
     }
   ],
   "held_orders": [
@@ -1909,37 +1476,48 @@
   "vendor_payments": [],
   "audit_logs": [
     {
-      "id": "a7ca8493-e7b8-4bf4-8aec-5f8711a6ec36",
-      "user_id": null,
-      "user_name": "Bilal Cashier",
-      "action": "SALE",
-      "entity_type": "order",
-      "entity_id": "cecab244-dfeb-4d4c-bf65-4cd07d6d8d7d",
-      "description": "Order MTN-0001015 finalized for 580 PKR (Bilal Cashier)",
-      "old_values": null,
-      "new_values": {
-        "receipt_number": "MTN-0001015",
-        "grand_total": 580,
-        "items_count": 3
-      },
-      "created_at": "2026-11-17T08:06:44.248Z"
-    },
-    {
-      "id": "85478b1f-de90-4fb0-8a88-32bbd68669e4",
+      "id": "b4104fab-6da6-4a9e-a546-fd032981a0c1",
       "user_id": null,
       "user_name": "Admin",
-      "action": "PRODUCT_UPDATED",
+      "action": "PRODUCT_DELETED",
       "entity_type": "product",
-      "entity_id": "44444444-4444-4444-4444-444444444401",
-      "description": "Product \"Channay (Salan)\" updated. Price: Rs. 260 -> Rs. 180",
+      "entity_id": "60878479-6e41-4a86-89fc-4807f2fe9407",
+      "description": "Product \"Chana Special\" deleted by Admin",
       "old_values": {
-        "selling_price": 260
-      },
-      "new_values": {
+        "id": "60878479-6e41-4a86-89fc-4807f2fe9407",
+        "category_id": "22222222-2222-2222-2222-222222222201",
+        "name": "Chana Special",
+        "short_name": "Chana",
         "selling_price": 180,
-        "availability": "available"
+        "cost_price": 0,
+        "availability": "available",
+        "is_active": true,
+        "sort_order": 1,
+        "pricing_config": {
+          "enable_by_plate": true,
+          "full_plate_price": 180,
+          "half_plate_price": 100,
+          "enable_by_price": true,
+          "min_price": 30,
+          "enable_custom_price": true,
+          "custom_price_label": "Half Rate",
+          "custom_price": 90
+        }
       },
-      "created_at": "2026-11-17T08:06:44.208Z"
+      "new_values": null,
+      "created_at": "2026-11-17T08:30:08.779Z"
+    },
+    {
+      "id": "8c9e57ff-2a8e-4178-b2ce-8ae84ec2248f",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "PRODUCT_CREATED",
+      "entity_type": "product",
+      "entity_id": "60878479-6e41-4a86-89fc-4807f2fe9407",
+      "description": "New menu product \"Chana Special\" added at Rs. 180",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T08:30:08.757Z"
     },
     {
       "id": "3d4c9a95-bb97-4597-a8e9-03b687b6c3f7",
@@ -2017,6 +1595,39 @@
       "created_at": "2026-11-10T13:35:31.255+00:00"
     },
     {
+      "id": "a7ca8493-e7b8-4bf4-8aec-5f8711a6ec36",
+      "user_id": null,
+      "user_name": "Bilal Cashier",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "cecab244-dfeb-4d4c-bf65-4cd07d6d8d7d",
+      "description": "Order MTN-0001015 finalized for 580 PKR (Bilal Cashier)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 580,
+        "items_count": 3,
+        "receipt_number": "MTN-0001015"
+      },
+      "created_at": "2026-11-17T08:06:44.248+00:00"
+    },
+    {
+      "id": "85478b1f-de90-4fb0-8a88-32bbd68669e4",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "PRODUCT_UPDATED",
+      "entity_type": "product",
+      "entity_id": "44444444-4444-4444-4444-444444444401",
+      "description": "Product \"Channay (Salan)\" updated. Price: Rs. 260 -> Rs. 180",
+      "old_values": {
+        "selling_price": 260
+      },
+      "new_values": {
+        "availability": "available",
+        "selling_price": 180
+      },
+      "created_at": "2026-11-17T08:06:44.208+00:00"
+    },
+    {
       "id": "f348507f-76c4-4d6c-83d2-d56220f15b7c",
       "user_id": null,
       "user_name": "Admin",
@@ -2039,22 +1650,6 @@
       "old_values": null,
       "new_values": null,
       "created_at": "2026-11-10T11:02:15.56+00:00"
-    },
-    {
-      "id": "4edbe4c9-bf6c-43bc-855d-cdb7ed69d85f",
-      "user_id": null,
-      "user_name": "Bilal Cashier",
-      "action": "SALE",
-      "entity_type": "order",
-      "entity_id": "508528fe-2b0e-49e5-a421-44cab80e4261",
-      "description": "Order MTN-0001012 finalized for 330 PKR (Bilal Cashier)",
-      "old_values": null,
-      "new_values": {
-        "grand_total": 330,
-        "items_count": 1,
-        "receipt_number": "MTN-0001012"
-      },
-      "created_at": "2026-11-10T13:42:19.08+00:00"
     },
     {
       "id": "9745807b-7d1f-4642-afb9-fae7ce3a33c5",
@@ -2138,6 +1733,22 @@
         "expected_amount": 7234
       },
       "created_at": "2026-11-10T13:42:19.12+00:00"
+    },
+    {
+      "id": "4edbe4c9-bf6c-43bc-855d-cdb7ed69d85f",
+      "user_id": null,
+      "user_name": "Bilal Cashier",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "508528fe-2b0e-49e5-a421-44cab80e4261",
+      "description": "Order MTN-0001012 finalized for 330 PKR (Bilal Cashier)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 330,
+        "items_count": 1,
+        "receipt_number": "MTN-0001012"
+      },
+      "created_at": "2026-11-10T13:42:19.08+00:00"
     },
     {
       "id": "6086cfd5-5435-4d65-91d7-4ff02245c582",

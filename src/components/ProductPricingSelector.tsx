@@ -1,20 +1,18 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Product, ProductAddon, ProductPricingOption, getProductPricingOptions } from '@/types/pos';
-import { formatMoney, multiplyMoney, addMoney } from '@/lib/money';
+import { Product, ProductPricingOption, getProductPricingOptions } from '@/types/pos';
+import { formatMoney, multiplyMoney } from '@/lib/money';
 import { Utensils, X, Plus, AlertCircle, Check, Tag } from 'lucide-react';
 
 interface ProductPricingSelectorProps {
   product: Product;
-  addonsList: ProductAddon[];
-  quickNotes: string[];
   onAdd: (
     product: Product,
     quantity: number,
     unitPrice: number,
     note?: string,
-    selectedAddons?: ProductAddon[],
+    selectedAddons?: any[],
     pricingMethod?: string,
     pricingType?: string
   ) => void;
@@ -23,8 +21,6 @@ interface ProductPricingSelectorProps {
 
 export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
   product,
-  addonsList,
-  quickNotes,
   onAdd,
   onCancel,
 }) => {
@@ -32,9 +28,6 @@ export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(1);
   const [customPriceInput, setCustomPriceInput] = useState<string>('');
-  const [selectedNote, setSelectedNote] = useState<string>('');
-  const [customNote, setCustomNote] = useState<string>('');
-  const [selectedAddons, setSelectedAddons] = useState<ProductAddon[]>([]);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const priceInputRef = useRef<HTMLInputElement>(null);
@@ -71,17 +64,7 @@ export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
     return currentOption?.price || product.selling_price;
   }, [isByPrice, customPriceInput, currentOption, product.selling_price]);
 
-  const itemSubtotal = multiplyMoney(unitPrice, quantity);
-  const addonsTotal = selectedAddons.reduce((acc, a) => addMoney(acc, a.price), 0);
-  const lineTotal = addMoney(itemSubtotal, addonsTotal);
-
-  const toggleAddon = (addon: ProductAddon) => {
-    setSelectedAddons((prev) => {
-      const exists = prev.some((a) => a.id === addon.id);
-      if (exists) return prev.filter((a) => a.id !== addon.id);
-      return [...prev, addon];
-    });
-  };
+  const lineTotal = multiplyMoney(unitPrice, quantity);
 
   const handleConfirm = () => {
     setErrorMsg(null);
@@ -103,15 +86,14 @@ export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
       return;
     }
 
-    const finalNote = customNote.trim() ? customNote.trim() : selectedNote;
     const methodLabel = isByPrice ? 'Custom Price' : currentOption.label;
 
     onAdd(
       product,
       quantity,
       unitPrice,
-      finalNote || undefined,
-      selectedAddons,
+      undefined,
+      [],
       methodLabel,
       currentOption.type
     );
@@ -131,9 +113,9 @@ export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
     }
 
     // Number keys (1 to options.length) to quickly choose pricing option
-    // (Only if not typing inside price input or custom note)
+    // (Only if not typing inside price input)
     const activeEl = document.activeElement;
-    const isTypingText = activeEl === priceInputRef.current || (activeEl?.tagName === 'INPUT' && (activeEl as HTMLInputElement).type === 'text');
+    const isTypingText = activeEl === priceInputRef.current;
 
     if (!isTypingText && e.key >= '1' && e.key <= String(options.length)) {
       const idx = parseInt(e.key, 10) - 1;
@@ -189,7 +171,7 @@ export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
         <button
           type="button"
           onClick={onCancel}
-          className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition"
+          className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition cursor-pointer"
           title="Cancel (Esc)"
         >
           <X className="w-5 h-5" />
@@ -251,50 +233,41 @@ export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
       </div>
 
       {/* Pricing Parameters: Quantity & Custom Price input */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 bg-slate-950/80 p-3 rounded-xl border border-slate-800/80 mb-3">
-        {/* Left: Price & Quantity Controls */}
-        <div className="space-y-2.5">
-          {isByPrice ? (
-            <div>
-              <label className="block text-xs font-bold text-amber-300 mb-1">
-                Custom Amount (PKR / روپے):
-              </label>
-              <div className="relative">
-                <span className="absolute left-3 top-2.5 text-sm font-bold text-emerald-400">Rs.</span>
-                <input
-                  ref={priceInputRef}
-                  type="number"
-                  step="any"
-                  value={customPriceInput}
-                  onChange={(e) => setCustomPriceInput(e.target.value)}
-                  placeholder="Enter custom price (e.g. 100, 120)"
-                  className="w-full pl-11 pr-3 py-2 bg-slate-900 border border-emerald-500/60 rounded-lg text-slate-100 font-bold text-base focus:outline-none focus:ring-2 focus:ring-emerald-400"
-                />
-              </div>
-              {currentOption?.min_price ? (
-                <div className="text-[10px] text-slate-400 mt-1">
-                  Min. Allowed Price: <strong>Rs. {currentOption.min_price}</strong>
-                </div>
-              ) : null}
+      <div className="bg-slate-950/80 p-3 rounded-xl border border-slate-800/80 mb-3 space-y-3">
+        {isByPrice && (
+          <div>
+            <label className="block text-xs font-bold text-amber-300 mb-1">
+              Custom Amount (PKR / روپے):
+            </label>
+            <div className="relative max-w-sm">
+              <span className="absolute left-3 top-2.5 text-sm font-bold text-emerald-400">Rs.</span>
+              <input
+                ref={priceInputRef}
+                type="number"
+                step="any"
+                value={customPriceInput}
+                onChange={(e) => setCustomPriceInput(e.target.value)}
+                placeholder="Enter custom price (e.g. 100, 120)"
+                className="w-full pl-11 pr-3 py-2 bg-slate-900 border border-emerald-500/60 rounded-lg text-slate-100 font-bold text-base focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              />
             </div>
-          ) : (
-            <div>
-              <span className="block text-xs font-medium text-slate-400 mb-1">Unit Rate:</span>
-              <div className="text-lg font-black text-emerald-400">
-                {formatMoney(currentOption?.price || product.selling_price)}
-                <span className="text-xs font-normal text-slate-400 ml-2">({currentOption?.label})</span>
+            {currentOption?.min_price ? (
+              <div className="text-[10px] text-slate-400 mt-1">
+                Min. Allowed Price: <strong>Rs. {currentOption.min_price}</strong>
               </div>
-            </div>
-          )}
+            ) : null}
+          </div>
+        )}
 
-          {/* Quantity Controls */}
+        {/* Quantity Controls */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <label className="block text-xs font-semibold text-slate-300 mb-1">Quantity (تعداد):</label>
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                className="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 flex items-center justify-center text-slate-200 font-bold active:scale-95 transition"
+                className="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 flex items-center justify-center text-slate-200 font-bold active:scale-95 transition cursor-pointer"
               >
                 -
               </button>
@@ -313,19 +286,19 @@ export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
               <button
                 type="button"
                 onClick={() => setQuantity((q) => q + 1)}
-                className="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 flex items-center justify-center text-slate-200 font-bold active:scale-95 transition"
+                className="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 flex items-center justify-center text-slate-200 font-bold active:scale-95 transition cursor-pointer"
               >
                 +
               </button>
 
               {/* Quick Qty Buttons */}
               <div className="flex items-center gap-1 ml-2">
-                {[1, 2, 3, 4].map((n) => (
+                {[1, 2, 3, 4, 5].map((n) => (
                   <button
                     key={n}
                     type="button"
                     onClick={() => setQuantity(n)}
-                    className={`text-xs px-2 py-1 rounded font-semibold transition border ${
+                    className={`text-xs px-2.5 py-1 rounded-lg font-semibold transition border cursor-pointer ${
                       quantity === n
                         ? 'bg-emerald-600 text-white border-emerald-400'
                         : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700'
@@ -337,65 +310,14 @@ export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Right: Kitchen Note & Addons */}
-        <div className="space-y-2.5">
-          <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">
-              Kitchen Instructions / نوٹ:
-            </label>
-            <div className="flex flex-wrap gap-1.5 mb-1.5">
-              {quickNotes.map((note) => (
-                <button
-                  key={note}
-                  type="button"
-                  onClick={() => setSelectedNote(selectedNote === note ? '' : note)}
-                  className={`text-[10px] px-2 py-0.5 rounded transition border ${
-                    selectedNote === note
-                      ? 'bg-emerald-600 text-white border-emerald-400 font-bold'
-                      : 'bg-slate-800/80 text-slate-300 border-slate-700 hover:border-slate-600'
-                  }`}
-                >
-                  {note}
-                </button>
-              ))}
+          <div className="text-right">
+            <span className="block text-[11px] text-slate-400">Selected Method Rate:</span>
+            <div className="text-lg font-black text-emerald-400">
+              {formatMoney(unitPrice)}
+              <span className="text-xs font-normal text-slate-400 ml-1.5">({currentOption?.label})</span>
             </div>
-            <input
-              type="text"
-              value={customNote}
-              onChange={(e) => setCustomNote(e.target.value)}
-              placeholder="Or custom kitchen instruction..."
-              className="w-full px-2.5 py-1 text-xs bg-slate-900 border border-slate-700 rounded-lg text-slate-200 focus:outline-none focus:border-emerald-500"
-            />
           </div>
-
-          {/* Add-ons Checklist */}
-          {addonsList.length > 0 && (
-            <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Add-ons (Optional):</label>
-              <div className="flex flex-wrap gap-1.5 max-h-20 overflow-y-auto">
-                {addonsList.slice(0, 4).map((addon) => {
-                  const isChecked = selectedAddons.some((a) => a.id === addon.id);
-                  return (
-                    <button
-                      key={addon.id}
-                      type="button"
-                      onClick={() => toggleAddon(addon)}
-                      className={`text-[11px] px-2 py-1 rounded-md border transition flex items-center gap-1 ${
-                        isChecked
-                          ? 'bg-emerald-900/60 border-emerald-400 text-emerald-200 font-bold'
-                          : 'bg-slate-800/80 border-slate-700 text-slate-300 hover:border-slate-600'
-                      }`}
-                    >
-                      <span>{addon.name}</span>
-                      <span className="text-[10px] text-emerald-400">+{formatMoney(addon.price)}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
         </div>
       </div>
 
@@ -413,7 +335,7 @@ export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
           <button
             type="button"
             onClick={onCancel}
-            className="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-xl transition"
+            className="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-xl transition cursor-pointer"
           >
             Cancel [Esc]
           </button>
