@@ -64,8 +64,8 @@ function AdminDashboardContent() {
         const sumData = await sumRes.json();
         const vendData = await vendRes.json();
 
-        const todaySales = Number(sumData?.summary?.net_sales || 0);
-        const todayOrdersCount = Number(sumData?.summary?.total_orders || 0);
+        const todaySales = Number(sumData?.sales?.net_sales ?? sumData?.summary?.net_sales ?? 0);
+        const todayOrdersCount = Number(sumData?.sales?.total_orders ?? sumData?.summary?.total_orders ?? 0);
         const drawerBalance = Number(activeRegister?.expected_amount || activeRegister?.opening_amount || 0);
 
         let unpaidVend = 0;

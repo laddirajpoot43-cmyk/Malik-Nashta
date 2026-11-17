@@ -131,18 +131,21 @@ export async function GET(req: Request) {
     const totalCashOutflow = addMoney(drawerCashOut, drawerRefunds);
     const netCashFlow = subtractMoney(totalCashInflow, totalCashOutflow);
 
+    const salesSummary = {
+      total_orders: activeOrders.length,
+      voided_orders: orders.length - activeOrders.length,
+      gross_sales: grossSales,
+      discounts: discounts,
+      net_sales: netSales,
+      cash_sales: cashSales,
+      digital_sales: digitalSales,
+    };
+
     return NextResponse.json({
       success: true,
       date: dateParam,
-      sales: {
-        total_orders: activeOrders.length,
-        voided_orders: orders.length - activeOrders.length,
-        gross_sales: grossSales,
-        discounts: discounts,
-        net_sales: netSales,
-        cash_sales: cashSales,
-        digital_sales: digitalSales,
-      },
+      sales: salesSummary,
+      summary: salesSummary,
       purchases: {
         total_bills: purchases.length,
         total_purchases: totalPurchases,

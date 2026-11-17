@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { localStore, logAuditEvent, generateUUID } from '@/lib/db';
+import { insforgeAdmin } from '@/lib/insforge';
 
 export const dynamic = 'force-dynamic';
 
@@ -74,6 +75,15 @@ export async function POST(req: Request) {
 
     localStore.save();
 
+    try {
+      const rowToInsert = { ...newProduct } as any;
+      delete rowToInsert.pricing_config;
+      delete rowToInsert.category_name;
+      await insforgeAdmin.database.from('products').upsert([rowToInsert], { onConflict: 'id' });
+    } catch (e) {
+      console.warn('Cloud sync for new product non-blocking error:', e);
+    }
+
     return NextResponse.json({ success: true, product: newProduct });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
@@ -119,6 +129,15 @@ export async function PUT(req: Request) {
 
     localStore.save();
 
+    try {
+      const rowToUpdate = { ...product } as any;
+      delete rowToUpdate.pricing_config;
+      delete rowToUpdate.category_name;
+      await insforgeAdmin.database.from('products').upsert([rowToUpdate], { onConflict: 'id' });
+    } catch (e) {
+      console.warn('Cloud sync for updated product non-blocking error:', e);
+    }
+
     return NextResponse.json({ success: true, product });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
@@ -153,6 +172,13 @@ export async function DELETE(req: Request) {
     });
 
     localStore.save();
+
+    try {
+      await insforgeAdmin.database.from('products').delete().eq('id', id);
+    } catch (e) {
+      console.warn('Cloud sync for deleted product non-blocking error:', e);
+    }
+
     return NextResponse.json({ success: true, deletedProduct: removed });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
