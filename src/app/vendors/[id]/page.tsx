@@ -120,23 +120,23 @@ function VendorDetailContent({ params }: { params: Promise<{ id: string }> }) {
   return (
     <div className="space-y-4">
       {/* Back button & Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white border border-slate-200 p-4 rounded-2xl shadow-sm">
         <div className="flex items-center gap-3">
           <Link
             href="/vendors"
-            className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl transition"
+            className="p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition"
             title="Back to all suppliers"
           >
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-lg font-black text-white">{vendor?.name || 'Supplier Khata'}</h1>
-              <span className="text-[10px] bg-emerald-500/20 text-emerald-300 font-bold px-2 py-0.5 rounded border border-emerald-500/30">
+              <h1 className="text-lg font-black text-slate-900">{vendor?.name || 'Supplier Khata'}</h1>
+              <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded border border-emerald-200">
                 {vendor?.category}
               </span>
             </div>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500">
               {vendor?.phone ? `Phone: ${vendor.phone}` : 'No phone recorded'} • {vendor?.address || 'Hasilpur Mandi'}
             </p>
           </div>
@@ -148,7 +148,7 @@ function VendorDetailContent({ params }: { params: Promise<{ id: string }> }) {
             setErrorMsg('');
             setSuccessMsg('');
           }}
-          className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5"
+          className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5"
         >
           <DollarSign className="w-4 h-4" />
           <span>Pay Supplier (ادائیگی واؤچر)</span>
@@ -156,54 +156,54 @@ function VendorDetailContent({ params }: { params: Promise<{ id: string }> }) {
       </div>
 
       {successMsg && (
-        <div className="p-3 bg-emerald-500/20 border border-emerald-500/40 rounded-xl text-emerald-300 text-xs flex items-center justify-between">
+        <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-xs flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
             <span>{successMsg}</span>
           </div>
-          <button onClick={() => setSuccessMsg('')} className="text-emerald-400">✕</button>
+          <button onClick={() => setSuccessMsg('')} className="text-emerald-700 hover:text-emerald-900">✕</button>
         </div>
       )}
 
       {/* Financial Summary Card */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl">
-          <span className="text-xs text-slate-400">Live Payable Balance (موجودہ ادھار):</span>
-          <div className="text-3xl font-black text-rose-400 mt-1">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+          <span className="text-xs text-slate-500">Live Payable Balance (موجودہ ادھار):</span>
+          <div className="text-3xl font-black text-rose-600 mt-1">
             {formatMoney(vendor?.current_balance || vendorData?.running_balance || 0)}
           </div>
-          <p className="text-[10px] text-slate-500 mt-1">Net amount owed to {vendor?.name}</p>
+          <p className="text-[10px] text-slate-400 mt-1">Net amount owed to {vendor?.name}</p>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl">
-          <span className="text-xs text-slate-400">Opening Balance on Onboarding:</span>
-          <div className="text-2xl font-black text-slate-100 mt-1">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+          <span className="text-xs text-slate-500">Opening Balance on Onboarding:</span>
+          <div className="text-2xl font-black text-slate-800 mt-1">
             {formatMoney(vendor?.opening_balance || 0)}
           </div>
-          <p className="text-[10px] text-slate-500 mt-1">Initial debt when supplier was registered</p>
+          <p className="text-[10px] text-slate-400 mt-1">Initial debt when supplier was registered</p>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl">
-          <span className="text-xs text-slate-400">Total Khata Transactions:</span>
-          <div className="text-2xl font-black text-emerald-400 mt-1">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+          <span className="text-xs text-slate-500">Total Khata Transactions:</span>
+          <div className="text-2xl font-black text-emerald-600 mt-1">
             {statement.length} Entries
           </div>
-          <p className="text-[10px] text-slate-500 mt-1">Purchase bills + settlement vouchers</p>
+          <p className="text-[10px] text-slate-400 mt-1">Purchase bills + settlement vouchers</p>
         </div>
       </div>
 
       {/* Chronological Statement Ledger Table */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden">
-        <div className="p-4 border-b border-slate-800 flex items-center justify-between">
+      <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+        <div className="p-4 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <BookOpen className="w-5 h-5 text-emerald-400" />
-            <h3 className="font-bold text-sm text-white">Unified Chronological Statement (کھاتہ اسٹیٹمنٹ)</h3>
+            <BookOpen className="w-5 h-5 text-emerald-600" />
+            <h3 className="font-bold text-sm text-slate-900">Unified Chronological Statement (کھاتہ اسٹیٹمنٹ)</h3>
           </div>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/70 border-b border-slate-800 text-slate-400 uppercase font-semibold text-[10px]">
+            <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase font-semibold text-[10px]">
               <tr>
                 <th className="px-4 py-3">Date</th>
                 <th className="px-4 py-3">Voucher #</th>
@@ -213,32 +213,32 @@ function VendorDetailContent({ params }: { params: Promise<{ id: string }> }) {
                 <th className="px-4 py-3 text-right">Running Balance</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-slate-100">
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-500">
+                  <td colSpan={6} className="py-12 text-center text-slate-400">
                     Loading Khata ledger...
                   </td>
                 </tr>
               ) : statement.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-500">
+                  <td colSpan={6} className="py-12 text-center text-slate-400">
                     No ledger entries for this vendor yet.
                   </td>
                 </tr>
               ) : (
                 statement.map((row: any) => (
-                  <tr key={row.id} className="hover:bg-slate-800/50 transition">
-                    <td className="px-4 py-3 text-slate-400 font-mono">{row.date}</td>
-                    <td className="px-4 py-3 font-mono font-bold text-slate-200">{row.voucher_no}</td>
-                    <td className="px-4 py-3 font-medium text-slate-300">{row.description}</td>
-                    <td className="px-4 py-3 text-right font-bold text-emerald-400">
+                  <tr key={row.id} className="hover:bg-slate-50 transition">
+                    <td className="px-4 py-3 text-slate-500 font-mono">{row.date}</td>
+                    <td className="px-4 py-3 font-mono font-bold text-slate-900">{row.voucher_no}</td>
+                    <td className="px-4 py-3 font-medium text-slate-700">{row.description}</td>
+                    <td className="px-4 py-3 text-right font-bold text-emerald-600">
                       {row.debit > 0 ? formatMoney(row.debit) : '—'}
                     </td>
-                    <td className="px-4 py-3 text-right font-bold text-rose-400">
+                    <td className="px-4 py-3 text-right font-bold text-rose-600">
                       {row.credit > 0 ? formatMoney(row.credit) : '—'}
                     </td>
-                    <td className="px-4 py-3 text-right font-black text-amber-400 text-sm">
+                    <td className="px-4 py-3 text-right font-black text-slate-900 text-sm">
                       {formatMoney(row.running_balance)}
                     </td>
                   </tr>
@@ -251,25 +251,25 @@ function VendorDetailContent({ params }: { params: Promise<{ id: string }> }) {
 
       {/* RECORD PAYMENT VOUCHER MODAL */}
       {showPayModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 animate-in fade-in">
-          <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-md shadow-2xl p-5 space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-              <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
-                <DollarSign className="w-5 h-5 text-emerald-400" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-md shadow-2xl p-5 space-y-4">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+              <div className="flex items-center gap-2 text-slate-900 font-bold text-sm">
+                <DollarSign className="w-5 h-5 text-emerald-600" />
                 <span>Record Payment Voucher to {vendor?.name}</span>
               </div>
-              <button onClick={() => setShowPayModal(false)} className="text-slate-400 hover:text-white">✕</button>
+              <button onClick={() => setShowPayModal(false)} className="text-slate-400 hover:text-slate-700">✕</button>
             </div>
 
             {errorMsg && (
-              <div className="p-2 bg-rose-500/20 border border-rose-500/50 rounded-lg text-rose-200 text-xs">
+              <div className="p-2 bg-rose-50 border border-rose-200 rounded-lg text-rose-700 text-xs">
                 {errorMsg}
               </div>
             )}
 
             <form onSubmit={handleRecordPayment} className="space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Payment Amount (PKR):</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Payment Amount (PKR):</label>
                 <input
                   type="number"
                   step="any"
@@ -277,30 +277,30 @@ function VendorDetailContent({ params }: { params: Promise<{ id: string }> }) {
                   value={payAmount}
                   onChange={(e) => setPayAmount(e.target.value)}
                   placeholder="e.g. 5000"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-emerald-400 font-black text-xl focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-emerald-600 font-black text-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
               {/* Deduct from counter drawer checkbox */}
-              <label className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer">
+              <label className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 border border-slate-200 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={deductFromRegister}
                   onChange={(e) => setDeductFromRegister(e.target.checked)}
-                  className="w-4 h-4 text-emerald-600 rounded bg-slate-900 border-slate-700"
+                  className="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500"
                 />
-                <span className="text-xs text-slate-200">
+                <span className="text-xs text-slate-700">
                   Deduct this payment from <strong>active cash drawer</strong> (CASH_OUT)
                 </span>
               </label>
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">Payment Method:</label>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">Payment Method:</label>
                   <select
                     value={paymentMethod}
                     onChange={(e) => setPaymentMethod(e.target.value as any)}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-slate-200 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   >
                     <option value="cash">Cash (نقدی)</option>
                     <option value="bank">Bank Transfer</option>
@@ -308,25 +308,25 @@ function VendorDetailContent({ params }: { params: Promise<{ id: string }> }) {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">Ref / Cheque #:</label>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">Ref / Cheque #:</label>
                   <input
                     type="text"
                     value={refNumber}
                     onChange={(e) => setRefNumber(e.target.value)}
                     placeholder="Optional"
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-slate-200 focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Remarks / Note:</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Remarks / Note:</label>
                 <input
                   type="text"
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
                   placeholder="e.g. Atta balance settlement"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-slate-200 focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
@@ -334,14 +334,14 @@ function VendorDetailContent({ params }: { params: Promise<{ id: string }> }) {
                 <button
                   type="button"
                   onClick={() => setShowPayModal(false)}
-                  className="flex-1 py-2 text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 rounded-lg"
+                  className="flex-1 py-2 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 rounded-lg transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="flex-1 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 rounded-lg shadow-md"
+                  className="flex-1 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg shadow-md transition"
                 >
                   {submitting ? 'Processing...' : 'Confirm Voucher & Settle'}
                 </button>

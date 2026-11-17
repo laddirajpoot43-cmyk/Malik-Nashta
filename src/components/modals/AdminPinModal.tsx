@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { ShieldCheck, X } from 'lucide-react';
+import { Lock, X } from 'lucide-react';
 
 interface AdminPinModalProps {
   isOpen: boolean;
@@ -15,7 +15,7 @@ interface AdminPinModalProps {
 export const AdminPinModal: React.FC<AdminPinModalProps> = ({
   isOpen,
   title = 'Supervisor Authentication Required',
-  description = 'Please enter Master Admin / Supervisor PIN to continue.',
+  description = 'Please enter Master Admin / Supervisor PIN (default: 1234) to unlock management panel.',
   onSuccess,
   onCancel,
 }) => {
@@ -47,22 +47,26 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 animate-in fade-in">
-      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-sm shadow-2xl p-5 space-y-4">
-        <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-          <div className="flex items-center gap-2.5 text-amber-400 font-bold text-sm">
-            <ShieldCheck className="w-5 h-5 text-amber-400" />
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-in fade-in select-none">
+      <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-sm shadow-2xl p-5 space-y-4">
+        <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+          <div className="flex items-center gap-2 text-slate-900 font-extrabold text-sm">
+            <Lock className="w-4 h-4 text-emerald-600" />
             <span>{title}</span>
           </div>
-          <button onClick={onCancel} className="text-slate-400 hover:text-white p-1">
+          <button
+            type="button"
+            onClick={onCancel}
+            className="text-slate-400 hover:text-slate-700 p-1"
+          >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        <p className="text-xs text-slate-300">{description}</p>
+        <p className="text-xs text-slate-600 font-medium">{description}</p>
 
         {errorMsg && (
-          <div className="p-2 bg-rose-500/20 border border-rose-500/40 rounded-lg text-rose-300 text-xs text-center font-semibold">
+          <div className="p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs text-center font-bold">
             {errorMsg}
           </div>
         )}
@@ -73,25 +77,30 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
             autoFocus
             maxLength={6}
             value={pin}
-            onChange={(e) => { setPin(e.target.value); setErrorMsg(''); }}
+            onChange={(e) => {
+              setPin(e.target.value);
+              setErrorMsg('');
+            }}
             placeholder="••••"
-            className="w-full py-2.5 px-3 bg-slate-950 border border-slate-700 rounded-xl text-center text-2xl font-black text-white tracking-[0.5em] focus:outline-none focus:border-amber-400"
+            className="w-full py-2.5 px-3 bg-slate-50 border border-slate-300 rounded-xl text-center text-2xl font-black text-slate-900 tracking-[0.5em] focus:outline-none focus:border-emerald-600 shadow-inner"
           />
 
           <div className="flex gap-2 pt-2">
+            {/* RED BUTTON: Cancel */}
             <button
               type="button"
               onClick={onCancel}
-              className="flex-1 py-2 text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 rounded-xl transition"
+              className="flex-1 py-2 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 active:bg-rose-800 rounded-xl shadow-sm transition cursor-pointer"
             >
               Cancel (Esc)
             </button>
+            {/* GREEN BUTTON: Authorize */}
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 py-2 text-xs font-bold text-white bg-amber-600 hover:bg-amber-500 rounded-xl shadow-md transition"
+              className="flex-1 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl shadow transition disabled:opacity-50 cursor-pointer"
             >
-              {loading ? 'Verifying...' : 'Authorize'}
+              {loading ? 'Verifying...' : 'Unlock Panel'}
             </button>
           </div>
         </form>
@@ -99,4 +108,3 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
     </div>
   );
 };
-

@@ -1,0 +1,200 @@
+'use client';
+
+import React from 'react';
+import Link from 'next/link';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
+import {
+  LayoutDashboard,
+  Utensils,
+  Layers,
+  Truck,
+  BookOpen,
+  FileText,
+  Receipt,
+  BarChart3,
+  Printer,
+  Users,
+  ShieldAlert,
+  Settings,
+  ArrowLeft,
+  Lock,
+  ShieldCheck,
+  Store,
+} from 'lucide-react';
+
+interface NavItem {
+  href: string;
+  label: string;
+  icon: any;
+  exact?: boolean;
+  tab?: string;
+}
+
+interface NavSection {
+  title: string;
+  items: NavItem[];
+}
+
+export const AdminSidebar: React.FC = () => {
+  return (
+    <React.Suspense
+      fallback={
+        <aside className="w-72 bg-white border-r border-slate-200 flex flex-col h-screen sticky top-0 shrink-0 shadow-sm">
+          <div className="p-4 border-b border-slate-200 bg-white">
+            <div className="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white font-black text-lg">
+              M
+            </div>
+          </div>
+        </aside>
+      }
+    >
+      <AdminSidebarInner />
+    </React.Suspense>
+  );
+};
+
+function AdminSidebarInner() {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentTab = searchParams.get('tab');
+  const router = useRouter();
+  const { currentUser, exitAdminMode } = useAuth();
+
+  const handleLock = () => {
+    exitAdminMode();
+    router.push('/pos');
+  };
+
+  const navSections: NavSection[] = [
+    {
+      title: 'Main Operations',
+      items: [
+        { href: '/admin', label: 'Admin Dashboard', icon: LayoutDashboard, exact: true },
+        { href: '/orders', label: 'All Orders & Invoices', icon: Receipt },
+        { href: '/daily-summary', label: 'Roozana Hisaab (Daily)', icon: FileText },
+      ],
+    },
+    {
+      title: 'Menu & Food Pricing',
+      items: [
+        { href: '/settings?tab=products', label: 'Menu Items & Pricing', icon: Utensils, tab: 'products' },
+        { href: '/settings?tab=categories', label: 'Menu Categories', icon: Layers, tab: 'categories' },
+      ],
+    },
+    {
+      title: 'Inventory & Vendor Khata',
+      items: [
+        { href: '/purchases', label: 'Maal Ka Khareedar (Purchases)', icon: Truck },
+        { href: '/vendors', label: 'Vendor Khata (Mandi Ledger)', icon: BookOpen },
+      ],
+    },
+    {
+      title: 'Reports & Audit',
+      items: [
+        { href: '/reports', label: 'Financial & Sales Reports', icon: BarChart3 },
+        { href: '/audit-logs', label: 'Security & Audit Trail', icon: ShieldAlert },
+      ],
+    },
+    {
+      title: 'System & Print Setup',
+      items: [
+        { href: '/settings?tab=receipt', label: 'Thermal Receipt Customizer', icon: Printer, tab: 'receipt' },
+        { href: '/settings?tab=staff', label: 'Staff Accounts & PINs', icon: Users, tab: 'staff' },
+        { href: '/settings?tab=hotel', label: 'General Hotel Settings', icon: Settings, tab: 'hotel' },
+      ],
+    },
+  ];
+
+  return (
+    <aside className="w-72 bg-white border-r border-slate-200 flex flex-col h-screen sticky top-0 shrink-0 shadow-sm select-none z-30">
+      {/* Sidebar Header Brand */}
+      <div className="p-4 border-b border-slate-200 bg-white">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white shadow-sm font-black text-lg">
+            M
+          </div>
+          <div className="flex-1 min-w-0">
+            <h2 className="font-extrabold text-sm text-slate-900 truncate tracking-tight">
+              Malik Tasty Nashta Point
+            </h2>
+            <div className="flex items-center gap-1.5 mt-0.5">
+              <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                <ShieldCheck className="w-3 h-3 text-emerald-600" />
+                <span>Admin Unlocked</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {currentUser && (
+          <div className="mt-3 text-[11px] text-slate-600 bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-200 flex items-center justify-between">
+            <span className="font-medium">Supervisor:</span>
+            <span className="font-bold text-slate-900 truncate">{currentUser.display_name || currentUser.full_name}</span>
+          </div>
+        )}
+      </div>
+
+      {/* Navigation Links Scrollable Area */}
+      <div className="flex-1 overflow-y-auto px-3 py-3 space-y-4">
+        {navSections.map((sec, idx) => (
+          <div key={idx}>
+            <div className="px-2 pb-1 text-[10px] font-extrabold text-slate-600 uppercase tracking-wider">
+              {sec.title}
+            </div>
+            <div className="space-y-0.5">
+              {sec.items.map((item) => {
+                const Icon = item.icon;
+                let isActive = false;
+                if (item.tab) {
+                  isActive = pathname === '/settings' && currentTab === item.tab;
+                } else if (item.exact) {
+                  isActive = pathname === item.href;
+                } else {
+                  isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+                }
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                      isActive
+                        ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-200 shadow-sm'
+                        : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    }`}
+                  >
+                    <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-emerald-700' : 'text-slate-600'}`} />
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Sidebar Footer Action Buttons */}
+      <div className="p-3 border-t border-slate-200 bg-slate-50 space-y-2">
+        {/* GREEN BUTTON: Back to Cashier POS */}
+        <Link
+          href="/pos"
+          className="w-full flex items-center justify-center gap-2 py-2.5 px-3 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-extrabold text-xs rounded-xl shadow transition"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>Back to Cashier POS</span>
+        </Link>
+
+        {/* RED BUTTON: Lock & Exit Admin */}
+        <button
+          type="button"
+          onClick={handleLock}
+          className="w-full flex items-center justify-center gap-2 py-2 px-3 bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white font-bold text-xs rounded-xl shadow-sm transition cursor-pointer"
+        >
+          <Lock className="w-3.5 h-3.5" />
+          <span>Lock Admin Panel</span>
+        </button>
+      </div>
+    </aside>
+  );
+};

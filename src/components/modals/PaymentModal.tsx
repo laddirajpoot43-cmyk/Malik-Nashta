@@ -55,22 +55,22 @@ export const PaymentModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in">
-      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in">
+      <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="px-5 py-4 bg-slate-800/80 border-b border-slate-700 flex items-center justify-between">
+        <div className="px-5 py-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-emerald-500/20 text-emerald-400">
+            <div className="p-2 rounded-lg bg-emerald-100 text-emerald-700">
               <DollarSign className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-white">Settle Payment & Print Bill</h2>
-              <p className="text-xs text-slate-400">Total Due: <strong className="text-emerald-400 font-bold text-sm">{formatMoney(grandTotal)}</strong></p>
+              <h2 className="text-base font-bold text-slate-900">Settle Payment & Print Bill</h2>
+              <p className="text-xs text-slate-500">Total Due: <strong className="text-emerald-600 font-bold text-sm">{formatMoney(grandTotal)}</strong></p>
             </div>
           </div>
           <button
             onClick={() => setOpenPaymentModal(false)}
-            className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-700"
+            className="text-slate-400 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-50 transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -78,8 +78,8 @@ export const PaymentModal: React.FC = () => {
 
         <div className="p-5 space-y-4">
           {errorMsg && (
-            <div className="p-2.5 bg-rose-500/20 border border-rose-500/50 rounded-lg text-rose-200 text-xs flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 shrink-0" />
+            <div className="p-2.5 bg-rose-50 border border-rose-200 rounded-lg text-rose-700 text-xs flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4 shrink-0 text-rose-600" />
               <span>{errorMsg}</span>
             </div>
           )}
@@ -87,30 +87,30 @@ export const PaymentModal: React.FC = () => {
           {/* Customer Info (Optional) */}
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="block text-[11px] font-semibold text-slate-400 mb-1">Customer / Table Name:</label>
+              <label className="block text-[11px] font-semibold text-slate-700 mb-1">Customer / Table Name:</label>
               <input
                 type="text"
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
                 placeholder="Walk-in / Table 4"
-                className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded-lg text-xs text-slate-200 focus:outline-none focus:border-emerald-500"
+                className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
             <div>
-              <label className="block text-[11px] font-semibold text-slate-400 mb-1">Phone Number (Optional):</label>
+              <label className="block text-[11px] font-semibold text-slate-700 mb-1">Phone Number (Optional):</label>
               <input
                 type="text"
                 value={customerPhone}
                 onChange={(e) => setCustomerPhone(e.target.value)}
                 placeholder="0300-1234567"
-                className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded-lg text-xs text-slate-200 focus:outline-none focus:border-emerald-500"
+                className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
           </div>
 
           {/* Payment Method Selector */}
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Payment Method:</label>
+            <label className="block text-xs font-semibold text-slate-700 mb-1.5">Payment Method:</label>
             <div className="grid grid-cols-4 gap-2">
               {[
                 { id: 'cash', label: 'Cash (نقدی)', icon: DollarSign },
@@ -126,11 +126,11 @@ export const PaymentModal: React.FC = () => {
                     onClick={() => setPaymentMethod(m.id as any)}
                     className={`p-2.5 rounded-xl border text-center transition flex flex-col items-center gap-1 ${
                       paymentMethod === m.id
-                        ? 'bg-emerald-600/30 border-emerald-500 text-emerald-300 shadow-sm'
-                        : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
+                        ? 'bg-emerald-50 border-emerald-500 text-emerald-800 shadow-sm font-bold ring-1 ring-emerald-500'
+                        : 'bg-white border-slate-200 text-slate-600 hover:text-slate-900 hover:border-slate-300'
                     }`}
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-4 h-4 text-emerald-600" />
                     <span className="text-[11px] font-bold">{m.label}</span>
                   </button>
                 );
@@ -140,16 +140,16 @@ export const PaymentModal: React.FC = () => {
 
           {/* If Cash, Tender & Change Calculator */}
           {paymentMethod === 'cash' && (
-            <div className="space-y-3 bg-slate-950 p-4 rounded-xl border border-slate-800">
+            <div className="space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                <label className="block text-xs font-semibold text-slate-700 mb-1">
                   Cash Tendered by Customer (وصول رقم):
                 </label>
                 <input
                   type="number"
                   value={tenderedAmount}
                   onChange={(e) => setTenderedAmount(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-emerald-400 font-black text-xl focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-emerald-600 font-black text-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
@@ -158,7 +158,7 @@ export const PaymentModal: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => handleQuickTender(grandTotal)}
-                  className="text-xs px-2.5 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded-md font-bold"
+                  className="text-xs px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md font-bold transition"
                 >
                   Exact (Rs. {grandTotal})
                 </button>
@@ -169,7 +169,7 @@ export const PaymentModal: React.FC = () => {
                         key={amt}
                         type="button"
                         onClick={() => handleQuickTender(amt)}
-                        className="text-xs px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-md font-semibold border border-slate-700"
+                        className="text-xs px-2.5 py-1.5 bg-white hover:bg-slate-100 text-slate-800 rounded-md font-semibold border border-slate-300 transition"
                       >
                         Rs. {amt}
                       </button>
@@ -180,22 +180,30 @@ export const PaymentModal: React.FC = () => {
               </div>
 
               {/* Change Returned Highlight */}
-              <div className="flex justify-between items-center pt-2 border-t border-slate-800">
-                <span className="text-xs font-semibold text-slate-400">Change to Return (بقایا):</span>
-                <span className="font-black text-amber-400 text-lg">{formatMoney(changeReturned)}</span>
+              <div className="flex justify-between items-center pt-2 border-t border-slate-200">
+                <span className="text-xs font-semibold text-slate-600">Change to Return (بقایا):</span>
+                <span className="font-black text-emerald-700 text-lg">{formatMoney(changeReturned)}</span>
               </div>
             </div>
           )}
 
           {/* Action Button */}
-          <button
-            onClick={handleSubmit}
-            disabled={loading}
-            className="w-full py-3 bg-emerald-600 hover:bg-emerald-500 active:scale-[0.99] text-white font-bold text-sm rounded-xl shadow-lg transition flex items-center justify-center gap-2"
-          >
-            <Check className="w-5 h-5" />
-            {loading ? 'Processing Transaction...' : `Confirm & Print Receipt (${formatMoney(grandTotal)})`}
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setOpenPaymentModal(false)}
+              className="py-3 px-4 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl shadow transition"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleSubmit}
+              disabled={loading}
+              className="flex-1 py-3 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white font-bold text-sm rounded-xl shadow-md transition flex items-center justify-center gap-2"
+            >
+              <Check className="w-5 h-5" />
+              {loading ? 'Processing Transaction...' : `Confirm & Print Receipt (${formatMoney(grandTotal)})`}
+            </button>
+          </div>
         </div>
       </div>
     </div>

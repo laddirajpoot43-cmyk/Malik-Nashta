@@ -388,14 +388,14 @@ export default function POSPage() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-4 h-[calc(100vh-5.5rem)] relative">
+    <div className="flex flex-col lg:flex-row gap-4 h-[calc(100vh-5.5rem)] relative select-none">
       {/* LEFT PANE: Search, Dropdown, Pricing Selector, Categories, & Menu Grid */}
-      <div className="flex-1 flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl p-4 relative">
+      <div className="flex-1 flex flex-col bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm p-4 relative">
         {/* Search Input Bar with Smart Dropdown Container */}
         <div className="relative mb-3 z-30">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-              <Search className="w-5 h-5 text-emerald-400" />
+              <Search className="w-5 h-5 text-emerald-600" />
             </div>
             <input
               ref={searchInputRef}
@@ -407,10 +407,10 @@ export default function POSPage() {
                 if (searchQuery.trim().length > 0) setDropdownOpen(true);
               }}
               placeholder="Search product (e.g. Chana, Daleem, Paratha...) - Press F2 to focus"
-              className="w-full pl-11 pr-24 py-3 bg-slate-950 border border-slate-700 rounded-xl text-slate-100 placeholder-slate-500 font-medium text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 shadow-inner"
+              className="w-full pl-11 pr-24 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 font-bold text-sm focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 shadow-sm"
             />
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center gap-1.5">
-              <kbd className="hidden sm:inline-block px-2 py-1 text-[10px] font-bold text-slate-400 bg-slate-800 border border-slate-700 rounded shadow-sm">
+              <kbd className="hidden sm:inline-block px-2 py-1 text-[10px] font-bold text-slate-500 bg-slate-100 border border-slate-300 rounded shadow-sm">
                 F2
               </kbd>
               {searchQuery && (
@@ -421,7 +421,7 @@ export default function POSPage() {
                     setDropdownOpen(false);
                     searchInputRef.current?.focus();
                   }}
-                  className="text-slate-400 hover:text-white text-xs px-1.5 py-0.5 rounded hover:bg-slate-800 transition"
+                  className="text-slate-500 hover:text-rose-600 text-xs px-1.5 py-0.5 rounded hover:bg-slate-100 transition"
                 >
                   Clear
                 </button>
@@ -431,18 +431,18 @@ export default function POSPage() {
 
           {/* 1. Smart Product Search Dropdown */}
           {dropdownOpen && searchQuery.trim().length > 0 && (
-            <div className="absolute left-0 right-0 top-full mt-1.5 bg-slate-950 border-2 border-emerald-500/80 rounded-xl shadow-2xl z-50 overflow-hidden backdrop-blur-md animate-in fade-in slide-in-from-top-1 duration-100">
-              <div className="p-2 border-b border-slate-800 flex items-center justify-between text-[11px] text-slate-400 bg-slate-900/80">
-                <span className="font-semibold text-emerald-400 flex items-center gap-1">
+            <div className="absolute left-0 right-0 top-full mt-1.5 bg-white border-2 border-emerald-500 rounded-xl shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-1 duration-100">
+              <div className="p-2 border-b border-slate-100 flex items-center justify-between text-[11px] text-slate-600 bg-slate-50">
+                <span className="font-bold text-emerald-700 flex items-center gap-1">
                   <Utensils className="w-3.5 h-3.5" />
                   <span>Matching Items ({searchMatches.length}): Use Up/Down Arrows & Enter</span>
                 </span>
-                <span className="text-[10px] text-slate-500">Press Esc to close</span>
+                <span className="text-[10px] text-slate-500 font-medium">Press Esc to close</span>
               </div>
 
-              <div ref={dropdownRef} className="max-h-64 overflow-y-auto divide-y divide-slate-850">
+              <div ref={dropdownRef} className="max-h-64 overflow-y-auto divide-y divide-slate-100">
                 {searchMatches.length === 0 ? (
-                  <div className="p-4 text-center text-slate-400 text-xs font-medium">
+                  <div className="p-4 text-center text-slate-500 text-xs font-semibold">
                     No matching products found for &quot;{searchQuery}&quot;
                   </div>
                 ) : (
@@ -457,15 +457,15 @@ export default function POSPage() {
                         onClick={() => handleSelectProduct(product)}
                         className={`p-2.5 transition flex items-center justify-between cursor-pointer ${
                           isHighlighted
-                            ? 'bg-emerald-950/70 text-white border-l-4 border-emerald-400 pl-3'
-                            : 'hover:bg-slate-900 text-slate-200'
+                            ? 'bg-emerald-50 text-emerald-950 border-l-4 border-emerald-600 pl-3 font-semibold'
+                            : 'hover:bg-slate-50 text-slate-800'
                         }`}
                       >
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
-                            <span className="font-bold text-sm text-slate-100">{product.name}</span>
+                            <span className="font-extrabold text-sm text-slate-900">{product.name}</span>
                             {product.category_name && (
-                              <span className="text-[10px] bg-slate-800 text-slate-400 font-semibold px-2 py-0.5 rounded-full border border-slate-700">
+                              <span className="text-[10px] bg-slate-100 text-slate-700 font-bold px-2 py-0.5 rounded-full border border-slate-200">
                                 {product.category_name}
                               </span>
                             )}
@@ -476,14 +476,14 @@ export default function POSPage() {
                             {pricingOpts.map((opt) => (
                               <span
                                 key={opt.id}
-                                className={`text-[10px] px-1.5 py-0.5 rounded font-medium border ${
+                                className={`text-[10px] px-1.5 py-0.5 rounded font-bold border ${
                                   isHighlighted
-                                    ? 'bg-emerald-900/60 text-emerald-200 border-emerald-600/60'
-                                    : 'bg-slate-800/80 text-slate-300 border-slate-700'
+                                    ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                                    : 'bg-slate-100 text-slate-700 border-slate-200'
                                 }`}
                               >
                                 {opt.label}:{' '}
-                                <strong className="text-emerald-300">
+                                <strong className="text-emerald-700">
                                   {opt.type === 'by_price' ? 'Custom' : formatMoney(opt.price)}
                                 </strong>
                               </span>
@@ -492,12 +492,12 @@ export default function POSPage() {
                         </div>
 
                         <div className="text-right pl-3">
-                          <div className="text-[11px] font-bold text-emerald-400">
+                          <div className="text-[11px] font-black text-emerald-700">
                             {formatMoney(product.selling_price)}
                           </div>
                           <span
-                            className={`text-[10px] px-2 py-0.5 rounded font-semibold transition ${
-                              isHighlighted ? 'bg-emerald-500 text-slate-950' : 'bg-slate-800 text-slate-400'
+                            className={`text-[10px] px-2 py-0.5 rounded font-bold transition ${
+                              isHighlighted ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-600'
                             }`}
                           >
                             Press Enter
@@ -529,10 +529,10 @@ export default function POSPage() {
           <button
             type="button"
             onClick={() => setSelectedCategory('all')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition border ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition border cursor-pointer ${
               selectedCategory === 'all'
-                ? 'bg-emerald-600 text-white border-emerald-500 shadow-sm'
-                : 'bg-slate-950/80 text-slate-400 border-slate-800 hover:text-slate-200 hover:border-slate-700'
+                ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
             }`}
           >
             All Items ({products.length})
@@ -542,10 +542,10 @@ export default function POSPage() {
               key={cat.id}
               type="button"
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition border ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition border cursor-pointer ${
                 selectedCategory === cat.id
-                  ? 'bg-emerald-600 text-white border-emerald-500 shadow-sm'
-                  : 'bg-slate-950/80 text-slate-400 border-slate-800 hover:text-slate-200 hover:border-slate-700'
+                  ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
               }`}
             >
               {cat.name}
@@ -557,9 +557,9 @@ export default function POSPage() {
         <div className="flex-1 overflow-y-auto pr-1">
           {filteredProducts.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-slate-500 py-12">
-              <Utensils className="w-12 h-12 mb-3 opacity-30 text-emerald-400" />
-              <p className="text-sm font-semibold">No breakfast items found</p>
-              <p className="text-xs text-slate-600 mt-1">Try another keyword or category</p>
+              <Utensils className="w-12 h-12 mb-3 opacity-30 text-emerald-600" />
+              <p className="text-sm font-bold text-slate-800">No breakfast items found</p>
+              <p className="text-xs text-slate-500 mt-1">Try another keyword or category</p>
             </div>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2.5">
@@ -571,19 +571,19 @@ export default function POSPage() {
                     key={p.id}
                     type="button"
                     onClick={() => handleSelectProduct(p)}
-                    className={`text-left p-3 rounded-xl border transition flex flex-col justify-between h-32 relative group cursor-pointer ${
+                    className={`text-left p-3 rounded-2xl border transition flex flex-col justify-between h-32 relative group cursor-pointer ${
                       isSelected
-                        ? 'bg-emerald-950/40 border-emerald-400 shadow-md ring-1 ring-emerald-400'
-                        : 'bg-slate-950/70 border-slate-800 hover:border-emerald-500/50 hover:bg-slate-850'
+                        ? 'bg-emerald-50 border-emerald-600 shadow-md ring-2 ring-emerald-500/30'
+                        : 'bg-white border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/20 shadow-sm'
                     }`}
                   >
                     <div>
                       <div className="flex items-start justify-between gap-1">
-                        <h4 className="font-bold text-slate-100 text-xs sm:text-sm line-clamp-1 leading-tight group-hover:text-emerald-300 transition">
+                        <h4 className="font-extrabold text-slate-900 text-xs sm:text-sm line-clamp-1 leading-tight group-hover:text-emerald-700 transition">
                           {p.name}
                         </h4>
                       </div>
-                      <span className="text-[10px] text-slate-500 mt-0.5 block truncate">
+                      <span className="text-[10px] text-slate-500 mt-0.5 block truncate font-medium">
                         {p.category_name}
                       </span>
                     </div>
@@ -591,17 +591,17 @@ export default function POSPage() {
                     {/* Quick Pricing Chips on Card */}
                     <div className="flex flex-wrap gap-1 my-1">
                       {opts.slice(0, 2).map((op) => (
-                        <span key={op.id} className="text-[9px] bg-slate-900 border border-slate-800 text-slate-400 px-1 py-0.2 rounded truncate">
+                        <span key={op.id} className="text-[9px] bg-slate-100 border border-slate-200 text-slate-700 px-1 py-0.2 rounded font-semibold truncate">
                           {op.label}: {op.type === 'by_price' ? 'Custom' : formatMoney(op.price)}
                         </span>
                       ))}
                     </div>
 
-                    <div className="flex items-center justify-between pt-1 border-t border-slate-800/60 mt-auto">
-                      <span className="font-extrabold text-emerald-400 text-xs sm:text-sm">
+                    <div className="flex items-center justify-between pt-1 border-t border-slate-100 mt-auto">
+                      <span className="font-black text-emerald-700 text-xs sm:text-sm">
                         {formatMoney(p.selling_price)}
                       </span>
-                      <span className="text-[10px] bg-slate-800 group-hover:bg-emerald-600 group-hover:text-white text-slate-400 px-1.5 py-0.5 rounded transition">
+                      <span className="text-[10px] bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-700 font-bold px-2 py-0.5 rounded-lg transition">
                         Select
                       </span>
                     </div>
@@ -613,30 +613,30 @@ export default function POSPage() {
         </div>
 
         {/* Global Keyboard Shortcut Helper Bar */}
-        <div className="mt-3 pt-2.5 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400 overflow-x-auto">
+        <div className="mt-3 pt-2.5 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-600 overflow-x-auto">
           <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-slate-800 text-slate-300 rounded font-mono border border-slate-700">Enter</kbd>
+            <span className="flex items-center gap-1 font-medium">
+              <kbd className="px-1.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono border border-slate-300 font-bold">Enter</kbd>
               Select / Add
             </span>
-            <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-slate-800 text-slate-300 rounded font-mono border border-slate-700">F2</kbd>
+            <span className="flex items-center gap-1 font-medium">
+              <kbd className="px-1.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono border border-slate-300 font-bold">F2</kbd>
               Search
             </span>
-            <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-slate-800 text-slate-300 rounded font-mono border border-slate-700">F4</kbd>
+            <span className="flex items-center gap-1 font-medium">
+              <kbd className="px-1.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono border border-slate-300 font-bold">F4</kbd>
               Pay
             </span>
-            <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-slate-800 text-slate-300 rounded font-mono border border-slate-700">Ctrl+Enter</kbd>
+            <span className="flex items-center gap-1 font-medium">
+              <kbd className="px-1.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono border border-slate-300 font-bold">Ctrl+Enter</kbd>
               Complete Bill
             </span>
-            <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-slate-800 text-slate-300 rounded font-mono border border-slate-700">Del</kbd>
+            <span className="flex items-center gap-1 font-medium">
+              <kbd className="px-1.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono border border-slate-300 font-bold">Del</kbd>
               Delete Item
             </span>
-            <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-slate-800 text-slate-300 rounded font-mono border border-slate-700">Esc</kbd>
+            <span className="flex items-center gap-1 font-medium">
+              <kbd className="px-1.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono border border-slate-300 font-bold">Esc</kbd>
               Cancel / Close
             </span>
           </div>
@@ -644,29 +644,30 @@ export default function POSPage() {
       </div>
 
       {/* RIGHT PANE: Cart / Current Bill, Pricing Display & Fast Checkout (40% width) */}
-      <div className="w-full lg:w-[480px] xl:w-[520px] flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl p-4">
+      <div className="w-full lg:w-[480px] xl:w-[520px] flex flex-col bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm p-4">
         {/* Cart Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-200 mb-3">
           <div className="flex items-center gap-2">
-            <div className="p-2 bg-emerald-500/20 text-emerald-400 rounded-lg">
+            <div className="p-2 bg-emerald-50 text-emerald-700 rounded-xl border border-emerald-200">
               <ShoppingCart className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="font-bold text-sm text-white">Current Order Bill</h2>
-              <span className="text-[10px] text-slate-400">
-                {cart.length} item(s) • Cashier: {currentUser?.display_name || 'Cashier'}
+              <h2 className="font-extrabold text-sm text-slate-900">Current Order Bill</h2>
+              <span className="text-[10px] text-slate-500 font-medium">
+                {cart.length} item(s) • Cashier: <strong>{currentUser?.display_name || 'Cashier'}</strong>
               </span>
             </div>
           </div>
 
+          {/* RED BUTTON: Clear Cart */}
           {cart.length > 0 && (
             <button
               onClick={clearCart}
-              className="text-xs text-rose-400 hover:text-rose-300 flex items-center gap-1 px-2.5 py-1 rounded-lg hover:bg-rose-950/40 border border-transparent hover:border-rose-900 transition cursor-pointer"
+              className="text-xs bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white font-bold flex items-center gap-1 px-3 py-1.5 rounded-xl shadow-sm transition cursor-pointer"
               title="Clear all cart items"
             >
               <Trash2 className="w-3.5 h-3.5" />
-              <span>Clear</span>
+              <span>Clear Cart</span>
             </button>
           )}
         </div>
@@ -678,17 +679,17 @@ export default function POSPage() {
             value={customerName}
             onChange={(e) => setCustomerName(e.target.value)}
             placeholder="Guest / Table Name (e.g. Table 4 - Chaudhry Sahib)"
-            className="w-full px-3 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-200 focus:outline-none focus:border-emerald-500"
+            className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-semibold focus:outline-none focus:border-emerald-600"
           />
         </div>
 
         {/* Toast / Feedback Message */}
         {feedbackMsg && (
           <div
-            className={`p-2.5 mb-3 rounded-lg text-xs font-semibold flex items-center gap-2 animate-in fade-in duration-150 ${
+            className={`p-2.5 mb-3 rounded-xl text-xs font-bold flex items-center gap-2 animate-in fade-in duration-150 ${
               feedbackMsg.type === 'success'
-                ? 'bg-emerald-950/80 border border-emerald-500 text-emerald-200'
-                : 'bg-rose-950/80 border border-rose-500 text-rose-200'
+                ? 'bg-emerald-50 border border-emerald-300 text-emerald-800'
+                : 'bg-rose-50 border border-rose-300 text-rose-800'
             }`}
           >
             {feedbackMsg.type === 'success' ? <Check className="w-4 h-4 shrink-0" /> : <Info className="w-4 h-4 shrink-0" />}
@@ -699,15 +700,15 @@ export default function POSPage() {
         {/* 4. Dynamic Bill / Cart Integration Table */}
         <div className="flex-1 overflow-y-auto pr-1 mb-3">
           {cart.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-slate-500 py-12">
-              <ShoppingCart className="w-12 h-12 mb-3 opacity-20 text-slate-400" />
-              <p className="text-sm font-semibold">Bill is currently empty</p>
-              <p className="text-xs text-slate-600 mt-1">Search items or select from menu</p>
+            <div className="h-full flex flex-col items-center justify-center text-slate-400 py-12">
+              <ShoppingCart className="w-12 h-12 mb-3 opacity-20 text-slate-500" />
+              <p className="text-sm font-bold text-slate-700">Bill is currently empty</p>
+              <p className="text-xs text-slate-500 mt-1">Search items or select from menu</p>
             </div>
           ) : (
             <div className="space-y-2">
               {/* Header row */}
-              <div className="grid grid-cols-12 text-[10px] font-bold text-slate-400 uppercase border-b border-slate-800 pb-1.5 px-2">
+              <div className="grid grid-cols-12 text-[10px] font-extrabold text-slate-500 uppercase border-b border-slate-200 pb-1.5 px-2">
                 <span className="col-span-4">Product</span>
                 <span className="col-span-3 text-center">Pricing</span>
                 <span className="col-span-1 text-center">Qty</span>
@@ -723,23 +724,23 @@ export default function POSPage() {
                     onClick={() => setSelectedCartIndex(idx)}
                     className={`p-2.5 rounded-xl border transition text-xs cursor-pointer ${
                       isHighlighted
-                        ? 'bg-slate-800/90 border-emerald-500 shadow-md ring-1 ring-emerald-500/40'
-                        : 'bg-slate-950/70 border-slate-800 hover:border-slate-700'
+                        ? 'bg-emerald-50 border-emerald-500 shadow-sm ring-2 ring-emerald-500/20'
+                        : 'bg-white border-slate-200 hover:border-slate-300'
                     }`}
                   >
                     <div className="grid grid-cols-12 items-center gap-1">
                       {/* Product Name */}
                       <div className="col-span-4">
-                        <div className="font-bold text-slate-100 text-xs truncate" title={item.product_name}>
+                        <div className="font-extrabold text-slate-900 text-xs truncate" title={item.product_name}>
                           {item.product_name}
                         </div>
                         {item.note && (
-                          <div className="text-[10px] italic text-amber-300 truncate" title={item.note}>
+                          <div className="text-[10px] italic text-slate-600 truncate" title={item.note}>
                             {item.note}
                           </div>
                         )}
                         {item.addons && item.addons.length > 0 && (
-                          <div className="text-[9px] text-teal-300 truncate">
+                          <div className="text-[9px] text-emerald-700 font-semibold truncate">
                             +{item.addons.map((a) => a.name).join(', ')}
                           </div>
                         )}
@@ -747,38 +748,38 @@ export default function POSPage() {
 
                       {/* Pricing Method Badge */}
                       <div className="col-span-3 text-center">
-                        <span className="text-[10px] bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 font-semibold px-2 py-0.5 rounded-full inline-block max-w-full truncate">
+                        <span className="text-[10px] bg-slate-100 border border-slate-200 text-slate-800 font-bold px-2 py-0.5 rounded-full inline-block max-w-full truncate">
                           {item.pricing_method || 'Full Plate'}
                         </span>
                       </div>
 
                       {/* Quantity */}
-                      <div className="col-span-1 text-center font-bold text-slate-200">
+                      <div className="col-span-1 text-center font-black text-slate-900">
                         {item.quantity}
                       </div>
 
                       {/* Unit Price */}
-                      <div className="col-span-2 text-right text-slate-300 font-medium">
+                      <div className="col-span-2 text-right text-slate-700 font-bold">
                         {formatMoney(item.unit_price)}
                       </div>
 
                       {/* Total Price */}
-                      <div className="col-span-2 text-right font-black text-emerald-400">
+                      <div className="col-span-2 text-right font-black text-emerald-700">
                         {formatMoney(item.line_total)}
                       </div>
                     </div>
 
                     {/* Actions bar (Edit & Remove) */}
-                    <div className="flex items-center justify-end gap-2 pt-1.5 mt-1 border-t border-slate-800/50">
+                    <div className="flex items-center justify-end gap-2 pt-1.5 mt-1 border-t border-slate-100">
                       <button
                         type="button"
                         onClick={(e) => {
                           e.stopPropagation();
                           openEditModal(idx, item);
                         }}
-                        className="text-[10px] text-slate-400 hover:text-amber-300 font-medium flex items-center gap-1 hover:bg-slate-800 px-1.5 py-0.5 rounded transition"
+                        className="text-[10px] text-slate-600 hover:text-emerald-700 font-bold flex items-center gap-1 hover:bg-slate-100 px-2 py-0.5 rounded-lg transition"
                       >
-                        <Edit2 className="w-3 h-3 text-amber-400" />
+                        <Edit2 className="w-3 h-3 text-emerald-600" />
                         <span>Edit</span>
                       </button>
 
@@ -788,9 +789,9 @@ export default function POSPage() {
                           e.stopPropagation();
                           setDeleteConfirmItem({ index: idx, item });
                         }}
-                        className="text-[10px] text-slate-400 hover:text-rose-400 font-medium flex items-center gap-1 hover:bg-rose-950/50 px-1.5 py-0.5 rounded transition"
+                        className="text-[10px] text-rose-600 hover:text-rose-700 font-bold flex items-center gap-1 hover:bg-rose-50 px-2 py-0.5 rounded-lg transition"
                       >
-                        <Trash2 className="w-3 h-3 text-rose-400" />
+                        <Trash2 className="w-3 h-3 text-rose-600" />
                         <span>Remove [Del]</span>
                       </button>
                     </div>
@@ -802,65 +803,65 @@ export default function POSPage() {
         </div>
 
         {/* Financial Summary & Penny Rounding */}
-        <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-2 mb-3">
-          <div className="flex justify-between text-xs text-slate-400">
+        <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2 mb-3">
+          <div className="flex justify-between text-xs text-slate-600 font-medium">
             <span>Subtotal:</span>
-            <span className="font-semibold text-slate-200">{formatMoney(subtotal)}</span>
+            <span className="font-bold text-slate-900">{formatMoney(subtotal)}</span>
           </div>
 
           {/* Discount Row */}
           <div className="flex justify-between items-center text-xs">
             <button
               onClick={() => setOpenDiscountModal(true)}
-              className="text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-1 underline underline-offset-2"
+              className="text-emerald-700 hover:text-emerald-800 font-bold flex items-center gap-1 underline underline-offset-2"
             >
               <Percent className="w-3.5 h-3.5" />
               <span>Discount ({discountValue > 0 ? (discountType === 'percentage' ? `${discountValue}%` : 'Flat') : 'Add'}):</span>
             </button>
-            <span className="font-semibold text-emerald-400">
+            <span className="font-bold text-emerald-700">
               {discountAmount > 0 ? `-${formatMoney(discountAmount)}` : 'Rs. 0'}
             </span>
           </div>
 
           {/* Rounding Adjustment */}
           {roundingAmount !== 0 && (
-            <div className="flex justify-between text-[11px] text-slate-400">
+            <div className="flex justify-between text-[11px] text-slate-500 font-medium">
               <span>Rounding:</span>
               <span>{roundingAmount > 0 ? `+${formatMoney(roundingAmount)}` : formatMoney(roundingAmount)}</span>
             </div>
           )}
 
           {/* Net Grand Total */}
-          <div className="flex justify-between items-center pt-2 border-t border-slate-800">
-            <span className="text-sm font-black text-slate-100">GRAND TOTAL:</span>
-            <span className="text-2xl font-black text-emerald-400">{formatMoney(grandTotal)}</span>
+          <div className="flex justify-between items-center pt-2 border-t border-slate-200">
+            <span className="text-sm font-extrabold text-slate-900">GRAND TOTAL:</span>
+            <span className="text-2xl font-black text-emerald-700">{formatMoney(grandTotal)}</span>
           </div>
         </div>
 
         {/* Action Buttons: Quick Cash Checkout & Modal Payment */}
         <div className="space-y-2">
-          {/* Main Primary Button: Fast Cash Checkout & Auto-Print */}
+          {/* GREEN BUTTON: Fast Cash Checkout & Auto-Print */}
           <button
             onClick={() => {
               if (cart.length > 0) setCheckoutConfirmOpen(true);
             }}
             disabled={checkoutLoading || cart.length === 0}
-            className="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none text-white font-black text-sm rounded-xl shadow-lg shadow-emerald-950 flex items-center justify-center gap-2 transition cursor-pointer"
+            className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 disabled:opacity-50 disabled:pointer-events-none text-white font-black text-sm rounded-xl shadow flex items-center justify-center gap-2 transition cursor-pointer"
           >
-            <Zap className="w-4 h-4 fill-current text-amber-300" />
+            <Zap className="w-4 h-4 fill-current text-white" />
             <span>
               {checkoutLoading ? 'Processing & Printing...' : `Complete Bill & Print [Ctrl+Enter / F6]`}
             </span>
           </button>
 
-          {/* Secondary Buttons: Payment Section [F4] & Hold */}
+          {/* Secondary Action Buttons (Green) */}
           <div className="grid grid-cols-2 gap-2">
             <button
               onClick={() => {
                 if (cart.length > 0) setOpenPaymentModal(true);
               }}
               disabled={cart.length === 0}
-              className="py-2.5 bg-slate-800 hover:bg-slate-700 disabled:opacity-50 text-cyan-300 border border-slate-700 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5"
+              className="py-2.5 bg-emerald-700 hover:bg-emerald-800 disabled:opacity-50 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
             >
               <CreditCard className="w-3.5 h-3.5" />
               <span>Payment Section [F4]</span>
@@ -869,7 +870,7 @@ export default function POSPage() {
             <button
               onClick={handleHoldOrder}
               disabled={cart.length === 0}
-              className="py-2.5 bg-slate-800 hover:bg-slate-700 disabled:opacity-50 text-amber-300 border border-slate-700 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5"
+              className="py-2.5 bg-emerald-50 hover:bg-emerald-100 disabled:opacity-50 text-emerald-800 border border-emerald-300 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <PauseCircle className="w-3.5 h-3.5" />
               <span>Hold Cart</span>
@@ -880,25 +881,27 @@ export default function POSPage() {
 
       {/* CONFIRMATION MODAL: Delete Item (Subject to Confirmation) */}
       {deleteConfirmItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="bg-slate-900 border-2 border-rose-500/80 rounded-2xl w-full max-w-sm p-5 shadow-2xl animate-in zoom-in-95">
-            <div className="flex items-center gap-3 text-rose-400 mb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-sm p-5 shadow-2xl animate-in zoom-in-95">
+            <div className="flex items-center gap-3 text-rose-600 mb-3">
               <AlertCircle className="w-6 h-6 shrink-0" />
-              <h3 className="font-bold text-base text-white">Confirm Remove Item</h3>
+              <h3 className="font-extrabold text-base text-slate-900">Confirm Remove Item</h3>
             </div>
-            <p className="text-xs text-slate-300 mb-4 leading-relaxed">
+            <p className="text-xs text-slate-600 mb-4 leading-relaxed font-medium">
               Are you sure you want to remove{' '}
-              <strong className="text-white font-bold">{deleteConfirmItem.item.product_name}</strong>{' '}
+              <strong className="text-slate-900 font-extrabold">{deleteConfirmItem.item.product_name}</strong>{' '}
               ({deleteConfirmItem.item.pricing_method}, Qty: {deleteConfirmItem.item.quantity}) from the bill?
             </p>
             <div className="flex gap-2">
+              {/* RED CANCEL BUTTON */}
               <button
                 type="button"
                 onClick={() => setDeleteConfirmItem(null)}
-                className="flex-1 py-2 text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 rounded-xl transition"
+                className="flex-1 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition"
               >
                 Cancel [Esc]
               </button>
+              {/* RED DELETE BUTTON */}
               <button
                 type="button"
                 autoFocus
@@ -907,7 +910,7 @@ export default function POSPage() {
                   setDeleteConfirmItem(null);
                   showFeedback('Item removed from bill.', 'success');
                 }}
-                className="flex-1 py-2 text-xs font-bold text-white bg-rose-600 hover:bg-rose-500 rounded-xl transition shadow-lg shadow-rose-950"
+                className="flex-1 py-2 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 active:bg-rose-800 rounded-xl transition shadow"
               >
                 Delete [Enter]
               </button>
@@ -918,34 +921,36 @@ export default function POSPage() {
 
       {/* CONFIRMATION MODAL: Complete Bill (Ctrl + Enter, Subject to Confirmation) */}
       {checkoutConfirmOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="bg-slate-900 border-2 border-emerald-500 rounded-2xl w-full max-w-sm p-5 shadow-2xl animate-in zoom-in-95">
-            <div className="flex items-center gap-3 text-emerald-400 mb-3">
-              <Zap className="w-6 h-6 shrink-0 fill-current text-amber-300" />
-              <h3 className="font-bold text-base text-white">Complete & Print Bill</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-sm p-5 shadow-2xl animate-in zoom-in-95">
+            <div className="flex items-center gap-3 text-emerald-600 mb-3">
+              <Zap className="w-6 h-6 shrink-0 fill-current text-emerald-600" />
+              <h3 className="font-extrabold text-base text-slate-900">Complete & Print Bill</h3>
             </div>
-            <div className="text-xs text-slate-300 space-y-2 mb-4 bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <div className="text-xs text-slate-700 space-y-2 mb-4 bg-slate-50 p-3 rounded-xl border border-slate-200">
               <div className="flex justify-between">
                 <span>Total Items:</span>
-                <span className="font-bold text-white">{cart.length}</span>
+                <span className="font-bold text-slate-900">{cart.length}</span>
               </div>
               <div className="flex justify-between">
                 <span>Guest / Customer:</span>
-                <span className="font-semibold text-slate-200">{customerName || 'Walk-in Guest'}</span>
+                <span className="font-bold text-slate-900">{customerName || 'Walk-in Guest'}</span>
               </div>
-              <div className="flex justify-between pt-1 border-t border-slate-800 text-sm">
-                <span className="font-black text-white">Grand Total:</span>
-                <span className="font-black text-emerald-400">{formatMoney(grandTotal)}</span>
+              <div className="flex justify-between pt-1 border-t border-slate-200 text-sm">
+                <span className="font-extrabold text-slate-900">Grand Total:</span>
+                <span className="font-black text-emerald-700">{formatMoney(grandTotal)}</span>
               </div>
             </div>
             <div className="flex gap-2">
+              {/* RED BUTTON: Cancel */}
               <button
                 type="button"
                 onClick={() => setCheckoutConfirmOpen(false)}
-                className="flex-1 py-2 text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 rounded-xl transition"
+                className="flex-1 py-2 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 active:bg-rose-800 rounded-xl transition shadow-sm"
               >
                 Cancel [Esc]
               </button>
+              {/* GREEN BUTTON: Confirm & Print */}
               <button
                 type="button"
                 autoFocus
@@ -953,7 +958,7 @@ export default function POSPage() {
                   setCheckoutConfirmOpen(false);
                   triggerQuickCheckout();
                 }}
-                className="flex-1 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 rounded-xl transition shadow-lg shadow-emerald-950 flex items-center justify-center gap-1.5"
+                className="flex-1 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl transition shadow flex items-center justify-center gap-1.5"
               >
                 Confirm & Print [Enter]
               </button>
@@ -964,19 +969,19 @@ export default function POSPage() {
 
       {/* EDIT MODAL: Edit Cart Item Quantity / Price / Note */}
       {editingCartItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-sm p-5 space-y-4 shadow-2xl animate-in zoom-in-95">
-            <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-sm p-5 space-y-4 shadow-2xl animate-in zoom-in-95">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-100">
               <div>
-                <h3 className="font-bold text-sm text-white">Edit Bill Item</h3>
-                <span className="text-[10px] text-emerald-400 font-semibold">
+                <h3 className="font-extrabold text-sm text-slate-900">Edit Bill Item</h3>
+                <span className="text-[10px] text-emerald-700 font-bold">
                   {editingCartItem.item.product_name} ({editingCartItem.item.pricing_method})
                 </span>
               </div>
               <button
                 type="button"
                 onClick={() => setEditingCartItem(null)}
-                className="text-slate-400 hover:text-white"
+                className="text-slate-400 hover:text-slate-700 p-1"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -984,52 +989,54 @@ export default function POSPage() {
 
             <div className="space-y-3">
               <div>
-                <label className="block text-[11px] font-semibold text-slate-400 mb-1">Quantity:</label>
+                <label className="block text-[11px] font-bold text-slate-700 mb-1">Quantity:</label>
                 <input
                   type="number"
                   min="1"
                   step="any"
                   value={editingCartItem.quantity}
                   onChange={(e) => setEditingCartItem({ ...editingCartItem, quantity: parseFloat(e.target.value) || 0 })}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white font-bold focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-400 mb-1">Unit Rate (PKR):</label>
+                <label className="block text-[11px] font-bold text-slate-700 mb-1">Unit Rate (PKR):</label>
                 <input
                   type="number"
                   step="any"
                   value={editingCartItem.unit_price}
                   onChange={(e) => setEditingCartItem({ ...editingCartItem, unit_price: parseFloat(e.target.value) || 0 })}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-emerald-400 font-bold focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-emerald-700 font-black focus:outline-none focus:border-emerald-600"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-400 mb-1">Kitchen Note:</label>
+                <label className="block text-[11px] font-bold text-slate-700 mb-1">Note:</label>
                 <input
                   type="text"
                   value={editingCartItem.note}
                   onChange={(e) => setEditingCartItem({ ...editingCartItem, note: e.target.value })}
-                  placeholder="Optional instruction..."
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-slate-200 focus:outline-none focus:border-emerald-500"
+                  placeholder="Optional note..."
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
                 />
               </div>
             </div>
 
             <div className="flex gap-2 pt-2">
+              {/* RED BUTTON: Cancel */}
               <button
                 type="button"
                 onClick={() => setEditingCartItem(null)}
-                className="flex-1 py-2 text-xs font-semibold text-slate-300 bg-slate-800 rounded-xl"
+                className="flex-1 py-2 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 active:bg-rose-800 rounded-xl shadow-sm"
               >
                 Cancel [Esc]
               </button>
+              {/* GREEN BUTTON: Save Changes */}
               <button
                 type="button"
                 onClick={handleSaveCartEdit}
-                className="flex-1 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 rounded-xl shadow"
+                className="flex-1 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl shadow"
               >
                 Save Changes [Enter]
               </button>

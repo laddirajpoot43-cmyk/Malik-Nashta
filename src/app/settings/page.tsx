@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useSettings } from '@/context/SettingsContext';
 import { useAuth } from '@/context/AuthContext';
 import { usePOS } from '@/context/POSContext';
@@ -33,12 +34,15 @@ export default function SettingsPage() {
       fallbackTitle="System Settings & Admin Control Center"
       fallbackDescription="Please enter Admin PIN to configure receipt templates, products, categories, raw materials, and staff accounts."
     >
-      <SettingsContent />
+      <React.Suspense fallback={<div className="p-6 text-slate-500 text-xs">Loading settings...</div>}>
+        <SettingsContent />
+      </React.Suspense>
     </AdminGuard>
   );
 }
 
 function SettingsContent() {
+  const searchParams = useSearchParams();
   const { settings, updateSettings } = useSettings();
   const { currentUser, users, refreshUsers } = useAuth();
   const { refreshPOSData } = usePOS();
@@ -46,6 +50,17 @@ function SettingsContent() {
   const [activeTab, setActiveTab] = useState<
     'slip' | 'menu' | 'categories' | 'raw' | 'users' | 'business' | 'security'
   >('slip');
+
+  useEffect(() => {
+    const tab = searchParams.get('tab');
+    if (tab === 'products' || tab === 'menu') setActiveTab('menu');
+    else if (tab === 'receipt' || tab === 'slip') setActiveTab('slip');
+    else if (tab === 'categories') setActiveTab('categories');
+    else if (tab === 'raw') setActiveTab('raw');
+    else if (tab === 'staff' || tab === 'users') setActiveTab('users');
+    else if (tab === 'hotel' || tab === 'business') setActiveTab('business');
+    else if (tab === 'security') setActiveTab('security');
+  }, [searchParams]);
 
   // Business form
   const [businessName, setBusinessName] = useState(settings.business_name || '');
@@ -416,28 +431,28 @@ function SettingsContent() {
   ];
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 select-none">
       {/* Top Banner */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-xl">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-gradient-to-br from-amber-500 to-amber-700 text-slate-950 font-black rounded-xl shadow-lg">
-            <Settings className="w-6 h-6 text-white" />
+          <div className="p-2.5 bg-emerald-50 text-emerald-700 border border-emerald-200 font-black rounded-xl">
+            <Settings className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-lg font-black text-white flex items-center gap-2">
-              Admin Control Center & CRUD Management
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold">
+            <h1 className="text-lg font-black text-slate-900 flex items-center gap-2">
+              System Settings & Admin Control Center
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold">
                 Admin Full Access
               </span>
             </h1>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-600 font-medium">
               Complete administrative authority: customize thermal receipt slips, manage menu items, categories, raw materials, staff profiles, and security PINs
             </p>
           </div>
         </div>
 
         {/* Tab Navigation Buttons */}
-        <div className="flex items-center gap-1 bg-slate-950 p-1.5 rounded-xl border border-slate-800 overflow-x-auto text-xs font-semibold">
+        <div className="flex items-center gap-1 bg-slate-100 p-1.5 rounded-xl border border-slate-200 overflow-x-auto text-xs font-semibold">
           {navTabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -445,10 +460,10 @@ function SettingsContent() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`px-3 py-1.5 rounded-lg transition whitespace-nowrap flex items-center gap-1.5 ${
+                className={`px-3 py-1.5 rounded-lg transition whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
                   isActive
-                    ? 'bg-amber-600 text-white font-bold shadow'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+                    ? 'bg-emerald-600 text-white font-bold shadow'
+                    : 'text-slate-700 hover:text-slate-900 hover:bg-slate-200/60'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />

@@ -9,10 +9,5 @@ export const ThermalReceiptContainer: React.FC = () => {
 
   if (!currentOrderToPrint) return null;
 
-  return (
-    <div className="hidden print:block">
-      <ThermalReceipt order={currentOrderToPrint} />
-    </div>
-  );
+  return <ThermalReceipt order={currentOrderToPrint} />;
 };
-

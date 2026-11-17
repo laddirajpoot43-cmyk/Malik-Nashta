@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { ShieldAlert, KeyRound, Lock, ArrowLeft } from 'lucide-react';
+import { Lock, ArrowLeft, KeyRound } from 'lucide-react';
 import Link from 'next/link';
 
 interface AdminGuardProps {
@@ -45,19 +45,19 @@ export const AdminGuard: React.FC<AdminGuardProps> = ({
   };
 
   return (
-    <div className="min-h-[75vh] flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-slate-900 border border-slate-700 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 text-center animate-in fade-in">
-        <div className="mx-auto w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+    <div className="min-h-[75vh] flex items-center justify-center p-4 select-none">
+      <div className="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6 text-center animate-in fade-in">
+        <div className="mx-auto w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600">
           <Lock className="w-8 h-8" />
         </div>
 
-        <div className="space-y-2">
-          <h2 className="text-xl font-black text-white">{fallbackTitle}</h2>
-          <p className="text-xs text-slate-400">{fallbackDescription}</p>
+        <div className="space-y-1.5">
+          <h2 className="text-xl font-extrabold text-slate-900">{fallbackTitle}</h2>
+          <p className="text-xs text-slate-600 font-medium">{fallbackDescription}</p>
         </div>
 
         {errorMsg && (
-          <div className="p-3 bg-rose-500/20 border border-rose-500/40 rounded-xl text-rose-300 text-xs font-semibold">
+          <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs font-bold">
             {errorMsg}
           </div>
         )}
@@ -74,23 +74,25 @@ export const AdminGuard: React.FC<AdminGuardProps> = ({
                 setErrorMsg('');
               }}
               placeholder="••••"
-              className="w-full py-3 px-4 bg-slate-950 border border-slate-700 rounded-2xl text-center text-3xl font-black text-white tracking-[0.5em] focus:outline-none focus:border-amber-400 placeholder:text-slate-600 shadow-inner"
+              className="w-full py-3 px-4 bg-slate-50 border border-slate-300 rounded-2xl text-center text-3xl font-black text-slate-900 tracking-[0.5em] focus:outline-none focus:border-emerald-600 placeholder:text-slate-400 shadow-inner"
             />
           </div>
 
           <div className="flex gap-2">
+            {/* RED BUTTON: Back to POS */}
             <Link
               href="/pos"
-              className="flex-1 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs transition flex items-center justify-center gap-1.5"
+              className="flex-1 py-3 px-4 rounded-xl bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white font-bold text-xs transition flex items-center justify-center gap-1.5 shadow-sm"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back to POS</span>
             </Link>
 
+            {/* GREEN BUTTON: Unlock Panel */}
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs shadow-lg shadow-amber-950/40 transition flex items-center justify-center gap-1.5 disabled:opacity-50"
+              className="flex-1 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-extrabold text-xs shadow transition flex items-center justify-center gap-1.5 disabled:opacity-50 cursor-pointer"
             >
               <KeyRound className="w-4 h-4" />
               <span>{loading ? 'Verifying...' : 'Unlock Panel'}</span>
@@ -98,13 +100,12 @@ export const AdminGuard: React.FC<AdminGuardProps> = ({
           </div>
         </form>
 
-        <div className="pt-2 border-t border-slate-800/80">
-          <p className="text-[11px] text-slate-500">
-            Default Admin PIN: <span className="font-mono text-slate-400 font-bold">1234</span> (configurable in Settings)
+        <div className="pt-2 border-t border-slate-100">
+          <p className="text-[11px] text-slate-500 font-medium">
+            Default Admin PIN: <span className="font-mono text-slate-700 font-bold">1234</span>
           </p>
         </div>
       </div>
     </div>
   );
 };
-

@@ -3,7 +3,7 @@ import './globals.css';
 import { AuthProvider } from '@/context/AuthContext';
 import { SettingsProvider } from '@/context/SettingsContext';
 import { POSProvider } from '@/context/POSContext';
-import { NavigationHeader } from '@/components/NavigationHeader';
+import { AppLayout } from '@/components/layout/AppLayout';
 import { RegisterModal } from '@/components/modals/RegisterModal';
 import { HeldOrdersModal } from '@/components/modals/HeldOrdersModal';
 import { DiscountModal } from '@/components/modals/DiscountModal';
@@ -11,8 +11,8 @@ import { PaymentModal } from '@/components/modals/PaymentModal';
 import { ThermalReceiptContainer } from '@/components/ThermalReceiptContainer';
 
 export const metadata: Metadata = {
-  title: 'Malik Tasty Nashta Point - Enterprise POS & Hotel Platform',
-  description: 'High-speed keyboard billing, Cash drawer shifts, Pakistani portion reciprocation, and Vendor Khata ledger.',
+  title: 'Malik Tasty Nashta Point - POS & Hotel Management',
+  description: 'Keyboard-first Pakistani breakfast billing, Vendor Khata, and Thermal Printing.',
 };
 
 export default function RootLayout({
@@ -21,26 +21,40 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
+      </head>
+      <body className="bg-slate-100 text-slate-900 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
         <AuthProvider>
           <SettingsProvider>
             <POSProvider>
-              <div className="flex flex-col min-h-screen">
-                <NavigationHeader />
-                <main className="flex-1 max-w-[1700px] w-full mx-auto px-4 py-4">
-                  {children}
-                </main>
+              <div id="app-root" className="flex flex-col min-h-screen">
+                <AppLayout>{children}</AppLayout>
+
+                {/* Global Modals */}
+                <RegisterModal />
+                <HeldOrdersModal />
+                <DiscountModal />
+                <PaymentModal />
               </div>
 
-              {/* Global Modals */}
-              <RegisterModal />
-              <HeldOrdersModal />
-              <DiscountModal />
-              <PaymentModal />
-
-              {/* Dedicated 80mm Print Container */}
-              <ThermalReceiptContainer />
+              {/* Isolated Thermal Print Portal - Rendered outside app-root for 0-spill printing */}
+              <div id="thermal-print-portal" aria-hidden="true">
+                <ThermalReceiptContainer />
+              </div>
             </POSProvider>
           </SettingsProvider>
         </AuthProvider>
@@ -48,4 +62,3 @@ export default function RootLayout({
     </html>
   );
 }
-

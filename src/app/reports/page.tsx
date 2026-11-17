@@ -57,23 +57,23 @@ function ReportsContent() {
   const hourlyTrends = reportData?.hourlyTrends || [];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 select-none">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-emerald-500/20 text-emerald-400 rounded-xl">
+          <div className="p-2.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
             <BarChart3 className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-lg font-black text-white">Sales & Operational Analytics</h1>
-            <p className="text-xs text-slate-400">
+            <h1 className="text-lg font-black text-slate-900">Sales & Operational Analytics</h1>
+            <p className="text-xs text-slate-600 font-medium">
               Payment channels, category revenue, peak breakfast rush hours, and itemized menu rankings
             </p>
           </div>
         </div>
 
         {/* Date Range Tabs */}
-        <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-semibold">
+        <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-semibold">
           {[
             { id: 'today', label: 'Today' },
             { id: 'yesterday', label: 'Yesterday' },
@@ -83,10 +83,10 @@ function ReportsContent() {
             <button
               key={tab.id}
               onClick={() => setRange(tab.id)}
-              className={`px-3 py-1.5 rounded-lg transition ${
+              className={`px-3 py-1.5 rounded-lg transition cursor-pointer ${
                 range === tab.id
                   ? 'bg-emerald-600 text-white font-bold shadow'
-                  : 'text-slate-400 hover:text-slate-200'
+                  : 'text-slate-700 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
               {tab.label}
@@ -95,7 +95,7 @@ function ReportsContent() {
           <a
             href="/api/export/excel?type=all"
             download
-            className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg transition flex items-center gap-1.5 shadow"
+            className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition flex items-center gap-1.5 shadow"
           >
             <FileSpreadsheet className="w-3.5 h-3.5" />
             <span>Excel Export</span>
@@ -105,36 +105,36 @@ function ReportsContent() {
 
       {/* Primary KPI Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl">
-          <span className="text-xs text-slate-400 font-medium">Net Sales Revenue</span>
-          <div className="text-2xl font-black text-emerald-400 mt-1">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+          <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">Net Sales Revenue</span>
+          <div className="text-2xl font-black text-emerald-700 mt-1">
             {formatMoney(summary.net_sales)}
           </div>
-          <p className="text-[10px] text-slate-500 mt-1">Discounts: -{formatMoney(summary.total_discount)}</p>
+          <p className="text-[10px] text-slate-500 mt-1 font-medium">Discounts: -{formatMoney(summary.total_discount)}</p>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl">
-          <span className="text-xs text-slate-400 font-medium">Completed Orders</span>
-          <div className="text-2xl font-black text-white mt-1">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+          <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">Completed Orders</span>
+          <div className="text-2xl font-black text-slate-900 mt-1">
             {summary.total_orders} Orders
           </div>
-          <p className="text-[10px] text-slate-500 mt-1">Avg Bill: {summary.total_orders > 0 ? formatMoney(summary.net_sales / summary.total_orders) : 'Rs. 0'}</p>
+          <p className="text-[10px] text-slate-500 mt-1 font-medium">Avg Bill: {summary.total_orders > 0 ? formatMoney(summary.net_sales / summary.total_orders) : 'Rs. 0'}</p>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl">
-          <span className="text-xs text-slate-400 font-medium">Voided / Cancelled Orders</span>
-          <div className="text-2xl font-black text-rose-400 mt-1">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+          <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">Voided / Cancelled Orders</span>
+          <div className="text-2xl font-black text-rose-600 mt-1">
             {summary.voided_orders}
           </div>
-          <p className="text-[10px] text-slate-500 mt-1">Logged in audit trail with supervisor PIN</p>
+          <p className="text-[10px] text-slate-500 mt-1 font-medium">Logged in audit trail with supervisor PIN</p>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl">
-          <span className="text-xs text-slate-400 font-medium">Top Selling Category</span>
-          <div className="text-2xl font-black text-cyan-400 mt-1 truncate">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+          <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">Top Selling Category</span>
+          <div className="text-2xl font-black text-emerald-800 mt-1 truncate">
             {categories[0]?.name || 'Nashta Special'}
           </div>
-          <p className="text-[10px] text-slate-500 mt-1">Revenue: {formatMoney(categories[0]?.revenue || 0)}</p>
+          <p className="text-[10px] text-slate-500 mt-1 font-medium">Revenue: {formatMoney(categories[0]?.revenue || 0)}</p>
         </div>
       </div>
 

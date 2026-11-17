@@ -131,21 +131,21 @@ function DailySummaryContent() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 select-none">
       {/* Page Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-xl">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-emerald-500/20 text-emerald-400 rounded-xl">
+          <div className="p-2.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
             <FileText className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-lg font-black text-white flex items-center gap-2">
+            <h1 className="text-lg font-black text-slate-900 flex items-center gap-2">
               Roozana Hisaab Kitab & Daily Closing (روزانہ حساب و کلوزنگ)
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-semibold">
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold">
                 Excel Ready
               </span>
             </h1>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-600 font-medium">
               Single-pane owner dashboard: Net Sales, Raw Material Purchases, Expected Cash, and Daily Closing with native Excel spreadsheet export
             </p>
           </div>
@@ -153,21 +153,21 @@ function DailySummaryContent() {
 
         <div className="flex flex-wrap items-center gap-2">
           {/* Date Selector */}
-          <div className="flex items-center gap-1.5 bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-xl text-xs text-slate-200">
-            <Calendar className="w-4 h-4 text-emerald-400" />
+          <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-300 px-3 py-1.5 rounded-xl text-xs text-slate-900 font-bold">
+            <Calendar className="w-4 h-4 text-emerald-600" />
             <input
               type="date"
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="bg-transparent text-xs text-slate-200 focus:outline-none font-semibold cursor-pointer"
+              className="bg-transparent text-xs text-slate-900 focus:outline-none font-bold cursor-pointer"
             />
           </div>
 
-          {/* Excel Export Buttons */}
-          <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
+          {/* Excel Export Buttons (Green) */}
+          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
             <button
               onClick={() => handleDownloadExcel('all')}
-              className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-lg shadow-md transition flex items-center gap-1.5"
+              className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg shadow transition flex items-center gap-1.5 cursor-pointer"
               title="Download full multi-sheet Excel with Summary, Sales, Purchases, and Shifts"
             >
               <FileSpreadsheet className="w-4 h-4" />
@@ -176,7 +176,7 @@ function DailySummaryContent() {
 
             <button
               onClick={() => handleDownloadExcel('sales')}
-              className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-lg transition"
+              className="px-2.5 py-1.5 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs rounded-lg transition border border-slate-200 cursor-pointer"
               title="Download Sales Line Items Sheet"
             >
               Sales Sheet
@@ -184,38 +184,38 @@ function DailySummaryContent() {
 
             <button
               onClick={() => handleDownloadExcel('purchases')}
-              className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-lg transition"
+              className="px-2.5 py-1.5 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs rounded-lg transition border border-slate-200 cursor-pointer"
               title="Download Mandi Maal Kharidari Sheet"
             >
               Purchases Sheet
             </button>
           </div>
 
-          {/* Daily Sale Close Button */}
+          {/* GREEN BUTTON: Daily Sale Close */}
           <button
             onClick={() => {
               setActualDrawerCash(String(drawer.expected_cash || ''));
               setShowCloseDayModal(true);
             }}
-            className="px-3.5 py-2 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold text-xs rounded-xl shadow-lg shadow-amber-950/40 border border-amber-500/40 transition flex items-center gap-1.5 cursor-pointer"
+            className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-black text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
           >
-            <Lock className="w-4 h-4 text-amber-200" />
+            <Lock className="w-4 h-4 text-white" />
             <span>Daily Sale Close & Export</span>
           </button>
 
           <button
             onClick={() => window.print()}
-            className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl border border-slate-700 transition"
+            className="p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl border border-slate-200 transition cursor-pointer"
             title="Print Summary"
           >
-            <Printer className="w-4 h-4 text-slate-300" />
+            <Printer className="w-4 h-4 text-slate-600" />
           </button>
         </div>
       </div>
 
       {closeSuccessMsg && (
-        <div className="p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-semibold flex items-center gap-2 animate-in fade-in">
-          <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-bold flex items-center gap-2 animate-in fade-in">
+          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
           <span>{closeSuccessMsg}</span>
         </div>
       )}
@@ -223,79 +223,79 @@ function DailySummaryContent() {
       {/* 4 Flagship Executive Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* 1. Total Net Sales */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col justify-between">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between text-xs text-slate-400">
-              <span className="font-bold text-slate-300">1. Total Net Sales (کل بکری)</span>
-              <TrendingUp className="w-4 h-4 text-emerald-400" />
+            <div className="flex items-center justify-between text-xs text-slate-500 font-bold uppercase tracking-wider">
+              <span>1. Total Net Sales (کل بکری)</span>
+              <TrendingUp className="w-4 h-4 text-emerald-600" />
             </div>
-            <div className="text-2xl font-black text-emerald-400 mt-2">
+            <div className="text-2xl font-black text-emerald-700 mt-2">
               {formatMoney(sales.net_sales)}
             </div>
-            <div className="text-[11px] text-slate-400 mt-1">
+            <div className="text-[11px] text-slate-500 mt-1 font-medium">
               Gross: {formatMoney(sales.gross_sales)} • Disc: -{formatMoney(sales.discounts)}
             </div>
           </div>
-          <div className="pt-3 border-t border-slate-800/80 mt-3 flex justify-between text-[11px]">
-            <span className="text-emerald-300 font-semibold">Cash: {formatMoney(sales.cash_sales)}</span>
-            <span className="text-cyan-300 font-semibold">Digital: {formatMoney(sales.digital_sales)}</span>
+          <div className="pt-3 border-t border-slate-100 mt-3 flex justify-between text-[11px]">
+            <span className="text-emerald-700 font-bold">Cash: {formatMoney(sales.cash_sales)}</span>
+            <span className="text-slate-600 font-semibold">Digital: {formatMoney(sales.digital_sales)}</span>
           </div>
         </div>
 
         {/* 2. Total Raw Material Purchases */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col justify-between">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between text-xs text-slate-400">
-              <span className="font-bold text-slate-300">2. Maal Kharidari (خریداری)</span>
-              <Truck className="w-4 h-4 text-amber-400" />
+            <div className="flex items-center justify-between text-xs text-slate-500 font-bold uppercase tracking-wider">
+              <span>2. Maal Kharidari (خریداری)</span>
+              <Truck className="w-4 h-4 text-slate-600" />
             </div>
-            <div className="text-2xl font-black text-amber-400 mt-2">
+            <div className="text-2xl font-black text-slate-900 mt-2">
               {formatMoney(purchases.total_purchases)}
             </div>
-            <div className="text-[11px] text-slate-400 mt-1">
+            <div className="text-[11px] text-slate-500 mt-1 font-medium">
               {purchases.total_bills} bills recorded from Mandi
             </div>
           </div>
-          <div className="pt-3 border-t border-slate-800/80 mt-3 flex justify-between text-[11px]">
-            <span className="text-slate-300 font-semibold">Naqad Paid: {formatMoney(purchases.cash_paid)}</span>
-            <span className="text-rose-400 font-semibold">Udhaar Credit: {formatMoney(purchases.unpaid_credit)}</span>
+          <div className="pt-3 border-t border-slate-100 mt-3 flex justify-between text-[11px]">
+            <span className="text-slate-700 font-bold">Naqad Paid: {formatMoney(purchases.cash_paid)}</span>
+            <span className="text-rose-600 font-bold">Udhaar: {formatMoney(purchases.unpaid_credit)}</span>
           </div>
         </div>
 
         {/* 3. Cash Drawer In-Hand */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col justify-between">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between text-xs text-slate-400">
-              <span className="font-bold text-slate-300">3. Cash Drawer In-Hand (گلا)</span>
-              <DollarSign className="w-4 h-4 text-cyan-400" />
+            <div className="flex items-center justify-between text-xs text-slate-500 font-bold uppercase tracking-wider">
+              <span>3. Cash Drawer In-Hand (گلا)</span>
+              <DollarSign className="w-4 h-4 text-emerald-600" />
             </div>
-            <div className="text-2xl font-black text-cyan-400 mt-2">
+            <div className="text-2xl font-black text-slate-900 mt-2">
               {formatMoney(drawer.expected_cash)}
             </div>
-            <div className="text-[11px] text-slate-400 mt-1">
+            <div className="text-[11px] text-slate-500 mt-1 font-medium">
               Float: {formatMoney(drawer.opening_float)} • Sales: +{formatMoney(drawer.cash_sales)}
             </div>
           </div>
-          <div className="pt-3 border-t border-slate-800/80 mt-3 flex justify-between text-[11px]">
-            <span className="text-slate-400">Drawer Expenses: -{formatMoney(drawer.cash_out + drawer.refunds)}</span>
-            <span className={`font-bold ${drawer.difference === 0 ? 'text-emerald-400' : drawer.difference < 0 ? 'text-rose-400' : 'text-slate-400'}`}>
+          <div className="pt-3 border-t border-slate-100 mt-3 flex justify-between text-[11px]">
+            <span className="text-slate-500">Expenses: -{formatMoney(drawer.cash_out + drawer.refunds)}</span>
+            <span className={`font-bold ${drawer.difference === 0 ? 'text-emerald-700' : drawer.difference < 0 ? 'text-rose-600' : 'text-slate-600'}`}>
               {drawer.actual_counted_cash !== null ? `Actual: ${formatMoney(drawer.actual_counted_cash)}` : 'Shift Live'}
             </span>
           </div>
         </div>
 
         {/* 4. Market Payables & Daily Margin */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col justify-between">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between text-xs text-slate-400">
-              <span className="font-bold text-slate-300">4. Day Gross Margin (منافع)</span>
-              <PieChart className="w-4 h-4 text-emerald-400" />
+            <div className="flex items-center justify-between text-xs text-slate-500 font-bold uppercase tracking-wider">
+              <span>4. Day Gross Margin (منافع)</span>
+              <PieChart className="w-4 h-4 text-emerald-600" />
             </div>
-            <div className={`text-2xl font-black mt-2 ${margin.day_gross_margin >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+            <div className={`text-2xl font-black mt-2 ${margin.day_gross_margin >= 0 ? 'text-emerald-700' : 'text-rose-600'}`}>
               {formatMoney(margin.day_gross_margin)}
             </div>
-            <div className="text-[11px] text-slate-400 mt-1">
-              Formula: Net Sales - Total Purchases
+            <div className="text-[11px] text-slate-500 mt-1 font-medium">
+              Net Sales - Mandi Purchases
             </div>
           </div>
           <div className="pt-3 border-t border-slate-800/80 mt-3 flex justify-between text-[11px]">
@@ -490,17 +490,19 @@ function DailySummaryContent() {
               </div>
 
               <div className="flex gap-3 pt-2">
+                {/* RED BUTTON: Cancel */}
                 <button
                   type="button"
                   onClick={() => setShowCloseDayModal(false)}
-                  className="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs transition"
+                  className="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white font-bold text-xs transition cursor-pointer"
                 >
                   Cancel
                 </button>
+                {/* GREEN BUTTON: Close & Download Excel */}
                 <button
                   type="submit"
                   disabled={closingInProgress}
-                  className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs shadow-lg shadow-emerald-950/40 transition flex items-center justify-center gap-1.5 disabled:opacity-50"
+                  className="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-black text-xs shadow transition flex items-center justify-center gap-1.5 disabled:opacity-50 cursor-pointer"
                 >
                   {closingInProgress ? <RefreshCw className="w-4 h-4 animate-spin" /> : <FileSpreadsheet className="w-4 h-4" />}
                   <span>{closingInProgress ? 'Closing...' : 'Close & Download Excel'}</span>

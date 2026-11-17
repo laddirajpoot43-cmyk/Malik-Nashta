@@ -154,19 +154,19 @@ export const RegisterModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in">
-      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in">
+      <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
         {/* Modal Header */}
-        <div className="px-5 py-4 bg-slate-800/80 border-b border-slate-700 flex items-center justify-between">
+        <div className="px-5 py-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className={`p-2 rounded-lg ${activeRegister ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}`}>
+            <div className={`p-2 rounded-lg ${activeRegister ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}>
               <DollarSign className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-white">Cash Register & Drawer Shift</h2>
-              <p className="text-xs text-slate-400">
+              <h2 className="text-base font-bold text-slate-900">Cash Register & Drawer Shift</h2>
+              <p className="text-xs text-slate-500">
                 Status:{' '}
-                <span className={`font-semibold ${activeRegister ? 'text-emerald-400' : 'text-rose-400'}`}>
+                <span className={`font-semibold ${activeRegister ? 'text-emerald-600' : 'text-rose-600'}`}>
                   {activeRegister ? `OPEN (Opened by ${activeRegister.user_name_snapshot})` : 'CLOSED'}
                 </span>
               </p>
@@ -174,45 +174,45 @@ export const RegisterModal: React.FC = () => {
           </div>
           <button
             onClick={() => setOpenRegisterModal(false)}
-            className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-700"
+            className="text-slate-400 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-50 transition"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-slate-800 bg-slate-950/40 text-xs font-semibold px-4 pt-2">
+        <div className="flex border-b border-slate-200 bg-slate-50/50 text-xs font-semibold px-4 pt-2">
           {activeRegister ? (
             <>
               <button
                 onClick={() => { setActiveTab('status'); setErrorMsg(''); setSuccessMsg(''); }}
-                className={`px-4 py-2 border-b-2 transition ${activeTab === 'status' ? 'border-emerald-500 text-emerald-400' : 'border-transparent text-slate-400 hover:text-slate-200'}`}
+                className={`px-4 py-2 border-b-2 transition ${activeTab === 'status' ? 'border-emerald-600 text-emerald-700 font-bold' : 'border-transparent text-slate-500 hover:text-slate-800'}`}
               >
                 Drawer Status
               </button>
               <button
                 onClick={() => { setActiveTab('cash_in'); setErrorMsg(''); setSuccessMsg(''); }}
-                className={`px-4 py-2 border-b-2 transition flex items-center gap-1 ${activeTab === 'cash_in' ? 'border-emerald-500 text-emerald-400' : 'border-transparent text-slate-400 hover:text-slate-200'}`}
+                className={`px-4 py-2 border-b-2 transition flex items-center gap-1 ${activeTab === 'cash_in' ? 'border-emerald-600 text-emerald-700 font-bold' : 'border-transparent text-slate-500 hover:text-slate-800'}`}
               >
-                <ArrowDownRight className="w-3.5 h-3.5 text-emerald-400" /> Cash In
+                <ArrowDownRight className="w-3.5 h-3.5 text-emerald-600" /> Cash In
               </button>
               <button
                 onClick={() => { setActiveTab('cash_out'); setErrorMsg(''); setSuccessMsg(''); }}
-                className={`px-4 py-2 border-b-2 transition flex items-center gap-1 ${activeTab === 'cash_out' ? 'border-rose-500 text-rose-400' : 'border-transparent text-slate-400 hover:text-slate-200'}`}
+                className={`px-4 py-2 border-b-2 transition flex items-center gap-1 ${activeTab === 'cash_out' ? 'border-rose-600 text-rose-700 font-bold' : 'border-transparent text-slate-500 hover:text-slate-800'}`}
               >
-                <ArrowUpRight className="w-3.5 h-3.5 text-rose-400" /> Cash Out
+                <ArrowUpRight className="w-3.5 h-3.5 text-rose-600" /> Cash Out
               </button>
               <button
                 onClick={() => { setActiveTab('close'); setErrorMsg(''); setSuccessMsg(''); }}
-                className={`px-4 py-2 border-b-2 transition flex items-center gap-1 ${activeTab === 'close' ? 'border-amber-500 text-amber-400' : 'border-transparent text-slate-400 hover:text-slate-200'}`}
+                className={`px-4 py-2 border-b-2 transition flex items-center gap-1 ${activeTab === 'close' ? 'border-rose-600 text-rose-700 font-bold' : 'border-transparent text-slate-500 hover:text-slate-800'}`}
               >
-                <Lock className="w-3.5 h-3.5" /> Close Shift
+                <Lock className="w-3.5 h-3.5 text-rose-600" /> Close Shift
               </button>
             </>
           ) : (
             <button
               onClick={() => setActiveTab('open')}
-              className="px-4 py-2 border-b-2 border-emerald-500 text-emerald-400 font-bold"
+              className="px-4 py-2 border-b-2 border-emerald-600 text-emerald-700 font-bold"
             >
               Open Register Shift
             </button>
@@ -222,15 +222,15 @@ export const RegisterModal: React.FC = () => {
         {/* Content Area */}
         <div className="p-5 overflow-y-auto space-y-4 flex-1">
           {errorMsg && (
-            <div className="p-3 bg-rose-500/20 border border-rose-500/50 rounded-lg text-rose-200 text-xs flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 shrink-0" />
+            <div className="p-3 bg-rose-50 border border-rose-200 rounded-lg text-rose-700 text-xs flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4 shrink-0 text-rose-600" />
               <span>{errorMsg}</span>
             </div>
           )}
 
           {successMsg && (
-            <div className="p-3 bg-emerald-500/20 border border-emerald-500/50 rounded-lg text-emerald-200 text-xs flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 shrink-0" />
+            <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-800 text-xs flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
               <span>{successMsg}</span>
             </div>
           )}
@@ -238,40 +238,40 @@ export const RegisterModal: React.FC = () => {
           {/* TAB: STATUS */}
           {activeTab === 'status' && registerSummary && (
             <div className="space-y-4">
-              <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 text-center">
-                <span className="text-xs text-slate-400 uppercase tracking-wider">Expected Cash in Drawer</span>
-                <div className="text-3xl font-black text-emerald-400 mt-1">
+              <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
+                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Expected Cash in Drawer</span>
+                <div className="text-3xl font-black text-emerald-600 mt-1">
                   {formatMoney(registerSummary.expected_cash)}
                 </div>
-                <div className="text-[11px] text-slate-500 mt-1">
+                <div className="text-[11px] text-slate-400 mt-1">
                   Opening + Cash Sales + Cash In - Cash Out - Refunds
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3 text-xs">
-                <div className="bg-slate-800/60 p-3 rounded-lg border border-slate-700/60">
-                  <span className="text-slate-400">Opening Float:</span>
-                  <p className="font-bold text-slate-100 text-sm mt-0.5">{formatMoney(registerSummary.opening_float)}</p>
+                <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
+                  <span className="text-slate-500">Opening Float:</span>
+                  <p className="font-bold text-slate-900 text-sm mt-0.5">{formatMoney(registerSummary.opening_float)}</p>
                 </div>
-                <div className="bg-slate-800/60 p-3 rounded-lg border border-slate-700/60">
-                  <span className="text-slate-400">Cash Sales:</span>
-                  <p className="font-bold text-emerald-400 text-sm mt-0.5">{formatMoney(registerSummary.cash_sales)}</p>
+                <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
+                  <span className="text-slate-500">Cash Sales:</span>
+                  <p className="font-bold text-emerald-600 text-sm mt-0.5">{formatMoney(registerSummary.cash_sales)}</p>
                 </div>
-                <div className="bg-slate-800/60 p-3 rounded-lg border border-slate-700/60">
-                  <span className="text-slate-400">Cash In (Added):</span>
-                  <p className="font-bold text-emerald-300 text-sm mt-0.5">{formatMoney(registerSummary.cash_in)}</p>
+                <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
+                  <span className="text-slate-500">Cash In (Added):</span>
+                  <p className="font-bold text-emerald-600 text-sm mt-0.5">{formatMoney(registerSummary.cash_in)}</p>
                 </div>
-                <div className="bg-slate-800/60 p-3 rounded-lg border border-slate-700/60">
-                  <span className="text-slate-400">Cash Out (Petty Expenses):</span>
-                  <p className="font-bold text-rose-400 text-sm mt-0.5">-{formatMoney(registerSummary.cash_out)}</p>
+                <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
+                  <span className="text-slate-500">Cash Out (Petty Expenses):</span>
+                  <p className="font-bold text-rose-600 text-sm mt-0.5">-{formatMoney(registerSummary.cash_out)}</p>
                 </div>
-                <div className="bg-slate-800/60 p-3 rounded-lg border border-slate-700/60">
-                  <span className="text-slate-400">Refunds Paid:</span>
-                  <p className="font-bold text-rose-300 text-sm mt-0.5">-{formatMoney(registerSummary.refunds)}</p>
+                <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
+                  <span className="text-slate-500">Refunds Paid:</span>
+                  <p className="font-bold text-rose-600 text-sm mt-0.5">-{formatMoney(registerSummary.refunds)}</p>
                 </div>
-                <div className="bg-slate-800/60 p-3 rounded-lg border border-slate-700/60">
-                  <span className="text-slate-400">Digital Sales (JazzCash/Bank):</span>
-                  <p className="font-bold text-cyan-400 text-sm mt-0.5">{formatMoney(registerSummary.digital_sales)}</p>
+                <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
+                  <span className="text-slate-500">Digital Sales (JazzCash/Bank):</span>
+                  <p className="font-bold text-blue-600 text-sm mt-0.5">{formatMoney(registerSummary.digital_sales)}</p>
                 </div>
               </div>
             </div>
@@ -280,12 +280,12 @@ export const RegisterModal: React.FC = () => {
           {/* TAB: OPEN SHIFT */}
           {activeTab === 'open' && (
             <div className="space-y-4">
-              <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg text-amber-200 text-xs">
+              <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-amber-800 text-xs">
                 To start billing at the counter, please count and record the starting cash float in the drawer.
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                <label className="block text-xs font-semibold text-slate-700 mb-1">
                   Starting Float Cash (PKR):
                 </label>
                 <input
@@ -293,7 +293,7 @@ export const RegisterModal: React.FC = () => {
                   value={openingAmount}
                   onChange={(e) => setOpeningAmount(e.target.value)}
                   placeholder="5000"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-white font-bold text-lg focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 font-bold text-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
@@ -303,7 +303,7 @@ export const RegisterModal: React.FC = () => {
                     key={amt}
                     type="button"
                     onClick={() => setOpeningAmount(String(amt))}
-                    className="text-xs px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-md text-slate-300 border border-slate-700 font-semibold"
+                    className="text-xs px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-md text-slate-700 border border-slate-200 font-semibold transition"
                   >
                     Rs. {amt}
                   </button>
@@ -313,7 +313,7 @@ export const RegisterModal: React.FC = () => {
               <button
                 onClick={handleOpenShift}
                 disabled={loading}
-                className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg shadow-lg transition mt-2"
+                className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg shadow-md transition mt-2"
               >
                 {loading ? 'Opening...' : 'Confirm & Open Register Shift'}
               </button>
@@ -323,33 +323,33 @@ export const RegisterModal: React.FC = () => {
           {/* TAB: CASH IN */}
           {activeTab === 'cash_in' && (
             <div className="space-y-4">
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-500">
                 Record float addition or change cash added to the counter drawer.
               </p>
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Amount to Add (PKR):</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Amount to Add (PKR):</label>
                 <input
                   type="number"
                   value={inOutAmount}
                   onChange={(e) => setInOutAmount(e.target.value)}
                   placeholder="e.g. 2000"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-emerald-400 font-bold text-lg focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-emerald-600 font-bold text-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Reason / تفصیل:</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Reason / تفصیل:</label>
                 <input
                   type="text"
                   value={inOutReason}
                   onChange={(e) => setInOutReason(e.target.value)}
                   placeholder="e.g. Change float from Malik Sahib / bank"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-200 text-xs focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
               <button
                 onClick={() => handleCashMovement('cash_in')}
                 disabled={loading}
-                className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg shadow-lg transition"
+                className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg shadow-md transition"
               >
                 {loading ? 'Processing...' : 'Confirm Cash In'}
               </button>
@@ -359,33 +359,33 @@ export const RegisterModal: React.FC = () => {
           {/* TAB: CASH OUT */}
           {activeTab === 'cash_out' && (
             <div className="space-y-4">
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-500">
                 Record petty cash expenses paid directly from the counter drawer (e.g. Ice, Tea leaves, Emergency milk).
               </p>
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Amount to Deduct (PKR):</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Amount to Deduct (PKR):</label>
                 <input
                   type="number"
                   value={inOutAmount}
                   onChange={(e) => setInOutAmount(e.target.value)}
                   placeholder="e.g. 500"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-rose-400 font-bold text-lg focus:outline-none focus:border-rose-500"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-rose-600 font-bold text-lg focus:outline-none focus:ring-2 focus:ring-rose-500"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Reason / تفصیل:</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Reason / تفصیل:</label>
                 <input
                   type="text"
                   value={inOutReason}
                   onChange={(e) => setInOutReason(e.target.value)}
                   placeholder="e.g. Baraf (Ice) khareedi, Chai Patti, Safai"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-200 text-xs focus:outline-none focus:border-rose-500"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 text-xs focus:outline-none focus:ring-2 focus:ring-rose-500"
                 />
               </div>
               <button
                 onClick={() => handleCashMovement('cash_out')}
                 disabled={loading}
-                className="w-full py-2.5 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-lg shadow-lg transition"
+                className="w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg shadow-md transition"
               >
                 {loading ? 'Processing...' : 'Confirm Cash Out Expense'}
               </button>
@@ -395,15 +395,15 @@ export const RegisterModal: React.FC = () => {
           {/* TAB: CLOSE SHIFT */}
           {activeTab === 'close' && registerSummary && (
             <div className="space-y-4">
-              <div className="p-3 bg-slate-950 border border-slate-800 rounded-lg text-xs space-y-1">
+              <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs space-y-1">
                 <div className="flex justify-between">
-                  <span className="text-slate-400">System Expected Cash:</span>
-                  <span className="font-bold text-emerald-400">{formatMoney(registerSummary.expected_cash)}</span>
+                  <span className="text-slate-500">System Expected Cash:</span>
+                  <span className="font-bold text-emerald-600">{formatMoney(registerSummary.expected_cash)}</span>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                <label className="block text-xs font-semibold text-slate-700 mb-1">
                   Physically Counted Drawer Cash (گنی ہوئی رقم):
                 </label>
                 <input
@@ -411,20 +411,20 @@ export const RegisterModal: React.FC = () => {
                   value={actualAmount}
                   onChange={(e) => setActualAmount(e.target.value)}
                   placeholder="Enter physical cash in drawer"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-white font-black text-xl focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 font-black text-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
               {actualAmount !== '' && !isNaN(parseFloat(actualAmount)) && (
-                <div className="p-3 rounded-lg border text-xs flex justify-between items-center bg-slate-950">
-                  <span className="text-slate-400">Reconciliation Discrepancy:</span>
+                <div className="p-3 rounded-lg border text-xs flex justify-between items-center bg-slate-50 border-slate-200">
+                  <span className="text-slate-600 font-medium">Reconciliation Discrepancy:</span>
                   <span
                     className={`font-black text-sm ${
                       parseFloat(actualAmount) - registerSummary.expected_cash === 0
-                        ? 'text-emerald-400'
+                        ? 'text-emerald-600'
                         : parseFloat(actualAmount) - registerSummary.expected_cash < 0
-                        ? 'text-rose-400'
-                        : 'text-cyan-400'
+                        ? 'text-rose-600'
+                        : 'text-blue-600'
                     }`}
                   >
                     {formatMoney(parseFloat(actualAmount) - registerSummary.expected_cash)}
@@ -436,20 +436,20 @@ export const RegisterModal: React.FC = () => {
               )}
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Shift Handover Remarks:</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Shift Handover Remarks:</label>
                 <input
                   type="text"
                   value={closingNote}
                   onChange={(e) => setClosingNote(e.target.value)}
                   placeholder="e.g. Shift balanced, all receipts verified"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-200 text-xs focus:outline-none"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
               <button
                 onClick={handleCloseShift}
                 disabled={loading}
-                className="w-full py-2.5 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg shadow-lg transition"
+                className="w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg shadow-md transition"
               >
                 {loading ? 'Closing...' : 'Confirm Physical Count & Close Register Shift'}
               </button>
