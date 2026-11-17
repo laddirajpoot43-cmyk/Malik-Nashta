@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Product } from '@/types/pos';
 import { formatMoney, multiplyMoney } from '@/lib/money';
-import { Utensils, Check, X, AlertCircle, Plus, Calculator, ArrowRightLeft } from 'lucide-react';
+import { Utensils, Check, X, AlertCircle, Plus, Calculator, ArrowRightLeft, DollarSign, Layers } from 'lucide-react';
 
 export interface ProductPricingSelectorProps {
   product: Product;
@@ -196,7 +196,7 @@ export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
     );
   };
 
-  // Keyboard navigation handler
+  // Keyboard navigation handler with dedicated 'Q', 'A', '1', '2' hotkeys
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Escape') {
       e.preventDefault();
@@ -209,6 +209,24 @@ export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
       e.preventDefault();
       e.stopPropagation();
       handleConfirm();
+      return;
+    }
+
+    // Hotkey 'Q' (or Alt+Q): Switch to Quantity Mode & Focus Input
+    if (e.key === 'q' || e.key === 'Q' || (e.altKey && (e.key === 'q' || e.key === 'Q'))) {
+      e.preventDefault();
+      setLastEdited('quantity');
+      qtyInputRef.current?.focus();
+      qtyInputRef.current?.select();
+      return;
+    }
+
+    // Hotkey 'A' (or Alt+A): Switch to Custom Amount Mode & Focus Input
+    if (e.key === 'a' || e.key === 'A' || (e.altKey && (e.key === 'a' || e.key === 'A'))) {
+      e.preventDefault();
+      setLastEdited('amount');
+      amountInputRef.current?.focus();
+      amountInputRef.current?.select();
       return;
     }
 
@@ -319,101 +337,196 @@ export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
         </div>
       )}
 
-      {/* 1. Top Card: Quantity & Custom Amount with Automatic Proportional Recalculation */}
-      <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 mb-3 space-y-3">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-start">
-          {/* Quantity Control */}
-          <div>
-            <div className="flex items-center justify-between mb-1">
-              <label className="block text-xs font-bold text-slate-800">
-                Quantity (پلیٹیں):
-              </label>
-              {lastEdited === 'amount' && (
-                <span className="text-[10px] text-emerald-700 font-bold flex items-center gap-1 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">
-                  <ArrowRightLeft className="w-2.5 h-2.5" /> Proportional
-                </span>
-              )}
-            </div>
+      {/* CARD 1: QUANTITY CARD [Q] */}
+      <div
+        onClick={() => {
+          setLastEdited('quantity');
+          qtyInputRef.current?.focus();
+          qtyInputRef.current?.select();
+        }}
+        className={`p-3 rounded-xl border transition cursor-pointer mb-2.5 ${
+          lastEdited === 'quantity'
+            ? 'bg-emerald-50/60 border-emerald-600 ring-2 ring-emerald-500/30 shadow-sm'
+            : 'bg-slate-50 border-slate-200 hover:border-slate-300 hover:bg-slate-100/60'
+        }`}
+      >
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2">
+            <span
+              className={`text-[10px] font-black px-2 py-0.5 rounded border transition ${
+                lastEdited === 'quantity'
+                  ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300'
+              }`}
+            >
+              [Q]
+            </span>
+            <span className="text-xs font-extrabold text-slate-900">
+              Quantity (تعداد / پلیٹیں):
+            </span>
+          </div>
+          {lastEdited === 'quantity' ? (
+            <span className="text-[10px] font-bold text-emerald-700 flex items-center gap-1 bg-emerald-100/80 px-2 py-0.5 rounded-full border border-emerald-300">
+              <Check className="w-3 h-3 text-emerald-700" /> Active Mode (Press Q)
+            </span>
+          ) : (
+            <span className="text-[10px] text-slate-500 font-medium">Click or Press [Q]</span>
+          )}
+        </div>
 
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={() => adjustQuantity(-1)}
-                className="w-9 h-9 rounded-lg bg-white hover:bg-slate-100 border border-slate-300 flex items-center justify-center text-slate-800 font-black text-base active:scale-95 transition cursor-pointer"
-                title="Decrease"
-              >
-                -
-              </button>
-              <input
-                ref={qtyInputRef}
-                type="number"
-                min="0.1"
-                step="any"
-                value={qtyInput}
-                onChange={(e) => handleQuantityChange(e.target.value)}
-                placeholder="1"
-                className="w-24 text-center py-1.5 bg-white border border-slate-300 rounded-lg font-black text-base text-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600"
-              />
-              <button
-                type="button"
-                onClick={() => adjustQuantity(1)}
-                className="w-9 h-9 rounded-lg bg-white hover:bg-slate-100 border border-slate-300 flex items-center justify-center text-slate-800 font-black text-base active:scale-95 transition cursor-pointer"
-                title="Increase"
-              >
-                +
-              </button>
-
-              {/* Quick Qty Buttons */}
-              <div className="flex items-center gap-1 ml-1">
-                {[1, 2, 3, 4].map((n) => (
-                  <button
-                    key={n}
-                    type="button"
-                    onClick={() => handleQuantityChange(String(n))}
-                    className={`text-xs px-2 py-1 rounded-lg font-bold transition border cursor-pointer ${
-                      quantity === n && lastEdited === 'quantity'
-                        ? 'bg-emerald-600 text-white border-emerald-600'
-                        : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
-                    }`}
-                  >
-                    {n}x
-                  </button>
-                ))}
-              </div>
-            </div>
+        {/* Quantity Controls */}
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                adjustQuantity(-1);
+                qtyInputRef.current?.focus();
+              }}
+              className="w-9 h-9 rounded-lg bg-white hover:bg-slate-100 border border-slate-300 flex items-center justify-center text-slate-800 font-black text-base active:scale-95 transition cursor-pointer"
+              title="Decrease Quantity (-)"
+            >
+              -
+            </button>
+            <input
+              ref={qtyInputRef}
+              type="number"
+              min="0.1"
+              step="any"
+              value={qtyInput}
+              onChange={(e) => handleQuantityChange(e.target.value)}
+              onFocus={() => setLastEdited('quantity')}
+              placeholder="1"
+              className="w-24 text-center py-1.5 bg-white border border-slate-300 rounded-lg font-black text-base text-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600"
+            />
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                adjustQuantity(1);
+                qtyInputRef.current?.focus();
+              }}
+              className="w-9 h-9 rounded-lg bg-white hover:bg-slate-100 border border-slate-300 flex items-center justify-center text-slate-800 font-black text-base active:scale-95 transition cursor-pointer"
+              title="Increase Quantity (+)"
+            >
+              +
+            </button>
           </div>
 
-          {/* Custom Amount Input with Automatic Proportional Recalculation */}
-          <div>
-            <div className="flex items-center justify-between mb-1">
-              <label className="block text-xs font-bold text-slate-800">
-                Custom Amount (رقم - PKR):
-              </label>
-              <span className="text-[10px] text-slate-500 font-medium">
-                Auto-calculates quantity
-              </span>
-            </div>
-
-            <div className="relative">
-              <span className="absolute left-3 top-2 text-sm font-bold text-emerald-700">Rs.</span>
-              <input
-                ref={amountInputRef}
-                type="number"
-                step="any"
-                value={amountInput}
-                onChange={(e) => handleAmountChange(e.target.value)}
-                placeholder={`e.g. 50, 100 (${activeBaseRate})`}
-                className="w-full pl-11 pr-3 py-1.5 bg-white border border-slate-300 rounded-lg text-slate-900 font-black text-base focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600"
-              />
-            </div>
-            <p className="text-[10px] text-slate-500 mt-1 font-medium">
-              Base Rate: <strong>{formatMoney(activeBaseRate)}</strong> ({portion === 'half_plate' ? 'Half Plate' : 'Full Plate'})
-            </p>
+          {/* Quick Qty Buttons */}
+          <div className="flex items-center gap-1">
+            {[1, 2, 3, 4, 5].map((n) => (
+              <button
+                key={n}
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleQuantityChange(String(n));
+                  qtyInputRef.current?.focus();
+                }}
+                className={`text-xs px-2.5 py-1 rounded-lg font-bold transition border cursor-pointer ${
+                  quantity === n && lastEdited === 'quantity'
+                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                    : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
+                }`}
+              >
+                {n}x
+              </button>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* 2. Bottom Card: Plate Selection (Full Plate vs. Half Plate) */}
+      {/* CARD 2: CUSTOM AMOUNT CARD [A] */}
+      <div
+        onClick={() => {
+          setLastEdited('amount');
+          amountInputRef.current?.focus();
+          amountInputRef.current?.select();
+        }}
+        className={`p-3 rounded-xl border transition cursor-pointer mb-2.5 ${
+          lastEdited === 'amount'
+            ? 'bg-emerald-50/60 border-emerald-600 ring-2 ring-emerald-500/30 shadow-sm'
+            : 'bg-slate-50 border-slate-200 hover:border-slate-300 hover:bg-slate-100/60'
+        }`}
+      >
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2">
+            <span
+              className={`text-[10px] font-black px-2 py-0.5 rounded border transition ${
+                lastEdited === 'amount'
+                  ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300'
+              }`}
+            >
+              [A]
+            </span>
+            <span className="text-xs font-extrabold text-slate-900">
+              Custom Amount (رقم - PKR):
+            </span>
+          </div>
+          {lastEdited === 'amount' ? (
+            <span className="text-[10px] font-bold text-emerald-700 flex items-center gap-1 bg-emerald-100/80 px-2 py-0.5 rounded-full border border-emerald-300">
+              <ArrowRightLeft className="w-3 h-3 text-emerald-700" /> Auto-calculates Quantity ({quantity} plates)
+            </span>
+          ) : (
+            <span className="text-[10px] text-slate-500 font-medium">Click or Press [A]</span>
+          )}
+        </div>
+
+        {/* Amount Input with Rs. prefix & Quick Chips */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+          <div className="relative flex-1">
+            <span className="absolute left-3 top-2 text-sm font-bold text-emerald-700">Rs.</span>
+            <input
+              ref={amountInputRef}
+              type="number"
+              step="any"
+              value={amountInput}
+              onChange={(e) => handleAmountChange(e.target.value)}
+              onFocus={() => setLastEdited('amount')}
+              placeholder={`e.g. 50, 100 (${activeBaseRate})`}
+              className="w-full pl-11 pr-3 py-1.5 bg-white border border-slate-300 rounded-lg text-slate-900 font-black text-base focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600"
+            />
+          </div>
+
+          {/* Quick Preset Amount Buttons */}
+          <div className="flex items-center gap-1">
+            {[50, 100, 150, 200].map((amt) => (
+              <button
+                key={amt}
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleAmountChange(String(amt));
+                  amountInputRef.current?.focus();
+                }}
+                className={`text-xs px-2 py-1 rounded-lg font-bold transition border cursor-pointer ${
+                  parseFloat(amountInput) === amt && lastEdited === 'amount'
+                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                    : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
+                }`}
+              >
+                Rs. {amt}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between mt-1 text-[10px] text-slate-500 font-medium">
+          <span>
+            Base Rate: <strong>{formatMoney(activeBaseRate)}</strong> ({portion === 'half_plate' ? 'Half Plate' : 'Full Plate'})
+          </span>
+          {quantity > 0 && (
+            <span className="font-bold text-emerald-700">
+              = {quantity} plate(s)
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* CARD 3: PLATE SELECTION (FULL PLATE VS. HALF PLATE) */}
       <div className="mb-3">
         <div className="flex items-center justify-between mb-1.5">
           <span className="text-xs font-extrabold text-slate-800 flex items-center gap-1.5">
