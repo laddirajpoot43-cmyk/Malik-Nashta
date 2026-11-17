@@ -2,9 +2,8 @@
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Product } from '@/types/pos';
-import { formatMoney } from '@/lib/money';
-import { getProductPricingOptions } from '@/lib/pricing';
-import { Utensils, Tag, Check, X, AlertCircle, Plus } from 'lucide-react';
+import { formatMoney, multiplyMoney } from '@/lib/money';
+import { Utensils, Check, X, AlertCircle, Plus, Calculator, ArrowRightLeft } from 'lucide-react';
 
 export interface ProductPricingSelectorProps {
   product: Product;
@@ -20,105 +19,183 @@ export interface ProductPricingSelectorProps {
   onCancel: () => void;
 }
 
+export type PortionType = 'full_plate' | 'half_plate';
+
 export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
   product,
   onAdd,
   onCancel,
 }) => {
-  const options = useMemo(() => getProductPricingOptions(product), [product]);
-  const [selectedOptionIndex, setSelectedOptionIndex] = useState<number>(0);
+  // Base rates calculation (strictly Full Plate vs. Half Plate)
+  const fullPlatePrice = useMemo(() => {
+    if (product.pricing_config?.full_plate_price && Number(product.pricing_config.full_plate_price) > 0) {
+      return Number(product.pricing_config.full_plate_price);
+    }
+    return Number(product.selling_price) || 0;
+  }, [product]);
+
+  const halfPlatePrice = useMemo(() => {
+    if (product.pricing_config?.half_plate_price && Number(product.pricing_config.half_plate_price) > 0) {
+      return Number(product.pricing_config.half_plate_price);
+    }
+    // Default fallback half plate price: 55% rounded to nearest 5
+    const fallback = Math.round((fullPlatePrice * 0.55) / 5) * 5;
+    return fallback > 0 && fallback < fullPlatePrice ? fallback : 0;
+  }, [product, fullPlatePrice]);
+
+  const hasHalfPlate = halfPlatePrice > 0;
+
+  // Selected portion state
+  const [portion, setPortion] = useState<PortionType>('full_plate');
   const [quantity, setQuantity] = useState<number>(1);
-  const [customPriceInput, setCustomPriceInput] = useState<string>('');
+  const [qtyInput, setQtyInput] = useState<string>('1');
+  const [amountInput, setAmountInput] = useState<string>(String(fullPlatePrice));
+  const [lastEdited, setLastEdited] = useState<'quantity' | 'amount'>('quantity');
   const [errorMsg, setErrorMsg] = useState<string>('');
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const priceInputRef = useRef<HTMLInputElement>(null);
   const qtyInputRef = useRef<HTMLInputElement>(null);
+  const amountInputRef = useRef<HTMLInputElement>(null);
 
-  const currentOption = options[selectedOptionIndex] || options[0];
-  const isByPrice = currentOption?.type === 'by_price';
+  // Active base rate depending solely on selected portion
+  const activeBaseRate = portion === 'half_plate' ? halfPlatePrice : fullPlatePrice;
 
-  // Compute unit price
-  const unitPrice = useMemo(() => {
-    if (!currentOption) return Number(product.selling_price) || 0;
-    if (currentOption.type === 'by_price') {
-      const parsed = parseFloat(customPriceInput);
-      return isNaN(parsed) ? 0 : parsed;
-    }
-    return Number(currentOption.price) || 0;
-  }, [currentOption, customPriceInput, product.selling_price]);
-
+  // Line total calculated strictly from base rate and quantity
   const lineTotal = useMemo(() => {
-    return unitPrice * quantity;
-  }, [unitPrice, quantity]);
+    if (quantity <= 0 || activeBaseRate <= 0) return 0;
+    return multiplyMoney(activeBaseRate, quantity);
+  }, [activeBaseRate, quantity]);
 
-  // Initial focus and setup
+  // Initial focus and reset when product changes
   useEffect(() => {
-    setSelectedOptionIndex(0);
+    setPortion('full_plate');
     setQuantity(1);
+    setQtyInput('1');
+    setAmountInput(String(fullPlatePrice));
+    setLastEdited('quantity');
     setErrorMsg('');
 
-    if (options[0]?.type === 'by_price') {
-      setCustomPriceInput(String(options[0]?.price || ''));
-      setTimeout(() => {
-        priceInputRef.current?.focus();
-        priceInputRef.current?.select();
-      }, 50);
-    } else {
-      setTimeout(() => {
-        containerRef.current?.focus();
-      }, 50);
-    }
-  }, [product, options]);
+    // Focus the container so keyboard shortcuts (1, 2, Enter, Esc) work immediately
+    setTimeout(() => {
+      containerRef.current?.focus();
+    }, 40);
+  }, [product, fullPlatePrice]);
 
-  // When switching to by_price, focus the price input
-  useEffect(() => {
-    if (isByPrice) {
-      if (!customPriceInput && currentOption?.price) {
-        setCustomPriceInput(String(currentOption.price));
+  // Handle switching portion (Full Plate vs. Half Plate)
+  const switchPortion = (newPortion: PortionType) => {
+    if (newPortion === portion) return;
+    if (newPortion === 'half_plate' && !hasHalfPlate) return;
+
+    const newRate = newPortion === 'half_plate' ? halfPlatePrice : fullPlatePrice;
+    setPortion(newPortion);
+
+    if (lastEdited === 'amount') {
+      // Re-calculate quantity proportionally against the new base rate
+      const parsedAmt = parseFloat(amountInput);
+      if (!isNaN(parsedAmt) && parsedAmt > 0 && newRate > 0) {
+        const propQty = parseFloat((parsedAmt / newRate).toFixed(2));
+        setQuantity(propQty);
+        setQtyInput(String(propQty));
       }
-      setTimeout(() => {
-        priceInputRef.current?.focus();
-        priceInputRef.current?.select();
-      }, 50);
+    } else {
+      // Re-calculate amount from existing quantity and new base rate
+      if (quantity > 0 && newRate > 0) {
+        const newAmt = multiplyMoney(newRate, quantity);
+        setAmountInput(String(newAmt));
+      }
     }
-  }, [isByPrice, currentOption]);
+  };
+
+  // Handle Quantity Change: automatically updates Amount
+  const handleQuantityChange = (val: string) => {
+    setQtyInput(val);
+    setLastEdited('quantity');
+
+    const parsedQty = parseFloat(val);
+    if (isNaN(parsedQty) || parsedQty <= 0) {
+      setQuantity(0);
+      setAmountInput('');
+      setErrorMsg('Please enter a valid quantity greater than 0.');
+      return;
+    }
+
+    setQuantity(parsedQty);
+    const newAmt = multiplyMoney(activeBaseRate, parsedQty);
+    setAmountInput(String(newAmt));
+    setErrorMsg('');
+  };
+
+  // Handle Custom Amount Change: ENFORCE AUTOMATIC PROPORTIONAL RECALCULATION OF QUANTITY
+  const handleAmountChange = (val: string) => {
+    setAmountInput(val);
+    setLastEdited('amount');
+
+    const parsedAmt = parseFloat(val);
+    if (isNaN(parsedAmt) || parsedAmt <= 0) {
+      setQuantity(0);
+      setQtyInput('');
+      setErrorMsg('Please enter a valid rupee amount.');
+      return;
+    }
+
+    if (activeBaseRate <= 0) {
+      setErrorMsg('Invalid base rate for this product.');
+      return;
+    }
+
+    // Proportional quantity calculation: qty = enteredAmount / activeBaseRate
+    const propQty = parseFloat((parsedAmt / activeBaseRate).toFixed(2));
+    setQuantity(propQty);
+    setQtyInput(String(propQty));
+    setErrorMsg('');
+  };
+
+  // Step quantity up/down
+  const adjustQuantity = (delta: number) => {
+    const current = quantity > 0 ? quantity : 0;
+    let next: number;
+    if (delta > 0) {
+      next = current < 1 ? Number((current + 0.25).toFixed(2)) : Math.floor(current) + 1;
+    } else {
+      if (current <= 0.25) {
+        next = 0.25;
+      } else if (current <= 1) {
+        next = Number((current - 0.25).toFixed(2));
+      } else {
+        next = Math.ceil(current) - 1;
+      }
+    }
+    handleQuantityChange(String(next));
+  };
 
   const handleConfirm = () => {
     setErrorMsg('');
 
-    // Price validation
-    if (unitPrice <= 0) {
-      setErrorMsg('Price must be greater than Rs. 0. Please enter a valid amount.');
-      priceInputRef.current?.focus();
-      return;
-    }
-
-    if (currentOption?.min_price && unitPrice < currentOption.min_price) {
-      setErrorMsg(
-        `Price is below minimum allowed rate of Rs. ${currentOption.min_price} for this item.`
-      );
-      priceInputRef.current?.focus();
-      return;
-    }
-
     if (quantity <= 0) {
-      setErrorMsg('Quantity must be at least 1.');
+      setErrorMsg('Quantity must be greater than 0.');
       qtyInputRef.current?.focus();
       return;
     }
 
+    if (activeBaseRate <= 0) {
+      setErrorMsg('Invalid rate for this item.');
+      return;
+    }
+
+    const portionLabel = portion === 'half_plate' ? 'Half Plate' : 'Full Plate';
+
     onAdd(
       product,
       quantity,
-      unitPrice,
+      activeBaseRate,
       '',
       [],
-      currentOption?.label || 'Plate',
-      currentOption?.type || 'full_plate'
+      portionLabel,
+      portion
     );
   };
 
+  // Keyboard navigation handler
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Escape') {
       e.preventDefault();
@@ -134,31 +211,40 @@ export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
       return;
     }
 
-    // Number keys (1 to 9) to pick pricing option directly
-    const num = parseInt(e.key);
-    if (!isNaN(num) && num >= 1 && num <= options.length && !e.ctrlKey && !e.altKey) {
-      const activeEl = document.activeElement;
-      if (activeEl === priceInputRef.current || activeEl === qtyInputRef.current) {
-        // typing inside numeric input
-      } else {
+    const activeEl = document.activeElement;
+    const isTyping = activeEl === qtyInputRef.current || activeEl === amountInputRef.current;
+
+    // Hotkey '1' for Full Plate, '2' for Half Plate when not typing inside an input
+    if (!isTyping && !e.ctrlKey && !e.altKey) {
+      if (e.key === '1') {
         e.preventDefault();
-        setSelectedOptionIndex(num - 1);
+        switchPortion('full_plate');
         return;
       }
-    }
-
-    // Arrow keys for option navigation
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-      const activeEl = document.activeElement;
-      if (activeEl !== priceInputRef.current && activeEl !== qtyInputRef.current) {
+      if (e.key === '2' && hasHalfPlate) {
         e.preventDefault();
-        setSelectedOptionIndex((prev) => (prev + 1) % options.length);
+        switchPortion('half_plate');
+        return;
       }
-    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-      const activeEl = document.activeElement;
-      if (activeEl !== priceInputRef.current && activeEl !== qtyInputRef.current) {
+      if (e.key === 'ArrowLeft') {
         e.preventDefault();
-        setSelectedOptionIndex((prev) => (prev - 1 + options.length) % options.length);
+        switchPortion('full_plate');
+        return;
+      }
+      if (e.key === 'ArrowRight' && hasHalfPlate) {
+        e.preventDefault();
+        switchPortion('half_plate');
+        return;
+      }
+      if (e.key === '+' || e.key === '=') {
+        e.preventDefault();
+        adjustQuantity(1);
+        return;
+      }
+      if (e.key === '-') {
+        e.preventDefault();
+        adjustQuantity(-1);
+        return;
       }
     }
   };
@@ -166,10 +252,11 @@ export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
   return (
     <div
       ref={containerRef}
+      tabIndex={0}
       onKeyDown={handleKeyDown}
-      className="bg-white border-2 border-emerald-500 rounded-2xl p-4 shadow-xl mb-3 ring-1 ring-emerald-500/20 text-slate-900 select-none animate-in fade-in"
+      className="bg-white border-2 border-emerald-500 rounded-2xl p-4 shadow-xl mb-3 ring-1 ring-emerald-500/20 text-slate-900 select-none animate-in fade-in outline-none"
     >
-      {/* Header with item details & Cancel Button */}
+      {/* Header: Item Details & Red Close Button */}
       <div className="flex items-center justify-between pb-3 border-b border-slate-200 mb-3">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-emerald-100 border border-emerald-300 flex items-center justify-center text-emerald-800 shrink-0 font-bold">
@@ -184,9 +271,19 @@ export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
                 </span>
               )}
             </div>
-            <p className="text-xs text-slate-600 mt-0.5 font-medium">
-              Standard Base Rate: <strong className="text-emerald-700 font-bold">{formatMoney(product.selling_price)}</strong>
-            </p>
+            <div className="flex items-center gap-2 text-xs text-slate-600 mt-0.5 font-medium">
+              <span>
+                Full Rate: <strong className="text-emerald-700 font-bold">{formatMoney(fullPlatePrice)}</strong>
+              </span>
+              {hasHalfPlate && (
+                <>
+                  <span className="text-slate-300">•</span>
+                  <span>
+                    Half Rate: <strong className="text-emerald-700 font-bold">{formatMoney(halfPlatePrice)}</strong>
+                  </span>
+                </>
+              )}
+            </div>
           </div>
         </div>
 
@@ -203,126 +300,140 @@ export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
 
       {/* Validation Error Alert */}
       {errorMsg && (
-        <div className="mb-3 p-2.5 bg-rose-50 border border-rose-300 rounded-xl text-rose-800 text-xs font-bold flex items-center gap-2">
+        <div className="mb-3 p-2.5 bg-rose-50 border border-rose-300 rounded-xl text-rose-800 text-xs font-bold flex items-center gap-2 animate-in fade-in">
           <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
           <span>{errorMsg}</span>
         </div>
       )}
 
-      {/* Pricing Method Selection Grid */}
+      {/* Base Rate Selection: Full Plate vs. Half Plate Only */}
       <div className="mb-3">
         <div className="flex items-center justify-between mb-1.5">
           <span className="text-xs font-extrabold text-slate-800 flex items-center gap-1.5">
-            <Tag className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Select Pricing Method (Press 1-{options.length} or Arrow Keys):</span>
+            <Calculator className="w-3.5 h-3.5 text-emerald-600" />
+            <span>Base Rate Selection:</span>
           </span>
-          <span className="text-[10px] text-slate-500 font-medium">Use Enter to confirm</span>
+          <span className="text-[10px] text-slate-500 font-medium">
+            Press [1] for Full, [2] for Half
+          </span>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-          {options.map((opt, idx) => {
-            const isSelected = idx === selectedOptionIndex;
-            return (
-              <button
-                key={opt.id || idx}
-                type="button"
-                onClick={() => setSelectedOptionIndex(idx)}
-                className={`p-2.5 rounded-xl border text-left transition flex flex-col justify-between relative cursor-pointer ${
-                  isSelected
-                    ? 'bg-emerald-50 border-emerald-600 ring-2 ring-emerald-500/40 shadow'
-                    : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50'
-                }`}
-              >
-                <div className="flex items-center justify-between w-full mb-1">
-                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-300">
-                    [{idx + 1}]
+        <div className={`grid gap-2 ${hasHalfPlate ? 'grid-cols-2' : 'grid-cols-1'}`}>
+          {/* Full Plate Base Rate Option */}
+          <button
+            type="button"
+            onClick={() => switchPortion('full_plate')}
+            className={`p-3 rounded-xl border text-left transition flex items-center justify-between cursor-pointer ${
+              portion === 'full_plate'
+                ? 'bg-emerald-50 border-emerald-600 ring-2 ring-emerald-500/40 shadow-sm'
+                : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-300">
+                [1]
+              </span>
+              <div>
+                <div className="font-bold text-xs text-slate-900">Full Plate</div>
+                <div className="text-[10px] text-slate-500">Standard Portion</div>
+              </div>
+            </div>
+            <div className="text-right">
+              <div className="font-black text-sm text-emerald-700">{formatMoney(fullPlatePrice)}</div>
+              {portion === 'full_plate' && (
+                <span className="text-[10px] text-emerald-600 font-bold flex items-center justify-end gap-0.5 mt-0.5">
+                  <Check className="w-3 h-3" /> Selected
+                </span>
+              )}
+            </div>
+          </button>
+
+          {/* Half Plate Base Rate Option */}
+          {hasHalfPlate && (
+            <button
+              type="button"
+              onClick={() => switchPortion('half_plate')}
+              className={`p-3 rounded-xl border text-left transition flex items-center justify-between cursor-pointer ${
+                portion === 'half_plate'
+                  ? 'bg-emerald-50 border-emerald-600 ring-2 ring-emerald-500/40 shadow-sm'
+                  : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-300">
+                  [2]
+                </span>
+                <div>
+                  <div className="font-bold text-xs text-slate-900">Half Plate</div>
+                  <div className="text-[10px] text-slate-500">Half Portion</div>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="font-black text-sm text-emerald-700">{formatMoney(halfPlatePrice)}</div>
+                {portion === 'half_plate' && (
+                  <span className="text-[10px] text-emerald-600 font-bold flex items-center justify-end gap-0.5 mt-0.5">
+                    <Check className="w-3 h-3" /> Selected
                   </span>
-                  {isSelected && <Check className="w-3.5 h-3.5 text-emerald-600" />}
-                </div>
-
-                <div className="font-bold text-xs text-slate-900 truncate">{opt.label}</div>
-
-                <div className="mt-1 font-black text-sm text-emerald-700">
-                  {opt.type === 'by_price' ? (
-                    <span className="text-xs text-emerald-800 font-bold">Custom PKR</span>
-                  ) : (
-                    formatMoney(opt.price)
-                  )}
-                </div>
-              </button>
-            );
-          })}
+                )}
+              </div>
+            </button>
+          )}
         </div>
       </div>
 
-      {/* Pricing Parameters: Quantity & Custom Price input */}
+      {/* Synchronized Inputs: Quantity & Custom Amount with Automatic Proportional Recalculation */}
       <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 mb-3 space-y-3">
-        {isByPrice && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-start">
+          {/* 1. Quantity Control */}
           <div>
-            <label className="block text-xs font-bold text-slate-800 mb-1">
-              Custom Amount (PKR / روپے):
-            </label>
-            <div className="relative max-w-sm">
-              <span className="absolute left-3 top-2 text-sm font-bold text-emerald-700">Rs.</span>
-              <input
-                ref={priceInputRef}
-                type="number"
-                step="any"
-                value={customPriceInput}
-                onChange={(e) => setCustomPriceInput(e.target.value)}
-                placeholder="Enter custom price (e.g. 100, 120)"
-                className="w-full pl-11 pr-3 py-1.5 bg-white border border-slate-300 rounded-lg text-slate-900 font-black text-base focus:outline-none focus:ring-2 focus:ring-emerald-600"
-              />
+            <div className="flex items-center justify-between mb-1">
+              <label className="block text-xs font-bold text-slate-800">
+                Quantity (پلیٹیں):
+              </label>
+              {lastEdited === 'amount' && (
+                <span className="text-[10px] text-emerald-700 font-bold flex items-center gap-1 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">
+                  <ArrowRightLeft className="w-2.5 h-2.5" /> Proportional
+                </span>
+              )}
             </div>
-            {currentOption?.min_price ? (
-              <div className="text-[10px] text-slate-600 mt-1 font-medium">
-                Min. Allowed Price: <strong>Rs. {currentOption.min_price}</strong>
-              </div>
-            ) : null}
-          </div>
-        )}
 
-        {/* Quantity Controls */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <label className="block text-xs font-bold text-slate-800 mb-1">Quantity (تعداد):</label>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <button
                 type="button"
-                onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                onClick={() => adjustQuantity(-1)}
                 className="w-9 h-9 rounded-lg bg-white hover:bg-slate-100 border border-slate-300 flex items-center justify-center text-slate-800 font-black text-base active:scale-95 transition cursor-pointer"
+                title="Decrease"
               >
                 -
               </button>
               <input
                 ref={qtyInputRef}
                 type="number"
-                min="1"
+                min="0.1"
                 step="any"
-                value={quantity}
-                onChange={(e) => {
-                  const val = parseFloat(e.target.value);
-                  setQuantity(isNaN(val) ? 1 : val);
-                }}
-                className="w-20 text-center py-1.5 bg-white border border-slate-300 rounded-lg font-black text-base text-slate-900 focus:outline-none focus:border-emerald-600"
+                value={qtyInput}
+                onChange={(e) => handleQuantityChange(e.target.value)}
+                placeholder="1"
+                className="w-24 text-center py-1.5 bg-white border border-slate-300 rounded-lg font-black text-base text-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600"
               />
               <button
                 type="button"
-                onClick={() => setQuantity((q) => q + 1)}
+                onClick={() => adjustQuantity(1)}
                 className="w-9 h-9 rounded-lg bg-white hover:bg-slate-100 border border-slate-300 flex items-center justify-center text-slate-800 font-black text-base active:scale-95 transition cursor-pointer"
+                title="Increase"
               >
                 +
               </button>
 
               {/* Quick Qty Buttons */}
-              <div className="flex items-center gap-1 ml-2">
-                {[1, 2, 3, 4, 5].map((n) => (
+              <div className="flex items-center gap-1 ml-1">
+                {[1, 2, 3, 4].map((n) => (
                   <button
                     key={n}
                     type="button"
-                    onClick={() => setQuantity(n)}
-                    className={`text-xs px-2.5 py-1 rounded-lg font-bold transition border cursor-pointer ${
-                      quantity === n
+                    onClick={() => handleQuantityChange(String(n))}
+                    className={`text-xs px-2 py-1 rounded-lg font-bold transition border cursor-pointer ${
+                      quantity === n && lastEdited === 'quantity'
                         ? 'bg-emerald-600 text-white border-emerald-600'
                         : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
                     }`}
@@ -334,12 +445,32 @@ export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
             </div>
           </div>
 
-          <div className="text-right">
-            <span className="block text-[11px] text-slate-600 font-medium">Selected Rate:</span>
-            <div className="text-lg font-black text-emerald-700">
-              {formatMoney(unitPrice)}
-              <span className="text-xs font-semibold text-slate-600 ml-1.5">({currentOption?.label})</span>
+          {/* 2. Custom Amount Input with Automatic Proportional Recalculation */}
+          <div>
+            <div className="flex items-center justify-between mb-1">
+              <label className="block text-xs font-bold text-slate-800">
+                Custom Amount (رقم - PKR):
+              </label>
+              <span className="text-[10px] text-slate-500 font-medium">
+                Auto-calculates quantity
+              </span>
             </div>
+
+            <div className="relative">
+              <span className="absolute left-3 top-2 text-sm font-bold text-emerald-700">Rs.</span>
+              <input
+                ref={amountInputRef}
+                type="number"
+                step="any"
+                value={amountInput}
+                onChange={(e) => handleAmountChange(e.target.value)}
+                placeholder={`e.g. 50, 100 (${activeBaseRate})`}
+                className="w-full pl-11 pr-3 py-1.5 bg-white border border-slate-300 rounded-lg text-slate-900 font-black text-base focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600"
+              />
+            </div>
+            <p className="text-[10px] text-slate-500 mt-1 font-medium">
+              Base Rate: <strong>{formatMoney(activeBaseRate)}</strong> ({portion === 'half_plate' ? 'Half Plate' : 'Full Plate'})
+            </p>
           </div>
         </div>
       </div>
@@ -350,7 +481,7 @@ export const ProductPricingSelector: React.FC<ProductPricingSelectorProps> = ({
           <span className="text-xs text-slate-600 font-medium">Line Total: </span>
           <span className="font-black text-emerald-700 text-lg">{formatMoney(lineTotal)}</span>
           <span className="text-xs text-slate-600 font-semibold ml-2">
-            ({quantity}x @ {formatMoney(unitPrice)})
+            ({quantity} plate(s) @ {formatMoney(activeBaseRate)})
           </span>
         </div>
 

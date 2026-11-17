@@ -4,8 +4,8 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { usePOS } from '@/context/POSContext';
 import { useAuth } from '@/context/AuthContext';
 import { useSettings } from '@/context/SettingsContext';
-import { Product, CartItem, getProductPricingOptions } from '@/types/pos';
-import { formatMoney } from '@/lib/money';
+import { Product, CartItem } from '@/types/pos';
+import { formatMoney, multiplyMoney } from '@/lib/money';
 import { ProductPricingSelector } from '@/components/ProductPricingSelector';
 import {
   Search,
@@ -72,7 +72,14 @@ export default function POSPage() {
   // Modals for keyboard confirmations and editing
   const [deleteConfirmItem, setDeleteConfirmItem] = useState<{ index: number; item: CartItem } | null>(null);
   const [checkoutConfirmOpen, setCheckoutConfirmOpen] = useState(false);
-  const [editingCartItem, setEditingCartItem] = useState<{ index: number; item: CartItem; quantity: number; unit_price: number; note: string } | null>(null);
+  const [editingCartItem, setEditingCartItem] = useState<{
+    index: number;
+    item: CartItem;
+    quantity: number;
+    unit_price: number;
+    amount: number;
+    note: string;
+  } | null>(null);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -361,7 +368,31 @@ export default function POSPage() {
       item,
       quantity: item.quantity,
       unit_price: item.unit_price,
+      amount: item.line_total,
       note: item.note || '',
+    });
+  };
+
+  const handleEditQuantityChange = (newQty: number) => {
+    if (!editingCartItem) return;
+    const qty = Math.max(0, newQty);
+    const newAmt = multiplyMoney(editingCartItem.unit_price, qty);
+    setEditingCartItem({
+      ...editingCartItem,
+      quantity: qty,
+      amount: newAmt,
+    });
+  };
+
+  const handleEditAmountChange = (newAmt: number) => {
+    if (!editingCartItem) return;
+    const amt = Math.max(0, newAmt);
+    // Automatic proportional recalculation of quantity
+    const propQty = editingCartItem.unit_price > 0 ? parseFloat((amt / editingCartItem.unit_price).toFixed(2)) : 0;
+    setEditingCartItem({
+      ...editingCartItem,
+      amount: amt,
+      quantity: propQty,
     });
   };
 
@@ -448,7 +479,13 @@ export default function POSPage() {
                 ) : (
                   searchMatches.map((product, idx) => {
                     const isHighlighted = idx === highlightedIndex;
-                    const pricingOpts = getProductPricingOptions(product);
+                    const fullPlateRate = product.pricing_config?.full_plate_price && Number(product.pricing_config.full_plate_price) > 0
+                      ? Number(product.pricing_config.full_plate_price)
+                      : Number(product.selling_price) || 0;
+                    const halfPlateRate = product.pricing_config?.half_plate_price && Number(product.pricing_config.half_plate_price) > 0
+                      ? Number(product.pricing_config.half_plate_price)
+                      : Math.round((fullPlateRate * 0.55) / 5) * 5;
+                    const hasHalf = halfPlateRate > 0 && halfPlateRate < fullPlateRate;
 
                     return (
                       <div
@@ -471,23 +508,28 @@ export default function POSPage() {
                             )}
                           </div>
 
-                          {/* Pricing Options Summary Chips */}
+                          {/* Base Rates Summary Chips */}
                           <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
-                            {pricingOpts.map((opt) => (
+                            <span
+                              className={`text-[10px] px-2 py-0.5 rounded font-bold border ${
+                                isHighlighted
+                                  ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                                  : 'bg-slate-100 text-slate-700 border-slate-200'
+                              }`}
+                            >
+                              Full Plate: <strong className="text-emerald-700">{formatMoney(fullPlateRate)}</strong>
+                            </span>
+                            {hasHalf && (
                               <span
-                                key={opt.id}
-                                className={`text-[10px] px-1.5 py-0.5 rounded font-bold border ${
+                                className={`text-[10px] px-2 py-0.5 rounded font-bold border ${
                                   isHighlighted
                                     ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
                                     : 'bg-slate-100 text-slate-700 border-slate-200'
                                 }`}
                               >
-                                {opt.label}:{' '}
-                                <strong className="text-emerald-700">
-                                  {opt.type === 'by_price' ? 'Custom' : formatMoney(opt.price)}
-                                </strong>
+                                Half Plate: <strong className="text-emerald-700">{formatMoney(halfPlateRate)}</strong>
                               </span>
-                            ))}
+                            )}
                           </div>
                         </div>
 
@@ -565,7 +607,14 @@ export default function POSPage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2.5">
               {filteredProducts.map((p) => {
                 const isSelected = activeProductForSelection?.id === p.id;
-                const opts = getProductPricingOptions(p);
+                const fullPlateRate = p.pricing_config?.full_plate_price && Number(p.pricing_config.full_plate_price) > 0
+                  ? Number(p.pricing_config.full_plate_price)
+                  : Number(p.selling_price) || 0;
+                const halfPlateRate = p.pricing_config?.half_plate_price && Number(p.pricing_config.half_plate_price) > 0
+                  ? Number(p.pricing_config.half_plate_price)
+                  : Math.round((fullPlateRate * 0.55) / 5) * 5;
+                const hasHalf = halfPlateRate > 0 && halfPlateRate < fullPlateRate;
+
                 return (
                   <button
                     key={p.id}
@@ -588,13 +637,16 @@ export default function POSPage() {
                       </span>
                     </div>
 
-                    {/* Quick Pricing Chips on Card */}
+                    {/* Base Rates Chips on Card */}
                     <div className="flex flex-wrap gap-1 my-1">
-                      {opts.slice(0, 2).map((op) => (
-                        <span key={op.id} className="text-[9px] bg-slate-100 border border-slate-200 text-slate-700 px-1 py-0.2 rounded font-semibold truncate">
-                          {op.label}: {op.type === 'by_price' ? 'Custom' : formatMoney(op.price)}
+                      <span className="text-[9px] bg-slate-100 border border-slate-200 text-slate-700 px-1.5 py-0.5 rounded font-semibold truncate">
+                        Full: {formatMoney(fullPlateRate)}
+                      </span>
+                      {hasHalf && (
+                        <span className="text-[9px] bg-slate-100 border border-slate-200 text-slate-700 px-1.5 py-0.5 rounded font-semibold truncate">
+                          Half: {formatMoney(halfPlateRate)}
                         </span>
-                      ))}
+                      )}
                     </div>
 
                     <div className="flex items-center justify-between pt-1 border-t border-slate-100 mt-auto">
@@ -989,24 +1041,30 @@ export default function POSPage() {
 
             <div className="space-y-3">
               <div>
-                <label className="block text-[11px] font-bold text-slate-700 mb-1">Quantity:</label>
+                <div className="flex justify-between items-center mb-1">
+                  <label className="block text-[11px] font-bold text-slate-700">Quantity (پلیٹیں):</label>
+                  <span className="text-[10px] text-slate-500 font-medium">Rate: {formatMoney(editingCartItem.unit_price)}</span>
+                </div>
                 <input
                   type="number"
-                  min="1"
+                  min="0.1"
                   step="any"
                   value={editingCartItem.quantity}
-                  onChange={(e) => setEditingCartItem({ ...editingCartItem, quantity: parseFloat(e.target.value) || 0 })}
+                  onChange={(e) => handleEditQuantityChange(parseFloat(e.target.value) || 0)}
                   className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-700 mb-1">Unit Rate (PKR):</label>
+                <div className="flex justify-between items-center mb-1">
+                  <label className="block text-[11px] font-bold text-slate-700">Total Amount (رقم - PKR):</label>
+                  <span className="text-[10px] text-emerald-700 font-bold">Auto-calculates quantity</span>
+                </div>
                 <input
                   type="number"
                   step="any"
-                  value={editingCartItem.unit_price}
-                  onChange={(e) => setEditingCartItem({ ...editingCartItem, unit_price: parseFloat(e.target.value) || 0 })}
+                  value={editingCartItem.amount}
+                  onChange={(e) => handleEditAmountChange(parseFloat(e.target.value) || 0)}
                   className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-emerald-700 font-black focus:outline-none focus:border-emerald-600"
                 />
               </div>
