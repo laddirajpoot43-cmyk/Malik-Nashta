@@ -43,7 +43,7 @@ export async function POST(req: Request) {
     const store = localStore.get();
     const newProduct = {
       id: generateUUID(),
-      category_id: category_id || store.categories?.[0]?.id,
+      category_id: category_id || store.categories?.[0]?.id || null,
       name,
       short_name: short_name || name,
       selling_price: numSellingPrice,

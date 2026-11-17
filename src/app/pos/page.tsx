@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import Link from 'next/link';
 import { usePOS } from '@/context/POSContext';
 import { useAuth } from '@/context/AuthContext';
 import { useSettings } from '@/context/SettingsContext';
@@ -597,7 +598,24 @@ export default function POSPage() {
 
         {/* Product Cards Grid */}
         <div className="flex-1 overflow-y-auto pr-1">
-          {filteredProducts.length === 0 ? (
+          {products.length === 0 ? (
+            <div className="h-full flex flex-col items-center justify-center text-slate-500 py-16 text-center px-4">
+              <div className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 mb-3 shadow-sm">
+                <Utensils className="w-8 h-8" />
+              </div>
+              <h3 className="text-base font-extrabold text-slate-900">No Menu Products Configured</h3>
+              <p className="text-xs text-slate-500 mt-1 max-w-sm">
+                All demo data has been wiped clean. Go to Admin Settings to add your restaurant&apos;s real breakfast items, prices, and categories.
+              </p>
+              <Link
+                href="/settings?tab=menu"
+                className="mt-4 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow transition inline-flex items-center gap-1.5 cursor-pointer"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add First Menu Product</span>
+              </Link>
+            </div>
+          ) : filteredProducts.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-slate-500 py-12">
               <Utensils className="w-12 h-12 mb-3 opacity-30 text-emerald-600" />
               <p className="text-sm font-bold text-slate-800">No breakfast items found</p>

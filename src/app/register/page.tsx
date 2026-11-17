@@ -62,14 +62,14 @@ export default function RegisterPage() {
   return (
     <div className="space-y-4">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-emerald-500/20 text-emerald-400 rounded-xl">
+          <div className="p-2.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
             <DollarSign className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-lg font-black text-white">Cash Register & Shift Handover</h1>
-            <p className="text-xs text-slate-400">
+            <h1 className="text-lg font-black text-slate-900">Cash Register & Shift Handover</h1>
+            <p className="text-xs text-slate-600 font-medium">
               Shift reconciliation, float auditing, petty cash expenses, and drawer discrepancy tracking
             </p>
           </div>
@@ -78,7 +78,7 @@ export default function RegisterPage() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setOpenRegisterModal(true)}
-            className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5"
+            className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
           >
             {activeRegister ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
             <span>{activeRegister ? 'Manage Shift / Close Drawer' : 'Open Register Shift'}</span>
@@ -89,72 +89,72 @@ export default function RegisterPage() {
       {/* Primary Reconciliation Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {/* Expected Cash in Hand */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs text-slate-400">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
+          <div className="flex items-center justify-between text-xs text-slate-500 font-bold uppercase tracking-wider">
             <span>Expected Cash in Hand</span>
-            <span className={`w-2.5 h-2.5 rounded-full ${activeRegister ? 'bg-emerald-400 animate-pulse' : 'bg-rose-500'}`} />
+            <span className={`w-2.5 h-2.5 rounded-full ${activeRegister ? 'bg-emerald-500 animate-pulse' : 'bg-rose-500'}`} />
           </div>
-          <div className="text-2xl font-black text-emerald-400 mt-2">
+          <div className="text-2xl font-black text-emerald-700 mt-2">
             {formatMoney(summary.expected_cash)}
           </div>
-          <div className="text-[10px] text-slate-500 mt-1">
-            Status: {activeRegister ? 'LIVE REGISTER OPEN' : 'REGISTER CLOSED'}
+          <div className="text-[10px] text-slate-500 mt-1 font-semibold">
+            Status: {activeRegister ? <span className="text-emerald-700">LIVE REGISTER OPEN</span> : <span className="text-slate-500">REGISTER CLOSED</span>}
           </div>
         </div>
 
         {/* Cash Sales Today */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs text-slate-400">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
+          <div className="flex items-center justify-between text-xs text-slate-500 font-bold uppercase tracking-wider">
             <span>Counter Cash Sales</span>
-            <TrendingUp className="w-4 h-4 text-emerald-400" />
+            <TrendingUp className="w-4 h-4 text-emerald-600" />
           </div>
-          <div className="text-2xl font-black text-white mt-2">
+          <div className="text-2xl font-black text-slate-900 mt-2">
             {formatMoney(summary.cash_sales)}
           </div>
-          <div className="text-[10px] text-slate-500 mt-1">
+          <div className="text-[10px] text-slate-500 mt-1 font-medium">
             {summary.orders_count} completed orders
           </div>
         </div>
 
         {/* Digital Payments */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs text-slate-400">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
+          <div className="flex items-center justify-between text-xs text-slate-500 font-bold uppercase tracking-wider">
             <span>Digital / JazzCash / Card</span>
-            <Receipt className="w-4 h-4 text-cyan-400" />
+            <Receipt className="w-4 h-4 text-slate-600" />
           </div>
-          <div className="text-2xl font-black text-cyan-400 mt-2">
+          <div className="text-2xl font-black text-slate-900 mt-2">
             {formatMoney(summary.digital_sales)}
           </div>
-          <div className="text-[10px] text-slate-500 mt-1">
+          <div className="text-[10px] text-slate-500 mt-1 font-medium">
             Settled to Bank / Wallet
           </div>
         </div>
 
         {/* Drawer Expenses (Petty Cash Out) */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs text-slate-400">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
+          <div className="flex items-center justify-between text-xs text-slate-500 font-bold uppercase tracking-wider">
             <span>Cash Out (Expenses + Refunds)</span>
-            <ArrowUpRight className="w-4 h-4 text-rose-400" />
+            <ArrowUpRight className="w-4 h-4 text-rose-600" />
           </div>
-          <div className="text-2xl font-black text-rose-400 mt-2">
+          <div className="text-2xl font-black text-rose-600 mt-2">
             -{formatMoney(summary.cash_out + summary.refunds)}
           </div>
-          <div className="text-[10px] text-slate-500 mt-1">
+          <div className="text-[10px] text-slate-500 mt-1 font-medium">
             Expenses: {formatMoney(summary.cash_out)} • Refunds: {formatMoney(summary.refunds)}
           </div>
         </div>
       </div>
 
       {/* Live Transaction Ledger Table */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden">
-        <div className="p-4 border-b border-slate-800 flex items-center justify-between">
+      <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+        <div className="p-4 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <History className="w-5 h-5 text-emerald-400" />
-            <h3 className="font-bold text-sm text-white">Current Shift Cash Movements ({txs.length})</h3>
+            <History className="w-5 h-5 text-emerald-600" />
+            <h3 className="font-extrabold text-sm text-slate-900">Current Shift Cash Movements ({txs.length})</h3>
           </div>
           <button
             onClick={() => setOpenRegisterModal(true)}
-            className="text-xs text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-1"
+            className="text-xs text-emerald-700 hover:text-emerald-800 font-bold flex items-center gap-1 cursor-pointer"
           >
             <Plus className="w-3.5 h-3.5" /> Record Movement
           </button>
@@ -162,7 +162,7 @@ export default function RegisterPage() {
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/70 border-b border-slate-800 text-slate-400 uppercase font-semibold text-[10px]">
+            <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase font-bold text-[10px]">
               <tr>
                 <th className="px-4 py-3">Time</th>
                 <th className="px-4 py-3">Type</th>
@@ -171,10 +171,10 @@ export default function RegisterPage() {
                 <th className="px-4 py-3">Cashier</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-slate-100">
               {txs.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="py-12 text-center text-slate-500">
+                  <td colSpan={5} className="py-12 text-center text-slate-500 font-medium">
                     No cash transactions recorded in this shift yet.
                   </td>
                 </tr>
@@ -182,33 +182,33 @@ export default function RegisterPage() {
                 txs.map((tx: any) => {
                   const isPositive = tx.type === 'OPENING' || tx.type === 'SALE' || tx.type === 'CASH_IN' || (tx.type === 'ADJUSTMENT' && tx.amount > 0);
                   return (
-                    <tr key={tx.id} className="hover:bg-slate-800/50 transition">
-                      <td className="px-4 py-3 text-slate-400 font-mono">
+                    <tr key={tx.id} className="hover:bg-slate-50/70 transition">
+                      <td className="px-4 py-3 text-slate-600 font-mono">
                         {new Date(tx.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                       </td>
                       <td className="px-4 py-3">
                         <span
                           className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
                             tx.type === 'SALE'
-                              ? 'bg-emerald-500/20 text-emerald-400'
+                              ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                               : tx.type === 'CASH_IN' || tx.type === 'OPENING'
-                              ? 'bg-cyan-500/20 text-cyan-400'
+                              ? 'bg-teal-50 text-teal-700 border border-teal-200'
                               : tx.type === 'REFUND'
-                              ? 'bg-amber-500/20 text-amber-400'
-                              : 'bg-rose-500/20 text-rose-400'
+                              ? 'bg-amber-50 text-amber-800 border border-amber-200'
+                              : 'bg-rose-50 text-rose-700 border border-rose-200'
                           }`}
                         >
                           {tx.type}
                         </span>
                       </td>
-                      <td className={`px-4 py-3 font-black text-sm ${isPositive ? 'text-emerald-400' : 'text-rose-400'}`}>
+                      <td className={`px-4 py-3 font-black text-sm ${isPositive ? 'text-emerald-700' : 'text-rose-600'}`}>
                         {isPositive ? `+${formatMoney(Math.abs(tx.amount))}` : `-${formatMoney(Math.abs(tx.amount))}`}
                       </td>
                       <td className="px-4 py-3">
-                        <div className="font-medium text-slate-200">{tx.reason || 'General'}</div>
+                        <div className="font-bold text-slate-900">{tx.reason || 'General'}</div>
                         {tx.note && <div className="text-[10px] text-slate-500">{tx.note}</div>}
                       </td>
-                      <td className="px-4 py-3 text-slate-400">{tx.user_name_snapshot}</td>
+                      <td className="px-4 py-3 text-slate-600 font-medium">{tx.user_name_snapshot}</td>
                     </tr>
                   );
                 })
