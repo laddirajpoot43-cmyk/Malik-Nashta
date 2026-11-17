@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { localStore, logAuditEvent, generateUUID } from '@/lib/db';
+import { insforgeAdmin } from '@/lib/insforge';
 
 export const dynamic = 'force-dynamic';
 
@@ -43,6 +44,13 @@ export async function POST(req: Request) {
 
     localStore.save();
 
+    // Direct synchronous Cloud PostgreSQL persistence
+    try {
+      await insforgeAdmin.database.from('categories').upsert([newCat], { onConflict: 'id' });
+    } catch (e) {
+      console.warn('Cloud sync error for category create:', e);
+    }
+
     return NextResponse.json({ success: true, category: newCat });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
@@ -77,6 +85,20 @@ export async function PUT(req: Request) {
     });
 
     localStore.save();
+
+    // Direct synchronous Cloud PostgreSQL persistence
+    try {
+      await insforgeAdmin.database.from('categories').upsert([{
+        id: category.id,
+        name: category.name,
+        display_order: category.display_order,
+        is_active: category.is_active,
+        created_at: category.created_at,
+      }], { onConflict: 'id' });
+    } catch (e) {
+      console.warn('Cloud sync error for category update:', e);
+    }
+
     return NextResponse.json({ success: true, category });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
@@ -110,6 +132,14 @@ export async function DELETE(req: Request) {
     });
 
     localStore.save();
+
+    // Direct synchronous Cloud PostgreSQL persistence
+    try {
+      await insforgeAdmin.database.from('categories').delete().eq('id', id);
+    } catch (e) {
+      console.warn('Cloud sync error for category delete:', e);
+    }
+
     return NextResponse.json({ success: true, deletedCategory: removed });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

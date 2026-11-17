@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { localStore, logAuditEvent, generateUUID } from '@/lib/db';
+import { insforgeAdmin } from '@/lib/insforge';
 import { subtractMoney } from '@/lib/money';
 
 export const dynamic = 'force-dynamic';
@@ -100,6 +101,19 @@ export async function POST(req: Request) {
     });
 
     localStore.save();
+
+    // Direct synchronous Cloud PostgreSQL persistence
+    try {
+      const cleanPayment = { ...newPayment } as any;
+      delete cleanPayment.vendor_name;
+      await insforgeAdmin.database.from('vendor_payments').upsert([cleanPayment], { onConflict: 'id' });
+      await insforgeAdmin.database.from('vendors').upsert([{ id: vendor.id, current_balance: vendor.current_balance }]);
+      if (registerTx) {
+        await insforgeAdmin.database.from('register_transactions').upsert([registerTx], { onConflict: 'id' });
+      }
+    } catch (e) {
+      console.warn('Cloud sync error for vendor payment create:', e);
+    }
 
     return NextResponse.json({
       success: true,

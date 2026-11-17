@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { localStore, withTransaction, logAuditEvent, generateUUID } from '@/lib/db';
+import { insforgeAdmin } from '@/lib/insforge';
 import { addMoney, subtractMoney, multiplyMoney } from '@/lib/money';
 
 export const dynamic = 'force-dynamic';
@@ -132,6 +133,24 @@ export async function POST(req: Request) {
 
     localStore.save();
 
+    // Direct synchronous Cloud PostgreSQL persistence
+    try {
+      const cleanInvoice = { ...newInvoice } as any;
+      delete cleanInvoice.items;
+      await insforgeAdmin.database.from('purchase_invoices').upsert([cleanInvoice], { onConflict: 'id' });
+      if (itemsToInsert.length > 0) {
+        await insforgeAdmin.database.from('purchase_items').upsert(itemsToInsert, { onConflict: 'id' });
+      }
+      if (vendor && balance > 0) {
+        await insforgeAdmin.database.from('vendors').upsert([{ id: vendor.id, current_balance: vendor.current_balance }]);
+      }
+      if (registerTx) {
+        await insforgeAdmin.database.from('register_transactions').upsert([registerTx], { onConflict: 'id' });
+      }
+    } catch (e) {
+      console.warn('Cloud sync error for purchase invoice create:', e);
+    }
+
     return NextResponse.json({
       success: true,
       invoice: newInvoice,
@@ -191,6 +210,21 @@ export async function DELETE(req: Request) {
     });
 
     localStore.save();
+
+    // Direct synchronous Cloud PostgreSQL persistence
+    try {
+      await insforgeAdmin.database.from('purchase_items').delete().eq('purchase_invoice_id', removed.id);
+      await insforgeAdmin.database.from('purchase_invoices').delete().eq('id', removed.id);
+      if (removed.vendor_id) {
+        const vendor = (store.vendors || []).find((v: any) => v.id === removed.vendor_id);
+        if (vendor) {
+          await insforgeAdmin.database.from('vendors').upsert([{ id: vendor.id, current_balance: vendor.current_balance }]);
+        }
+      }
+    } catch (e) {
+      console.warn('Cloud sync error for purchase invoice delete:', e);
+    }
+
     return NextResponse.json({ success: true, deletedInvoice: removed });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

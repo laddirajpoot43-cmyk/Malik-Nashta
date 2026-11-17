@@ -53,6 +53,7 @@ function PurchasesContent() {
   const [formError, setFormError] = useState('');
   const [formSuccess, setFormSuccess] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [invoiceToDelete, setInvoiceToDelete] = useState<PurchaseInvoice | null>(null);
 
   const loadData = async () => {
     try {
@@ -177,10 +178,14 @@ function PurchasesContent() {
     }
   };
 
-  const handleDeleteInvoice = async (inv: PurchaseInvoice) => {
-    if (!confirm(`Delete Purchase Invoice ${inv.invoice_number} (${formatMoney(inv.total_amount)})? This will also reverse any unpaid Udhaar balance on the vendor.`)) {
-      return;
-    }
+  const handleDeleteInvoice = (inv: PurchaseInvoice) => {
+    setInvoiceToDelete(inv);
+  };
+
+  const confirmDeleteInvoice = async () => {
+    if (!invoiceToDelete) return;
+    const inv = invoiceToDelete;
+    setInvoiceToDelete(null);
     try {
       const res = await fetch(`/api/purchases?id=${inv.id}&cashier_name=${encodeURIComponent(currentUser?.display_name || 'Admin')}`, {
         method: 'DELETE',
@@ -543,6 +548,45 @@ function PurchasesContent() {
           </table>
         </div>
       </div>
+
+      {/* IN-APP DELETE INVOICE CONFIRMATION MODAL */}
+      {invoiceToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-sm p-5 space-y-4 shadow-2xl">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 bg-rose-50 text-rose-600 border border-rose-200 rounded-xl font-bold">
+                <Trash2 className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="font-extrabold text-sm text-slate-900">Delete Purchase Bill</h3>
+                <p className="text-xs text-slate-500 font-medium">Reverses unpaid vendor credit balance.</p>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-700 font-medium bg-slate-50 p-3 rounded-xl border border-slate-200">
+              Are you sure you want to delete Purchase Invoice{' '}
+              <strong className="text-slate-900 font-bold">#{invoiceToDelete.invoice_number}</strong> ({formatMoney(invoiceToDelete.total_amount)})?
+            </p>
+
+            <div className="flex gap-2 pt-1">
+              <button
+                type="button"
+                onClick={() => setInvoiceToDelete(null)}
+                className="flex-1 py-2.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl border border-slate-200 transition cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={confirmDeleteInvoice}
+                className="flex-1 py-2.5 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 active:bg-rose-800 rounded-xl shadow transition cursor-pointer"
+              >
+                Yes, Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

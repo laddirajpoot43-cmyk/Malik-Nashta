@@ -251,22 +251,44 @@ function SettingsContent() {
     }
   };
 
-  const handleDeleteProduct = async (id: string, name: string) => {
-    if (!confirm(`Are you sure you want to delete product "${name}"?`)) return;
+  const [deleteConfirm, setDeleteConfirm] = useState<{
+    isOpen: boolean;
+    type: 'product' | 'category' | 'raw' | 'user';
+    id: string;
+    name: string;
+  } | null>(null);
+
+  const executeDelete = async () => {
+    if (!deleteConfirm) return;
+    const { type, id, name } = deleteConfirm;
+    setDeleteConfirm(null);
+
     try {
-      const res = await fetch(`/api/products?id=${id}&cashier_name=${encodeURIComponent(currentUser?.display_name || 'Admin')}`, {
-        method: 'DELETE',
-      });
+      let url = '';
+      if (type === 'product') url = `/api/products?id=${id}&cashier_name=${encodeURIComponent(currentUser?.display_name || 'Admin')}`;
+      else if (type === 'category') url = `/api/categories?id=${id}&cashier_name=${encodeURIComponent(currentUser?.display_name || 'Admin')}`;
+      else if (type === 'raw') url = `/api/raw-materials?id=${id}&cashier_name=${encodeURIComponent(currentUser?.display_name || 'Admin')}`;
+      else if (type === 'user') url = `/api/users?id=${id}&cashier_name=${encodeURIComponent(currentUser?.display_name || 'Admin')}`;
+
+      const res = await fetch(url, { method: 'DELETE' });
       const data = await res.json();
       if (data.success) {
-        showNotice(`Product "${name}" deleted.`);
-        loadAllData();
+        showNotice(`"${name}" deleted successfully!`);
+        if (type === 'user') {
+          refreshUsers();
+        } else {
+          loadAllData();
+        }
       } else {
         showNotice(data.error || 'Failed to delete', 'error');
       }
     } catch (e: any) {
       showNotice(e.message, 'error');
     }
+  };
+
+  const handleDeleteProduct = (id: string, name: string) => {
+    setDeleteConfirm({ isOpen: true, type: 'product', id, name });
   };
 
   // --- CATEGORY CRUD ---
@@ -299,25 +321,9 @@ function SettingsContent() {
     }
   };
 
-  const handleDeleteCategory = async (id: string, name: string) => {
-    if (!confirm(`Delete category "${name}"?`)) return;
-    try {
-      const res = await fetch(`/api/categories?id=${id}&cashier_name=${encodeURIComponent(currentUser?.display_name || 'Admin')}`, {
-        method: 'DELETE',
-      });
-      const data = await res.json();
-      if (data.success) {
-        showNotice(`Category "${name}" deleted.`);
-        loadAllData();
-      } else {
-        showNotice(data.error || 'Failed to delete category', 'error');
-      }
-    } catch (e: any) {
-      showNotice(e.message, 'error');
-    }
+  const handleDeleteCategory = (id: string, name: string) => {
+    setDeleteConfirm({ isOpen: true, type: 'category', id, name });
   };
-
-
 
   // --- RAW MATERIALS CRUD ---
   const handleSaveRaw = async (e: React.FormEvent) => {
@@ -351,22 +357,8 @@ function SettingsContent() {
     }
   };
 
-  const handleDeleteRaw = async (id: string, name: string) => {
-    if (!confirm(`Delete raw ingredient "${name}"?`)) return;
-    try {
-      const res = await fetch(`/api/raw-materials?id=${id}&cashier_name=${encodeURIComponent(currentUser?.display_name || 'Admin')}`, {
-        method: 'DELETE',
-      });
-      const data = await res.json();
-      if (data.success) {
-        showNotice(`Raw material "${name}" deleted.`);
-        loadAllData();
-      } else {
-        showNotice(data.error || 'Failed to delete raw material', 'error');
-      }
-    } catch (e: any) {
-      showNotice(e.message, 'error');
-    }
+  const handleDeleteRaw = (id: string, name: string) => {
+    setDeleteConfirm({ isOpen: true, type: 'raw', id, name });
   };
 
   // --- USERS CRUD ---
@@ -402,22 +394,8 @@ function SettingsContent() {
     }
   };
 
-  const handleDeleteUser = async (id: string, name: string) => {
-    if (!confirm(`Are you sure you want to delete staff account "${name}"?`)) return;
-    try {
-      const res = await fetch(`/api/users?id=${id}&cashier_name=${encodeURIComponent(currentUser?.display_name || 'Admin')}`, {
-        method: 'DELETE',
-      });
-      const data = await res.json();
-      if (data.success) {
-        showNotice(`Staff user "${name}" deleted.`);
-        refreshUsers();
-      } else {
-        showNotice(data.error || 'Failed to delete user', 'error');
-      }
-    } catch (e: any) {
-      showNotice(e.message, 'error');
-    }
+  const handleDeleteUser = (id: string, name: string) => {
+    setDeleteConfirm({ isOpen: true, type: 'user', id, name });
   };
 
   const navTabs = [
@@ -1007,48 +985,48 @@ function SettingsContent() {
 
       {/* PRODUCT MODAL */}
       {showProductModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <form onSubmit={handleSaveProduct} className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg max-h-[92vh] overflow-y-auto p-5 space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-              <h3 className="font-bold text-sm text-white">
-                {editingProduct ? 'Edit Menu Product' : 'Add New Menu Product'}
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in">
+          <form onSubmit={handleSaveProduct} className="bg-white border border-slate-200 rounded-2xl w-full max-w-lg max-h-[92vh] overflow-y-auto p-5 space-y-4 shadow-2xl">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+              <h3 className="font-extrabold text-sm text-slate-900">
+                {editingProduct ? `Edit Menu Product: ${editingProduct.name}` : 'Add New Menu Product'}
               </h3>
-              <button type="button" onClick={() => setShowProductModal(false)} className="text-slate-400 hover:text-white">
-                <X className="w-4 h-4" />
+              <button type="button" onClick={() => setShowProductModal(false)} className="text-slate-400 hover:text-slate-700">
+                <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-3">
               <div>
-                <label className="block text-[11px] font-semibold text-slate-400 mb-1">Product Full Name:</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Product Full Name:</label>
                 <input
                   type="text"
                   required
                   value={productForm.name}
                   onChange={(e) => setProductForm({ ...productForm, name: e.target.value })}
                   placeholder="e.g. Special Lahori Channay"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-400 mb-1">POS Short Name (For Buttons):</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">POS Short Name (For Buttons):</label>
                 <input
                   type="text"
                   value={productForm.short_name}
                   onChange={(e) => setProductForm({ ...productForm, short_name: e.target.value })}
                   placeholder="e.g. Channay"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1">Category:</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Category:</label>
                   <select
                     value={productForm.category_id}
                     onChange={(e) => setProductForm({ ...productForm, category_id: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600 cursor-pointer"
                   >
                     {categories.map((c) => (
                       <option key={c.id} value={c.id}>
@@ -1059,11 +1037,11 @@ function SettingsContent() {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1">Availability:</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Availability:</label>
                   <select
                     value={productForm.availability}
                     onChange={(e) => setProductForm({ ...productForm, availability: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600 cursor-pointer"
                   >
                     <option value="available">Available</option>
                     <option value="sold_out">Sold Out</option>
@@ -1074,7 +1052,7 @@ function SettingsContent() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1">Standard / Base Price (PKR):</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Standard / Base Price (PKR):</label>
                   <input
                     type="number"
                     step="any"
@@ -1082,63 +1060,63 @@ function SettingsContent() {
                     value={productForm.selling_price}
                     onChange={(e) => setProductForm({ ...productForm, selling_price: e.target.value })}
                     placeholder="180"
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-emerald-400 font-bold focus:outline-none"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-emerald-700 font-black focus:outline-none focus:border-emerald-600"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1">Cost Price (PKR):</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Cost Price (PKR):</label>
                   <input
                     type="number"
                     step="any"
                     value={productForm.cost_price}
                     onChange={(e) => setProductForm({ ...productForm, cost_price: e.target.value })}
                     placeholder="90"
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-slate-300 focus:outline-none"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-700 font-bold focus:outline-none focus:border-emerald-600"
                   />
                 </div>
               </div>
 
               {/* Pricing Methods Configuration Section */}
-              <div className="p-3 bg-slate-950/80 rounded-xl border border-slate-800 space-y-3">
-                <h4 className="text-xs font-bold text-amber-400 flex items-center gap-1.5 border-b border-slate-800 pb-1.5">
+              <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                <h4 className="text-xs font-black text-slate-900 flex items-center gap-1.5 border-b border-slate-200 pb-1.5">
                   <span>Flexible Pricing Methods (POS Counter)</span>
                 </h4>
 
                 {/* 1. By Plate Method */}
                 <div className="space-y-2">
-                  <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-200">
+                  <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-800">
                     <input
                       type="checkbox"
                       checked={productForm.enable_by_plate}
                       onChange={(e) => setProductForm({ ...productForm, enable_by_plate: e.target.checked })}
-                      className="rounded border-slate-700 text-emerald-600 focus:ring-emerald-500"
+                      className="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4 cursor-pointer"
                     />
                     <span>Enable By Plate (Predefined Plate Rates)</span>
                   </label>
 
                   {productForm.enable_by_plate && (
-                    <div className="grid grid-cols-2 gap-2 pl-5">
+                    <div className="grid grid-cols-2 gap-2 pl-6">
                       <div>
-                        <span className="block text-[10px] text-slate-400">Full Plate Price:</span>
+                        <span className="block text-[10px] font-bold text-slate-600">Full Plate Price:</span>
                         <input
                           type="number"
                           step="any"
                           value={productForm.full_plate_price}
                           onChange={(e) => setProductForm({ ...productForm, full_plate_price: e.target.value })}
                           placeholder={productForm.selling_price || '180'}
-                          className="w-full px-2.5 py-1.5 bg-slate-900 border border-slate-700 rounded text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                          className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-500"
                         />
                       </div>
                       <div>
-                        <span className="block text-[10px] text-slate-400">Half Plate Price:</span>
+                        <span className="block text-[10px] font-bold text-slate-600">Half Plate Price:</span>
                         <input
                           type="number"
                           step="any"
                           value={productForm.half_plate_price}
                           onChange={(e) => setProductForm({ ...productForm, half_plate_price: e.target.value })}
                           placeholder="e.g. 100"
-                          className="w-full px-2.5 py-1.5 bg-slate-900 border border-slate-700 rounded text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                          className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-500"
                         />
                       </div>
                     </div>
@@ -1146,65 +1124,65 @@ function SettingsContent() {
                 </div>
 
                 {/* 2. By Price Method (Custom Cashier Amount) */}
-                <div className="space-y-2 pt-1 border-t border-slate-800/60">
-                  <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-200">
+                <div className="space-y-2 pt-1 border-t border-slate-200">
+                  <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-800">
                     <input
                       type="checkbox"
                       checked={productForm.enable_by_price}
                       onChange={(e) => setProductForm({ ...productForm, enable_by_price: e.target.checked })}
-                      className="rounded border-slate-700 text-emerald-600 focus:ring-emerald-500"
+                      className="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4 cursor-pointer"
                     />
                     <span>Enable By Price (Cashier Enters Custom Amount)</span>
                   </label>
 
                   {productForm.enable_by_price && (
-                    <div className="pl-5">
-                      <span className="block text-[10px] text-slate-400">Optional Minimum Price (PKR):</span>
+                    <div className="pl-6">
+                      <span className="block text-[10px] font-bold text-slate-600">Optional Minimum Price (PKR):</span>
                       <input
                         type="number"
                         step="any"
                         value={productForm.min_price}
                         onChange={(e) => setProductForm({ ...productForm, min_price: e.target.value })}
                         placeholder="e.g. 20 (min allowed price)"
-                        className="w-full px-2.5 py-1.5 bg-slate-900 border border-slate-700 rounded text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                        className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-500"
                       />
                     </div>
                   )}
                 </div>
 
                 {/* 3. Custom / Half Rate Method */}
-                <div className="space-y-2 pt-1 border-t border-slate-800/60">
-                  <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-200">
+                <div className="space-y-2 pt-1 border-t border-slate-200">
+                  <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-800">
                     <input
                       type="checkbox"
                       checked={productForm.enable_custom_price}
                       onChange={(e) => setProductForm({ ...productForm, enable_custom_price: e.target.checked })}
-                      className="rounded border-slate-700 text-emerald-600 focus:ring-emerald-500"
+                      className="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4 cursor-pointer"
                     />
                     <span>Enable Custom / Half Rate (Configured Option)</span>
                   </label>
 
                   {productForm.enable_custom_price && (
-                    <div className="grid grid-cols-2 gap-2 pl-5">
+                    <div className="grid grid-cols-2 gap-2 pl-6">
                       <div>
-                        <span className="block text-[10px] text-slate-400">Option Label:</span>
+                        <span className="block text-[10px] font-bold text-slate-600">Option Label:</span>
                         <input
                           type="text"
                           value={productForm.custom_price_label}
                           onChange={(e) => setProductForm({ ...productForm, custom_price_label: e.target.value })}
                           placeholder="e.g. Half Rate"
-                          className="w-full px-2.5 py-1.5 bg-slate-900 border border-slate-700 rounded text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                          className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-500"
                         />
                       </div>
                       <div>
-                        <span className="block text-[10px] text-slate-400">Option Price (PKR):</span>
+                        <span className="block text-[10px] font-bold text-slate-600">Option Price (PKR):</span>
                         <input
                           type="number"
                           step="any"
                           value={productForm.custom_price}
                           onChange={(e) => setProductForm({ ...productForm, custom_price: e.target.value })}
                           placeholder="e.g. 100"
-                          className="w-full px-2.5 py-1.5 bg-slate-900 border border-slate-700 rounded text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                          className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-500"
                         />
                       </div>
                     </div>
@@ -1217,13 +1195,13 @@ function SettingsContent() {
               <button
                 type="button"
                 onClick={() => setShowProductModal(false)}
-                className="flex-1 py-2 text-xs font-semibold text-slate-300 bg-slate-800 rounded-xl"
+                className="flex-1 py-2.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl border border-slate-200 transition"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="flex-1 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 rounded-xl shadow"
+                className="flex-1 py-2.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl shadow transition"
               >
                 {editingProduct ? 'Save Changes' : 'Create Product'}
               </button>
@@ -1234,37 +1212,37 @@ function SettingsContent() {
 
       {/* CATEGORY MODAL */}
       {showCategoryModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <form onSubmit={handleSaveCategory} className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-sm p-5 space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-              <h3 className="font-bold text-sm text-white">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in">
+          <form onSubmit={handleSaveCategory} className="bg-white border border-slate-200 rounded-2xl w-full max-w-sm p-5 space-y-4 shadow-2xl">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+              <h3 className="font-extrabold text-sm text-slate-900">
                 {editingCategory ? 'Edit Category' : 'Add New Category'}
               </h3>
-              <button type="button" onClick={() => setShowCategoryModal(false)} className="text-slate-400 hover:text-white">
-                <X className="w-4 h-4" />
+              <button type="button" onClick={() => setShowCategoryModal(false)} className="text-slate-400 hover:text-slate-700">
+                <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-3">
               <div>
-                <label className="block text-[11px] font-semibold text-slate-400 mb-1">Category Name:</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Category Name:</label>
                 <input
                   type="text"
                   required
                   value={categoryName}
                   onChange={(e) => setCategoryName(e.target.value)}
                   placeholder="e.g. Paratha & Naan"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-400 mb-1">Display Order #:</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Display Order #:</label>
                 <input
                   type="number"
                   value={categoryOrder}
                   onChange={(e) => setCategoryOrder(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
                 />
               </div>
             </div>
@@ -1273,13 +1251,13 @@ function SettingsContent() {
               <button
                 type="button"
                 onClick={() => setShowCategoryModal(false)}
-                className="flex-1 py-2 text-xs font-semibold text-slate-300 bg-slate-800 rounded-xl"
+                className="flex-1 py-2.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl border border-slate-200 transition"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="flex-1 py-2 text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 rounded-xl shadow"
+                className="flex-1 py-2.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl shadow transition"
               >
                 Save Category
               </button>
@@ -1288,67 +1266,66 @@ function SettingsContent() {
         </div>
       )}
 
-
       {/* RAW MATERIAL MODAL */}
       {showRawModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <form onSubmit={handleSaveRaw} className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-sm p-5 space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-              <h3 className="font-bold text-sm text-white">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in">
+          <form onSubmit={handleSaveRaw} className="bg-white border border-slate-200 rounded-2xl w-full max-w-sm p-5 space-y-4 shadow-2xl">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+              <h3 className="font-extrabold text-sm text-slate-900">
                 {editingRaw ? 'Edit Raw Material' : 'Add Raw Material'}
               </h3>
-              <button type="button" onClick={() => setShowRawModal(false)} className="text-slate-400 hover:text-white">
-                <X className="w-4 h-4" />
+              <button type="button" onClick={() => setShowRawModal(false)} className="text-slate-400 hover:text-slate-700">
+                <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-3">
               <div>
-                <label className="block text-[11px] font-semibold text-slate-400 mb-1">Ingredient Name:</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Ingredient Name:</label>
                 <input
                   type="text"
                   required
                   value={rawForm.name}
                   onChange={(e) => setRawForm({ ...rawForm, name: e.target.value })}
                   placeholder="e.g. Chakki Atta"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1">Standard Unit:</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Standard Unit:</label>
                   <input
                     type="text"
                     required
                     value={rawForm.unit}
                     onChange={(e) => setRawForm({ ...rawForm, unit: e.target.value })}
                     placeholder="e.g. bori (50kg)"
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1">Category:</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Category:</label>
                   <input
                     type="text"
                     value={rawForm.category}
                     onChange={(e) => setRawForm({ ...rawForm, category: e.target.value })}
                     placeholder="e.g. Flour"
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-400 mb-1">Default Rate (PKR):</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Default Rate (PKR):</label>
                 <input
                   type="number"
                   step="any"
                   value={rawForm.default_price}
                   onChange={(e) => setRawForm({ ...rawForm, default_price: e.target.value })}
                   placeholder="4800"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-cyan-400 font-bold focus:outline-none"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-emerald-700 font-black focus:outline-none focus:border-emerald-600"
                 />
               </div>
             </div>
@@ -1357,13 +1334,13 @@ function SettingsContent() {
               <button
                 type="button"
                 onClick={() => setShowRawModal(false)}
-                className="flex-1 py-2 text-xs font-semibold text-slate-300 bg-slate-800 rounded-xl"
+                className="flex-1 py-2.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl border border-slate-200 transition"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="flex-1 py-2 text-xs font-bold text-white bg-cyan-600 hover:bg-cyan-500 rounded-xl shadow"
+                className="flex-1 py-2.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl shadow transition"
               >
                 Save Material
               </button>
@@ -1374,60 +1351,60 @@ function SettingsContent() {
 
       {/* USER MODAL */}
       {showUserModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <form onSubmit={handleSaveUser} className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-sm p-5 space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-              <h3 className="font-bold text-sm text-white">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in">
+          <form onSubmit={handleSaveUser} className="bg-white border border-slate-200 rounded-2xl w-full max-w-sm p-5 space-y-4 shadow-2xl">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+              <h3 className="font-extrabold text-sm text-slate-900">
                 {editingUser ? 'Edit Staff Account' : 'Register New Staff'}
               </h3>
-              <button type="button" onClick={() => setShowUserModal(false)} className="text-slate-400 hover:text-white">
-                <X className="w-4 h-4" />
+              <button type="button" onClick={() => setShowUserModal(false)} className="text-slate-400 hover:text-slate-700">
+                <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-3">
               <div>
-                <label className="block text-[11px] font-semibold text-slate-400 mb-1">Full Name:</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Full Name:</label>
                 <input
                   type="text"
                   required
                   value={userForm.full_name}
                   onChange={(e) => setUserForm({ ...userForm, full_name: e.target.value })}
                   placeholder="e.g. Muhammad Bilal"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-400 mb-1">Display Nickname:</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Display Nickname:</label>
                 <input
                   type="text"
                   value={userForm.display_name}
                   onChange={(e) => setUserForm({ ...userForm, display_name: e.target.value })}
                   placeholder="e.g. Bilal Cashier"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-400 mb-1">Email:</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Email:</label>
                 <input
                   type="email"
                   required
                   value={userForm.email}
                   onChange={(e) => setUserForm({ ...userForm, email: e.target.value })}
                   placeholder="bilal@maliknashta.pk"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1">Role:</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Role:</label>
                   <select
                     value={userForm.role}
                     onChange={(e) => setUserForm({ ...userForm, role: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none font-bold"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600 cursor-pointer"
                   >
                     <option value="cashier">Cashier</option>
                     <option value="admin">Admin</option>
@@ -1435,7 +1412,7 @@ function SettingsContent() {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1">4-Digit PIN Code:</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">4-Digit PIN Code:</label>
                   <input
                     type="text"
                     maxLength={6}
@@ -1443,7 +1420,7 @@ function SettingsContent() {
                     value={userForm.pin_code}
                     onChange={(e) => setUserForm({ ...userForm, pin_code: e.target.value })}
                     placeholder="0000"
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-emerald-400 font-black text-center focus:outline-none"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-emerald-700 font-black text-center focus:outline-none focus:border-emerald-600"
                   />
                 </div>
               </div>
@@ -1453,18 +1430,57 @@ function SettingsContent() {
               <button
                 type="button"
                 onClick={() => setShowUserModal(false)}
-                className="flex-1 py-2 text-xs font-semibold text-slate-300 bg-slate-800 rounded-xl"
+                className="flex-1 py-2.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl border border-slate-200 transition"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="flex-1 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 rounded-xl shadow"
+                className="flex-1 py-2.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl shadow transition"
               >
                 Save Staff
               </button>
             </div>
           </form>
+        </div>
+      )}
+
+      {/* GLOBAL IN-APP DELETE CONFIRMATION MODAL */}
+      {deleteConfirm && deleteConfirm.isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-sm p-5 space-y-4 shadow-2xl">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 bg-rose-50 text-rose-600 border border-rose-200 rounded-xl font-bold">
+                <Trash2 className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="font-extrabold text-sm text-slate-900">Confirm Deletion</h3>
+                <p className="text-xs text-slate-500 font-medium">This action cannot be undone.</p>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-700 font-medium bg-slate-50 p-3 rounded-xl border border-slate-200">
+              Are you sure you want to permanently delete{' '}
+              <strong className="text-slate-900 font-bold">&quot;{deleteConfirm.name}&quot;</strong>?
+            </p>
+
+            <div className="flex gap-2 pt-1">
+              <button
+                type="button"
+                onClick={() => setDeleteConfirm(null)}
+                className="flex-1 py-2.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl border border-slate-200 transition"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={executeDelete}
+                className="flex-1 py-2.5 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 active:bg-rose-800 rounded-xl shadow transition"
+              >
+                Yes, Delete
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

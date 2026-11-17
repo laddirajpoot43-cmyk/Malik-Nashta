@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { localStore, logAuditEvent } from '@/lib/db';
+import { insforgeAdmin } from '@/lib/insforge';
 
 export const dynamic = 'force-dynamic';
 
@@ -65,6 +66,13 @@ export async function PUT(req: Request) {
     });
 
     localStore.save();
+
+    // Direct synchronous Cloud PostgreSQL persistence
+    try {
+      await insforgeAdmin.database.from('pos_settings').upsert([current], { onConflict: 'id' });
+    } catch (e) {
+      console.warn('Cloud sync error for pos_settings update:', e);
+    }
 
     return NextResponse.json({ success: true, settings: current });
   } catch (error: any) {

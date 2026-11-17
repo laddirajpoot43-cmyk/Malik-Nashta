@@ -584,10 +584,6 @@ class StoreManager {
       if (fs.existsSync(DB_FILE)) {
         const raw = fs.readFileSync(DB_FILE, 'utf8');
         const parsed = JSON.parse(raw);
-        if (!parsed.products || parsed.products.length === 0) {
-          parsed.products = getDefaultData().products;
-          this.saveData(parsed, false);
-        }
         return parsed;
       }
     } catch (e) {
@@ -680,6 +676,9 @@ class StoreManager {
 
               return normalized;
             });
+          } else {
+            // Cloud has 0 rows for this table (e.g. all rows were deleted by admin)
+            (this.data as any)[t] = [];
           }
         }
       }
@@ -705,48 +704,52 @@ class StoreManager {
     this.syncInProgress = true;
     try {
       for (const t of CLOUD_TABLES) {
-        const currentRows = ((this.data as any)[t] as any[]) || [];
-        const currentIds = new Set(currentRows.map((r: any) => String(r.id)));
-        const prevIds = this.prevSnapshotIds[t] || new Set<string>();
+        try {
+          const currentRows = ((this.data as any)[t] as any[]) || [];
+          const currentIds = new Set(currentRows.map((r: any) => String(r.id)));
+          const prevIds = this.prevSnapshotIds[t] || new Set<string>();
 
-        // Find deleted IDs
-        const deletedIds: string[] = [];
-        for (const oldId of prevIds) {
-          if (!currentIds.has(oldId)) {
-            deletedIds.push(oldId);
-          }
-        }
-
-        if (deletedIds.length > 0) {
-          await insforgeAdmin.database.from(t).delete().in('id', deletedIds);
-        }
-
-        if (currentRows.length > 0) {
-          // For audit_logs, only upsert the newest 10 rows to keep sync ultra-fast
-          const rawSlice = t === 'audit_logs' ? currentRows.slice(0, 10) : currentRows;
-          const rowsToUpsert = rawSlice.map((r: any) => {
-            const clean = { ...r };
-            // Strip client-side joined relationships that don't exist as SQL table columns in cloud Postgres
-            if (t === 'orders') {
-              delete clean.items;
-              delete clean.payments;
-              delete clean.refunds;
-            } else if (t === 'purchase_invoices') {
-              delete clean.items;
-            } else if (t === 'refunds') {
-              delete clean.items;
-            } else if (t === 'products') {
-              delete clean.category_name;
-              delete clean.pricing_config;
-            } else if (t === 'vendor_payments') {
-              delete clean.vendor_name;
+          // Find deleted IDs
+          const deletedIds: string[] = [];
+          for (const oldId of prevIds) {
+            if (!currentIds.has(oldId)) {
+              deletedIds.push(oldId);
             }
-            return clean;
-          });
-          await insforgeAdmin.database.from(t).upsert(rowsToUpsert, { onConflict: 'id' });
-        }
+          }
 
-        this.prevSnapshotIds[t] = currentIds;
+          if (deletedIds.length > 0) {
+            await insforgeAdmin.database.from(t).delete().in('id', deletedIds);
+          }
+
+          if (currentRows.length > 0) {
+            // For audit_logs, only upsert the newest 10 rows to keep sync ultra-fast
+            const rawSlice = t === 'audit_logs' ? currentRows.slice(0, 10) : currentRows;
+            const rowsToUpsert = rawSlice.map((r: any) => {
+              const clean = { ...r };
+              // Strip client-side joined relationships that don't exist as SQL table columns in cloud Postgres
+              if (t === 'orders') {
+                delete clean.items;
+                delete clean.payments;
+                delete clean.refunds;
+              } else if (t === 'purchase_invoices') {
+                delete clean.items;
+              } else if (t === 'refunds') {
+                delete clean.items;
+              } else if (t === 'products') {
+                delete clean.category_name;
+                delete clean.pricing_config;
+              } else if (t === 'vendor_payments') {
+                delete clean.vendor_name;
+              }
+              return clean;
+            });
+            await insforgeAdmin.database.from(t).upsert(rowsToUpsert, { onConflict: 'id' });
+          }
+
+          this.prevSnapshotIds[t] = currentIds;
+        } catch (tableErr) {
+          console.warn(`Cloud sync warning for table ${t}:`, tableErr);
+        }
       }
       this.cloudConnected = true;
       this.lastCloudSyncAt = new Date().toISOString();

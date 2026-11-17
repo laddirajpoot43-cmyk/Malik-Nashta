@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { localStore, logAuditEvent, generateUUID } from '@/lib/db';
+import { insforgeAdmin } from '@/lib/insforge';
 
 export const dynamic = 'force-dynamic';
 
@@ -53,6 +54,13 @@ export async function POST(req: Request) {
 
     localStore.save();
 
+    // Direct synchronous Cloud PostgreSQL persistence
+    try {
+      await insforgeAdmin.database.from('raw_materials').upsert([newMaterial], { onConflict: 'id' });
+    } catch (e) {
+      console.warn('Cloud sync error for raw material create:', e);
+    }
+
     return NextResponse.json({ success: true, rawMaterial: newMaterial });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
@@ -94,6 +102,22 @@ export async function PUT(req: Request) {
     });
 
     localStore.save();
+
+    // Direct synchronous Cloud PostgreSQL persistence
+    try {
+      await insforgeAdmin.database.from('raw_materials').upsert([{
+        id: material.id,
+        name: material.name,
+        unit: material.unit,
+        default_price: material.default_price,
+        category: material.category,
+        is_active: material.is_active,
+        created_at: material.created_at,
+      }], { onConflict: 'id' });
+    } catch (e) {
+      console.warn('Cloud sync error for raw material update:', e);
+    }
+
     return NextResponse.json({ success: true, rawMaterial: material });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
@@ -129,6 +153,14 @@ export async function DELETE(req: Request) {
     });
 
     localStore.save();
+
+    // Direct synchronous Cloud PostgreSQL persistence
+    try {
+      await insforgeAdmin.database.from('raw_materials').delete().eq('id', id);
+    } catch (e) {
+      console.warn('Cloud sync error for raw material delete:', e);
+    }
+
     return NextResponse.json({ success: true, deletedMaterial: removed });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

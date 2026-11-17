@@ -1,13 +1,17 @@
 import { NextResponse } from 'next/server';
 import { localStore, logAuditEvent, generateUUID } from '@/lib/db';
+import { insforgeAdmin } from '@/lib/insforge';
 import { addMoney } from '@/lib/money';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
+    const { searchParams } = new URL(req.url);
+    const includeInactive = searchParams.get('include_inactive') === 'true';
+
     const store = localStore.get();
-    const vendors = store.vendors || [];
+    const vendors = (store.vendors || []).filter((v: any) => includeInactive || v.is_active !== false);
 
     let totalPayables = 0;
     const vendorList = vendors.map((v: any) => {
@@ -76,6 +80,13 @@ export async function POST(req: Request) {
 
     localStore.save();
 
+    // Direct synchronous Cloud PostgreSQL persistence
+    try {
+      await insforgeAdmin.database.from('vendors').upsert([newVendor], { onConflict: 'id' });
+    } catch (e) {
+      console.warn('Cloud sync error for vendor create:', e);
+    }
+
     return NextResponse.json({ success: true, vendor: newVendor });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
@@ -117,6 +128,24 @@ export async function PUT(req: Request) {
     });
 
     localStore.save();
+
+    // Direct synchronous Cloud PostgreSQL persistence
+    try {
+      await insforgeAdmin.database.from('vendors').upsert([{
+        id: vendor.id,
+        name: vendor.name,
+        phone: vendor.phone,
+        category: vendor.category,
+        address: vendor.address,
+        opening_balance: vendor.opening_balance,
+        current_balance: vendor.current_balance,
+        is_active: vendor.is_active,
+        created_at: vendor.created_at,
+      }], { onConflict: 'id' });
+    } catch (e) {
+      console.warn('Cloud sync error for vendor update:', e);
+    }
+
     return NextResponse.json({ success: true, vendor });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
@@ -155,7 +184,14 @@ export async function DELETE(req: Request) {
         description: `Vendor "${vendor.name}" deactivated (preserved for ledger history)`,
       });
       localStore.save();
-      return NextResponse.json({ success: true, message: 'Vendor has transaction history, marked as inactive.', vendor });
+
+      try {
+        await insforgeAdmin.database.from('vendors').upsert([{ id: vendor.id, is_active: false }]);
+      } catch (e) {
+        console.warn('Cloud sync error for vendor deactivate:', e);
+      }
+
+      return NextResponse.json({ success: true, message: `Supplier "${vendor.name}" archived / removed from active list.`, vendor });
     }
 
     // If no transactions exist, hard delete safely
@@ -172,7 +208,14 @@ export async function DELETE(req: Request) {
     });
 
     localStore.save();
-    return NextResponse.json({ success: true, deletedVendor: removed });
+
+    try {
+      await insforgeAdmin.database.from('vendors').delete().eq('id', id);
+    } catch (e) {
+      console.warn('Cloud sync error for vendor delete:', e);
+    }
+
+    return NextResponse.json({ success: true, deletedVendor: removed, message: `Supplier "${removed.name}" deleted successfully.` });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }

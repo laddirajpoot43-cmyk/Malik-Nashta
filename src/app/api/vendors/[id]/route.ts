@@ -134,3 +134,92 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
   }
 }
 
+export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const { id } = await params;
+    const body = await req.json();
+    const { name, phone, category, address, is_active, cashier_name = 'Admin' } = body;
+
+    const store = localStore.get();
+    const vendor = (store.vendors || []).find((v: any) => v.id === id);
+
+    if (!vendor) {
+      return NextResponse.json({ success: false, error: 'Vendor not found' }, { status: 404 });
+    }
+
+    if (name !== undefined) vendor.name = String(name).trim();
+    if (phone !== undefined) vendor.phone = String(phone).trim() || null;
+    if (category !== undefined) vendor.category = String(category).trim();
+    if (address !== undefined) vendor.address = String(address).trim() || null;
+    if (is_active !== undefined) vendor.is_active = Boolean(is_active);
+
+    localStore.save();
+
+    try {
+      const { insforgeAdmin } = await import('@/lib/insforge');
+      await insforgeAdmin.database.from('vendors').upsert([{
+        id: vendor.id,
+        name: vendor.name,
+        phone: vendor.phone,
+        category: vendor.category,
+        address: vendor.address,
+        opening_balance: vendor.opening_balance,
+        current_balance: vendor.current_balance,
+        is_active: vendor.is_active,
+        created_at: vendor.created_at,
+      }], { onConflict: 'id' });
+    } catch (e) {
+      console.warn('Cloud sync error for vendor [id] update:', e);
+    }
+
+    return NextResponse.json({ success: true, vendor });
+  } catch (error: any) {
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const { id } = await params;
+    const { searchParams } = new URL(req.url);
+    const cashier_name = searchParams.get('cashier_name') || 'Admin';
+
+    const store = localStore.get();
+    const vendor = (store.vendors || []).find((v: any) => v.id === id);
+
+    if (!vendor) {
+      return NextResponse.json({ success: false, error: 'Vendor not found' }, { status: 404 });
+    }
+
+    const { insforgeAdmin } = await import('@/lib/insforge');
+
+    const hasInvoices = (store.purchase_invoices || []).some((p: any) => p.vendor_id === id);
+    const hasPayments = (store.vendor_payments || []).some((vp: any) => vp.vendor_id === id);
+
+    if (hasInvoices || hasPayments) {
+      vendor.is_active = false;
+      localStore.save();
+      try {
+        await insforgeAdmin.database.from('vendors').upsert([{ id: vendor.id, is_active: false }]);
+      } catch (e) {
+        console.warn('Cloud sync error for vendor [id] deactivate:', e);
+      }
+      return NextResponse.json({ success: true, message: `Supplier "${vendor.name}" archived from active list.`, vendor });
+    }
+
+    const index = store.vendors.findIndex((v: any) => v.id === id);
+    const removed = store.vendors.splice(index, 1)[0];
+    localStore.save();
+
+    try {
+      await insforgeAdmin.database.from('vendors').delete().eq('id', id);
+    } catch (e) {
+      console.warn('Cloud sync error for vendor [id] delete:', e);
+    }
+
+    return NextResponse.json({ success: true, deletedVendor: removed, message: `Supplier "${removed.name}" deleted successfully.` });
+  } catch (error: any) {
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  }
+}
+

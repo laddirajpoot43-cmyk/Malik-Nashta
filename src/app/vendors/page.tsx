@@ -42,6 +42,7 @@ function VendorsContent() {
   // New / Edit Vendor Modal
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
   const [editingVendor, setEditingVendor] = useState<Vendor | null>(null);
+  const [vendorToDelete, setVendorToDelete] = useState<Vendor | null>(null);
   const [name, setName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [category, setCategory] = useState<string>('Flour');
@@ -126,21 +127,27 @@ function VendorsContent() {
     setShowAddModal(true);
   };
 
-  const handleDeleteVendor = async (v: Vendor) => {
-    if (!confirm(`Are you sure you want to remove supplier "${v.name}"?`)) return;
+  const handleDeleteVendor = (v: Vendor) => {
+    setVendorToDelete(v);
+  };
+
+  const confirmDeleteVendor = async () => {
+    if (!vendorToDelete) return;
+    const v = vendorToDelete;
+    setVendorToDelete(null);
     try {
       const res = await fetch(`/api/vendors?id=${v.id}&cashier_name=${encodeURIComponent(currentUser?.display_name || 'Admin')}`, {
         method: 'DELETE',
       });
       const data = await res.json();
       if (data.success) {
-        setSuccessMsg(data.message || `Vendor "${v.name}" deleted.`);
+        setSuccessMsg(data.message || `Supplier "${v.name}" deleted.`);
         fetchVendors();
       } else {
-        alert(data.error || 'Failed to delete vendor');
+        setErrorMsg(data.error || 'Failed to delete vendor');
       }
     } catch (err: any) {
-      alert(err.message);
+      setErrorMsg(err.message);
     }
   };
 
@@ -407,6 +414,45 @@ function VendorsContent() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* IN-APP DELETE VENDOR CONFIRMATION MODAL */}
+      {vendorToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-sm p-5 space-y-4 shadow-2xl">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 bg-rose-50 text-rose-600 border border-rose-200 rounded-xl font-bold">
+                <Trash2 className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="font-extrabold text-sm text-slate-900">Remove Supplier</h3>
+                <p className="text-xs text-slate-500 font-medium">Khata history will be preserved.</p>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-700 font-medium bg-slate-50 p-3 rounded-xl border border-slate-200">
+              Are you sure you want to remove supplier{' '}
+              <strong className="text-slate-900 font-bold">&quot;{vendorToDelete.name}&quot;</strong>?
+            </p>
+
+            <div className="flex gap-2 pt-1">
+              <button
+                type="button"
+                onClick={() => setVendorToDelete(null)}
+                className="flex-1 py-2.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl border border-slate-200 transition cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={confirmDeleteVendor}
+                className="flex-1 py-2.5 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 active:bg-rose-800 rounded-xl shadow transition cursor-pointer"
+              >
+                Yes, Remove
+              </button>
+            </div>
           </div>
         </div>
       )}
