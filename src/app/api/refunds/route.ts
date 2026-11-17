@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { localStore, withTransaction, logAuditEvent, generateUUID } from '@/lib/db';
-import { addMoney, subtractMoney } from '@/lib/money';
+import { addMoney, subtractMoney, multiplyMoney } from '@/lib/money';
 
 export const dynamic = 'force-dynamic';
 
@@ -73,7 +73,7 @@ export async function POST(req: Request) {
         if (qtyToRefund <= 0) continue;
 
         const perUnitPrice = Number(orderItem.unit_price || 0);
-        const itemRefundAmt = reqItem.amount !== undefined ? Number(reqItem.amount) : Math.round(perUnitPrice * qtyToRefund * 100) / 100;
+        const itemRefundAmt = reqItem.amount !== undefined ? Number(reqItem.amount) : multiplyMoney(perUnitPrice, qtyToRefund);
 
         orderItem.refunded_quantity = addMoney(orderItem.refunded_quantity || 0, qtyToRefund);
         targetRefundAmt = addMoney(targetRefundAmt, itemRefundAmt);

@@ -18,7 +18,8 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { customer_name, cart_data, cashier_name = 'Counter Cashier' } = body;
 
-    if (!cart_data || (Array.isArray(cart_data) && cart_data.length === 0)) {
+    const cartList = Array.isArray(cart_data) ? cart_data : cart_data?.cart;
+    if (!cartList || !Array.isArray(cartList) || cartList.length === 0) {
       return NextResponse.json({ success: false, error: 'Cannot hold an empty cart.' }, { status: 400 });
     }
 
@@ -43,7 +44,7 @@ export async function POST(req: Request) {
       entity_type: 'held_order',
       entity_id: newHold.id,
       description: `Cart temporarily held as ${newHold.hold_number} for "${newHold.customer_name}"`,
-      new_values: { hold_number: holdNumber, items_count: cart_data.length },
+      new_values: { hold_number: holdNumber, items_count: cartList.length },
     });
 
     localStore.save();

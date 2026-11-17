@@ -20,8 +20,9 @@ export async function GET(req: Request) {
       phone: '0300-1234567',
     };
 
-    // Filter data for target date (fallback to all if matching none for demo/reporting)
-    let orders = (store.orders || []).filter((o: any) => {
+    // Filter data for target date (or all if specified / fallback when empty for demo reporting)
+    const isAll = dateParam === 'all';
+    let orders = isAll ? (store.orders || []) : (store.orders || []).filter((o: any) => {
       const d = (o.created_at || '').split('T')[0];
       return d === targetDate;
     });
@@ -30,7 +31,7 @@ export async function GET(req: Request) {
       orders = store.orders || [];
     }
 
-    let invoices = (store.purchase_invoices || []).filter((p: any) => {
+    let invoices = isAll ? (store.purchase_invoices || []) : (store.purchase_invoices || []).filter((p: any) => {
       const d = (p.invoice_date || p.created_at || '').split('T')[0];
       return d === targetDate;
     });
@@ -39,7 +40,7 @@ export async function GET(req: Request) {
       invoices = store.purchase_invoices || [];
     }
 
-    let sessions = (store.register_sessions || []).filter((s: any) => {
+    let sessions = isAll ? (store.register_sessions || []) : (store.register_sessions || []).filter((s: any) => {
       const d = (s.opened_at || '').split('T')[0];
       return d === targetDate;
     });

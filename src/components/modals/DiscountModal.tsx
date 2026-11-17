@@ -30,7 +30,10 @@ export const DiscountModal: React.FC = () => {
 
   const numVal = parseFloat(value) || 0;
   const maxCashierPct = settings.max_cashier_discount_percent || 15;
-  const requiresPin = type === 'percentage' && numVal > maxCashierPct && !isAdmin;
+  const effectivePct = type === 'percentage'
+    ? numVal
+    : (subtotal > 0 ? (numVal / subtotal) * 100 : 0);
+  const requiresPin = effectivePct > maxCashierPct && !isAdmin;
 
   const handleApply = async () => {
     if (numVal < 0) {

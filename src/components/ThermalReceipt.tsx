@@ -193,18 +193,30 @@ export const ThermalReceipt: React.FC<ThermalReceiptProps> = ({ order, customTem
           </div>
         ))}
 
-        {Number(order.total_paid || 0) > Number(order.grand_total || 0) && (
-          <>
-            <div className="flex justify-between font-semibold mt-0.5">
-              <span>Cash Tendered:</span>
-              <span>{formatMoney(order.total_paid)}</span>
-            </div>
-            <div className="flex justify-between font-bold text-xs mt-0.5 border-t border-dotted border-gray-400 pt-0.5">
-              <span>CHANGE RETURNED:</span>
-              <span>{formatMoney(order.change_returned)}</span>
-            </div>
-          </>
-        )}
+        {(() => {
+          const cashPayments = (order.payments || []).filter((p: any) => p.method_id === 'cash');
+          const cashTendered = cashPayments.reduce((sum: number, p: any) => {
+            const tendered = p.amount_tendered !== undefined ? Number(p.amount_tendered) : Number(p.amount || 0);
+            return sum + tendered;
+          }, 0) || (Number(order.total_paid || 0) > Number(order.grand_total || 0) ? Number(order.total_paid) : 0);
+
+          const hasChange = Number(order.change_returned || 0) > 0 || cashTendered > Number(order.grand_total || 0);
+
+          if (!hasChange) return null;
+
+          return (
+            <>
+              <div className="flex justify-between font-semibold mt-0.5">
+                <span>Cash Tendered:</span>
+                <span>{formatMoney(cashTendered)}</span>
+              </div>
+              <div className="flex justify-between font-bold text-xs mt-0.5 border-t border-dotted border-gray-400 pt-0.5">
+                <span>CHANGE RETURNED:</span>
+                <span>{formatMoney(order.change_returned)}</span>
+              </div>
+            </>
+          );
+        })()}
       </div>
 
       {/* Custom Footers */}

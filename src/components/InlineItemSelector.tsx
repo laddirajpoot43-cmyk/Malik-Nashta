@@ -70,10 +70,19 @@ export const InlineItemSelector: React.FC<InlineItemSelectorProps> = ({
   };
 
   const handleConfirm = () => {
-    const finalNote = customNote.trim() ? customNote.trim() : selectedNote;
+    let finalNote = customNote.trim() ? customNote.trim() : selectedNote;
     const finalPrice = parseFloat(rupeeAmount) || product.selling_price;
-    // Call onAdd
-    onAdd(product, portion, product.selling_price, finalNote, selectedAddons);
+    const expectedFromPortion = calculateAmountFromPortion(product.selling_price, portion);
+
+    // If customer entered custom rupee amount that doesn't match portion * standard price,
+    // lock unit price to the requested rupee amount (1x @ finalPrice) with a portion note
+    if (Math.abs(finalPrice - expectedFromPortion) > 0.05) {
+      const portionNote = `Portion: ${portion}`;
+      finalNote = finalNote ? `${finalNote} (${portionNote})` : portionNote;
+      onAdd(product, 1, finalPrice, finalNote, selectedAddons);
+    } else {
+      onAdd(product, portion, product.selling_price, finalNote, selectedAddons);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

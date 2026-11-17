@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { Category, Product, ProductAddon, CartItem, Order, RegisterSession } from '@/types/pos';
 import { addMoney, subtractMoney, multiplyMoney, calculateRounding } from '@/lib/money';
+import { playSuccessChime } from '@/lib/audio';
 import { useAuth } from './AuthContext';
 import { useSettings } from './SettingsContext';
 
@@ -164,6 +165,7 @@ export function POSProvider({ children }: { children: React.ReactNode }) {
       custom_unit_price: customUnitPrice,
       note,
       addons: itemAddons,
+      item_discount: 0,
       item_subtotal: itemSubtotal,
       line_total: lineTotal,
     };
@@ -266,6 +268,7 @@ export function POSProvider({ children }: { children: React.ReactNode }) {
 
       const data = await res.json();
       if (data.success && data.order) {
+        playSuccessChime();
         setCurrentOrderToPrint(data.order);
         // Instant thermal print trigger with 80ms delay
         setTimeout(() => {
@@ -316,6 +319,7 @@ export function POSProvider({ children }: { children: React.ReactNode }) {
 
       const data = await res.json();
       if (data.success && data.order) {
+        playSuccessChime();
         setCurrentOrderToPrint(data.order);
         setTimeout(() => {
           window.print();

@@ -547,7 +547,25 @@ class StoreManager {
 
         if (currentRows.length > 0) {
           // For audit_logs, only upsert the newest 10 rows to keep sync ultra-fast
-          const rowsToUpsert = t === 'audit_logs' ? currentRows.slice(0, 10) : currentRows;
+          const rawSlice = t === 'audit_logs' ? currentRows.slice(0, 10) : currentRows;
+          const rowsToUpsert = rawSlice.map((r: any) => {
+            const clean = { ...r };
+            // Strip client-side joined relationships that don't exist as SQL table columns in cloud Postgres
+            if (t === 'orders') {
+              delete clean.items;
+              delete clean.payments;
+              delete clean.refunds;
+            } else if (t === 'purchase_invoices') {
+              delete clean.items;
+            } else if (t === 'refunds') {
+              delete clean.items;
+            } else if (t === 'products') {
+              delete clean.category_name;
+            } else if (t === 'vendor_payments') {
+              delete clean.vendor_name;
+            }
+            return clean;
+          });
           await insforgeAdmin.database.from(t).upsert(rowsToUpsert, { onConflict: 'id' });
         }
 

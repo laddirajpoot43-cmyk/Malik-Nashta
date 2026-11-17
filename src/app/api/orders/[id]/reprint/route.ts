@@ -29,10 +29,21 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
 
     localStore.save();
 
+    const items = (order.items && order.items.length > 0)
+      ? order.items
+      : (store.order_items || []).filter((item: any) => item.order_id === order.id);
+    const payments = (order.payments && order.payments.length > 0)
+      ? order.payments
+      : (store.order_payments || []).filter((p: any) => p.order_id === order.id);
+
     return NextResponse.json({
       success: true,
       reprint_count: order.reprint_count,
-      order,
+      order: {
+        ...order,
+        items,
+        payments,
+      },
     });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

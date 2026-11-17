@@ -75,6 +75,7 @@ export async function GET(req: Request) {
     const primarySession = activeRegister || todaySessions[0] || null;
 
     let openingFloat = primarySession ? Number(primarySession.opening_amount || 0) : 0;
+    let drawerCashSales = 0;
     let drawerCashIn = 0;
     let drawerCashOut = 0;
     let drawerRefunds = 0;
@@ -84,15 +85,18 @@ export async function GET(req: Request) {
       const sessionTxs = (store.register_transactions || []).filter((tx: any) => tx.register_session_id === primarySession.id);
       for (const tx of sessionTxs) {
         const amt = Number(tx.amount || 0);
+        if (tx.type === 'SALE') drawerCashSales = addMoney(drawerCashSales, amt);
         if (tx.type === 'CASH_IN') drawerCashIn = addMoney(drawerCashIn, amt);
         if (tx.type === 'CASH_OUT') drawerCashOut = addMoney(drawerCashOut, amt);
         if (tx.type === 'REFUND') drawerRefunds = addMoney(drawerRefunds, amt);
         if (tx.type === 'ADJUSTMENT') drawerAdjustments = addMoney(drawerAdjustments, amt);
       }
+    } else {
+      drawerCashSales = cashSales;
     }
 
     const expectedCash = addMoney(
-      subtractMoney(addMoney(openingFloat, cashSales, drawerCashIn), drawerCashOut, drawerRefunds),
+      subtractMoney(addMoney(openingFloat, drawerCashSales, drawerCashIn), drawerCashOut, drawerRefunds),
       drawerAdjustments
     );
 
@@ -149,8 +153,10 @@ export async function GET(req: Request) {
       cash_drawer: {
         session_id: primarySession?.id || null,
         status: primarySession?.status || 'closed',
+        opened_at: primarySession?.opened_at || null,
+        closed_at: primarySession?.closed_at || null,
         opening_float: openingFloat,
-        cash_sales: cashSales,
+        cash_sales: drawerCashSales,
         cash_in: drawerCashIn,
         cash_out: drawerCashOut,
         refunds: drawerRefunds,

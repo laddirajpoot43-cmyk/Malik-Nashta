@@ -31,12 +31,19 @@ export async function GET(req: Request) {
       orders = orders.filter((o: any) => o.register_session_id === sessionId);
     }
 
-    orders = orders.slice(0, limit);
+    const orderItems = store.order_items || [];
+    const orderPayments = store.order_payments || [];
+
+    const fullOrders = orders.slice(0, limit).map((o: any) => ({
+      ...o,
+      items: (o.items && o.items.length > 0) ? o.items : orderItems.filter((i: any) => i.order_id === o.id),
+      payments: (o.payments && o.payments.length > 0) ? o.payments : orderPayments.filter((p: any) => p.order_id === o.id),
+    }));
 
     return NextResponse.json({
       success: true,
-      orders,
-      total: orders.length,
+      orders: fullOrders,
+      total: fullOrders.length,
     });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

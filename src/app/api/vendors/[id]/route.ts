@@ -14,8 +14,15 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
       return NextResponse.json({ success: false, error: 'Vendor not found.' }, { status: 404 });
     }
 
-    // Collect all purchase invoices
-    const invoices = (store.purchase_invoices || []).filter((inv: any) => inv.vendor_id === vendor.id);
+    // Collect all purchase invoices with items attached
+    const invoices = (store.purchase_invoices || [])
+      .filter((inv: any) => inv.vendor_id === vendor.id)
+      .map((inv: any) => {
+        const items = (inv.items && inv.items.length > 0)
+          ? inv.items
+          : (store.purchase_items || []).filter((pi: any) => pi.purchase_invoice_id === inv.id);
+        return { ...inv, items };
+      });
 
     // Collect all vendor payments
     const payments = (store.vendor_payments || []).filter((vp: any) => vp.vendor_id === vendor.id);

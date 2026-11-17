@@ -13,8 +13,12 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
       return NextResponse.json({ success: false, error: 'Order not found.' }, { status: 404 });
     }
 
-    const items = (store.order_items || []).filter((item: any) => item.order_id === order.id);
-    const payments = (store.order_payments || []).filter((p: any) => p.order_id === order.id);
+    const items = (order.items && order.items.length > 0)
+      ? order.items
+      : (store.order_items || []).filter((item: any) => item.order_id === order.id);
+    const payments = (order.payments && order.payments.length > 0)
+      ? order.payments
+      : (store.order_payments || []).filter((p: any) => p.order_id === order.id);
     const refunds = (store.refunds || []).filter((r: any) => r.order_id === order.id);
 
     return NextResponse.json({

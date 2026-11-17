@@ -63,21 +63,21 @@ export function calculateRounding(amount: number, enabled: boolean = true): { ro
 }
 
 /**
- * Formats Pakistani currency (PKR) nicely: e.g. "Rs. 1,450" or "Rs. 140.50"
+ * Formats Pakistani currency (PKR) nicely: e.g. "Rs. 1,450", "Rs. 140.50", "-Rs. 600"
  */
 export function formatMoney(amount: number | string | undefined | null): string {
   if (amount === undefined || amount === null || amount === '') return 'Rs. 0';
   const num = typeof amount === 'string' ? parseFloat(amount) : amount;
   if (isNaN(num)) return 'Rs. 0';
 
-  const parts = num.toFixed(2).split('.');
+  const isNeg = num < 0;
+  const absNum = Math.abs(num);
+  const parts = absNum.toFixed(2).split('.');
   const intPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   const decPart = parts[1];
 
-  if (decPart === '00') {
-    return `Rs. ${intPart}`;
-  }
-  return `Rs. ${intPart}.${decPart}`;
+  const formatted = decPart === '00' ? `Rs. ${intPart}` : `Rs. ${intPart}.${decPart}`;
+  return isNeg ? `-${formatted}` : formatted;
 }
 
 /**

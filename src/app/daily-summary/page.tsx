@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { formatMoney } from '@/lib/money';
 import { AdminGuard } from '@/components/auth/AdminGuard';
 import { useAuth } from '@/context/AuthContext';
+import { usePOS } from '@/context/POSContext';
 import {
   FileText,
   Calendar,
@@ -38,6 +39,7 @@ export default function DailySummaryPage() {
 
 function DailySummaryContent() {
   const { currentUser } = useAuth();
+  const { refreshPOSData } = usePOS();
   const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().slice(0, 10));
   const [summaryData, setSummaryData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -90,7 +92,7 @@ function DailySummaryContent() {
     setCloseSuccessMsg('');
 
     try {
-      const counted = parseFloat(actualDrawerCash) || drawer.expected_cash;
+      const counted = actualDrawerCash.trim() !== '' ? (parseFloat(actualDrawerCash) || 0) : (drawer.expected_cash || 0);
 
       // Close open active register shift if any
       const res = await fetch('/api/register', {
@@ -104,7 +106,14 @@ function DailySummaryContent() {
         }),
       });
 
+      const closeData = await res.json();
       setClosingInProgress(false);
+
+      if (!closeData.success) {
+        alert(closeData.error || 'Failed to close register shift');
+        return;
+      }
+
       setShowCloseDayModal(false);
       setCloseSuccessMsg(`Daily Sale for ${selectedDate} has been successfully closed! Automatic Excel report download started.`);
 
@@ -113,6 +122,7 @@ function DailySummaryContent() {
 
       // Refresh data
       fetchSummary(selectedDate);
+      refreshPOSData();
       setTimeout(() => setCloseSuccessMsg(''), 6000);
     } catch (err: any) {
       setClosingInProgress(false);

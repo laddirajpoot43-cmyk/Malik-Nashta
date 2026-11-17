@@ -285,6 +285,7 @@ export interface CartItem {
   custom_unit_price?: number;
   note?: string;
   addons: ProductAddon[];
+  item_discount?: number;
   item_subtotal: number;
   line_total: number;
 }

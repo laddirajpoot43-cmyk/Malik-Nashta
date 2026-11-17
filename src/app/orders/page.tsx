@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Order, OrderItem } from '@/types/pos';
-import { formatMoney } from '@/lib/money';
+import { formatMoney, multiplyMoney } from '@/lib/money';
 import { useAuth } from '@/context/AuthContext';
 import { usePOS } from '@/context/POSContext';
 import { AdminPinModal } from '@/components/modals/AdminPinModal';
@@ -177,7 +177,7 @@ export default function OrdersPage() {
         return {
           order_item_id: itemId,
           quantity: qty,
-          amount: Math.round(rate * qty * 100) / 100,
+          amount: multiplyMoney(rate, qty),
         };
       });
 

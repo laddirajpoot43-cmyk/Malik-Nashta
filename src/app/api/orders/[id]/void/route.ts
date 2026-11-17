@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { localStore, withTransaction, logAuditEvent, generateUUID } from '@/lib/db';
-import { subtractMoney } from '@/lib/money';
+import { addMoney, subtractMoney } from '@/lib/money';
 
 export const dynamic = 'force-dynamic';
 
@@ -35,9 +35,9 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     order.status = 'voided';
     order.void_reason = void_reason;
 
-    // Check if paid in cash
-    const cashPaidPayment = (order.payments || []).find((p: any) => p.method_id === 'cash');
-    const cashAmountToRevert = cashPaidPayment ? Number(order.grand_total || order.total_paid || 0) : 0;
+    // Check if paid in cash: only revert actual cash portion paid, not digital or whole grand total
+    const cashPayments = (order.payments || []).filter((p: any) => p.method_id === 'cash');
+    const cashAmountToRevert = cashPayments.reduce((sum: number, p: any) => addMoney(sum, Number(p.amount || 0)), 0);
 
     // If active register exists and cash was involved, create automatic negative ADJUSTMENT in drawer
     const activeRegister = (store.register_sessions || []).find((s: any) => s.status === 'open');

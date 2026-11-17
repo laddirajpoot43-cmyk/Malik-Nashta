@@ -202,7 +202,7 @@ export default function RegisterPage() {
                         </span>
                       </td>
                       <td className={`px-4 py-3 font-black text-sm ${isPositive ? 'text-emerald-400' : 'text-rose-400'}`}>
-                        {isPositive ? `+${formatMoney(tx.amount)}` : formatMoney(tx.amount)}
+                        {isPositive ? `+${formatMoney(Math.abs(tx.amount))}` : `-${formatMoney(Math.abs(tx.amount))}`}
                       </td>
                       <td className="px-4 py-3">
                         <div className="font-medium text-slate-200">{tx.reason || 'General'}</div>

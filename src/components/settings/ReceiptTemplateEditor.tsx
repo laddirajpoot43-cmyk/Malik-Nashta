@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useSettings } from '@/context/SettingsContext';
+import { usePOS } from '@/context/POSContext';
 import { ReceiptTemplateConfig } from '@/types/pos';
 import { ThermalReceipt } from '@/components/ThermalReceipt';
 import {
@@ -17,6 +18,7 @@ import {
 
 export const ReceiptTemplateEditor: React.FC = () => {
   const { settings, updateSettings } = useSettings();
+  const { setCurrentOrderToPrint } = usePOS();
 
   const defaultTemplate: ReceiptTemplateConfig = {
     paper_size: '80mm',
@@ -140,7 +142,10 @@ export const ReceiptTemplateEditor: React.FC = () => {
   };
 
   const handlePrintTest = () => {
-    window.print();
+    setCurrentOrderToPrint(previewOrder);
+    setTimeout(() => {
+      window.print();
+    }, 80);
   };
 
   return (
@@ -389,13 +394,12 @@ export const ReceiptTemplateEditor: React.FC = () => {
                   return (
                     <label
                       key={key}
-                      onClick={() => handleToggle(key as keyof ReceiptTemplateConfig)}
                       className="flex items-center gap-2.5 p-2 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-slate-700 cursor-pointer select-none transition"
                     >
                       <input
                         type="checkbox"
                         checked={isChecked}
-                        onChange={() => {}} // handled by parent onClick
+                        onChange={() => handleToggle(key as keyof ReceiptTemplateConfig)}
                         className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 bg-slate-900 border-slate-700 cursor-pointer"
                       />
                       <span className="text-xs text-slate-300 font-medium">{label}</span>

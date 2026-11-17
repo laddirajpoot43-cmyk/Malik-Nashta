@@ -52,21 +52,10 @@ export async function POST(req: Request) {
       cash_rounding_enabled: true,
     };
 
-    // 3. Discount Validation & Supervisor PIN Check
+    // 3. Early Discount Parameter Sanity Check
     const discountVal = Number(discount_value) || 0;
-    if (discountVal > 0) {
-      const maxCashierDisc = settings.max_cashier_discount_percent || 15;
-      const isPercent = discount_type === 'percentage';
-      const requiresPin = isPercent ? discountVal > maxCashierDisc : false;
-
-      if (requiresPin) {
-        if (!admin_pin || String(admin_pin).trim() !== String(settings.admin_pin).trim()) {
-          return NextResponse.json(
-            { success: false, error: `Discounts exceeding ${maxCashierDisc}% require valid Supervisor / Admin PIN.` },
-            { status: 403 }
-          );
-        }
-      }
+    if (discountVal < 0) {
+      return NextResponse.json({ success: false, error: 'Discount cannot be negative.' }, { status: 400 });
     }
 
     // Execute atomic checkout transaction
@@ -122,13 +111,24 @@ export async function POST(req: Request) {
         });
       }
 
-      // 5. Calculate Discount Amount
+      // 5. Calculate Discount Amount & Supervisor PIN Check
       let discountAmount = 0;
       if (discountVal > 0) {
         if (discount_type === 'percentage') {
           discountAmount = multiplyMoney(calculatedSubtotal, discountVal / 100);
         } else {
           discountAmount = Math.min(discountVal, calculatedSubtotal);
+        }
+
+        const maxCashierDisc = settings.max_cashier_discount_percent || 15;
+        const effectivePct = discount_type === 'percentage'
+          ? discountVal
+          : (calculatedSubtotal > 0 ? (discountAmount / calculatedSubtotal) * 100 : 0);
+
+        if (effectivePct > maxCashierDisc) {
+          if (!admin_pin || String(admin_pin).trim() !== String(settings.admin_pin).trim()) {
+            throw new Error(`Discounts exceeding ${maxCashierDisc}% require valid Supervisor / Admin PIN.`);
+          }
         }
       }
 
@@ -166,7 +166,12 @@ export async function POST(req: Request) {
         });
       }
 
-      // If no payments explicitly passed or partial, assume exact cash if totalPaid == 0
+      // If payments were explicitly passed, reject underpayment
+      if (payments.length > 0 && totalPaid < grandTotal) {
+        throw new Error(`Total payment received (Rs. ${totalPaid}) is less than grand total (Rs. ${grandTotal}).`);
+      }
+
+      // If no payments explicitly passed, assume exact cash
       if (payments.length === 0) {
         totalPaid = grandTotal;
         totalCashPaidPortion = grandTotal;
@@ -182,7 +187,7 @@ export async function POST(req: Request) {
         });
       }
 
-      const changeReturned = Math.max(0, subtractMoney(totalCashTendered > 0 ? totalCashTendered : totalPaid, grandTotal));
+      const changeReturned = paymentsToInsert.reduce((sum, p) => addMoney(sum, p.change_returned), 0);
 
       // 8. Generate sequential receipt & order numbers
       const receiptNumber = localStore.nextSeq('receipt_seq');
