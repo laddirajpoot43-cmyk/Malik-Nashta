@@ -18,7 +18,20 @@ export async function GET() {
       require_admin_pin_refunds: true,
       default_tax_rate: 0,
       max_cashier_discount_percent: 15,
+      receipt_template: {
+        footer_credit_name: 'Buid by Ammar',
+        footer_credit_phone: '03260603565',
+      },
     };
+
+    if (settings.receipt_template) {
+      if (!settings.receipt_template.footer_credit_name) {
+        settings.receipt_template.footer_credit_name = 'Buid by Ammar';
+      }
+      if (!settings.receipt_template.footer_credit_phone) {
+        settings.receipt_template.footer_credit_phone = '03260603565';
+      }
+    }
 
     return NextResponse.json({ success: true, settings });
   } catch (error: any) {

@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useSettings } from '@/context/SettingsContext';
 import { usePOS } from '@/context/POSContext';
+import { useAuth } from '@/context/AuthContext';
 import { ReceiptTemplateConfig } from '@/types/pos';
 import { ThermalReceipt } from '@/components/ThermalReceipt';
 import {
@@ -20,6 +21,10 @@ import {
 export const ReceiptTemplateEditor: React.FC = () => {
   const { settings, updateSettings } = useSettings();
   const { setCurrentOrderToPrint } = usePOS();
+  const { users, currentUser } = useAuth();
+
+  const currentAdmin = users.find((u) => u.role === 'admin');
+  const currentCashier = users.find((u) => u.role === 'cashier') || currentAdmin || currentUser;
 
   const defaultTemplate: ReceiptTemplateConfig = {
     paper_size: '80mm',
@@ -28,7 +33,11 @@ export const ReceiptTemplateEditor: React.FC = () => {
     header_message: 'Special Lahori Channay & Crispy Parathay',
     footer_message_urdu: 'شکریہ! دوبارہ تشریف لائیں',
     footer_message_english: 'Thank you for visiting Malik Tasty Nashta Point!',
+    footer_credit_name: 'Buid by Ammar',
+    footer_credit_phone: '03260603565',
     show_cashier_name: true,
+    show_admin_name: false,
+    admin_name: currentAdmin?.display_name || currentAdmin?.full_name || 'Malik Ammar',
     show_customer_info: true,
     show_order_number: true,
     show_kitchen_notes: false,
@@ -49,46 +58,50 @@ export const ReceiptTemplateEditor: React.FC = () => {
   const [saving, setSaving] = useState(false);
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
-  // Sample realistic order for instant live preview
-  const previewOrder: any = {
-    id: 'preview-order-sample',
-    order_number: 'ORD-108',
-    receipt_number: 'REC-20261110-0108',
-    customer_name: 'Chaudhry Tariq',
-    customer_phone: '0302-7654321',
-    cashier_name_snapshot: 'Malik Ammar',
-    subtotal: 380.0,
-    discount_type: 'none',
-    discount_value: 0,
-    discount_amount: 0,
-    rounding_amount: 0,
-    grand_total: 380.0,
-    reprint_count: 0,
-    created_at: new Date().toISOString(),
-    payments: [{ method_id: 'cash', amount: 380.0 }],
-    total_paid: 500.0,
-    change_returned: 120.0,
-    items: [
-      {
-        id: 'item-1',
-        product_name_snapshot: 'Special Channay',
-        pricing_method: 'Full Plate',
-        unit_price: 180.0,
-        quantity: 1,
-        line_total: 180.0,
-        refunded_quantity: 0,
-      },
-      {
-        id: 'item-2',
-        product_name_snapshot: 'Desi Ghee Paratha',
-        pricing_method: 'Per Plate',
-        unit_price: 100.0,
-        quantity: 2,
-        line_total: 200.0,
-        refunded_quantity: 0,
-      },
-    ],
-  };
+  // Sample realistic order for instant live preview with dynamic staff names
+  const previewOrder: any = useMemo(
+    () => ({
+      id: 'preview-order-sample',
+      order_number: 'ORD-108',
+      receipt_number: 'REC-20261110-0108',
+      customer_name: 'Chaudhry Tariq',
+      customer_phone: '0302-7654321',
+      cashier_name_snapshot: currentCashier?.display_name || currentCashier?.full_name || 'Bilal Cashier',
+      admin_name_snapshot: currentAdmin?.display_name || currentAdmin?.full_name || 'Malik Ammar',
+      subtotal: 380.0,
+      discount_type: 'none',
+      discount_value: 0,
+      discount_amount: 0,
+      rounding_amount: 0,
+      grand_total: 380.0,
+      reprint_count: 0,
+      created_at: new Date().toISOString(),
+      payments: [{ method_id: 'cash', amount: 380.0 }],
+      total_paid: 500.0,
+      change_returned: 120.0,
+      items: [
+        {
+          id: 'item-1',
+          product_name_snapshot: 'Special Channay',
+          pricing_method: 'Full Plate',
+          unit_price: 180.0,
+          quantity: 1,
+          line_total: 180.0,
+          refunded_quantity: 0,
+        },
+        {
+          id: 'item-2',
+          product_name_snapshot: 'Desi Ghee Paratha',
+          pricing_method: 'Per Plate',
+          unit_price: 100.0,
+          quantity: 2,
+          line_total: 200.0,
+          refunded_quantity: 0,
+        },
+      ],
+    }),
+    [currentCashier, currentAdmin]
+  );
 
   const handleTextChange = (field: keyof ReceiptTemplateConfig, value: any) => {
     setTemplate((prev) => ({
@@ -329,6 +342,35 @@ export const ReceiptTemplateEditor: React.FC = () => {
                   className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
                 />
               </div>
+
+              {/* Developer Credit & Phone Footers */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-100">
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    Receipt Footer Credit (Line 1)
+                  </label>
+                  <input
+                    type="text"
+                    value={template.footer_credit_name !== undefined ? template.footer_credit_name : 'Buid by Ammar'}
+                    onChange={(e) => handleTextChange('footer_credit_name', e.target.value)}
+                    placeholder="Buid by Ammar"
+                    className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    Receipt Footer Phone # (Line 2)
+                  </label>
+                  <input
+                    type="text"
+                    value={template.footer_credit_phone !== undefined ? template.footer_credit_phone : '03260603565'}
+                    onChange={(e) => handleTextChange('footer_credit_phone', e.target.value)}
+                    placeholder="03260603565"
+                    className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -400,6 +442,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {[
                   { key: 'show_cashier_name', label: 'Show Cashier Name' },
+                  { key: 'show_admin_name', label: 'Show Admin / Supervisor Name' },
                   { key: 'show_customer_info', label: 'Show Customer Info (Name/Phone)' },
                   { key: 'show_order_number', label: 'Show Order / Token #' },
                   { key: 'show_duplicate_watermark', label: 'Show Duplicate Watermark on Reprints' },

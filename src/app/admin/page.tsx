@@ -6,22 +6,12 @@ import { AdminGuard } from '@/components/auth/AdminGuard';
 import { formatMoney } from '@/lib/money';
 import { usePOS } from '@/context/POSContext';
 import { useAuth } from '@/context/AuthContext';
+import { AdminCharts } from '@/components/admin/AdminCharts';
 import {
-  Utensils,
-  Truck,
-  BookOpen,
-  FileText,
-  Receipt,
-  BarChart3,
-  Printer,
-  Users,
-  ShieldCheck,
   TrendingUp,
   DollarSign,
+  Truck,
   ArrowRight,
-  Layers,
-  Settings,
-  AlertCircle,
 } from 'lucide-react';
 
 export default function AdminDashboardPage() {
@@ -92,65 +82,6 @@ function AdminDashboardContent() {
     loadMetrics();
   }, [activeRegister]);
 
-  const quickActionCards = [
-    {
-      title: 'Menu Items & Pricing',
-      desc: 'Set plate prices, custom rates, By Price options, and availability.',
-      href: '/settings?tab=products',
-      icon: Utensils,
-      btnLabel: 'Manage Menu',
-    },
-    {
-      title: 'Maal Ka Khareedar (Purchases)',
-      desc: 'Record Mandi invoices, raw material purchases, and cash deductions.',
-      href: '/purchases',
-      icon: Truck,
-      btnLabel: 'Open Purchases',
-    },
-    {
-      title: 'Vendor Khata (Ledger)',
-      desc: 'Track vendor balances, payments, purchase history, and udhaar.',
-      href: '/vendors',
-      icon: BookOpen,
-      btnLabel: 'View Khatas',
-    },
-    {
-      title: 'Roozana Hisaab (Daily)',
-      desc: 'Daily sales closing, net income, cash drawer vs expected, and audits.',
-      href: '/daily-summary',
-      icon: FileText,
-      btnLabel: 'Daily Summary',
-    },
-    {
-      title: 'Thermal Receipt Customizer',
-      desc: 'Edit hotel branding, Urdu greetings, 80mm/58mm widths, and slip details.',
-      href: '/settings?tab=receipt',
-      icon: Printer,
-      btnLabel: 'Edit Receipt',
-    },
-    {
-      title: 'All Orders & Invoices',
-      desc: 'Lookup customer bills, reprint thermal slips, process refunds or void.',
-      href: '/orders',
-      icon: Receipt,
-      btnLabel: 'View Orders',
-    },
-    {
-      title: 'Financial Reports',
-      desc: 'Detailed item-wise sales analysis, hourly trends, and Excel exports.',
-      href: '/reports',
-      icon: BarChart3,
-      btnLabel: 'Open Reports',
-    },
-    {
-      title: 'Staff Accounts & PINs',
-      desc: 'Configure cashier profiles, supervisor master PIN, and role permissions.',
-      href: '/settings?tab=staff',
-      icon: Users,
-      btnLabel: 'Manage Staff',
-    },
-  ];
-
   return (
     <div className="space-y-6">
       {/* Top Banner */}
@@ -172,17 +103,17 @@ function AdminDashboardContent() {
         {/* GREEN BUTTON: Jump to POS */}
         <Link
           href="/pos"
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-extrabold text-xs rounded-xl shadow transition shrink-0"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-extrabold text-xs rounded-xl shadow transition shrink-0 cursor-pointer"
         >
           <span>Open Cashier Counter (POS)</span>
           <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
 
-      {/* KPI Overview Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* KPI Overview Cards (3 Cards cleanly formatted) */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Today's Net Sales */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Today&apos;s Sales</span>
             <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
@@ -198,7 +129,7 @@ function AdminDashboardContent() {
         </div>
 
         {/* Cash Drawer Shift Balance */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Drawer Cash</span>
             <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
@@ -214,7 +145,7 @@ function AdminDashboardContent() {
         </div>
 
         {/* Unpaid Vendor Udhaar */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Vendor Udhaar (Payable)</span>
             <div className="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
@@ -228,58 +159,10 @@ function AdminDashboardContent() {
             Pending Mandi & Supplier balances
           </p>
         </div>
-
-        {/* System Status */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Security & Access</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
-              <ShieldCheck className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="text-base font-extrabold text-slate-900">
-            PIN Protected
-          </div>
-          <p className="text-[11px] text-slate-600 mt-1">
-            Cashiers locked out of admin tabs
-          </p>
-        </div>
       </div>
 
-      {/* Quick Action Navigation Grid */}
-      <div>
-        <h2 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider mb-3">
-          Administrative Modules & Controls
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {quickActionCards.map((card, idx) => {
-            const Icon = card.icon;
-            return (
-              <div
-                key={idx}
-                className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow-md transition flex flex-col justify-between"
-              >
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center mb-3">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <h3 className="font-extrabold text-sm text-slate-900 mb-1">{card.title}</h3>
-                  <p className="text-xs text-slate-500 leading-relaxed mb-4">{card.desc}</p>
-                </div>
-
-                {/* GREEN BUTTON: Quick action button */}
-                <Link
-                  href={card.href}
-                  className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-xs rounded-xl shadow-sm transition"
-                >
-                  <span>{card.btnLabel}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      {/* Visual Analytics Charts Section */}
+      <AdminCharts />
     </div>
   );
 }

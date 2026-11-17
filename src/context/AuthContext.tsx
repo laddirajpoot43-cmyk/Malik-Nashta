@@ -42,11 +42,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const data = await res.json();
       if (data.success && Array.isArray(data.users)) {
         setUsers(data.users);
-        if (!currentUser && data.users.length > 0) {
-          // Default to cashier or first user
-          const cashier = data.users.find((u: Profile) => u.role === 'cashier') || data.users[0];
-          setCurrentUser(cashier);
-        }
+        setCurrentUser((prevUser) => {
+          let targetId = prevUser?.id;
+          try {
+            if (!targetId && typeof window !== 'undefined') {
+              targetId = sessionStorage.getItem('malik_pos_user_id') || undefined;
+            }
+          } catch {}
+
+          if (targetId) {
+            const updated = data.users.find((u: Profile) => u.id === targetId);
+            if (updated) {
+              return updated;
+            }
+          }
+          const cashier = data.users.find((u: Profile) => u.role === 'cashier') || data.users[0] || null;
+          if (cashier) {
+            try {
+              sessionStorage.setItem('malik_pos_user_id', cashier.id);
+            } catch {}
+          }
+          return cashier;
+        });
       }
     } catch (e) {
       console.error('Failed to load users', e);
@@ -83,6 +100,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const adminUser = users.find((u) => u.role === 'admin');
       if (adminUser) {
         setCurrentUser(adminUser);
+        try {
+          sessionStorage.setItem('malik_pos_user_id', adminUser.id);
+        } catch {}
       }
       return { success: true };
     }
@@ -98,6 +118,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const cashier = users.find((u) => u.role === 'cashier') || users[0];
     if (cashier) {
       setCurrentUser(cashier);
+      try {
+        sessionStorage.setItem('malik_pos_user_id', cashier.id);
+      } catch {}
     }
   };
 
@@ -105,6 +128,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const matched = users.find((u) => u.pin_code === pin.trim());
     if (matched) {
       setCurrentUser(matched);
+      try {
+        sessionStorage.setItem('malik_pos_user_id', matched.id);
+      } catch {}
       if (matched.role === 'admin') {
         setIsAdminMode(true);
         try {
@@ -125,6 +151,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const found = users.find((u) => u.id === userId);
     if (found) {
       setCurrentUser(found);
+      try {
+        sessionStorage.setItem('malik_pos_user_id', found.id);
+      } catch {}
       if (found.role === 'admin') {
         setIsAdminMode(true);
         try {

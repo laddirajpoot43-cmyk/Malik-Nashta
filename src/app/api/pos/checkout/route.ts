@@ -16,6 +16,7 @@ export async function POST(req: Request) {
       customer_phone,
       payments = [],
       idempotency_key,
+      cashier_id,
       cashier_name = 'Counter Cashier',
     } = body;
 
@@ -209,6 +210,20 @@ export async function POST(req: Request) {
       const receiptNumber = localStore.nextSeq('receipt_seq');
       const orderNumber = localStore.nextSeq('order_seq');
 
+      // Resolve authoritative cashier and admin names from database
+      const cashierProfile = cashier_id
+        ? (store.profiles || []).find((p: any) => p.id === cashier_id)
+        : (store.profiles || []).find((p: any) => p.display_name === cashier_name || p.full_name === cashier_name);
+
+      const resolvedCashierName = cashierProfile
+        ? (cashierProfile.full_name || cashierProfile.display_name)
+        : cashier_name;
+
+      const adminProfile = (store.profiles || []).find((p: any) => p.role === 'admin');
+      const resolvedAdminName = adminProfile
+        ? (adminProfile.full_name || adminProfile.display_name)
+        : 'Malik Ammar';
+
       const newOrder = {
         id: orderId,
         order_number: orderNumber,
@@ -228,7 +243,9 @@ export async function POST(req: Request) {
         void_reason: null,
         reprint_count: 0,
         idempotency_key: idempotency_key || null,
-        cashier_name_snapshot: cashier_name,
+        cashier_id: cashierProfile?.id || cashier_id || null,
+        cashier_name_snapshot: resolvedCashierName,
+        admin_name_snapshot: resolvedAdminName,
         created_at: new Date().toISOString(),
         items: orderItemsToInsert,
         payments: paymentsToInsert,

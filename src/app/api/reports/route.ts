@@ -32,6 +32,9 @@ export async function GET(req: Request) {
     } else if (range === 'this_month') {
       startDate = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
       endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+    } else if (range === 'all_time') {
+      startDate = new Date(0);
+      endDate = new Date(now.getTime() + 86400000);
     } else if (range === 'custom' && startDateParam && endDateParam) {
       startDate = new Date(startDateParam);
       startDate.setHours(0, 0, 0, 0);
@@ -98,26 +101,112 @@ export async function GET(req: Request) {
       }
     }
 
-    const topProducts = Object.values(productSalesMap).sort((a, b) => b.revenue - a.revenue);
+    const totalUnitsSold = Object.values(productSalesMap).reduce((sum, p) => sum + p.quantity, 0);
+    const topProducts = Object.values(productSalesMap)
+      .map((p) => ({
+        ...p,
+        percentage_of_units: totalUnitsSold > 0 ? Math.round((p.quantity / totalUnitsSold) * 100) : 0,
+      }))
+      .sort((a, b) => b.quantity - a.quantity || b.revenue - a.revenue);
+
     const categoryDistribution = Object.values(categorySalesMap).sort((a, b) => b.revenue - a.revenue);
 
-    // 3. Hourly Trends (5:00 AM to 1:00 PM peak rush)
-    const hourlyMap: Record<number, { hour: number; label: string; orders: number; revenue: number }> = {};
-    for (let h = 5; h <= 23; h++) {
-      const displayLabel = h <= 12 ? `${h}:00 AM` : `${h - 12}:00 PM`;
-      hourlyMap[h] = { hour: h, label: displayLabel, orders: 0, revenue: 0 };
-    }
+    // 3. Dynamic Sales Trend Points based on Date Range
+    let salesTrend: { label: string; fullDate?: string; revenue: number; orders: number }[] = [];
 
-    for (const o of completedOrders) {
-      const d = new Date(o.created_at);
-      const h = d.getHours();
-      if (hourlyMap[h]) {
-        hourlyMap[h].orders += 1;
-        hourlyMap[h].revenue = addMoney(hourlyMap[h].revenue, Number(o.grand_total || 0));
+    if (range === 'today' || range === 'yesterday') {
+      // Hourly trend for single day (5 AM to 11 PM)
+      const hourlyMap: Record<number, { label: string; revenue: number; orders: number }> = {};
+      for (let h = 5; h <= 23; h++) {
+        const lbl = h === 12 ? '12 PM' : h < 12 ? `${h} AM` : `${h - 12} PM`;
+        hourlyMap[h] = { label: lbl, revenue: 0, orders: 0 };
+      }
+      for (const o of completedOrders) {
+        const h = new Date(o.created_at).getHours();
+        if (hourlyMap[h]) {
+          hourlyMap[h].orders += 1;
+          hourlyMap[h].revenue = addMoney(hourlyMap[h].revenue, Number(o.grand_total || 0));
+        }
+      }
+      salesTrend = Object.values(hourlyMap);
+    } else if (range === 'this_week') {
+      // 7 days of the week: Mon through Sun
+      const dayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      const weekDaysMap: { label: string; fullDate: string; revenue: number; orders: number }[] = [];
+      const monday = new Date(startDate);
+
+      for (let i = 0; i < 7; i++) {
+        const currentD = new Date(monday);
+        currentD.setDate(monday.getDate() + i);
+        const dayStr = currentD.toISOString().slice(0, 10);
+        weekDaysMap.push({
+          label: dayLabels[i],
+          fullDate: dayStr,
+          revenue: 0,
+          orders: 0,
+        });
+      }
+
+      for (const o of completedOrders) {
+        const oDay = o.created_at.slice(0, 10);
+        const target = weekDaysMap.find((d) => d.fullDate === oDay);
+        if (target) {
+          target.orders += 1;
+          target.revenue = addMoney(target.revenue, Number(o.grand_total || 0));
+        }
+      }
+      salesTrend = weekDaysMap;
+    } else if (range === 'this_month') {
+      // Days of current month (1 to daysInMonth)
+      const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+      const monthMap: { label: string; fullDate: string; revenue: number; orders: number }[] = [];
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateObj = new Date(now.getFullYear(), now.getMonth(), d);
+        const dayStr = dateObj.toISOString().slice(0, 10);
+        monthMap.push({
+          label: `${d}`,
+          fullDate: dayStr,
+          revenue: 0,
+          orders: 0,
+        });
+      }
+
+      for (const o of completedOrders) {
+        const oDay = o.created_at.slice(0, 10);
+        const target = monthMap.find((d) => d.fullDate === oDay);
+        if (target) {
+          target.orders += 1;
+          target.revenue = addMoney(target.revenue, Number(o.grand_total || 0));
+        }
+      }
+      salesTrend = monthMap;
+    } else {
+      // All time or custom: aggregate by recent 14 days or all active dates
+      const dateAggregate: Record<string, { label: string; fullDate: string; revenue: number; orders: number }> = {};
+      for (const o of completedOrders) {
+        const oDay = o.created_at.slice(0, 10);
+        if (!dateAggregate[oDay]) {
+          const dObj = new Date(o.created_at);
+          const shortMonth = dObj.toLocaleString('en-US', { month: 'short' });
+          dateAggregate[oDay] = {
+            label: `${shortMonth} ${dObj.getDate()}`,
+            fullDate: oDay,
+            revenue: 0,
+            orders: 0,
+          };
+        }
+        dateAggregate[oDay].orders += 1;
+        dateAggregate[oDay].revenue = addMoney(dateAggregate[oDay].revenue, Number(o.grand_total || 0));
+      }
+      salesTrend = Object.values(dateAggregate).sort((a, b) => a.fullDate.localeCompare(b.fullDate));
+      if (salesTrend.length === 0) {
+        salesTrend = [
+          { label: 'Day 1', revenue: 0, orders: 0 },
+          { label: 'Day 2', revenue: 0, orders: 0 },
+          { label: 'Day 3', revenue: 0, orders: 0 },
+        ];
       }
     }
-
-    const hourlyTrends = Object.values(hourlyMap).slice(0, 16); // 5 AM to 8 PM
 
     // 4. Shift Sessions in this period
     const shiftSessions = (store.register_sessions || []).filter((s: any) => {
@@ -135,22 +224,41 @@ export async function GET(req: Request) {
       totalNet = addMoney(totalNet, Number(o.grand_total || 0));
     }
 
+    // Calculate Payment Percentages
+    const paymentsWithPct = Object.values(paymentBreakdown).map((p) => ({
+      ...p,
+      percentage: totalNet > 0 ? Math.round((p.total / totalNet) * 100) : 0,
+    }));
+
+    // Performance Metrics
+    const totalTransactions = completedOrders.length;
+    const averageOrderValue = totalTransactions > 0 ? Math.round(totalNet / totalTransactions) : 0;
+
     return NextResponse.json({
       success: true,
       range,
       startDate: startDate.toISOString(),
       endDate: endDate.toISOString(),
       summary: {
-        total_orders: completedOrders.length,
+        total_orders: totalTransactions,
         voided_orders: voidedOrders.length,
         gross_sales: totalGross,
         total_discount: totalDiscount,
         net_sales: totalNet,
+        average_order_value: averageOrderValue,
       },
-      paymentBreakdown: Object.values(paymentBreakdown),
+      performance: {
+        total_sales: totalNet,
+        total_transactions: totalTransactions,
+        average_order_value: averageOrderValue,
+        completion_rate: (totalTransactions + voidedOrders.length) > 0 ? Math.round((totalTransactions / (totalTransactions + voidedOrders.length)) * 100) : 100,
+        total_items_sold: totalUnitsSold,
+      },
+      paymentBreakdown: paymentsWithPct,
       topProducts,
+      salesTrend,
       categoryDistribution,
-      hourlyTrends,
+      hourlyTrends: salesTrend,
       shiftSessions,
       voidedOrdersList: voidedOrders,
     });

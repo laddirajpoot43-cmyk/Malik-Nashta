@@ -256,6 +256,8 @@ export interface Order {
   reprint_count: number;
   idempotency_key?: string | null;
   cashier_name_snapshot: string;
+  admin_name_snapshot?: string | null;
+  cashier_id?: string | null;
   created_at: string;
   items?: OrderItem[];
   payments?: OrderPayment[];
@@ -380,7 +382,11 @@ export interface ReceiptTemplateConfig {
   header_message: string;
   footer_message_urdu: string;
   footer_message_english: string;
+  footer_credit_name?: string;
+  footer_credit_phone?: string;
   show_cashier_name: boolean;
+  show_admin_name?: boolean;
+  admin_name?: string;
   show_customer_info: boolean;
   show_order_number: boolean;
   show_kitchen_notes: boolean;

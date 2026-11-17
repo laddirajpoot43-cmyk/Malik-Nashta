@@ -261,6 +261,7 @@ export function POSProvider({ children }: { children: React.ReactNode }) {
           },
         ],
         idempotency_key: idempotencyKey,
+        cashier_id: currentUser?.id,
         cashier_name: currentUser?.display_name || currentUser?.full_name || 'Counter Cashier',
       };
 
@@ -312,6 +313,7 @@ export function POSProvider({ children }: { children: React.ReactNode }) {
         customer_phone: customerPhone || undefined,
         payments,
         idempotency_key: idempotencyKey,
+        cashier_id: currentUser?.id,
         cashier_name: currentUser?.display_name || currentUser?.full_name || 'Counter Cashier',
       };
 

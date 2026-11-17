@@ -90,7 +90,12 @@ export async function PUT(req: Request) {
       return NextResponse.json({ success: false, error: 'User not found.' }, { status: 404 });
     }
 
-    if (full_name !== undefined) user.full_name = String(full_name).trim();
+    if (full_name !== undefined) {
+      user.full_name = String(full_name).trim();
+      if (display_name === undefined) {
+        user.display_name = user.full_name;
+      }
+    }
     if (display_name !== undefined) user.display_name = String(display_name).trim();
     if (role !== undefined) user.role = role;
     if (status !== undefined) user.status = status;

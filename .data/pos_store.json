@@ -1,24 +1,13 @@
 {
   "sequences": {
-    "receipt_seq": 1000,
-    "order_seq": 0,
+    "receipt_seq": 100,
+    "order_seq": 100,
     "refund_seq": 100,
-    "hold_seq": 0,
-    "purchase_seq": 1000,
-    "vendor_pay_seq": 1000
+    "hold_seq": 100,
+    "purchase_seq": 100,
+    "vendor_pay_seq": 100
   },
   "profiles": [
-    {
-      "id": "11111111-1111-1111-1111-111111111101",
-      "email": "admin@maliknashta.pk",
-      "full_name": "Malik Ammar",
-      "display_name": "Malik Ammar (Admin)",
-      "role": "admin",
-      "status": "active",
-      "pin_code": "1234",
-      "created_at": "2026-11-10T09:52:55.024+00:00",
-      "updated_at": null
-    },
     {
       "id": "11111111-1111-1111-1111-111111111102",
       "email": "cashier@maliknashta.pk",
@@ -28,6 +17,17 @@
       "status": "active",
       "pin_code": "0000",
       "created_at": "2026-11-10T09:52:55.025+00:00",
+      "updated_at": null
+    },
+    {
+      "id": "11111111-1111-1111-1111-111111111101",
+      "email": "admin@maliknashta.pk",
+      "full_name": "Malik Ammar",
+      "display_name": "Malik Ammar",
+      "role": "admin",
+      "status": "active",
+      "pin_code": "1234",
+      "created_at": "2026-11-10T09:52:55.024+00:00",
       "updated_at": null
     }
   ],
@@ -56,7 +56,9 @@
         "show_kitchen_notes": true,
         "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
         "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
-        "show_duplicate_watermark": true
+        "show_duplicate_watermark": true,
+        "footer_credit_name": "Buid by Ammar",
+        "footer_credit_phone": "03260603565"
       },
       "created_at": "2026-11-10T09:52:55.025+00:00",
       "updated_at": null
@@ -80,16 +82,124 @@
   "vendor_payments": [],
   "audit_logs": [
     {
-      "id": "6bb9031c-c38c-4e70-a866-cd709e5ecddf",
+      "id": "77e225c5-8796-42fa-b22e-20c2cf474d00",
       "user_id": null,
       "user_name": "Admin",
-      "action": "CATEGORY_DELETED",
-      "entity_type": "category",
-      "entity_id": "99932dff-993a-48d9-a725-7adf1747701a",
-      "description": "Category \"Channay & Paratha\" deleted by Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111101",
+      "description": "Staff account updated for Malik Ammar",
       "old_values": null,
       "new_values": null,
-      "created_at": "2026-11-17T12:53:22.965Z"
+      "created_at": "2026-11-17T18:39:14.917Z"
+    },
+    {
+      "id": "9b608e72-1df8-468a-9692-7335e44ccdf0",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111102",
+      "description": "Staff account updated for Ammar Cashier Dynamic Test",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T18:39:14.501Z"
+    },
+    {
+      "id": "0c2e2dfa-9e17-490b-8951-928cb4f0ddf7",
+      "user_id": null,
+      "user_name": "Counter Cashier",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "ae7145ad-40b3-44f0-93dd-5a13bcfa7199",
+      "description": "Order MTN-0001007 finalized for 150 PKR (Counter Cashier)",
+      "old_values": null,
+      "new_values": {
+        "receipt_number": "MTN-0001007",
+        "grand_total": 150,
+        "items_count": 1
+      },
+      "created_at": "2026-11-17T18:39:14.494Z"
+    },
+    {
+      "id": "e0324259-3be7-4fd6-b054-6d236b6496ad",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111101",
+      "description": "Staff account updated for Malik Ammar Dynamic Admin",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T18:39:13.343Z"
+    },
+    {
+      "id": "c14a247f-98a1-4d10-8284-ea9fd2ea6d1b",
+      "user_id": null,
+      "user_name": "Counter Cashier",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "4da76634-45eb-4f4d-bcaa-9722869379a6",
+      "description": "Order MTN-0001006 finalized for 120 PKR (Counter Cashier)",
+      "old_values": null,
+      "new_values": {
+        "receipt_number": "MTN-0001006",
+        "grand_total": 120,
+        "items_count": 1
+      },
+      "created_at": "2026-11-17T18:39:13.336Z"
+    },
+    {
+      "id": "9db1d58d-af82-4680-abf1-4b8889c0e85c",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111102",
+      "description": "Staff account updated for Ammar Cashier Dynamic Test",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T18:39:08.097Z"
+    },
+    {
+      "id": "d1960d62-1945-4f9a-abf4-9c3521200931",
+      "user_id": null,
+      "user_name": "Counter Cashier",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "b84999d1-30fb-4cf1-99af-96d8c2d3b109",
+      "description": "Order MTN-0001005 finalized for 100 PKR (Counter Cashier)",
+      "old_values": null,
+      "new_values": {
+        "receipt_number": "MTN-0001005",
+        "grand_total": 100,
+        "items_count": 1
+      },
+      "created_at": "2026-11-17T18:38:48.970Z"
+    },
+    {
+      "id": "85109231-443f-476e-a7a2-15cdb2fe3215",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111102",
+      "description": "Staff account updated for Ammar Cashier Dynamic Test",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T18:38:47.414Z"
+    },
+    {
+      "id": "797bf4fb-b26c-461b-9882-6501c30cdec4",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111102",
+      "description": "Staff account updated for Test Cashier",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T18:37:01.426Z"
     },
     {
       "id": "b02c08d5-a23c-47a0-93bb-e62b1ac9d541",
@@ -101,27 +211,27 @@
       "description": "Product \"Special Lahori Channay\" deleted by Admin",
       "old_values": {
         "id": "8cd90d9e-c757-42c9-b11b-51965197a807",
-        "category_id": "99932dff-993a-48d9-a725-7adf1747701a",
         "name": "Special Lahori Channay",
-        "short_name": "Channay",
-        "selling_price": 180,
-        "cost_price": 90,
-        "availability": "available",
         "is_active": true,
+        "cost_price": 90,
+        "short_name": "Channay",
         "sort_order": 1,
+        "category_id": "99932dff-993a-48d9-a725-7adf1747701a",
+        "availability": "available",
+        "selling_price": 180,
         "pricing_config": {
+          "min_price": 10,
+          "custom_price": 100,
           "enable_by_plate": true,
+          "enable_by_price": true,
           "full_plate_price": 180,
           "half_plate_price": 100,
-          "enable_by_price": true,
-          "min_price": 10,
-          "enable_custom_price": true,
           "custom_price_label": "Half Rate",
-          "custom_price": 100
+          "enable_custom_price": true
         }
       },
       "new_values": null,
-      "created_at": "2026-11-17T12:53:22.642Z"
+      "created_at": "2026-11-17T12:53:22.642+00:00"
     },
     {
       "id": "f63d9b5c-80a6-4f5e-b3fc-16d1a0c85db2",
@@ -133,7 +243,7 @@
       "description": "New menu product \"Special Lahori Channay\" added at Rs. 180",
       "old_values": null,
       "new_values": null,
-      "created_at": "2026-11-17T12:53:22.145Z"
+      "created_at": "2026-11-17T12:53:22.145+00:00"
     },
     {
       "id": "99488b49-b60e-4c6c-931e-d265f48f328a",
@@ -145,31 +255,7 @@
       "description": "Category \"Channay & Paratha\" created",
       "old_values": null,
       "new_values": null,
-      "created_at": "2026-11-17T12:53:19.718Z"
-    },
-    {
-      "id": "ca5d0d2e-8a89-4f43-ae21-eda35e4b0ee8",
-      "user_id": null,
-      "user_name": "Admin",
-      "action": "CATEGORY_DELETED",
-      "entity_type": "category",
-      "entity_id": "da46d1b1-fb87-41dc-a5e6-8e98cde88cfd",
-      "description": "Category \"Temp Cat\" deleted by Admin",
-      "old_values": null,
-      "new_values": null,
-      "created_at": "2026-11-17T12:53:10.084Z"
-    },
-    {
-      "id": "2b917c9e-bf95-4ef9-8c65-1a4b15f206fb",
-      "user_id": null,
-      "user_name": "Admin",
-      "action": "CATEGORY_CREATED",
-      "entity_type": "category",
-      "entity_id": "da46d1b1-fb87-41dc-a5e6-8e98cde88cfd",
-      "description": "Category \"Temp Cat\" created",
-      "old_values": null,
-      "new_values": null,
-      "created_at": "2026-11-17T12:53:08.281Z"
+      "created_at": "2026-11-17T12:53:19.718+00:00"
     },
     {
       "id": "9700f8ee-0280-424d-b666-3fa542f31b51",
@@ -196,6 +282,165 @@
       "created_at": "2026-11-17T12:52:46.17+00:00"
     },
     {
+      "id": "94d3d9d2-a4f2-49de-9ea4-6f99650eff18",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111102",
+      "description": "Staff account updated for Ammar Cashier Dynamic Test",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T18:30:27.853+00:00"
+    },
+    {
+      "id": "6bb9031c-c38c-4e70-a866-cd709e5ecddf",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_DELETED",
+      "entity_type": "category",
+      "entity_id": "99932dff-993a-48d9-a725-7adf1747701a",
+      "description": "Category \"Channay & Paratha\" deleted by Admin",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T12:53:22.965+00:00"
+    },
+    {
+      "id": "b1bbe1fd-1a73-47c6-95d2-d512bab2b0cc",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "REGISTER_CLOSE",
+      "entity_type": "register_session",
+      "entity_id": "6e6a554d-92fd-4c23-a183-63cbef604f71",
+      "description": "Shift closed. Expected: Rs. 500, Actual: Rs. 500, Discrepancy: Rs. 0",
+      "old_values": null,
+      "new_values": {
+        "difference": 0,
+        "closing_note": "Automated test completed",
+        "actual_amount": 500,
+        "expected_amount": 500
+      },
+      "created_at": "2026-11-17T18:36:13.827+00:00"
+    },
+    {
+      "id": "10063fda-043f-4469-91fe-c54374c79824",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111101",
+      "description": "Staff account updated for Malik Ammar",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T18:36:13.341+00:00"
+    },
+    {
+      "id": "4331322d-53f0-479c-9e3a-fb0b2c19049a",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111102",
+      "description": "Staff account updated for Muhammad Bilal",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T18:36:12.84+00:00"
+    },
+    {
+      "id": "8926a788-91e7-4c93-b170-43cf335ed780",
+      "user_id": null,
+      "user_name": "Counter Cashier",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "9ac3e218-2db2-415b-a471-a4564d38e4e2",
+      "description": "Order MTN-0001004 finalized for 150 PKR (Counter Cashier)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 150,
+        "items_count": 1,
+        "receipt_number": "MTN-0001004"
+      },
+      "created_at": "2026-11-17T18:36:12.834+00:00"
+    },
+    {
+      "id": "fbc0f8a9-f27c-4189-9b96-1495941c2eaa",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111101",
+      "description": "Staff account updated for Malik Ammar Dynamic Admin",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T18:36:12.527+00:00"
+    },
+    {
+      "id": "57dc4861-796d-41f8-aab4-900cd2d9c394",
+      "user_id": null,
+      "user_name": "Counter Cashier",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "9dc03aef-d2cf-4b47-82dc-1e0648809f60",
+      "description": "Order MTN-0001003 finalized for 120 PKR (Counter Cashier)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 120,
+        "items_count": 1,
+        "receipt_number": "MTN-0001003"
+      },
+      "created_at": "2026-11-17T18:36:12.517+00:00"
+    },
+    {
+      "id": "e0ceb504-e71a-43d2-af17-5e9de7912182",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111102",
+      "description": "Staff account updated for Ammar Cashier Dynamic Test",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T18:36:09.903+00:00"
+    },
+    {
+      "id": "6601a4ec-5f19-40b5-96aa-76b43c5d8a16",
+      "user_id": null,
+      "user_name": "Muhammad Bilal",
+      "action": "REGISTER_OPEN",
+      "entity_type": "register_session",
+      "entity_id": "6e6a554d-92fd-4c23-a183-63cbef604f71",
+      "description": "Cash register shift opened with Rs. 500 float by Muhammad Bilal",
+      "old_values": null,
+      "new_values": {
+        "opening_amount": 500
+      },
+      "created_at": "2026-11-17T18:36:09.895+00:00"
+    },
+    {
+      "id": "ca5d0d2e-8a89-4f43-ae21-eda35e4b0ee8",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_DELETED",
+      "entity_type": "category",
+      "entity_id": "da46d1b1-fb87-41dc-a5e6-8e98cde88cfd",
+      "description": "Category \"Temp Cat\" deleted by Admin",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T12:53:10.084+00:00"
+    },
+    {
+      "id": "2b917c9e-bf95-4ef9-8c65-1a4b15f206fb",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CATEGORY_CREATED",
+      "entity_type": "category",
+      "entity_id": "da46d1b1-fb87-41dc-a5e6-8e98cde88cfd",
+      "description": "Category \"Temp Cat\" created",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T12:53:08.281+00:00"
+    },
+    {
       "id": "log-001",
       "user_id": null,
       "user_name": "Malik Ammar",
@@ -206,6 +451,117 @@
       "old_values": null,
       "new_values": null,
       "created_at": "2026-11-17T12:34:55.88+00:00"
+    },
+    {
+      "id": "dbd2406a-aade-49c1-bb22-ae4ab1171240",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111102",
+      "description": "Staff account updated for Muhammad Bilal",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T18:31:59.293+00:00"
+    },
+    {
+      "id": "afcf56c7-08c2-4ba1-adc9-7deca91c7052",
+      "user_id": null,
+      "user_name": "Counter Cashier",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "0e733f04-6b89-4252-ab19-450c5809e1b8",
+      "description": "Order MTN-0001002 finalized for 150 PKR (Counter Cashier)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 150,
+        "items_count": 1,
+        "receipt_number": "MTN-0001002"
+      },
+      "created_at": "2026-11-17T18:31:59.287+00:00"
+    },
+    {
+      "id": "874aced0-871a-4248-8a9c-a2fd3d644f99",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111101",
+      "description": "Staff account updated for Malik Ammar Dynamic Admin",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T18:31:58.958+00:00"
+    },
+    {
+      "id": "635f55ce-8b22-4f40-aa57-195f0c11594d",
+      "user_id": null,
+      "user_name": "Counter Cashier",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "81bb9a9b-d6fa-492d-af77-08ebae9b8ad1",
+      "description": "Order MTN-0001001 finalized for 120 PKR (Counter Cashier)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 120,
+        "items_count": 1,
+        "receipt_number": "MTN-0001001"
+      },
+      "created_at": "2026-11-17T18:31:58.951+00:00"
+    },
+    {
+      "id": "581dd305-eb49-4a24-b340-1e66cdde8fdd",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111102",
+      "description": "Staff account updated for Ammar Cashier Dynamic Test",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T18:31:56.387+00:00"
+    },
+    {
+      "id": "f309ceca-984c-4187-b427-1bd10e887a77",
+      "user_id": null,
+      "user_name": "Muhammad Bilal",
+      "action": "REGISTER_OPEN",
+      "entity_type": "register_session",
+      "entity_id": "a1d70004-79cd-4132-a743-f875c6efd6ba",
+      "description": "Cash register shift opened with Rs. 500 float by Muhammad Bilal",
+      "old_values": null,
+      "new_values": {
+        "opening_amount": 500
+      },
+      "created_at": "2026-11-17T18:31:56.379+00:00"
+    },
+    {
+      "id": "25721e71-8de8-42ca-8bed-a7f6937cb6da",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "REGISTER_CLOSE",
+      "entity_type": "register_session",
+      "entity_id": "a1d70004-79cd-4132-a743-f875c6efd6ba",
+      "description": "Shift closed. Expected: Rs. 500, Actual: Rs. 500, Discrepancy: Rs. 0",
+      "old_values": null,
+      "new_values": {
+        "difference": 0,
+        "closing_note": "Automated test completed",
+        "actual_amount": 500,
+        "expected_amount": 500
+      },
+      "created_at": "2026-11-17T18:31:59.866+00:00"
+    },
+    {
+      "id": "c8761959-a9c9-403d-8e22-7943fba13379",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111101",
+      "description": "Staff account updated for Malik Ammar",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T18:31:59.584+00:00"
     }
   ]
 }

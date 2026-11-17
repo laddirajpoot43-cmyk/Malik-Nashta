@@ -22,7 +22,10 @@ export const ThermalReceipt: React.FC<ThermalReceiptProps> = ({ order, customTem
     header_message: 'Special Lahori Channay & Crispy Parathay',
     footer_message_urdu: 'شکریہ! دوبارہ تشریف لائیں',
     footer_message_english: 'Thank you for visiting Malik Tasty Nashta Point!',
+    footer_credit_name: 'Buid by Ammar',
+    footer_credit_phone: '03260603565',
     show_cashier_name: true,
+    show_admin_name: false,
     show_customer_info: true,
     show_order_number: true,
     show_kitchen_notes: false,
@@ -112,6 +115,12 @@ export const ThermalReceipt: React.FC<ThermalReceiptProps> = ({ order, customTem
           <div className="flex justify-between">
             <span>Cashier:</span>
             <span>{order.cashier_name_snapshot || 'Counter'}</span>
+          </div>
+        )}
+        {tpl.show_admin_name && (
+          <div className="flex justify-between">
+            <span>Supervisor:</span>
+            <span>{order.admin_name_snapshot || tpl.admin_name || 'Admin'}</span>
           </div>
         )}
         {tpl.show_customer_info !== false && order.customer_name && (
@@ -245,12 +254,19 @@ export const ThermalReceipt: React.FC<ThermalReceiptProps> = ({ order, customTem
       {/* Custom Footers */}
       <div className="text-center text-[9px] space-y-0.5">
         {tpl.footer_message_urdu && (
-          <p className="font-bold text-[11px] leading-tight">{tpl.footer_message_urdu}</p>
+          <p className="font-bold text-[11px] leading-tight text-center">{tpl.footer_message_urdu}</p>
         )}
         {tpl.footer_message_english && (
-          <p className="leading-tight">{tpl.footer_message_english}</p>
+          <p className="leading-tight text-center">{tpl.footer_message_english}</p>
         )}
-        <p className="text-[8px] text-gray-500">Malik Tasty Nashta Point • Software POS</p>
+        <div className="pt-1 mt-1 border-t border-dotted border-gray-400 text-center">
+          <p className="font-bold text-[9px] leading-tight text-center">
+            {tpl.footer_credit_name !== undefined ? tpl.footer_credit_name : 'Buid by Ammar'}
+          </p>
+          <p className="font-bold text-[9px] tracking-wider leading-tight text-center">
+            {tpl.footer_credit_phone !== undefined ? tpl.footer_credit_phone : '03260603565'}
+          </p>
+        </div>
       </div>
     </div>
   );
