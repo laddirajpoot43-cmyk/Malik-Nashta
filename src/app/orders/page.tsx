@@ -409,7 +409,14 @@ export default function OrdersPage() {
                   {selectedOrder.items?.map((it, idx) => (
                     <div key={it.id || idx} className="p-2 bg-slate-950/60 rounded-lg border border-slate-800 text-xs">
                       <div className="flex justify-between font-semibold">
-                        <span className="text-slate-200">{it.product_name_snapshot}</span>
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span className="text-slate-200">{it.product_name_snapshot}</span>
+                          {it.pricing_method && (
+                            <span className="text-[10px] bg-emerald-950/70 text-emerald-300 border border-emerald-700/50 px-1.5 py-0.5 rounded font-normal">
+                              {it.pricing_method}
+                            </span>
+                          )}
+                        </div>
                         <span className="text-emerald-400">{formatMoney(it.line_total)}</span>
                       </div>
                       <div className="flex justify-between text-[11px] text-slate-400 mt-0.5">

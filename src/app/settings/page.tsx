@@ -77,6 +77,15 @@ function SettingsContent() {
     selling_price: '',
     cost_price: '',
     availability: 'available',
+    // Pricing Configuration
+    enable_by_plate: true,
+    full_plate_price: '',
+    half_plate_price: '',
+    enable_by_price: true,
+    min_price: '',
+    enable_custom_price: true,
+    custom_price_label: 'Half Rate',
+    custom_price: '',
   });
 
   const [showCategoryModal, setShowCategoryModal] = useState(false);
@@ -189,13 +198,31 @@ function SettingsContent() {
     e.preventDefault();
     try {
       const method = editingProduct ? 'PUT' : 'POST';
+      const sellingPriceNum = parseFloat(productForm.selling_price) || 0;
+      const fullPlateNum = parseFloat(productForm.full_plate_price) || sellingPriceNum;
+      const halfPlateNum = parseFloat(productForm.half_plate_price) || 0;
+      const minPriceNum = parseFloat(productForm.min_price) || 0;
+      const customPriceNum = parseFloat(productForm.custom_price) || 0;
+
+      const pricing_config = {
+        enable_by_plate: productForm.enable_by_plate,
+        full_plate_price: fullPlateNum > 0 ? fullPlateNum : sellingPriceNum,
+        half_plate_price: halfPlateNum > 0 ? halfPlateNum : undefined,
+        enable_by_price: productForm.enable_by_price,
+        min_price: minPriceNum > 0 ? minPriceNum : undefined,
+        enable_custom_price: productForm.enable_custom_price,
+        custom_price_label: productForm.custom_price_label || 'Half Rate',
+        custom_price: customPriceNum > 0 ? customPriceNum : undefined,
+      };
+
       const body: any = {
         name: productForm.name,
         short_name: productForm.short_name || productForm.name,
         category_id: productForm.category_id || categories[0]?.id,
-        selling_price: parseFloat(productForm.selling_price) || 0,
+        selling_price: sellingPriceNum,
         cost_price: parseFloat(productForm.cost_price) || 0,
         availability: productForm.availability,
+        pricing_config,
         cashier_name: currentUser?.display_name || 'Admin',
       };
       if (editingProduct) body.id = editingProduct.id;
@@ -523,6 +550,14 @@ function SettingsContent() {
                   selling_price: '',
                   cost_price: '',
                   availability: 'available',
+                  enable_by_plate: true,
+                  full_plate_price: '',
+                  half_plate_price: '',
+                  enable_by_price: true,
+                  min_price: '10',
+                  enable_custom_price: true,
+                  custom_price_label: 'Half Rate',
+                  custom_price: '',
                 });
                 setShowProductModal(true);
               }}
@@ -540,8 +575,8 @@ function SettingsContent() {
                   <tr>
                     <th className="px-4 py-3">Item Name</th>
                     <th className="px-4 py-3">Category</th>
-                    <th className="px-4 py-3">Selling Price (PKR)</th>
-                    <th className="px-4 py-3">Cost Price (PKR)</th>
+                    <th className="px-4 py-3">Base Price</th>
+                    <th className="px-4 py-3">Pricing Methods</th>
                     <th className="px-4 py-3">Availability</th>
                     <th className="px-4 py-3 text-right">Actions</th>
                   </tr>
@@ -555,7 +590,27 @@ function SettingsContent() {
                       </td>
                       <td className="px-4 py-3 text-slate-400">{p.category_name}</td>
                       <td className="px-4 py-3 font-bold text-emerald-400">{formatMoney(p.selling_price)}</td>
-                      <td className="px-4 py-3 text-slate-400">{formatMoney(p.cost_price || 0)}</td>
+                      <td className="px-4 py-3">
+                        <div className="flex flex-wrap gap-1">
+                          {p.pricing_config?.enable_by_plate !== false && (
+                            <span className="px-1.5 py-0.5 rounded text-[10px] bg-slate-800 text-emerald-300 border border-emerald-500/30">
+                              Plate: Full ({formatMoney(p.pricing_config?.full_plate_price || p.selling_price)})
+                              {p.pricing_config?.half_plate_price ? ` / Half (${formatMoney(p.pricing_config.half_plate_price)})` : ''}
+                            </span>
+                          )}
+                          {p.pricing_config?.enable_by_price && (
+                            <span className="px-1.5 py-0.5 rounded text-[10px] bg-slate-800 text-teal-300 border border-teal-500/30">
+                              By Price {p.pricing_config.min_price ? `(min Rs. ${p.pricing_config.min_price})` : ''}
+                            </span>
+                          )}
+                          {p.pricing_config?.enable_custom_price && (
+                            <span className="px-1.5 py-0.5 rounded text-[10px] bg-slate-800 text-amber-300 border border-amber-500/30">
+                              {p.pricing_config.custom_price_label || 'Half Rate'}
+                              {p.pricing_config.custom_price ? ` (${formatMoney(p.pricing_config.custom_price)})` : ''}
+                            </span>
+                          )}
+                        </div>
+                      </td>
                       <td className="px-4 py-3">
                         <span
                           className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
@@ -580,6 +635,14 @@ function SettingsContent() {
                               selling_price: String(p.selling_price),
                               cost_price: String(p.cost_price || 0),
                               availability: p.availability,
+                              enable_by_plate: p.pricing_config?.enable_by_plate !== false,
+                              full_plate_price: String(p.pricing_config?.full_plate_price || p.selling_price || ''),
+                              half_plate_price: String(p.pricing_config?.half_plate_price || ''),
+                              enable_by_price: p.pricing_config?.enable_by_price !== false,
+                              min_price: String(p.pricing_config?.min_price || ''),
+                              enable_custom_price: p.pricing_config?.enable_custom_price !== false,
+                              custom_price_label: p.pricing_config?.custom_price_label || 'Half Rate',
+                              custom_price: String(p.pricing_config?.custom_price || ''),
                             });
                             setShowProductModal(true);
                           }}
@@ -1047,7 +1110,7 @@ function SettingsContent() {
       {/* PRODUCT MODAL */}
       {showProductModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <form onSubmit={handleSaveProduct} className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-md p-5 space-y-4">
+          <form onSubmit={handleSaveProduct} className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg max-h-[92vh] overflow-y-auto p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-slate-800">
               <h3 className="font-bold text-sm text-white">
                 {editingProduct ? 'Edit Menu Product' : 'Add New Menu Product'}
@@ -1113,14 +1176,14 @@ function SettingsContent() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1">Selling Price (PKR):</label>
+                  <label className="block text-[11px] font-semibold text-slate-400 mb-1">Standard / Base Price (PKR):</label>
                   <input
                     type="number"
                     step="any"
                     required
                     value={productForm.selling_price}
                     onChange={(e) => setProductForm({ ...productForm, selling_price: e.target.value })}
-                    placeholder="260"
+                    placeholder="180"
                     className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-emerald-400 font-bold focus:outline-none"
                   />
                 </div>
@@ -1132,9 +1195,122 @@ function SettingsContent() {
                     step="any"
                     value={productForm.cost_price}
                     onChange={(e) => setProductForm({ ...productForm, cost_price: e.target.value })}
-                    placeholder="130"
+                    placeholder="90"
                     className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-slate-300 focus:outline-none"
                   />
+                </div>
+              </div>
+
+              {/* Pricing Methods Configuration Section */}
+              <div className="p-3 bg-slate-950/80 rounded-xl border border-slate-800 space-y-3">
+                <h4 className="text-xs font-bold text-amber-400 flex items-center gap-1.5 border-b border-slate-800 pb-1.5">
+                  <span>Flexible Pricing Methods (POS Counter)</span>
+                </h4>
+
+                {/* 1. By Plate Method */}
+                <div className="space-y-2">
+                  <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-200">
+                    <input
+                      type="checkbox"
+                      checked={productForm.enable_by_plate}
+                      onChange={(e) => setProductForm({ ...productForm, enable_by_plate: e.target.checked })}
+                      className="rounded border-slate-700 text-emerald-600 focus:ring-emerald-500"
+                    />
+                    <span>Enable By Plate (Predefined Plate Rates)</span>
+                  </label>
+
+                  {productForm.enable_by_plate && (
+                    <div className="grid grid-cols-2 gap-2 pl-5">
+                      <div>
+                        <span className="block text-[10px] text-slate-400">Full Plate Price:</span>
+                        <input
+                          type="number"
+                          step="any"
+                          value={productForm.full_plate_price}
+                          onChange={(e) => setProductForm({ ...productForm, full_plate_price: e.target.value })}
+                          placeholder={productForm.selling_price || '180'}
+                          className="w-full px-2.5 py-1.5 bg-slate-900 border border-slate-700 rounded text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                        />
+                      </div>
+                      <div>
+                        <span className="block text-[10px] text-slate-400">Half Plate Price:</span>
+                        <input
+                          type="number"
+                          step="any"
+                          value={productForm.half_plate_price}
+                          onChange={(e) => setProductForm({ ...productForm, half_plate_price: e.target.value })}
+                          placeholder="e.g. 100"
+                          className="w-full px-2.5 py-1.5 bg-slate-900 border border-slate-700 rounded text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* 2. By Price Method (Custom Cashier Amount) */}
+                <div className="space-y-2 pt-1 border-t border-slate-800/60">
+                  <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-200">
+                    <input
+                      type="checkbox"
+                      checked={productForm.enable_by_price}
+                      onChange={(e) => setProductForm({ ...productForm, enable_by_price: e.target.checked })}
+                      className="rounded border-slate-700 text-emerald-600 focus:ring-emerald-500"
+                    />
+                    <span>Enable By Price (Cashier Enters Custom Amount)</span>
+                  </label>
+
+                  {productForm.enable_by_price && (
+                    <div className="pl-5">
+                      <span className="block text-[10px] text-slate-400">Optional Minimum Price (PKR):</span>
+                      <input
+                        type="number"
+                        step="any"
+                        value={productForm.min_price}
+                        onChange={(e) => setProductForm({ ...productForm, min_price: e.target.value })}
+                        placeholder="e.g. 20 (min allowed price)"
+                        className="w-full px-2.5 py-1.5 bg-slate-900 border border-slate-700 rounded text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* 3. Custom / Half Rate Method */}
+                <div className="space-y-2 pt-1 border-t border-slate-800/60">
+                  <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-200">
+                    <input
+                      type="checkbox"
+                      checked={productForm.enable_custom_price}
+                      onChange={(e) => setProductForm({ ...productForm, enable_custom_price: e.target.checked })}
+                      className="rounded border-slate-700 text-emerald-600 focus:ring-emerald-500"
+                    />
+                    <span>Enable Custom / Half Rate (Configured Option)</span>
+                  </label>
+
+                  {productForm.enable_custom_price && (
+                    <div className="grid grid-cols-2 gap-2 pl-5">
+                      <div>
+                        <span className="block text-[10px] text-slate-400">Option Label:</span>
+                        <input
+                          type="text"
+                          value={productForm.custom_price_label}
+                          onChange={(e) => setProductForm({ ...productForm, custom_price_label: e.target.value })}
+                          placeholder="e.g. Half Rate"
+                          className="w-full px-2.5 py-1.5 bg-slate-900 border border-slate-700 rounded text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                        />
+                      </div>
+                      <div>
+                        <span className="block text-[10px] text-slate-400">Option Price (PKR):</span>
+                        <input
+                          type="number"
+                          step="any"
+                          value={productForm.custom_price}
+                          onChange={(e) => setProductForm({ ...productForm, custom_price: e.target.value })}
+                          placeholder="e.g. 100"
+                          className="w-full px-2.5 py-1.5 bg-slate-900 border border-slate-700 rounded text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

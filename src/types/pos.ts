@@ -52,6 +52,29 @@ export interface Category {
 
 export type ProductAvailability = 'available' | 'sold_out' | 'hidden' | 'inactive';
 
+export type PricingMethodType = 'full_plate' | 'half_plate' | 'by_plate' | 'by_price' | 'custom' | 'half_rate';
+
+export interface ProductPricingOption {
+  id: string;
+  type: PricingMethodType;
+  label: string;
+  price: number;
+  min_price?: number;
+  enabled: boolean;
+}
+
+export interface ProductPricingConfig {
+  enable_by_price?: boolean;
+  min_price?: number;
+  enable_by_plate?: boolean;
+  full_plate_price?: number;
+  half_plate_price?: number;
+  enable_custom_price?: boolean;
+  custom_price_label?: string;
+  custom_price?: number;
+  options?: ProductPricingOption[];
+}
+
 export interface Product {
   id: string;
   category_id: string;
@@ -63,6 +86,109 @@ export interface Product {
   is_active: boolean;
   sort_order: number;
   category_name?: string;
+  pricing_config?: ProductPricingConfig;
+}
+
+export function getProductPricingOptions(product: Product): ProductPricingOption[] {
+  const cfg = product.pricing_config;
+  const options: ProductPricingOption[] = [];
+
+  if (cfg) {
+    if (cfg.enable_by_plate !== false) {
+      const fullPrice = cfg.full_plate_price !== undefined && cfg.full_plate_price > 0 ? Number(cfg.full_plate_price) : Number(product.selling_price);
+      if (fullPrice > 0) {
+        options.push({
+          id: 'full_plate',
+          type: 'full_plate',
+          label: 'Full Plate',
+          price: fullPrice,
+          enabled: true,
+        });
+      }
+
+      if (cfg.half_plate_price !== undefined && cfg.half_plate_price > 0) {
+        options.push({
+          id: 'half_plate',
+          type: 'half_plate',
+          label: 'Half Plate',
+          price: Number(cfg.half_plate_price),
+          enabled: true,
+        });
+      }
+    }
+
+    if (cfg.enable_by_price) {
+      options.push({
+        id: 'by_price',
+        type: 'by_price',
+        label: 'By Price',
+        price: 0,
+        min_price: cfg.min_price || 10,
+        enabled: true,
+      });
+    }
+
+    if (cfg.enable_custom_price) {
+      options.push({
+        id: 'custom_price',
+        type: 'custom',
+        label: cfg.custom_price_label || 'Custom / Half Rate',
+        price: Number(cfg.custom_price || cfg.half_plate_price || Math.round(product.selling_price / 2)),
+        min_price: cfg.min_price || 10,
+        enabled: true,
+      });
+    }
+
+    if (Array.isArray(cfg.options)) {
+      for (const opt of cfg.options) {
+        if (opt.enabled !== false && !options.some((o) => o.id === opt.id)) {
+          options.push(opt);
+        }
+      }
+    }
+  }
+
+  // Fallback defaults if no configuration or options exist yet
+  if (options.length === 0) {
+    options.push({
+      id: 'full_plate',
+      type: 'full_plate',
+      label: 'Full Plate',
+      price: Number(product.selling_price),
+      enabled: true,
+    });
+
+    const halfPrice = Math.round((product.selling_price * 0.55) / 10) * 10 || Math.round(product.selling_price / 2);
+    if (halfPrice > 0 && halfPrice < product.selling_price) {
+      options.push({
+        id: 'half_plate',
+        type: 'half_plate',
+        label: 'Half Plate',
+        price: halfPrice,
+        enabled: true,
+      });
+    }
+
+    options.push({
+      id: 'by_price',
+      type: 'by_price',
+      label: 'By Price',
+      price: 0,
+      min_price: 10,
+      enabled: true,
+    });
+
+    options.push({
+      id: 'custom_price',
+      type: 'custom',
+      label: 'Custom Rate',
+      price: halfPrice,
+      min_price: 10,
+      enabled: true,
+    });
+  }
+
+  return options;
 }
 
 export interface ProductAddon {
@@ -86,6 +212,8 @@ export interface OrderItem {
   order_id: string;
   product_id?: string | null;
   product_name_snapshot: string;
+  pricing_method?: string | null;
+  pricing_type?: string | null;
   unit_price: number;
   quantity: number; // e.g. 0.5, 0.25, 1, 2
   item_subtotal: number;
@@ -280,6 +408,8 @@ export interface CartItem {
   uid: string;
   product_id: string;
   product_name: string;
+  pricing_method: string;
+  pricing_type?: string;
   unit_price: number;
   quantity: number; // e.g. 0.5, 1, 2
   custom_unit_price?: number;

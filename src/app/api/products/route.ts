@@ -30,6 +30,7 @@ export async function POST(req: Request) {
       selling_price,
       cost_price = 0,
       availability = 'available',
+      pricing_config,
       cashier_name = 'Admin',
     } = body;
 
@@ -37,17 +38,28 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, error: 'Product name and selling price are required.' }, { status: 400 });
     }
 
+    const numSellingPrice = Number(selling_price);
     const store = localStore.get();
     const newProduct = {
       id: generateUUID(),
       category_id: category_id || store.categories?.[0]?.id,
       name,
       short_name: short_name || name,
-      selling_price: Number(selling_price),
+      selling_price: numSellingPrice,
       cost_price: Number(cost_price),
       availability,
       is_active: true,
       sort_order: (store.products?.length || 0) + 1,
+      pricing_config: pricing_config || {
+        enable_by_plate: true,
+        full_plate_price: numSellingPrice,
+        half_plate_price: Math.round((numSellingPrice * 0.55) / 10) * 10,
+        enable_by_price: true,
+        min_price: 10,
+        enable_custom_price: true,
+        custom_price_label: 'Half Rate',
+        custom_price: Math.round((numSellingPrice * 0.55) / 10) * 10,
+      },
     };
 
     store.products.push(newProduct);
@@ -71,7 +83,7 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     const body = await req.json();
-    const { id, name, short_name, selling_price, cost_price, availability, is_active, category_id, cashier_name = 'Admin' } = body;
+    const { id, name, short_name, selling_price, cost_price, availability, is_active, category_id, pricing_config, cashier_name = 'Admin' } = body;
 
     if (!id) {
       return NextResponse.json({ success: false, error: 'Product ID is required.' }, { status: 400 });
@@ -93,6 +105,7 @@ export async function PUT(req: Request) {
     if (availability !== undefined) product.availability = availability;
     if (is_active !== undefined) product.is_active = Boolean(is_active);
     if (category_id !== undefined) product.category_id = category_id;
+    if (pricing_config !== undefined) product.pricing_config = pricing_config;
 
     await logAuditEvent({
       user_name: cashier_name,

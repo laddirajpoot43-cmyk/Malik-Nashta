@@ -121,7 +121,14 @@ export const ThermalReceipt: React.FC<ThermalReceiptProps> = ({ order, customTem
         {order.items?.map((item: any, idx: number) => (
           <div key={item.id || idx} className="py-1 border-b border-dotted border-gray-300 last:border-none">
             <div className="flex justify-between font-medium">
-              <span className="w-1/2 break-words">{item.product_name_snapshot}</span>
+              <div className="w-1/2 pr-1">
+                <span className="break-words font-semibold">{item.product_name_snapshot}</span>
+                {item.pricing_method && (
+                  <span className="block text-[9px] text-gray-700 font-medium">
+                    [{item.pricing_method}]
+                  </span>
+                )}
+              </div>
               <span className="w-1/4 text-center">
                 {item.quantity}x @ {item.unit_price}
               </span>

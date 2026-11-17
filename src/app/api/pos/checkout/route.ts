@@ -68,8 +68,22 @@ export async function POST(req: Request) {
       for (const item of cart) {
         const product = (store.products || []).find((p: any) => p.id === item.product_id);
         const productName = item.product_name || product?.name || 'Breakfast Item';
-        const unitPrice = item.custom_unit_price !== undefined ? Number(item.custom_unit_price) : Number(product?.selling_price || 0);
+        const unitPrice = item.custom_unit_price !== undefined ? Number(item.custom_unit_price) : Number(item.unit_price !== undefined ? item.unit_price : (product?.selling_price || 0));
         const qty = Number(item.quantity) || 1;
+
+        // Validation: Prevent zero or negative prices
+        if (unitPrice <= 0) {
+          throw new Error(`Item "${productName}" has an invalid price: Rs. ${unitPrice}. Price must be greater than 0.`);
+        }
+
+        // Validation: Check minimum price if configured
+        const minPrice = Number(product?.pricing_config?.min_price || item?.min_price || 0);
+        if (minPrice > 0 && unitPrice < minPrice) {
+          throw new Error(`Item "${productName}" price Rs. ${unitPrice} is below the minimum required price of Rs. ${minPrice}.`);
+        }
+
+        const pricingMethod = item.pricing_method || 'Standard';
+        const pricingType = item.pricing_type || 'standard';
 
         const itemSubtotal = multiplyMoney(unitPrice, qty);
 
@@ -98,6 +112,8 @@ export async function POST(req: Request) {
           order_id: orderId,
           product_id: item.product_id || null,
           product_name_snapshot: productName,
+          pricing_method: pricingMethod,
+          pricing_type: pricingType,
           unit_price: unitPrice,
           quantity: qty,
           item_subtotal: itemSubtotal,

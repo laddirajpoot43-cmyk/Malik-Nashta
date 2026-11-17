@@ -36,7 +36,7 @@ interface POSContextType {
   grandTotal: number;
 
   // Cart Operations
-  addToCart: (product: Product, quantity?: number, customUnitPrice?: number, note?: string, addons?: ProductAddon[]) => void;
+  addToCart: (product: Product, quantity?: number, customUnitPrice?: number, note?: string, addons?: ProductAddon[], pricingMethod?: string, pricingType?: string) => void;
   updateCartItem: (index: number, updates: Partial<CartItem>) => void;
   removeFromCart: (index: number) => void;
   clearCart: () => void;
@@ -149,7 +149,9 @@ export function POSProvider({ children }: { children: React.ReactNode }) {
     quantity: number = 1,
     customUnitPrice?: number,
     note?: string,
-    itemAddons: ProductAddon[] = []
+    itemAddons: ProductAddon[] = [],
+    pricingMethod: string = 'Full Plate',
+    pricingType?: string
   ) => {
     const unitPrice = customUnitPrice !== undefined ? customUnitPrice : product.selling_price;
     const itemSubtotal = multiplyMoney(unitPrice, quantity);
@@ -160,6 +162,8 @@ export function POSProvider({ children }: { children: React.ReactNode }) {
       uid: `${product.id}-${Date.now()}-${Math.random()}`,
       product_id: product.id,
       product_name: product.name,
+      pricing_method: pricingMethod,
+      pricing_type: pricingType,
       unit_price: unitPrice,
       quantity,
       custom_unit_price: customUnitPrice,

@@ -134,11 +134,21 @@ function getDefaultData(): SchemaStore {
         category_id: '22222222-2222-2222-2222-222222222201',
         name: 'Channay (Salan)',
         short_name: 'Channay',
-        selling_price: 260.00,
-        cost_price: 130.00,
+        selling_price: 180.00,
+        cost_price: 90.00,
         availability: 'available',
         is_active: true,
         sort_order: 1,
+        pricing_config: {
+          enable_by_plate: true,
+          full_plate_price: 180.00,
+          half_plate_price: 100.00,
+          enable_by_price: true,
+          min_price: 20.00,
+          enable_custom_price: true,
+          custom_price_label: 'Half Rate',
+          custom_price: 100.00,
+        },
       },
       {
         id: '44444444-4444-4444-4444-444444444402',
@@ -150,6 +160,16 @@ function getDefaultData(): SchemaStore {
         availability: 'available',
         is_active: true,
         sort_order: 2,
+        pricing_config: {
+          enable_by_plate: true,
+          full_plate_price: 280.00,
+          half_plate_price: 150.00,
+          enable_by_price: true,
+          min_price: 30.00,
+          enable_custom_price: true,
+          custom_price_label: 'Half Rate',
+          custom_price: 150.00,
+        },
       },
       {
         id: '44444444-4444-4444-4444-444444444403',
@@ -161,6 +181,16 @@ function getDefaultData(): SchemaStore {
         availability: 'available',
         is_active: true,
         sort_order: 3,
+        pricing_config: {
+          enable_by_plate: true,
+          full_plate_price: 550.00,
+          half_plate_price: 300.00,
+          enable_by_price: true,
+          min_price: 50.00,
+          enable_custom_price: true,
+          custom_price_label: 'Custom / Half Rate',
+          custom_price: 300.00,
+        },
       },
       {
         id: '44444444-4444-4444-4444-444444444404',
@@ -172,6 +202,16 @@ function getDefaultData(): SchemaStore {
         availability: 'available',
         is_active: true,
         sort_order: 4,
+        pricing_config: {
+          enable_by_plate: true,
+          full_plate_price: 600.00,
+          half_plate_price: 320.00,
+          enable_by_price: true,
+          min_price: 50.00,
+          enable_custom_price: true,
+          custom_price_label: 'Half Rate',
+          custom_price: 320.00,
+        },
       },
       {
         id: '44444444-4444-4444-4444-444444444405',
@@ -183,6 +223,16 @@ function getDefaultData(): SchemaStore {
         availability: 'available',
         is_active: true,
         sort_order: 5,
+        pricing_config: {
+          enable_by_plate: true,
+          full_plate_price: 300.00,
+          half_plate_price: 160.00,
+          enable_by_price: true,
+          min_price: 30.00,
+          enable_custom_price: true,
+          custom_price_label: 'Half Rate',
+          custom_price: 160.00,
+        },
       },
       {
         id: '44444444-4444-4444-4444-444444444406',
@@ -194,6 +244,16 @@ function getDefaultData(): SchemaStore {
         availability: 'available',
         is_active: true,
         sort_order: 6,
+        pricing_config: {
+          enable_by_plate: true,
+          full_plate_price: 180.00,
+          half_plate_price: 100.00,
+          enable_by_price: true,
+          min_price: 20.00,
+          enable_custom_price: true,
+          custom_price_label: 'Half Rate',
+          custom_price: 100.00,
+        },
       },
       {
         id: '44444444-4444-4444-4444-444444444407',
@@ -205,6 +265,13 @@ function getDefaultData(): SchemaStore {
         availability: 'available',
         is_active: true,
         sort_order: 7,
+        pricing_config: {
+          enable_by_plate: true,
+          full_plate_price: 80.00,
+          enable_by_price: true,
+          min_price: 40.00,
+          enable_custom_price: false,
+        },
       },
       {
         id: '44444444-4444-4444-4444-444444444408',
@@ -216,6 +283,13 @@ function getDefaultData(): SchemaStore {
         availability: 'available',
         is_active: true,
         sort_order: 8,
+        pricing_config: {
+          enable_by_plate: true,
+          full_plate_price: 120.00,
+          enable_by_price: true,
+          min_price: 60.00,
+          enable_custom_price: false,
+        },
       },
       {
         id: '44444444-4444-4444-4444-444444444409',
@@ -227,6 +301,12 @@ function getDefaultData(): SchemaStore {
         availability: 'available',
         is_active: true,
         sort_order: 9,
+        pricing_config: {
+          enable_by_plate: true,
+          full_plate_price: 30.00,
+          enable_by_price: false,
+          enable_custom_price: false,
+        },
       },
       {
         id: '44444444-4444-4444-4444-444444444410',
@@ -238,6 +318,16 @@ function getDefaultData(): SchemaStore {
         availability: 'available',
         is_active: true,
         sort_order: 10,
+        pricing_config: {
+          enable_by_plate: true,
+          full_plate_price: 120.00,
+          half_plate_price: 70.00,
+          enable_by_price: true,
+          min_price: 50.00,
+          enable_custom_price: true,
+          custom_price_label: 'Half Rate',
+          custom_price: 70.00,
+        },
       },
       {
         id: '44444444-4444-4444-4444-444444444411',
@@ -249,6 +339,13 @@ function getDefaultData(): SchemaStore {
         availability: 'available',
         is_active: true,
         sort_order: 11,
+        pricing_config: {
+          enable_by_plate: true,
+          full_plate_price: 80.00,
+          enable_by_price: true,
+          min_price: 40.00,
+          enable_custom_price: false,
+        },
       },
       {
         id: '44444444-4444-4444-4444-444444444412',
@@ -260,6 +357,16 @@ function getDefaultData(): SchemaStore {
         availability: 'available',
         is_active: true,
         sort_order: 12,
+        pricing_config: {
+          enable_by_plate: true,
+          full_plate_price: 90.00,
+          half_plate_price: 50.00,
+          enable_by_price: true,
+          min_price: 30.00,
+          enable_custom_price: true,
+          custom_price_label: 'Half Cup',
+          custom_price: 50.00,
+        },
       },
       {
         id: '44444444-4444-4444-4444-444444444413',
@@ -271,6 +378,16 @@ function getDefaultData(): SchemaStore {
         availability: 'available',
         is_active: true,
         sort_order: 13,
+        pricing_config: {
+          enable_by_plate: true,
+          full_plate_price: 60.00,
+          half_plate_price: 35.00,
+          enable_by_price: true,
+          min_price: 20.00,
+          enable_custom_price: true,
+          custom_price_label: 'Half Cup',
+          custom_price: 35.00,
+        },
       },
     ],
     product_addons: [
@@ -502,6 +619,49 @@ class StoreManager {
                   normalized[k] = Number(normalized[k]);
                 }
               }
+
+              if (t === 'products') {
+                const existingProd = (this.data.products || []).find((p: any) => p.id === normalized.id);
+                if (existingProd?.pricing_config) {
+                  normalized.pricing_config = existingProd.pricing_config;
+                } else if (!normalized.pricing_config) {
+                  if (normalized.id === '44444444-4444-4444-4444-444444444401' || normalized.name?.includes('Channay') || normalized.name?.includes('Chana')) {
+                    normalized.pricing_config = {
+                      enable_by_plate: true,
+                      full_plate_price: 180.00,
+                      half_plate_price: 100.00,
+                      enable_by_price: true,
+                      min_price: 20.00,
+                      enable_custom_price: true,
+                      custom_price_label: 'Half Rate',
+                      custom_price: 100.00,
+                    };
+                  } else {
+                    const halfPrice = Math.round((Number(normalized.selling_price || 0) * 0.55) / 10) * 10;
+                    normalized.pricing_config = {
+                      enable_by_plate: true,
+                      full_plate_price: Number(normalized.selling_price || 0),
+                      half_plate_price: halfPrice,
+                      enable_by_price: true,
+                      min_price: 10.00,
+                      enable_custom_price: true,
+                      custom_price_label: 'Half Rate',
+                      custom_price: halfPrice,
+                    };
+                  }
+                }
+              }
+
+              if (t === 'order_items') {
+                const existingItem = (this.data.order_items || []).find((oi: any) => oi.id === normalized.id);
+                if (existingItem?.pricing_method && !normalized.pricing_method) {
+                  normalized.pricing_method = existingItem.pricing_method;
+                }
+                if (existingItem?.pricing_type && !normalized.pricing_type) {
+                  normalized.pricing_type = existingItem.pricing_type;
+                }
+              }
+
               return normalized;
             });
           }
@@ -561,6 +721,7 @@ class StoreManager {
               delete clean.items;
             } else if (t === 'products') {
               delete clean.category_name;
+              delete clean.pricing_config;
             } else if (t === 'vendor_payments') {
               delete clean.vendor_name;
             }
