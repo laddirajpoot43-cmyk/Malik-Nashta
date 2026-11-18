@@ -261,10 +261,31 @@ class StoreManager {
                 };
               }
 
+              if (t === 'orders') {
+                const existingOrder = (this.data.orders || []).find((o: any) => o.id === normalized.id);
+                if (existingOrder?.admin_name_snapshot && !normalized.admin_name_snapshot) {
+                  normalized.admin_name_snapshot = existingOrder.admin_name_snapshot;
+                }
+                if (normalized.order_note && normalized.order_note.includes('[DAILY_CLOSED]')) {
+                  normalized.daily_closed = true;
+                } else if (existingOrder?.daily_closed) {
+                  normalized.daily_closed = true;
+                  normalized.daily_closed_at = existingOrder.daily_closed_at;
+                }
+                if (typeof normalized.items === 'string') {
+                  try { normalized.items = JSON.parse(normalized.items); } catch {}
+                }
+                if (typeof normalized.payments === 'string') {
+                  try { normalized.payments = JSON.parse(normalized.payments); } catch {}
+                }
+              }
+
               if (t === 'order_items') {
                 const existingItem = (this.data.order_items || []).find((oi: any) => oi.id === normalized.id);
                 if (existingItem?.pricing_method && !normalized.pricing_method) {
                   normalized.pricing_method = existingItem.pricing_method;
+                } else if (!normalized.pricing_method && normalized.kitchen_note) {
+                  normalized.pricing_method = normalized.kitchen_note;
                 }
                 if (existingItem?.pricing_type && !normalized.pricing_type) {
                   normalized.pricing_type = existingItem.pricing_type;
@@ -274,7 +295,13 @@ class StoreManager {
               return normalized;
             });
           } else {
-            // Cloud has 0 rows for this table (e.g. all rows were deleted by admin)
+            // Cloud has 0 rows for this table
+            if (t === 'orders' || t === 'order_items' || t === 'order_payments' || t === 'register_transactions') {
+              if (Array.isArray((this.data as any)[t]) && (this.data as any)[t].length > 0) {
+                // Keep local transactional records so newly created orders are never wiped
+                continue;
+              }
+            }
             (this.data as any)[t] = [];
           }
         }
@@ -323,11 +350,21 @@ class StoreManager {
             const rawSlice = t === 'audit_logs' ? currentRows.slice(0, 10) : currentRows;
             const rowsToUpsert = rawSlice.map((r: any) => {
               const clean = { ...r };
-              // Strip client-side joined relationships that don't exist as SQL table columns in cloud Postgres
+              // Strip client-side joined relationships and non-existent SQL table columns in cloud Postgres
               if (t === 'orders') {
-                delete clean.items;
-                delete clean.payments;
+                delete clean.admin_name_snapshot;
+                if (clean.daily_closed && !clean.order_note?.includes('[DAILY_CLOSED]')) {
+                  clean.order_note = clean.order_note ? `${clean.order_note} [DAILY_CLOSED]` : '[DAILY_CLOSED]';
+                }
+                delete clean.daily_closed;
+                delete clean.daily_closed_at;
                 delete clean.refunds;
+              } else if (t === 'order_items') {
+                if (clean.pricing_method && !clean.kitchen_note) {
+                  clean.kitchen_note = clean.pricing_method;
+                }
+                delete clean.pricing_method;
+                delete clean.pricing_type;
               } else if (t === 'purchase_invoices') {
                 delete clean.items;
               } else if (t === 'refunds') {
@@ -335,6 +372,8 @@ class StoreManager {
               } else if (t === 'products') {
                 delete clean.category_name;
                 delete clean.pricing_config;
+              } else if (t === 'pos_settings') {
+                delete clean.printer_config;
               } else if (t === 'vendor_payments') {
                 delete clean.vendor_name;
               }

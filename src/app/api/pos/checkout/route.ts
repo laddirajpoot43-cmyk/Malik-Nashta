@@ -246,6 +246,8 @@ export async function POST(req: Request) {
         cashier_id: cashierProfile?.id || cashier_id || null,
         cashier_name_snapshot: resolvedCashierName,
         admin_name_snapshot: resolvedAdminName,
+        daily_closed: false,
+        daily_closed_at: null,
         created_at: new Date().toISOString(),
         items: orderItemsToInsert,
         payments: paymentsToInsert,

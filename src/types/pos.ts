@@ -258,6 +258,9 @@ export interface Order {
   cashier_name_snapshot: string;
   admin_name_snapshot?: string | null;
   cashier_id?: string | null;
+  daily_closed?: boolean;
+  daily_closed_at?: string | null;
+  order_note?: string | null;
   created_at: string;
   items?: OrderItem[];
   payments?: OrderPayment[];

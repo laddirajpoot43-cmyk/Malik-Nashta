@@ -278,6 +278,15 @@ export async function POST(req: Request) {
       activeRegister.difference = difference;
       activeRegister.closing_note = closing_note || (difference === 0 ? 'Shift balanced' : `Difference: ${difference}`);
 
+      // Automatically archive & move all shift orders into Order History
+      const shiftOrders = (store.orders || []).filter(
+        (o: any) => o.register_session_id === activeRegister.id && !o.daily_closed
+      );
+      for (const ord of shiftOrders) {
+        ord.daily_closed = true;
+        ord.daily_closed_at = new Date().toISOString();
+      }
+
       await logAuditEvent({
         user_name: cashier_name,
         action: 'REGISTER_CLOSE',

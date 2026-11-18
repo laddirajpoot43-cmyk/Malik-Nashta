@@ -111,6 +111,17 @@ function DailySummaryContent() {
         return;
       }
 
+      // Automatically move all orders for this day into Order History
+      await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'daily_close',
+          date: selectedDate,
+          cashier_name: currentUser?.display_name || 'Admin',
+        }),
+      });
+
       setShowCloseDayModal(false);
       setCloseSuccessMsg(`Daily Sale for ${selectedDate} has been successfully closed! Automatic Excel report download started.`);
 

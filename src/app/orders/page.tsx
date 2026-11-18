@@ -19,11 +19,31 @@ import {
   Edit,
   Eye,
   X,
+  Clock,
+  History,
+  Archive,
+  Calendar,
+  Sparkles,
+  CheckCheck,
+  Moon,
+  Layers,
+  Filter,
 } from 'lucide-react';
 
 export default function OrdersPage() {
   const { currentUser } = useAuth();
   const { printReceipt } = usePOS();
+
+  const [activeTab, setActiveTab] = useState<'recent' | 'history' | 'all'>('recent');
+  const [counts, setCounts] = useState<{ recent: number; history: number; total: number }>({
+    recent: 0,
+    history: 0,
+    total: 0,
+  });
+  const [historyDateFilter, setHistoryDateFilter] = useState<'all' | 'today' | 'yesterday' | 'last7' | 'custom'>('all');
+  const [customDate, setCustomDate] = useState<string>('');
+  const [showDailyCloseModal, setShowDailyCloseModal] = useState<boolean>(false);
+  const [dailyClosingInProgress, setDailyClosingInProgress] = useState<boolean>(false);
 
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -59,14 +79,31 @@ export default function OrdersPage() {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      let url = '/api/orders?limit=100';
+      let url = `/api/orders?limit=150&tab=${activeTab}`;
       if (search.trim()) url += `&search=${encodeURIComponent(search.trim())}`;
       if (statusFilter !== 'all') url += `&status=${statusFilter}`;
+
+      if (activeTab === 'history') {
+        if (historyDateFilter === 'today') {
+          url += `&date=${new Date().toISOString().slice(0, 10)}`;
+        } else if (historyDateFilter === 'yesterday') {
+          const y = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+          url += `&date=${y}`;
+        } else if (historyDateFilter === 'last7') {
+          const sevenDaysAgo = new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10);
+          url += `&date_from=${sevenDaysAgo}`;
+        } else if (historyDateFilter === 'custom' && customDate) {
+          url += `&date=${customDate}`;
+        }
+      }
 
       const res = await fetch(url);
       const data = await res.json();
       if (data.success) {
         setOrders(data.orders || []);
+        if (data.counts) {
+          setCounts(data.counts);
+        }
       }
     } catch (e: any) {
       console.error(e);
@@ -77,7 +114,34 @@ export default function OrdersPage() {
 
   useEffect(() => {
     fetchOrders();
-  }, [search, statusFilter]);
+  }, [activeTab, search, statusFilter, historyDateFilter, customDate]);
+
+  const handleExecuteDailyClose = async () => {
+    setDailyClosingInProgress(true);
+    setActionError('');
+    try {
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'daily_close',
+          cashier_name: currentUser?.display_name || 'Admin',
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setActionSuccess(data.message || 'All active orders moved to Order History!');
+        setShowDailyCloseModal(false);
+        fetchOrders();
+      } else {
+        setActionError(data.error || 'Failed to execute daily closing.');
+      }
+    } catch (e: any) {
+      setActionError(e.message);
+    } finally {
+      setDailyClosingInProgress(false);
+    }
+  };
 
   const handleReprint = async (order: Order, customOverrides?: any) => {
     try {
@@ -252,30 +316,102 @@ export default function OrdersPage() {
 
   return (
     <div className="space-y-3 select-none">
-      {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-white border border-slate-200 p-3 rounded-2xl shadow-sm">
-        <div className="flex items-center gap-2.5">
-          <div className="p-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
+      {/* Page Header & Primary Tabs */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 bg-white border border-slate-200 p-3 rounded-2xl shadow-sm">
+        <div className="flex items-center gap-3">
+          <div className="p-2.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
             <Receipt className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-base font-black text-slate-900">Order History & Thermal Bills</h1>
+            <h1 className="text-base font-black text-slate-900 flex items-center gap-2">
+              <span>Orders & Billing Records</span>
+            </h1>
           </div>
         </div>
 
-        {/* Filters */}
-        <div className="flex items-center gap-2">
+        {/* Primary Tabs: Recent Orders vs Order History */}
+        <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
+          <button
+            type="button"
+            onClick={() => {
+              setActiveTab('recent');
+              setSelectedOrder(null);
+            }}
+            className={`px-3 py-1.5 rounded-lg transition flex items-center gap-2 cursor-pointer ${
+              activeTab === 'recent'
+                ? 'bg-emerald-600 text-white shadow-sm'
+                : 'text-slate-700 hover:text-slate-900 hover:bg-slate-200/60'
+            }`}
+          >
+            <Clock className="w-3.5 h-3.5" />
+            <span>Recent Orders (آج کے بل)</span>
+            <span
+              className={`px-1.5 py-0.5 rounded-full text-[10px] font-extrabold ${
+                activeTab === 'recent' ? 'bg-emerald-700 text-white' : 'bg-slate-200 text-slate-800'
+              }`}
+            >
+              {counts.recent}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setActiveTab('history');
+              setSelectedOrder(null);
+            }}
+            className={`px-3 py-1.5 rounded-lg transition flex items-center gap-2 cursor-pointer ${
+              activeTab === 'history'
+                ? 'bg-emerald-600 text-white shadow-sm'
+                : 'text-slate-700 hover:text-slate-900 hover:bg-slate-200/60'
+            }`}
+          >
+            <History className="w-3.5 h-3.5" />
+            <span>Order History (آرکائیو)</span>
+            <span
+              className={`px-1.5 py-0.5 rounded-full text-[10px] font-extrabold ${
+                activeTab === 'history' ? 'bg-emerald-700 text-white' : 'bg-slate-200 text-slate-800'
+              }`}
+            >
+              {counts.history}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setActiveTab('all');
+              setSelectedOrder(null);
+            }}
+            className={`px-2.5 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer ${
+              activeTab === 'all'
+                ? 'bg-emerald-600 text-white shadow-sm'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+            }`}
+            title="View all orders combined"
+          >
+            <Layers className="w-3.5 h-3.5" />
+            <span>All ({counts.total})</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Filter Toolbar & Actions */}
+      <div className="flex flex-wrap items-center justify-between gap-2.5 bg-white border border-slate-200 p-2.5 rounded-2xl shadow-sm text-xs">
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Search Box */}
           <div className="relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-2.5 top-2 pointer-events-none" />
+            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5 pointer-events-none" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Receipt / Order # / Name"
-              className="pl-8 pr-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-semibold focus:outline-none focus:border-emerald-600 w-52"
+              placeholder="Receipt # / Customer / Phone"
+              className="pl-8 pr-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-semibold focus:outline-none focus:border-emerald-600 w-56"
             />
           </div>
 
+          {/* Status Filter */}
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
@@ -287,7 +423,47 @@ export default function OrdersPage() {
             <option value="refunded">Fully Refunded</option>
             <option value="voided">Voided</option>
           </select>
+
+          {/* Date Filter (Shown only in History or All mode) */}
+          {activeTab !== 'recent' && (
+            <div className="flex items-center gap-1.5 bg-slate-50 p-0.5 rounded-lg border border-slate-300 font-bold">
+              <Calendar className="w-3.5 h-3.5 ml-2 text-slate-500" />
+              <select
+                value={historyDateFilter}
+                onChange={(e) => setHistoryDateFilter(e.target.value as any)}
+                className="bg-transparent text-xs text-slate-900 font-bold py-1 px-1 focus:outline-none cursor-pointer"
+              >
+                <option value="all">All Past Dates</option>
+                <option value="today">Today</option>
+                <option value="yesterday">Yesterday</option>
+                <option value="last7">Last 7 Days</option>
+                <option value="custom">Specific Date...</option>
+              </select>
+              {historyDateFilter === 'custom' && (
+                <input
+                  type="date"
+                  value={customDate}
+                  onChange={(e) => setCustomDate(e.target.value)}
+                  className="px-2 py-0.5 border border-slate-300 rounded text-xs bg-white text-slate-900 font-semibold focus:outline-none"
+                />
+              )}
+            </div>
+          )}
         </div>
+
+        {/* Right Action: Daily Closing Button in Recent Orders */}
+        {activeTab === 'recent' && (
+          <button
+            type="button"
+            onClick={() => setShowDailyCloseModal(true)}
+            disabled={orders.length === 0}
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-black rounded-xl transition shadow-sm cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+            title="Move today's orders into Order History archive and start clean for tomorrow"
+          >
+            <Moon className="w-3.5 h-3.5" />
+            <span>Execute Daily Closing (روزانہ کلوزنگ)</span>
+          </button>
+        )}
       </div>
 
       {/* Global Alerts */}
@@ -307,8 +483,28 @@ export default function OrdersPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Orders Table (2 cols) */}
         <div className="lg:col-span-2 bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden flex flex-col">
-          <div className="p-3.5 border-b border-slate-100 bg-slate-50 flex items-center justify-between text-xs font-bold text-slate-700">
-            <span>Recent Orders ({orders.length})</span>
+          <div className="p-3 border-b border-slate-100 bg-slate-50 flex items-center justify-between text-xs font-bold text-slate-800">
+            <span className="flex items-center gap-2">
+              {activeTab === 'recent' ? (
+                <>
+                  <Clock className="w-4 h-4 text-emerald-600" />
+                  <span>Recent Active Orders ({orders.length})</span>
+                </>
+              ) : activeTab === 'history' ? (
+                <>
+                  <History className="w-4 h-4 text-emerald-600" />
+                  <span>Archived Order History ({orders.length})</span>
+                </>
+              ) : (
+                <>
+                  <Layers className="w-4 h-4 text-emerald-600" />
+                  <span>All Orders & Invoices ({orders.length})</span>
+                </>
+              )}
+            </span>
+            <span className="text-[11px] text-slate-500 font-medium">
+              Click any order to view slip & billing details
+            </span>
           </div>
 
           <div className="overflow-x-auto flex-1">
@@ -326,14 +522,40 @@ export default function OrdersPage() {
               <tbody className="divide-y divide-slate-100">
                 {loading ? (
                   <tr>
-                    <td colSpan={6} className="text-center py-10 text-slate-500 font-medium">
+                    <td colSpan={6} className="text-center py-12 text-slate-500 font-medium">
                       Loading orders...
                     </td>
                   </tr>
                 ) : orders.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="text-center py-12 text-slate-500 font-semibold">
-                      No matching orders found.
+                    <td colSpan={6} className="py-12 px-4 text-center">
+                      {activeTab === 'recent' ? (
+                        <div className="max-w-sm mx-auto space-y-2 text-center">
+                          <div className="w-10 h-10 mx-auto rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center font-bold">
+                            <CheckCheck className="w-5 h-5" />
+                          </div>
+                          <h4 className="text-sm font-black text-slate-900">Recent Orders is Clean!</h4>
+                          <p className="text-[11px] text-slate-500 font-medium">
+                            No active orders in current list. All previous orders have moved into Order History.
+                          </p>
+                          {counts.history > 0 && (
+                            <button
+                              type="button"
+                              onClick={() => setActiveTab('history')}
+                              className="text-xs text-emerald-700 font-bold hover:underline inline-flex items-center gap-1 cursor-pointer pt-1"
+                            >
+                              <History className="w-3.5 h-3.5" />
+                              <span>View Past Order History ({counts.history})</span>
+                            </button>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="max-w-sm mx-auto space-y-1.5 text-center text-slate-500">
+                          <Archive className="w-8 h-8 mx-auto text-slate-300" />
+                          <h4 className="text-xs font-bold text-slate-700">No Archived Orders Found</h4>
+                          <p className="text-[11px]">No order records match the selected date or search filter.</p>
+                        </div>
+                      )}
                     </td>
                   </tr>
                 ) : (
@@ -350,7 +572,14 @@ export default function OrdersPage() {
                         }`}
                       >
                         <td className="px-4 py-3">
-                          <div className="font-extrabold text-slate-900">{o.receipt_number}</div>
+                          <div className="flex items-center gap-1.5">
+                            <span className="font-extrabold text-slate-900">{o.receipt_number}</span>
+                            {o.daily_closed && (
+                              <span className="text-[9px] px-1 py-0.2 bg-slate-100 text-slate-600 rounded font-semibold border border-slate-200">
+                                Archived
+                              </span>
+                            )}
+                          </div>
                           <div className="text-[10px] text-slate-500 font-medium">
                             {new Date(o.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                           </div>
@@ -852,6 +1081,73 @@ export default function OrdersPage() {
                 className="flex-1 py-2 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 active:bg-rose-800 rounded-xl shadow"
               >
                 Execute Refund & Deduct Cash
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* DAILY CLOSING CONFIRMATION MODAL */}
+      {showDailyCloseModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-md shadow-2xl p-5 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div className="flex items-center gap-2 text-slate-900 font-black text-sm">
+                <Moon className="w-5 h-5 text-emerald-600" />
+                <span>Execute Daily Closing (روزانہ کلوزنگ)</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowDailyCloseModal(false)}
+                className="text-slate-400 hover:text-slate-600 cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-3 text-xs text-slate-600">
+              <p>
+                Closing the day will move all <strong>{orders.length} active order(s)</strong> into the <strong>Order History</strong> archive.
+              </p>
+              <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1.5 text-emerald-950 font-medium">
+                <div className="flex justify-between">
+                  <span>Active Orders to Archive:</span>
+                  <span className="font-extrabold">{orders.length}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Total Sales Amount:</span>
+                  <span className="font-extrabold text-emerald-800">
+                    {formatMoney(orders.reduce((sum, o) => sum + Number(o.grand_total || 0), 0))}
+                  </span>
+                </div>
+              </div>
+              <p className="text-slate-500 text-[11px] leading-relaxed">
+                The <strong>Recent Orders</strong> list will start completely clean for tomorrow&apos;s new shift. You can review, search, and reprint these bills anytime in the <strong>Order History</strong> tab.
+              </p>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={() => setShowDailyCloseModal(false)}
+                className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleExecuteDailyClose}
+                disabled={dailyClosingInProgress}
+                className="px-4 py-2 rounded-xl text-xs font-black bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white transition shadow flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+              >
+                {dailyClosingInProgress ? (
+                  <span>Closing...</span>
+                ) : (
+                  <>
+                    <CheckCheck className="w-4 h-4" />
+                    <span>Confirm Daily Closing</span>
+                  </>
+                )}
               </button>
             </div>
           </div>
