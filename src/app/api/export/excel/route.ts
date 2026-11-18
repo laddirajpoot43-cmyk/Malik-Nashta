@@ -17,7 +17,7 @@ export async function GET(req: Request) {
     const settings = store.pos_settings?.[0] || {
       business_name: 'MALIK TASTY NASHTA POINT',
       address: 'Vehari Road, Hasilpur, Punjab, Pakistan',
-      phone: '0300-1234567',
+      phone: '0306-8068058',
     };
 
     // Filter data for target date (or all if specified / fallback when empty for demo reporting)

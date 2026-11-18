@@ -85,7 +85,7 @@ export const ThermalReceipt: React.FC<ThermalReceiptProps> = ({ order, customTem
         <p className="text-[10px] font-medium leading-tight">
           {tpl.address || settings.address || 'Vehari Road, Hasilpur, Punjab'}
         </p>
-        <p className="text-[10px]">Phone: {tpl.phone || settings.phone || '0300-1234567'}</p>
+        <p className="text-[10px]">Phone: {tpl.phone || settings.phone || '0306-8068058'}</p>
         {tpl.ntn_strn && <p className="text-[9px] text-gray-800 font-semibold">{tpl.ntn_strn}</p>}
         {tpl.tagline && <p className="italic text-[9px] mt-0.5">{tpl.tagline}</p>}
         {tpl.header_message && (

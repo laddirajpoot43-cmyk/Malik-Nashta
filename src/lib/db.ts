@@ -50,8 +50,8 @@ function getDefaultData(): SchemaStore {
       {
         id: '11111111-1111-1111-1111-111111111101',
         email: 'admin@maliknashta.pk',
-        full_name: 'Malik Ammar',
-        display_name: 'Malik Ammar (Admin)',
+        full_name: 'Malik Mavia Sultan',
+        display_name: 'Malik Mavia Sultan',
         role: 'admin',
         status: 'active',
         pin_code: '1234',
@@ -60,8 +60,8 @@ function getDefaultData(): SchemaStore {
       {
         id: '11111111-1111-1111-1111-111111111102',
         email: 'cashier@maliknashta.pk',
-        full_name: 'Muhammad Bilal',
-        display_name: 'Bilal Cashier',
+        full_name: 'Malik Mavia Sultan',
+        display_name: 'Malik Mavia Sultan',
         role: 'cashier',
         status: 'active',
         pin_code: '0000',
@@ -73,7 +73,7 @@ function getDefaultData(): SchemaStore {
         id: '33333333-3333-3333-3333-333333333301',
         business_name: 'MALIK TASTY NASHTA POINT',
         address: 'Vehari Road, Hasilpur, Punjab, Pakistan',
-        phone: '0300-1234567',
+        phone: '0306-8068058',
         greeting_message: 'Fresh & Crispy Nashta Everyday',
         admin_pin: '1234',
         cash_rounding_enabled: true,
@@ -120,7 +120,7 @@ function getDefaultData(): SchemaStore {
     audit_logs: [
       {
         id: 'log-001',
-        user_name: 'Malik Ammar',
+        user_name: 'Malik Mavia Sultan',
         action: 'SYSTEM_INIT',
         entity_type: 'system',
         entity_id: 'sys',

@@ -37,7 +37,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
     footer_credit_phone: '03260603565',
     show_cashier_name: true,
     show_admin_name: false,
-    admin_name: currentAdmin?.display_name || currentAdmin?.full_name || 'Malik Ammar',
+    admin_name: currentAdmin?.display_name || currentAdmin?.full_name || 'Malik Mavia Sultan',
     show_customer_info: true,
     show_order_number: true,
     show_kitchen_notes: false,
@@ -48,7 +48,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
 
   const [businessName, setBusinessName] = useState(settings.business_name || 'MALIK TASTY NASHTA POINT');
   const [address, setAddress] = useState(settings.address || 'Vehari Road, Hasilpur, Punjab, Pakistan');
-  const [phone, setPhone] = useState(settings.phone || '0300-1234567');
+  const [phone, setPhone] = useState(settings.phone || '0306-8068058');
 
   const [template, setTemplate] = useState<ReceiptTemplateConfig>({
     ...defaultTemplate,
@@ -66,8 +66,8 @@ export const ReceiptTemplateEditor: React.FC = () => {
       receipt_number: 'REC-20261110-0108',
       customer_name: 'Chaudhry Tariq',
       customer_phone: '0302-7654321',
-      cashier_name_snapshot: currentCashier?.display_name || currentCashier?.full_name || 'Bilal Cashier',
-      admin_name_snapshot: currentAdmin?.display_name || currentAdmin?.full_name || 'Malik Ammar',
+      cashier_name_snapshot: currentCashier?.display_name || currentCashier?.full_name || 'Malik Mavia Sultan',
+      admin_name_snapshot: currentAdmin?.display_name || currentAdmin?.full_name || 'Malik Mavia Sultan',
       subtotal: 380.0,
       discount_type: 'none',
       discount_value: 0,
@@ -121,7 +121,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
     setTemplate(defaultTemplate);
     setBusinessName('MALIK TASTY NASHTA POINT');
     setAddress('Vehari Road, Hasilpur, Punjab, Pakistan');
-    setPhone('0300-1234567');
+    setPhone('0306-8068058');
   };
 
   const handleSave = async () => {

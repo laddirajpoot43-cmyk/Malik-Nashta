@@ -222,7 +222,7 @@ export async function POST(req: Request) {
       const adminProfile = (store.profiles || []).find((p: any) => p.role === 'admin');
       const resolvedAdminName = adminProfile
         ? (adminProfile.full_name || adminProfile.display_name)
-        : 'Malik Ammar';
+        : 'Malik Mavia Sultan';
 
       const newOrder = {
         id: orderId,

@@ -11,7 +11,7 @@ export async function GET() {
       id: '33333333-3333-3333-3333-333333333301',
       business_name: 'MALIK TASTY NASHTA POINT',
       address: 'Vehari Road, Hasilpur, Punjab, Pakistan',
-      phone: '0300-1234567',
+      phone: '0306-8068058',
       greeting_message: 'Fresh & Crispy Nashta Everyday',
       admin_pin: '1234',
       cash_rounding_enabled: true,
