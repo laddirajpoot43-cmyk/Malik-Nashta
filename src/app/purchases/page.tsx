@@ -20,10 +20,7 @@ import {
 
 export default function PurchasesPage() {
   return (
-    <AdminGuard
-      fallbackTitle="Maal Kharidari & Mandi Invoices Protected"
-      fallbackDescription="Please enter Admin PIN to record Mandi purchases, manage vendor payments, and deduct drawer cash."
-    >
+    <AdminGuard fallbackTitle="Maal Kharidari Protected">
       <PurchasesContent />
     </AdminGuard>
   );
@@ -213,9 +210,6 @@ function PurchasesContent() {
           </div>
           <div>
             <h1 className="text-lg font-black text-slate-900">Maal Kharidari (Raw Material Purchases)</h1>
-            <p className="text-xs text-slate-600 font-medium">
-              Record mandi deliveries, inventory ingredients, supplier credit (Udhaar), and register cash deductions
-            </p>
           </div>
         </div>
 

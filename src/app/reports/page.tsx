@@ -17,10 +17,7 @@ import {
 
 export default function ReportsPage() {
   return (
-    <AdminGuard
-      fallbackTitle="Business Analytics & Financial Reports Protected"
-      fallbackDescription="Please enter Admin PIN to view revenue reports, sales velocity, and financial metrics."
-    >
+    <AdminGuard fallbackTitle="Business Analytics & Financial Reports Protected">
       <ReportsContent />
     </AdminGuard>
   );
@@ -66,9 +63,6 @@ function ReportsContent() {
           </div>
           <div>
             <h1 className="text-lg font-black text-slate-900">Sales & Operational Analytics</h1>
-            <p className="text-xs text-slate-600 font-medium">
-              Payment channels, category revenue, peak breakfast rush hours, and itemized menu rankings
-            </p>
           </div>
         </div>
 
@@ -126,7 +120,6 @@ function ReportsContent() {
           <div className="text-2xl font-black text-rose-600 mt-1">
             {summary.voided_orders}
           </div>
-          <p className="text-[10px] text-slate-500 mt-1 font-medium">Logged in audit trail with supervisor PIN</p>
         </div>
 
         <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">

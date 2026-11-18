@@ -111,7 +111,7 @@ export const NavigationHeader: React.FC = () => {
                 </span>
               </div>
               <p className="text-[10px] text-slate-400">
-                Vehari Road, Hasilpur • Morning Rush Edition (5:30 AM - 12:30 PM)
+                {settings.address || 'Vehari Road, Hasilpur'}
               </p>
             </div>
           </div>

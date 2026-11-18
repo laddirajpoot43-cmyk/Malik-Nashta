@@ -224,9 +224,6 @@ export const AdminCharts: React.FC = () => {
             <h2 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider">
               Business Performance & Sales Analytics
             </h2>
-            <p className="text-xs text-slate-500 font-medium">
-              Live database analytics, volume throughput, and payment channel reconciliation
-            </p>
           </div>
         </div>
 
@@ -274,12 +271,6 @@ export const AdminCharts: React.FC = () => {
                     1. Sales Overview & Revenue Trends
                   </h3>
                 </div>
-                <p className="text-xs text-slate-500 font-medium mt-0.5">
-                  Periodic revenue trajectory across{' '}
-                  <strong className="text-slate-700 font-bold capitalize">
-                    {range === 'all_time' ? 'all registered dates' : range.replace('_', ' ')}
-                  </strong>
-                </p>
               </div>
 
               {/* Metric Toggle */}
@@ -473,7 +464,7 @@ export const AdminCharts: React.FC = () => {
           </div>
 
           <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
-            <span>Hover cursor on any point to view exact time & transaction volume</span>
+            <span>Periodic Trend</span>
             <span className="text-emerald-700 font-bold">● Active Store Sync</span>
           </div>
         </div>
@@ -568,9 +559,6 @@ export const AdminCharts: React.FC = () => {
                   style={{ width: `${Math.min(100, Math.max(0, performance.completion_rate))}%` }}
                 />
               </div>
-              <p className="text-[10px] text-slate-500">
-                Calculated strictly from authoritative database sales and orders table.
-              </p>
             </div>
           </div>
 
@@ -698,8 +686,8 @@ export const AdminCharts: React.FC = () => {
           </div>
 
           <div className="pt-3 border-t border-slate-100 text-[11px] text-slate-500 flex justify-between font-medium">
-            <span>Payment Breakdown Channel Split</span>
-            <span className="font-bold text-emerald-700">Cash vs Online Wallets</span>
+            <span>Tender Mix</span>
+            <span className="font-bold text-emerald-700">Cash & Digital</span>
           </div>
         </div>
 

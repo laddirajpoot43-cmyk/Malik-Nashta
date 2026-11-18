@@ -14,7 +14,7 @@ interface AdminGuardProps {
 export const AdminGuard: React.FC<AdminGuardProps> = ({
   children,
   fallbackTitle = 'Admin Access Locked',
-  fallbackDescription = 'This management section requires Master Admin PIN code.',
+  fallbackDescription = '',
 }) => {
   const { isAdminMode, enterAdminMode } = useAuth();
   const [pin, setPin] = useState('');
@@ -53,7 +53,7 @@ export const AdminGuard: React.FC<AdminGuardProps> = ({
 
         <div className="space-y-1.5">
           <h2 className="text-xl font-extrabold text-slate-900">{fallbackTitle}</h2>
-          <p className="text-xs text-slate-600 font-medium">{fallbackDescription}</p>
+          {fallbackDescription && <p className="text-xs text-slate-600 font-medium">{fallbackDescription}</p>}
         </div>
 
         {errorMsg && (

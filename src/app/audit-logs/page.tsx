@@ -16,10 +16,7 @@ import {
 
 export default function AuditLogsPage() {
   return (
-    <AdminGuard
-      fallbackTitle="System Audit Logs Protected"
-      fallbackDescription="Please enter Admin PIN to inspect immutable security and transaction audit trails."
-    >
+    <AdminGuard fallbackTitle="System Audit Logs Protected">
       <AuditLogsContent />
     </AdminGuard>
   );
@@ -64,9 +61,6 @@ function AuditLogsContent() {
           </div>
           <div>
             <h1 className="text-lg font-black text-slate-900">Immutable Security & Operation Audit Trail</h1>
-            <p className="text-xs text-slate-500">
-              Permanent immutable log of all sales, order voids, itemized refunds, register drawer shifts, and settings modifications
-            </p>
           </div>
         </div>
 

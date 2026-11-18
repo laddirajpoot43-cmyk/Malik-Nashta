@@ -23,10 +23,7 @@ import {
 
 export default function VendorsPage() {
   return (
-    <AdminGuard
-      fallbackTitle="Vendor Khata Ledgers Protected"
-      fallbackDescription="Please enter Admin PIN to view Mandi vendor accounts, payables, and transaction ledgers."
-    >
+    <AdminGuard fallbackTitle="Vendor Khata Ledgers Protected">
       <VendorsContent />
     </AdminGuard>
   );
@@ -161,9 +158,6 @@ function VendorsContent() {
           </div>
           <div>
             <h1 className="text-lg font-black text-slate-900">Mandi Suppliers & Udhaar Khata Ledgers</h1>
-            <p className="text-xs text-slate-600 font-medium">
-              Manage flour mills, oil traders, dairy farms, credit balances, and running payment ledgers
-            </p>
           </div>
         </div>
 
@@ -195,7 +189,6 @@ function VendorsContent() {
           <div className="text-2xl font-black text-rose-600 mt-1">
             {formatMoney(totalPayables)}
           </div>
-          <p className="text-[10px] text-slate-500 mt-1 font-medium">Payable to Mandi suppliers & vendors</p>
         </div>
 
         <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
@@ -203,7 +196,6 @@ function VendorsContent() {
           <div className="text-2xl font-black text-slate-900 mt-1">
             {vendors.length} Vendors
           </div>
-          <p className="text-[10px] text-slate-500 mt-1 font-medium">Atta Chakkis, Oil & Ghee, Doodh, Groceries</p>
         </div>
 
         <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
@@ -211,7 +203,6 @@ function VendorsContent() {
           <div className="text-2xl font-black text-emerald-700 mt-1">
             VPAY System
           </div>
-          <p className="text-[10px] text-slate-500 mt-1 font-medium">Linked with counter cash drawer deduction</p>
         </div>
       </div>
 

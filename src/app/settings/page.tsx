@@ -30,10 +30,7 @@ import {
 
 export default function SettingsPage() {
   return (
-    <AdminGuard
-      fallbackTitle="System Settings & Admin Control Center"
-      fallbackDescription="Please enter Admin PIN to configure receipt templates, products, categories, raw materials, and staff accounts."
-    >
+    <AdminGuard fallbackTitle="System Settings Locked">
       <React.Suspense fallback={<div className="p-6 text-slate-500 text-xs">Loading settings...</div>}>
         <SettingsContent />
       </React.Suspense>
@@ -418,14 +415,8 @@ function SettingsContent() {
           </div>
           <div>
             <h1 className="text-lg font-black text-slate-900 flex items-center gap-2">
-              System Settings & Admin Control Center
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold">
-                Admin Full Access
-              </span>
+              System Settings
             </h1>
-            <p className="text-xs text-slate-600 font-medium">
-              Complete administrative authority: customize thermal receipt slips, manage menu items, categories, raw materials, staff profiles, and security PINs
-            </p>
           </div>
         </div>
 

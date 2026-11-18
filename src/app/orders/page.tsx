@@ -265,9 +265,6 @@ export default function OrdersPage() {
           </div>
           <div>
             <h1 className="text-lg font-black text-slate-900">Order History & Thermal Bills</h1>
-            <p className="text-xs text-slate-600 font-medium">
-              Audit customer receipts, edit slip details, reprint single-page thermal bills, issue refunds, or void orders
-            </p>
           </div>
         </div>
 
@@ -582,10 +579,6 @@ export default function OrdersPage() {
                 <X className="w-4 h-4" />
               </button>
             </div>
-
-            <p className="text-xs text-slate-600 font-medium">
-              You can edit customer details, add a special announcement/note, or adjust paper sizing before printing.
-            </p>
 
             <div className="space-y-3">
               <div className="grid grid-cols-2 gap-3">

@@ -69,9 +69,6 @@ export default function RegisterPage() {
           </div>
           <div>
             <h1 className="text-lg font-black text-slate-900">Cash Register & Shift Handover</h1>
-            <p className="text-xs text-slate-600 font-medium">
-              Shift reconciliation, float auditing, petty cash expenses, and drawer discrepancy tracking
-            </p>
           </div>
         </div>
 

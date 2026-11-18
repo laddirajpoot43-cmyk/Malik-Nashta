@@ -28,10 +28,7 @@ import {
 
 export default function DailySummaryPage() {
   return (
-    <AdminGuard
-      fallbackTitle="Daily Hisaab Kitab & Closing Protected"
-      fallbackDescription="Please enter Admin PIN to view daily profit & loss reconciliation, close the business day, or download Excel audit sheets."
-    >
+    <AdminGuard fallbackTitle="Daily Hisaab Kitab & Closing Protected">
       <DailySummaryContent />
     </AdminGuard>
   );
@@ -145,9 +142,6 @@ function DailySummaryContent() {
                 Excel Ready
               </span>
             </h1>
-            <p className="text-xs text-slate-600 font-medium">
-              Single-pane owner dashboard: Net Sales, Raw Material Purchases, Expected Cash, and Daily Closing with native Excel spreadsheet export
-            </p>
           </div>
         </div>
 

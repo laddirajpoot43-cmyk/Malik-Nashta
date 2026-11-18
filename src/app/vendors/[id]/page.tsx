@@ -22,10 +22,7 @@ import {
 
 export default function VendorDetailPage({ params }: { params: Promise<{ id: string }> }) {
   return (
-    <AdminGuard
-      fallbackTitle="Supplier Khata Statement Protected"
-      fallbackDescription="Please enter Admin PIN to view or record payments in this Mandi Khata statement."
-    >
+    <AdminGuard fallbackTitle="Supplier Khata Statement Protected">
       <VendorDetailContent params={params} />
     </AdminGuard>
   );
@@ -168,27 +165,24 @@ function VendorDetailContent({ params }: { params: Promise<{ id: string }> }) {
       {/* Financial Summary Card */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
-          <span className="text-xs text-slate-500">Live Payable Balance (موجودہ ادھار):</span>
+          <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">Live Payable Balance (موجودہ ادھار)</span>
           <div className="text-3xl font-black text-rose-600 mt-1">
             {formatMoney(vendor?.current_balance || vendorData?.running_balance || 0)}
           </div>
-          <p className="text-[10px] text-slate-400 mt-1">Net amount owed to {vendor?.name}</p>
         </div>
 
         <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
-          <span className="text-xs text-slate-500">Opening Balance on Onboarding:</span>
+          <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">Opening Balance on Onboarding</span>
           <div className="text-2xl font-black text-slate-800 mt-1">
             {formatMoney(vendor?.opening_balance || 0)}
           </div>
-          <p className="text-[10px] text-slate-400 mt-1">Initial debt when supplier was registered</p>
         </div>
 
         <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
-          <span className="text-xs text-slate-500">Total Khata Transactions:</span>
+          <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">Total Khata Transactions</span>
           <div className="text-2xl font-black text-emerald-600 mt-1">
             {statement.length} Entries
           </div>
-          <p className="text-[10px] text-slate-400 mt-1">Purchase bills + settlement vouchers</p>
         </div>
       </div>
 

@@ -14,8 +14,8 @@ interface AdminPinModalProps {
 
 export const AdminPinModal: React.FC<AdminPinModalProps> = ({
   isOpen,
-  title = 'Supervisor Authentication Required',
-  description = 'Please enter Master Admin / Supervisor PIN (default: 1234) to unlock management panel.',
+  title = 'Admin Authentication',
+  description = 'Please enter Admin PIN to continue.',
   onSuccess,
   onCancel,
 }) => {

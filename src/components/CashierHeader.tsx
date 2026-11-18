@@ -82,8 +82,8 @@ export const CashierHeader: React.FC = () => {
                   POS Counter
                 </span>
               </div>
-              <p className="text-[11px] text-slate-600 font-medium">
-                Vehari Road, Hasilpur • Morning Rush Edition (5:30 AM - 12:30 PM)
+              <p className="text-[11px] text-slate-500 font-medium">
+                {settings.address || 'Vehari Road, Hasilpur'}
               </p>
             </div>
           </div>
@@ -148,7 +148,7 @@ export const CashierHeader: React.FC = () => {
               type="button"
               onClick={handleAdminClick}
               className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-extrabold text-xs shadow transition cursor-pointer"
-              title={isAdminMode ? 'Open Admin Control Center' : 'Unlock Admin Panel with PIN'}
+              title={isAdminMode ? 'Open Admin Dashboard' : 'Unlock Admin Panel with PIN'}
             >
               {isAdminMode ? (
                 <>

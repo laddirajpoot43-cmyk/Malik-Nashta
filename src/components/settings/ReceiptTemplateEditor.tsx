@@ -173,9 +173,6 @@ export const ReceiptTemplateEditor: React.FC = () => {
                 Live Preview
               </span>
             </h2>
-            <p className="text-xs text-slate-600">
-              Customize shop branding, Urdu & English greetings, paper roll width (80mm / 58mm), font sizing, and visible print sections.
-            </p>
           </div>
         </div>
 
