@@ -1,18 +1,18 @@
-import { NextResponse } from 'next/server';
 import { localStore, withTransaction, logAuditEvent, generateUUID } from '@/lib/db';
 import { addMoney, subtractMoney } from '@/lib/money';
+import { jsonResponse } from '@/lib/api-response';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const store = localStore.get();
+    const store = await localStore.ensureFresh();
     const activeRegister = (store.register_sessions || []).find((s: any) => s.status === 'open') || null;
 
     if (!activeRegister) {
       // Find latest closed register session if any
       const lastSession = store.register_sessions?.[0] || null;
-      return NextResponse.json({
+      return jsonResponse({
         success: true,
         activeRegister: null,
         lastSession,
@@ -74,7 +74,7 @@ export async function GET() {
       }
     }
 
-    return NextResponse.json({
+    return jsonResponse({
       success: true,
       hasOpenShift: true,
       activeRegister,
@@ -93,7 +93,7 @@ export async function GET() {
     });
   } catch (error: any) {
     console.error('Register GET error:', error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }
 
@@ -108,7 +108,7 @@ export async function POST(req: Request) {
       // Check if already open
       const existingOpen = (store.register_sessions || []).find((s: any) => s.status === 'open');
       if (existingOpen) {
-        return NextResponse.json(
+        return jsonResponse(
           { success: false, error: 'A cash register shift is already currently open.' },
           { status: 400 }
         );
@@ -157,13 +157,13 @@ export async function POST(req: Request) {
       });
 
       localStore.save();
-      return NextResponse.json({ success: true, session: newSession, transaction: openingTx });
+      return jsonResponse({ success: true, session: newSession, transaction: openingTx });
     }
 
     // For other actions, register must be open
     const activeRegister = (store.register_sessions || []).find((s: any) => s.status === 'open');
     if (!activeRegister) {
-      return NextResponse.json(
+      return jsonResponse(
         { success: false, error: 'No active cash register shift is currently open.' },
         { status: 400 }
       );
@@ -172,7 +172,7 @@ export async function POST(req: Request) {
     if (action === 'cash_in') {
       const inAmt = Number(amount);
       if (!inAmt || inAmt <= 0) {
-        return NextResponse.json({ success: false, error: 'Valid positive amount is required for Cash In.' }, { status: 400 });
+        return jsonResponse({ success: false, error: 'Valid positive amount is required for Cash In.' }, { status: 400 });
       }
 
       const tx = {
@@ -200,13 +200,13 @@ export async function POST(req: Request) {
       });
 
       localStore.save();
-      return NextResponse.json({ success: true, transaction: tx });
+      return jsonResponse({ success: true, transaction: tx });
     }
 
     if (action === 'cash_out') {
       const outAmt = Number(amount);
       if (!outAmt || outAmt <= 0) {
-        return NextResponse.json({ success: false, error: 'Valid positive amount is required for Cash Out.' }, { status: 400 });
+        return jsonResponse({ success: false, error: 'Valid positive amount is required for Cash Out.' }, { status: 400 });
       }
 
       const tx = {
@@ -234,13 +234,13 @@ export async function POST(req: Request) {
       });
 
       localStore.save();
-      return NextResponse.json({ success: true, transaction: tx });
+      return jsonResponse({ success: true, transaction: tx });
     }
 
     if (action === 'close') {
       const actualCounted = Number(actual_amount);
       if (isNaN(actualCounted) || actualCounted < 0) {
-        return NextResponse.json({ success: false, error: 'Physically counted cash amount is required.' }, { status: 400 });
+        return jsonResponse({ success: false, error: 'Physically counted cash amount is required.' }, { status: 400 });
       }
 
       // Calculate expected cash
@@ -293,7 +293,7 @@ export async function POST(req: Request) {
       });
 
       localStore.save();
-      return NextResponse.json({
+      return jsonResponse({
         success: true,
         session: activeRegister,
         summary: {
@@ -305,10 +305,10 @@ export async function POST(req: Request) {
       });
     }
 
-    return NextResponse.json({ success: false, error: 'Unknown action specified' }, { status: 400 });
+    return jsonResponse({ success: false, error: 'Unknown action specified' }, { status: 400 });
   } catch (error: any) {
     console.error('Register POST error:', error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }
 

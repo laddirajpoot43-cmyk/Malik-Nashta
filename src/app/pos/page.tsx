@@ -27,6 +27,8 @@ import {
   Check,
   AlertCircle,
   X,
+  DollarSign,
+  ChevronDown,
 } from 'lucide-react';
 
 export default function POSPage() {
@@ -57,6 +59,7 @@ export default function POSPage() {
     holdCurrentOrder,
     activeRegister,
     setOpenRegisterModal,
+    openRegisterWithTab,
     loading,
   } = usePOS();
 
@@ -85,6 +88,18 @@ export default function POSPage() {
 
   const searchInputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [drawerDropdownOpen, setDrawerDropdownOpen] = useState(false);
+  const drawerDropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (drawerDropdownRef.current && !drawerDropdownRef.current.contains(event.target as Node)) {
+        setDrawerDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Auto-focus search input on page mount
   useEffect(() => {
@@ -736,6 +751,123 @@ export default function POSPage() {
 
       {/* RIGHT PANE: Cart / Current Bill, Pricing Display & Fast Checkout (40% width) */}
       <div className="w-full lg:w-[460px] xl:w-[480px] flex flex-col min-h-0 bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm p-3">
+        {/* Drawer Status & Shift Control Bar */}
+        <div className="mb-2 p-2 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between shrink-0 shadow-sm">
+          <div className="flex items-center gap-2 min-w-0">
+            <div
+              className={`p-1.5 rounded-lg border shrink-0 ${
+                activeRegister ? 'bg-emerald-100 text-emerald-700 border-emerald-300' : 'bg-rose-100 text-rose-700 border-rose-300'
+              }`}
+            >
+              <DollarSign className="w-3.5 h-3.5" />
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5">
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Drawer:</span>
+                <span
+                  className={`text-[9.5px] font-black px-2 py-0.5 rounded-full flex items-center gap-1 leading-none ${
+                    activeRegister ? 'bg-emerald-600 text-white' : 'bg-rose-600 text-white'
+                  }`}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-full ${activeRegister ? 'bg-white animate-pulse' : 'bg-white'}`} />
+                  <span>{activeRegister ? 'OPEN' : 'CLOSED'}</span>
+                </span>
+                {activeRegister && (
+                  <span className="text-[10px] text-emerald-800 font-extrabold truncate">
+                    Float: {formatMoney(activeRegister.opening_amount)}
+                  </span>
+                )}
+              </div>
+              <div className="text-[9.5px] text-slate-500 font-medium truncate mt-0.5">
+                {activeRegister ? `Cashier: ${activeRegister.user_name_snapshot}` : 'Shift closed • Select update status'}
+              </div>
+            </div>
+          </div>
+
+          {/* Status Update Options (Dropdown with Open and Close) */}
+          <div className="relative shrink-0" ref={drawerDropdownRef}>
+            <button
+              type="button"
+              onClick={() => setDrawerDropdownOpen(!drawerDropdownOpen)}
+              className="px-2.5 py-1 bg-white border border-slate-300 hover:border-emerald-500 text-slate-800 rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
+              title="Update Drawer Status (Open / Close)"
+            >
+              <span>Update Status</span>
+              <ChevronDown className={`w-3.5 h-3.5 text-slate-500 transition-transform ${drawerDropdownOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {drawerDropdownOpen && (
+              <div className="absolute right-0 top-full mt-1 w-52 bg-white border border-slate-200 rounded-xl shadow-2xl z-50 p-1.5 space-y-1 animate-in fade-in zoom-in-95">
+                <div className="px-2 py-1 text-[10px] font-extrabold text-slate-400 uppercase tracking-wider border-b border-slate-100">
+                  Select Status / حالت
+                </div>
+
+                {/* Option 1: OPEN */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDrawerDropdownOpen(false);
+                    openRegisterWithTab('open');
+                  }}
+                  className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center justify-between cursor-pointer ${
+                    activeRegister
+                      ? 'bg-emerald-50 text-emerald-900 border border-emerald-200'
+                      : 'text-slate-700 hover:bg-emerald-50 hover:text-emerald-800'
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                    <span>Option: OPEN (کھولیں)</span>
+                  </span>
+                  {activeRegister && (
+                    <span className="text-[9px] bg-emerald-600 text-white px-1.5 py-0.5 rounded font-black">
+                      Active
+                    </span>
+                  )}
+                </button>
+
+                {/* Option 2: CLOSE */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDrawerDropdownOpen(false);
+                    openRegisterWithTab('close');
+                  }}
+                  className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center justify-between cursor-pointer ${
+                    !activeRegister
+                      ? 'bg-rose-50 text-rose-900 border border-rose-200'
+                      : 'text-slate-700 hover:bg-rose-50 hover:text-rose-800'
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-rose-500" />
+                    <span>Option: CLOSE (بند کریں)</span>
+                  </span>
+                  {!activeRegister && (
+                    <span className="text-[9px] bg-rose-600 text-white px-1.5 py-0.5 rounded font-black">
+                      Active
+                    </span>
+                  )}
+                </button>
+
+                <div className="border-t border-slate-100 my-1 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setDrawerDropdownOpen(false);
+                      openRegisterWithTab('status');
+                    }}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg text-[11px] text-slate-600 hover:bg-slate-100 font-semibold transition flex items-center gap-1.5"
+                  >
+                    <Info className="w-3.5 h-3.5 text-slate-500" />
+                    <span>Drawer Details & Cash In/Out</span>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* Cart Header */}
         <div className="flex items-center justify-between pb-2 border-b border-slate-200 mb-2 shrink-0">
           <div className="flex items-center gap-2">

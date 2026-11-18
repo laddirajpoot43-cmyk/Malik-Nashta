@@ -24,13 +24,25 @@ import {
 
 export const CashierHeader: React.FC = () => {
   const router = useRouter();
-  const { activeRegister, heldOrdersCount, setOpenRegisterModal, setOpenHeldOrdersModal } = usePOS();
+  const { activeRegister, heldOrdersCount, setOpenRegisterModal, openRegisterWithTab, setOpenHeldOrdersModal } = usePOS();
   const { currentUser, users, switchUser, loginWithPin, isAdminMode, enterAdminMode } = useAuth();
   const { settings } = useSettings();
 
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [showPinSwitchModal, setShowPinSwitchModal] = useState(false);
   const [showAdminPinModal, setShowAdminPinModal] = useState(false);
+  const [drawerHeaderMenuOpen, setDrawerHeaderMenuOpen] = useState(false);
+  const drawerHeaderMenuRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (drawerHeaderMenuRef.current && !drawerHeaderMenuRef.current.contains(event.target as Node)) {
+        setDrawerHeaderMenuOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState('');
@@ -90,33 +102,87 @@ export const CashierHeader: React.FC = () => {
 
           {/* Center Badges: Drawer Shift & Held Carts */}
           <div className="flex items-center gap-2.5">
-            {/* Cash Drawer Status Pill */}
-            {activeRegister ? (
+            {/* Cash Drawer Status Pill & Dropdown */}
+            <div className="relative" ref={drawerHeaderMenuRef}>
               <button
                 type="button"
-                onClick={() => setOpenRegisterModal(true)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 transition group cursor-pointer"
-                title="Click to view Cash Drawer details"
+                onClick={() => setDrawerHeaderMenuOpen(!drawerHeaderMenuOpen)}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border transition cursor-pointer shadow-sm ${
+                  activeRegister
+                    ? 'bg-emerald-50 border-emerald-300 hover:bg-emerald-100 text-emerald-900'
+                    : 'bg-rose-50 border-rose-300 hover:bg-rose-100 text-rose-900'
+                }`}
+                title="Click to update Drawer Status (Open / Close)"
               >
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className={`w-2.5 h-2.5 rounded-full ${activeRegister ? 'bg-emerald-500 animate-pulse' : 'bg-rose-600'}`} />
                 <div className="text-left">
-                  <div className="text-[11px] font-bold text-emerald-800 leading-none">Drawer OPEN</div>
-                  <div className="text-[10px] text-emerald-600 font-semibold mt-0.5">
-                    Float: {formatMoney(activeRegister.opening_amount)}
+                  <div className="text-[11px] font-black leading-none flex items-center gap-1.5">
+                    <span>DRAWER {activeRegister ? 'OPEN' : 'CLOSED'}</span>
+                    <ChevronDown className={`w-3 h-3 text-slate-500 transition-transform ${drawerHeaderMenuOpen ? 'rotate-180' : ''}`} />
+                  </div>
+                  <div className="text-[10px] font-semibold mt-0.5 text-slate-600">
+                    {activeRegister ? `Float: ${formatMoney(activeRegister.opening_amount)}` : 'Update Status ▾'}
                   </div>
                 </div>
               </button>
-            ) : (
-              <button
-                type="button"
-                onClick={() => setOpenRegisterModal(true)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-rose-50 border border-rose-300 hover:bg-rose-100 transition cursor-pointer"
-                title="Click to open Cash Register Shift"
-              >
-                <span className="w-2.5 h-2.5 rounded-full bg-rose-600" />
-                <span className="text-xs font-black text-rose-700">DRAWER CLOSED (Click to Open)</span>
-              </button>
-            )}
+
+              {drawerHeaderMenuOpen && (
+                <div className="absolute left-0 top-full mt-1.5 w-56 bg-white border border-slate-200 rounded-xl shadow-2xl z-50 p-1.5 space-y-1 animate-in fade-in zoom-in-95">
+                  <div className="px-2.5 py-1 text-[10px] font-extrabold text-slate-400 uppercase tracking-wider border-b border-slate-100">
+                    Drawer Status / حالت
+                  </div>
+
+                  {/* Option: OPEN */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setDrawerHeaderMenuOpen(false);
+                      openRegisterWithTab('open');
+                    }}
+                    className={`w-full text-left px-2.5 py-2 rounded-lg text-xs font-bold transition flex items-center justify-between cursor-pointer ${
+                      activeRegister ? 'bg-emerald-50 text-emerald-900 border border-emerald-200' : 'text-slate-700 hover:bg-emerald-50 hover:text-emerald-800'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                      <span>Option: OPEN (کھولیں)</span>
+                    </span>
+                    {activeRegister && <span className="text-[9px] bg-emerald-600 text-white px-1.5 py-0.5 rounded font-black">Active</span>}
+                  </button>
+
+                  {/* Option: CLOSE */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setDrawerHeaderMenuOpen(false);
+                      openRegisterWithTab('close');
+                    }}
+                    className={`w-full text-left px-2.5 py-2 rounded-lg text-xs font-bold transition flex items-center justify-between cursor-pointer ${
+                      !activeRegister ? 'bg-rose-50 text-rose-900 border border-rose-200' : 'text-slate-700 hover:bg-rose-50 hover:text-rose-800'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-rose-500" />
+                      <span>Option: CLOSE (بند کریں)</span>
+                    </span>
+                    {!activeRegister && <span className="text-[9px] bg-rose-600 text-white px-1.5 py-0.5 rounded font-black">Active</span>}
+                  </button>
+
+                  <div className="border-t border-slate-100 my-1 pt-1">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setDrawerHeaderMenuOpen(false);
+                        openRegisterWithTab('status');
+                      }}
+                      className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs text-slate-600 hover:bg-slate-100 font-semibold transition"
+                    >
+                      Drawer Summary & Petty Cash
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* Held Orders Badge */}
             {heldOrdersCount > 0 && (

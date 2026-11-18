@@ -57,6 +57,9 @@ interface POSContextType {
   refreshPOSData: () => Promise<void>;
   openRegisterModal: boolean;
   setOpenRegisterModal: (open: boolean) => void;
+  registerModalTab: 'status' | 'open' | 'close' | 'cash_in' | 'cash_out';
+  setRegisterModalTab: (tab: 'status' | 'open' | 'close' | 'cash_in' | 'cash_out') => void;
+  openRegisterWithTab: (tab: 'status' | 'open' | 'close' | 'cash_in' | 'cash_out') => void;
   openHeldOrdersModal: boolean;
   setOpenHeldOrdersModal: (open: boolean) => void;
   openDiscountModal: boolean;
@@ -93,9 +96,15 @@ export function POSProvider({ children }: { children: React.ReactNode }) {
 
   // Modals state
   const [openRegisterModal, setOpenRegisterModal] = useState<boolean>(false);
+  const [registerModalTab, setRegisterModalTab] = useState<'status' | 'open' | 'close' | 'cash_in' | 'cash_out'>('status');
   const [openHeldOrdersModal, setOpenHeldOrdersModal] = useState<boolean>(false);
   const [openDiscountModal, setOpenDiscountModal] = useState<boolean>(false);
   const [openPaymentModal, setOpenPaymentModal] = useState<boolean>(false);
+
+  const openRegisterWithTab = useCallback((tab: 'status' | 'open' | 'close' | 'cash_in' | 'cash_out') => {
+    setRegisterModalTab(tab);
+    setOpenRegisterModal(true);
+  }, []);
 
   const refreshPOSData = useCallback(async () => {
     try {
@@ -445,6 +454,9 @@ export function POSProvider({ children }: { children: React.ReactNode }) {
         refreshPOSData,
         openRegisterModal,
         setOpenRegisterModal,
+        registerModalTab,
+        setRegisterModalTab,
+        openRegisterWithTab,
         openHeldOrdersModal,
         setOpenHeldOrdersModal,
         openDiscountModal,
