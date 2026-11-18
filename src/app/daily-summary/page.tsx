@@ -128,17 +128,17 @@ function DailySummaryContent() {
   };
 
   return (
-    <div className="space-y-4 select-none">
+    <div className="space-y-3 select-none">
       {/* Page Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
-            <FileText className="w-6 h-6" />
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 bg-white border border-slate-200 p-3 rounded-2xl shadow-sm">
+        <div className="flex items-center gap-2.5">
+          <div className="p-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
+            <FileText className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-lg font-black text-slate-900 flex items-center gap-2">
+            <h1 className="text-base font-black text-slate-900 flex items-center gap-2">
               Roozana Hisaab Kitab & Daily Closing (روزانہ حساب و کلوزنگ)
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold">
+              <span className="text-[9.5px] px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold">
                 Excel Ready
               </span>
             </h1>
@@ -147,8 +147,8 @@ function DailySummaryContent() {
 
         <div className="flex flex-wrap items-center gap-2">
           {/* Date Selector */}
-          <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-300 px-3 py-1.5 rounded-xl text-xs text-slate-900 font-bold">
-            <Calendar className="w-4 h-4 text-emerald-600" />
+          <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-300 px-2.5 py-1 rounded-lg text-xs text-slate-900 font-bold">
+            <Calendar className="w-3.5 h-3.5 text-emerald-600" />
             <input
               type="date"
               value={selectedDate}
@@ -158,19 +158,19 @@ function DailySummaryContent() {
           </div>
 
           {/* Excel Export Buttons (Green) */}
-          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
+          <div className="flex items-center gap-1 bg-slate-100 p-0.5 rounded-lg border border-slate-200">
             <button
               onClick={() => handleDownloadExcel('all')}
-              className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg shadow transition flex items-center gap-1.5 cursor-pointer"
+              className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-md shadow transition flex items-center gap-1 cursor-pointer"
               title="Download full multi-sheet Excel with Summary, Sales, Purchases, and Shifts"
             >
-              <FileSpreadsheet className="w-4 h-4" />
+              <FileSpreadsheet className="w-3.5 h-3.5" />
               <span>Full Excel (.xlsx)</span>
             </button>
 
             <button
               onClick={() => handleDownloadExcel('sales')}
-              className="px-2.5 py-1.5 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs rounded-lg transition border border-slate-200 cursor-pointer"
+              className="px-2 py-1 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs rounded-md transition border border-slate-200 cursor-pointer"
               title="Download Sales Line Items Sheet"
             >
               Sales Sheet
@@ -178,7 +178,7 @@ function DailySummaryContent() {
 
             <button
               onClick={() => handleDownloadExcel('purchases')}
-              className="px-2.5 py-1.5 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs rounded-lg transition border border-slate-200 cursor-pointer"
+              className="px-2 py-1 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs rounded-md transition border border-slate-200 cursor-pointer"
               title="Download Mandi Maal Kharidari Sheet"
             >
               Purchases Sheet
@@ -191,31 +191,31 @@ function DailySummaryContent() {
               setActualDrawerCash(String(drawer.expected_cash || ''));
               setShowCloseDayModal(true);
             }}
-            className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-black text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
+            className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white font-black text-xs rounded-lg shadow transition flex items-center gap-1 cursor-pointer"
           >
-            <Lock className="w-4 h-4 text-white" />
-            <span>Daily Sale Close & Export</span>
+            <Lock className="w-3.5 h-3.5 text-white" />
+            <span>Daily Sale Close</span>
           </button>
 
           <button
             onClick={() => window.print()}
-            className="p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl border border-slate-200 transition cursor-pointer"
+            className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg border border-slate-200 transition cursor-pointer"
             title="Print Summary"
           >
-            <Printer className="w-4 h-4 text-slate-600" />
+            <Printer className="w-3.5 h-3.5 text-slate-600" />
           </button>
         </div>
       </div>
 
       {closeSuccessMsg && (
-        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-bold flex items-center gap-2 animate-in fade-in">
-          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+        <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-bold flex items-center gap-2 animate-in fade-in">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
           <span>{closeSuccessMsg}</span>
         </div>
       )}
 
       {/* 4 Flagship Executive Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
         {/* 1. Total Net Sales */}
         <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
           <div>

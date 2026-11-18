@@ -201,15 +201,15 @@ function PurchasesContent() {
   };
 
   return (
-    <div className="space-y-4 select-none">
+    <div className="space-y-3 select-none">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
-            <Truck className="w-6 h-6" />
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-white border border-slate-200 p-3 rounded-2xl shadow-sm">
+        <div className="flex items-center gap-2.5">
+          <div className="p-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
+            <Truck className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-lg font-black text-slate-900">Maal Kharidari (Raw Material Purchases)</h1>
+            <h1 className="text-base font-black text-slate-900">Maal Kharidari (Raw Material Purchases)</h1>
           </div>
         </div>
 
@@ -221,9 +221,9 @@ function PurchasesContent() {
             setFormError('');
             setFormSuccess('');
           }}
-          className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-black text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
+          className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-black text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-3.5 h-3.5" />
           <span>{showForm ? 'Close Entry Form' : 'New Purchase Bill (مال انٹری)'}</span>
         </button>
       </div>

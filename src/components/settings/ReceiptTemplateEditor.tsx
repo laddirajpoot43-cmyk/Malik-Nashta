@@ -159,17 +159,17 @@ export const ReceiptTemplateEditor: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Header Info Banner */}
-      <div className="flex flex-wrap items-center justify-between gap-4 p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
-        <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center font-bold">
-            <Printer className="w-6 h-6" />
+      <div className="flex flex-wrap items-center justify-between gap-2.5 p-3 rounded-2xl bg-white border border-slate-200 shadow-sm">
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center font-bold">
+            <Printer className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
+            <h2 className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
               Thermal Receipt Slip Template Customizer (رسید ڈیزائن)
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold">
+              <span className="text-[9.5px] px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold">
                 Live Preview
               </span>
             </h2>
@@ -181,7 +181,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
           <button
             type="button"
             onClick={handleResetDefaults}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white text-xs font-bold transition shadow-sm cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white text-xs font-bold transition shadow-sm cursor-pointer"
             title="Reset template to default values"
           >
             <RotateCcw className="w-3.5 h-3.5" />
@@ -192,7 +192,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
           <button
             type="button"
             onClick={handlePrintTest}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white text-xs font-bold transition shadow-sm cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white text-xs font-bold transition shadow-sm cursor-pointer"
           >
             <Printer className="w-3.5 h-3.5" />
             <span>Test Print (1 Page)</span>
@@ -203,9 +203,9 @@ export const ReceiptTemplateEditor: React.FC = () => {
             type="button"
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white font-extrabold text-xs shadow transition disabled:opacity-50 cursor-pointer"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white font-extrabold text-xs shadow transition disabled:opacity-50 cursor-pointer"
           >
-            {saving ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+            {saving ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
             <span>{saving ? 'Saving...' : 'Save Template'}</span>
           </button>
         </div>
@@ -213,7 +213,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
 
       {feedback && (
         <div
-          className={`p-3.5 rounded-xl text-xs font-bold flex items-center gap-2 ${
+          className={`p-2.5 rounded-xl text-xs font-bold flex items-center gap-2 ${
             feedback.type === 'success'
               ? 'bg-emerald-50 text-emerald-800 border border-emerald-300'
               : 'bg-rose-50 text-rose-800 border border-rose-300'
@@ -229,13 +229,13 @@ export const ReceiptTemplateEditor: React.FC = () => {
       )}
 
       {/* Main Grid: Form Controls Left, Live Thermal Slip Right */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
         {/* Left Form Controls (7 cols) */}
-        <div className="lg:col-span-7 space-y-5">
+        <div className="lg:col-span-7 space-y-3">
           {/* Section 1: Business Header Branding */}
-          <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4">
-            <h3 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-2">
-              <Type className="w-4 h-4 text-emerald-600" />
+          <div className="p-3 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2.5">
+            <h3 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-1.5">
+              <Type className="w-3.5 h-3.5 text-emerald-600" />
               <span>Header Branding & Business Details</span>
             </h3>
 

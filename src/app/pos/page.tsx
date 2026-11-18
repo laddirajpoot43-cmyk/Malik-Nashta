@@ -420,14 +420,14 @@ export default function POSPage() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-4 h-[calc(100vh-5.5rem)] relative select-none">
+    <div className="flex flex-col lg:flex-row gap-2.5 h-full min-h-0 relative select-none">
       {/* LEFT PANE: Search, Dropdown, Pricing Selector, Categories, & Menu Grid */}
-      <div className="flex-1 flex flex-col bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm p-4 relative">
+      <div className="flex-1 flex flex-col min-h-0 bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm p-3 relative">
         {/* Search Input Bar with Smart Dropdown Container */}
-        <div className="relative mb-3 z-30">
+        <div className="relative mb-2 z-30 shrink-0">
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-              <Search className="w-5 h-5 text-emerald-600" />
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+              <Search className="w-4 h-4 text-emerald-600" />
             </div>
             <input
               ref={searchInputRef}
@@ -439,10 +439,10 @@ export default function POSPage() {
                 if (searchQuery.trim().length > 0) setDropdownOpen(true);
               }}
               placeholder="Search product (e.g. Chana, Daleem, Paratha...) - Press F2 to focus"
-              className="w-full pl-11 pr-24 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 font-bold text-sm focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 shadow-sm"
+              className="w-full pl-9 pr-20 py-2 bg-white border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 font-bold text-xs focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 shadow-sm"
             />
-            <div className="absolute inset-y-0 right-0 pr-3 flex items-center gap-1.5">
-              <kbd className="hidden sm:inline-block px-2 py-1 text-[10px] font-bold text-slate-500 bg-slate-100 border border-slate-300 rounded shadow-sm">
+            <div className="absolute inset-y-0 right-0 pr-2.5 flex items-center gap-1.5">
+              <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[9.5px] font-bold text-slate-500 bg-slate-100 border border-slate-300 rounded shadow-sm">
                 F2
               </kbd>
               {searchQuery && (
@@ -568,11 +568,11 @@ export default function POSPage() {
         )}
 
         {/* Category Filter Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-3 scrollbar-none">
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 mb-2 scrollbar-none shrink-0">
           <button
             type="button"
             onClick={() => setSelectedCategory('all')}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition border cursor-pointer ${
+            className={`px-3 py-1 rounded-lg text-xs font-bold whitespace-nowrap transition border cursor-pointer ${
               selectedCategory === 'all'
                 ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
                 : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
@@ -585,7 +585,7 @@ export default function POSPage() {
               key={cat.id}
               type="button"
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition border cursor-pointer ${
+              className={`px-3 py-1 rounded-lg text-xs font-bold whitespace-nowrap transition border cursor-pointer ${
                 selectedCategory === cat.id
                   ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
                   : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
@@ -597,32 +597,32 @@ export default function POSPage() {
         </div>
 
         {/* Product Cards Grid */}
-        <div className="flex-1 overflow-y-auto pr-1">
+        <div className="flex-1 overflow-y-auto pr-1 min-h-0">
           {products.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-slate-500 py-16 text-center px-4">
-              <div className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 mb-3 shadow-sm">
-                <Utensils className="w-8 h-8" />
+            <div className="h-full flex flex-col items-center justify-center text-slate-500 py-10 text-center px-4">
+              <div className="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 mb-2 shadow-sm">
+                <Utensils className="w-6 h-6" />
               </div>
-              <h3 className="text-base font-extrabold text-slate-900">No Menu Products Configured</h3>
-              <p className="text-xs text-slate-500 mt-1 max-w-sm">
+              <h3 className="text-sm font-extrabold text-slate-900">No Menu Products Configured</h3>
+              <p className="text-xs text-slate-500 mt-0.5 max-w-sm">
                 All demo data has been wiped clean. Go to Admin Settings to add your restaurant&apos;s real breakfast items, prices, and categories.
               </p>
               <Link
                 href="/settings?tab=menu"
-                className="mt-4 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow transition inline-flex items-center gap-1.5 cursor-pointer"
+                className="mt-3 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-lg shadow transition inline-flex items-center gap-1.5 cursor-pointer"
               >
-                <Plus className="w-4 h-4" />
+                <Plus className="w-3.5 h-3.5" />
                 <span>Add First Menu Product</span>
               </Link>
             </div>
           ) : filteredProducts.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-slate-500 py-12">
-              <Utensils className="w-12 h-12 mb-3 opacity-30 text-emerald-600" />
-              <p className="text-sm font-bold text-slate-800">No breakfast items found</p>
-              <p className="text-xs text-slate-500 mt-1">Try another keyword or category</p>
+            <div className="h-full flex flex-col items-center justify-center text-slate-500 py-8">
+              <Utensils className="w-10 h-10 mb-2 opacity-30 text-emerald-600" />
+              <p className="text-xs font-bold text-slate-800">No breakfast items found</p>
+              <p className="text-[11px] text-slate-500 mt-0.5">Try another keyword or category</p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2.5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2">
               {filteredProducts.map((p) => {
                 const isSelected = activeProductForSelection?.id === p.id;
                 const fullPlateRate = p.pricing_config?.full_plate_price && Number(p.pricing_config.full_plate_price) > 0
@@ -638,7 +638,7 @@ export default function POSPage() {
                     key={p.id}
                     type="button"
                     onClick={() => handleSelectProduct(p)}
-                    className={`text-left p-3 rounded-2xl border transition flex flex-col justify-between h-32 relative group cursor-pointer ${
+                    className={`text-left p-2.5 rounded-xl border transition flex flex-col justify-between h-28 relative group cursor-pointer ${
                       isSelected
                         ? 'bg-emerald-50 border-emerald-600 shadow-md ring-2 ring-emerald-500/30'
                         : 'bg-white border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/20 shadow-sm'
@@ -646,17 +646,17 @@ export default function POSPage() {
                   >
                     <div>
                       <div className="flex items-start justify-between gap-1">
-                        <h4 className="font-extrabold text-slate-900 text-xs sm:text-sm line-clamp-1 leading-tight group-hover:text-emerald-700 transition">
+                        <h4 className="font-extrabold text-slate-900 text-xs line-clamp-1 leading-tight group-hover:text-emerald-700 transition">
                           {p.name}
                         </h4>
                       </div>
-                      <span className="text-[10px] text-slate-500 mt-0.5 block truncate font-medium">
+                      <span className="text-[9.5px] text-slate-500 mt-0.5 block truncate font-medium">
                         {p.category_name}
                       </span>
                     </div>
 
                     {/* Base Rates Chips on Card */}
-                    <div className="flex flex-wrap gap-1 my-1">
+                    <div className="flex flex-wrap gap-1 my-0.5">
                       <span className="text-[9px] bg-slate-100 border border-slate-200 text-slate-700 px-1.5 py-0.5 rounded font-semibold truncate">
                         Full: {formatMoney(fullPlateRate)}
                       </span>
@@ -668,10 +668,10 @@ export default function POSPage() {
                     </div>
 
                     <div className="flex items-center justify-between pt-1 border-t border-slate-100 mt-auto">
-                      <span className="font-black text-emerald-700 text-xs sm:text-sm">
+                      <span className="font-black text-emerald-700 text-xs">
                         {formatMoney(p.selling_price)}
                       </span>
-                      <span className="text-[10px] bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-700 font-bold px-2 py-0.5 rounded-lg transition">
+                      <span className="text-[9.5px] bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-700 font-bold px-1.5 py-0.5 rounded transition">
                         Select
                       </span>
                     </div>
@@ -683,47 +683,47 @@ export default function POSPage() {
         </div>
 
         {/* Global Keyboard Shortcut Helper Bar */}
-        <div className="mt-3 pt-2.5 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-600 overflow-x-auto">
-          <div className="flex items-center gap-3">
+        <div className="mt-2 pt-2 border-t border-slate-200 flex items-center justify-between text-[10px] text-slate-600 overflow-x-auto shrink-0">
+          <div className="flex items-center gap-2.5">
             <span className="flex items-center gap-1 font-medium">
-              <kbd className="px-1.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono border border-slate-300 font-bold">Enter</kbd>
-              Select / Add
+              <kbd className="px-1.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono border border-slate-300 font-bold text-[9px]">Enter</kbd>
+              Select
             </span>
             <span className="flex items-center gap-1 font-medium">
-              <kbd className="px-1.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono border border-slate-300 font-bold">F2</kbd>
+              <kbd className="px-1.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono border border-slate-300 font-bold text-[9px]">F2</kbd>
               Search
             </span>
             <span className="flex items-center gap-1 font-medium">
-              <kbd className="px-1.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono border border-slate-300 font-bold">F4</kbd>
+              <kbd className="px-1.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono border border-slate-300 font-bold text-[9px]">F4</kbd>
               Pay
             </span>
             <span className="flex items-center gap-1 font-medium">
-              <kbd className="px-1.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono border border-slate-300 font-bold">Ctrl+Enter</kbd>
-              Complete Bill
+              <kbd className="px-1.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono border border-slate-300 font-bold text-[9px]">Ctrl+Enter</kbd>
+              Complete
             </span>
             <span className="flex items-center gap-1 font-medium">
-              <kbd className="px-1.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono border border-slate-300 font-bold">Del</kbd>
-              Delete Item
+              <kbd className="px-1.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono border border-slate-300 font-bold text-[9px]">Del</kbd>
+              Delete
             </span>
             <span className="flex items-center gap-1 font-medium">
-              <kbd className="px-1.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono border border-slate-300 font-bold">Esc</kbd>
-              Cancel / Close
+              <kbd className="px-1.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono border border-slate-300 font-bold text-[9px]">Esc</kbd>
+              Close
             </span>
           </div>
         </div>
       </div>
 
       {/* RIGHT PANE: Cart / Current Bill, Pricing Display & Fast Checkout (40% width) */}
-      <div className="w-full lg:w-[480px] xl:w-[520px] flex flex-col bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm p-4">
+      <div className="w-full lg:w-[460px] xl:w-[480px] flex flex-col min-h-0 bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm p-3">
         {/* Cart Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-slate-200 mb-3">
+        <div className="flex items-center justify-between pb-2 border-b border-slate-200 mb-2 shrink-0">
           <div className="flex items-center gap-2">
-            <div className="p-2 bg-emerald-50 text-emerald-700 rounded-xl border border-emerald-200">
-              <ShoppingCart className="w-5 h-5" />
+            <div className="p-1.5 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200">
+              <ShoppingCart className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="font-extrabold text-sm text-slate-900">Current Order Bill</h2>
-              <span className="text-[10px] text-slate-500 font-medium">
+              <h2 className="font-extrabold text-xs text-slate-900">Current Order Bill</h2>
+              <span className="text-[9.5px] text-slate-500 font-medium">
                 {cart.length} item(s) • Cashier: <strong>{currentUser?.display_name || 'Cashier'}</strong>
               </span>
             </div>
@@ -733,23 +733,23 @@ export default function POSPage() {
           {cart.length > 0 && (
             <button
               onClick={clearCart}
-              className="text-xs bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white font-bold flex items-center gap-1 px-3 py-1.5 rounded-xl shadow-sm transition cursor-pointer"
+              className="text-[11px] bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white font-bold flex items-center gap-1 px-2.5 py-1 rounded-lg shadow-sm transition cursor-pointer"
               title="Clear all cart items"
             >
-              <Trash2 className="w-3.5 h-3.5" />
+              <Trash2 className="w-3 h-3" />
               <span>Clear Cart</span>
             </button>
           )}
         </div>
 
         {/* Customer / Table Info input bar */}
-        <div className="mb-3">
+        <div className="mb-2 shrink-0">
           <input
             type="text"
             value={customerName}
             onChange={(e) => setCustomerName(e.target.value)}
             placeholder="Guest / Table Name (e.g. Table 4 - Chaudhry Sahib)"
-            className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-semibold focus:outline-none focus:border-emerald-600"
+            className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-semibold focus:outline-none focus:border-emerald-600"
           />
         </div>
 
@@ -873,7 +873,7 @@ export default function POSPage() {
         </div>
 
         {/* Financial Summary & Penny Rounding */}
-        <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2 mb-3">
+        <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200 space-y-1 mb-2 shrink-0">
           <div className="flex justify-between text-xs text-slate-600 font-medium">
             <span>Subtotal:</span>
             <span className="font-bold text-slate-900">{formatMoney(subtotal)}</span>
@@ -885,7 +885,7 @@ export default function POSPage() {
               onClick={() => setOpenDiscountModal(true)}
               className="text-emerald-700 hover:text-emerald-800 font-bold flex items-center gap-1 underline underline-offset-2"
             >
-              <Percent className="w-3.5 h-3.5" />
+              <Percent className="w-3 h-3" />
               <span>Discount ({discountValue > 0 ? (discountType === 'percentage' ? `${discountValue}%` : 'Flat') : 'Add'}):</span>
             </button>
             <span className="font-bold text-emerald-700">
@@ -895,54 +895,54 @@ export default function POSPage() {
 
           {/* Rounding Adjustment */}
           {roundingAmount !== 0 && (
-            <div className="flex justify-between text-[11px] text-slate-500 font-medium">
+            <div className="flex justify-between text-[10px] text-slate-500 font-medium">
               <span>Rounding:</span>
               <span>{roundingAmount > 0 ? `+${formatMoney(roundingAmount)}` : formatMoney(roundingAmount)}</span>
             </div>
           )}
 
           {/* Net Grand Total */}
-          <div className="flex justify-between items-center pt-2 border-t border-slate-200">
-            <span className="text-sm font-extrabold text-slate-900">GRAND TOTAL:</span>
-            <span className="text-2xl font-black text-emerald-700">{formatMoney(grandTotal)}</span>
+          <div className="flex justify-between items-center pt-1.5 border-t border-slate-200">
+            <span className="text-xs font-extrabold text-slate-900">GRAND TOTAL:</span>
+            <span className="text-xl font-black text-emerald-700">{formatMoney(grandTotal)}</span>
           </div>
         </div>
 
         {/* Action Buttons: Quick Cash Checkout & Modal Payment */}
-        <div className="space-y-2">
+        <div className="space-y-1.5 shrink-0">
           {/* GREEN BUTTON: Fast Cash Checkout & Auto-Print */}
           <button
             onClick={() => {
               if (cart.length > 0) setCheckoutConfirmOpen(true);
             }}
             disabled={checkoutLoading || cart.length === 0}
-            className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 disabled:opacity-50 disabled:pointer-events-none text-white font-black text-sm rounded-xl shadow flex items-center justify-center gap-2 transition cursor-pointer"
+            className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 disabled:opacity-50 disabled:pointer-events-none text-white font-black text-xs rounded-xl shadow flex items-center justify-center gap-1.5 transition cursor-pointer"
           >
-            <Zap className="w-4 h-4 fill-current text-white" />
+            <Zap className="w-3.5 h-3.5 fill-current text-white" />
             <span>
               {checkoutLoading ? 'Processing & Printing...' : `Complete Bill & Print [Ctrl+Enter / F6]`}
             </span>
           </button>
 
           {/* Secondary Action Buttons (Green) */}
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-1.5">
             <button
               onClick={() => {
                 if (cart.length > 0) setOpenPaymentModal(true);
               }}
               disabled={cart.length === 0}
-              className="py-2.5 bg-emerald-700 hover:bg-emerald-800 disabled:opacity-50 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
+              className="py-2 bg-emerald-700 hover:bg-emerald-800 disabled:opacity-50 text-white rounded-lg text-xs font-bold transition flex items-center justify-center gap-1 shadow-sm cursor-pointer"
             >
-              <CreditCard className="w-3.5 h-3.5" />
-              <span>Payment Section [F4]</span>
+              <CreditCard className="w-3 h-3" />
+              <span>Payment [F4]</span>
             </button>
 
             <button
               onClick={handleHoldOrder}
               disabled={cart.length === 0}
-              className="py-2.5 bg-emerald-50 hover:bg-emerald-100 disabled:opacity-50 text-emerald-800 border border-emerald-300 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
+              className="py-2 bg-emerald-50 hover:bg-emerald-100 disabled:opacity-50 text-emerald-800 border border-emerald-300 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer"
             >
-              <PauseCircle className="w-3.5 h-3.5" />
+              <PauseCircle className="w-3 h-3" />
               <span>Hold Cart</span>
             </button>
           </div>

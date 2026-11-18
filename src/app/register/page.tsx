@@ -60,52 +60,52 @@ export default function RegisterPage() {
   const txs = registerData?.transactions || [];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 select-none">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
-            <DollarSign className="w-6 h-6" />
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-white border border-slate-200 p-3 rounded-2xl shadow-sm">
+        <div className="flex items-center gap-2.5">
+          <div className="p-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
+            <DollarSign className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-lg font-black text-slate-900">Cash Register & Shift Handover</h1>
+            <h1 className="text-base font-black text-slate-900">Cash Register & Shift Handover</h1>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
           <button
             onClick={() => setOpenRegisterModal(true)}
-            className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
+            className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
           >
-            {activeRegister ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
+            {activeRegister ? <Lock className="w-3.5 h-3.5" /> : <Unlock className="w-3.5 h-3.5" />}
             <span>{activeRegister ? 'Manage Shift / Close Drawer' : 'Open Register Shift'}</span>
           </button>
         </div>
       </div>
 
       {/* Primary Reconciliation Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
         {/* Expected Cash in Hand */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs text-slate-500 font-bold uppercase tracking-wider">
+        <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-sm flex flex-col justify-between">
+          <div className="flex items-center justify-between text-[11px] text-slate-500 font-bold uppercase tracking-wider">
             <span>Expected Cash in Hand</span>
-            <span className={`w-2.5 h-2.5 rounded-full ${activeRegister ? 'bg-emerald-500 animate-pulse' : 'bg-rose-500'}`} />
+            <span className={`w-2 h-2 rounded-full ${activeRegister ? 'bg-emerald-500 animate-pulse' : 'bg-rose-500'}`} />
           </div>
-          <div className="text-2xl font-black text-emerald-700 mt-2">
+          <div className="text-xl font-black text-emerald-700 mt-1">
             {formatMoney(summary.expected_cash)}
           </div>
-          <div className="text-[10px] text-slate-500 mt-1 font-semibold">
+          <div className="text-[10px] text-slate-500 mt-0.5 font-semibold">
             Status: {activeRegister ? <span className="text-emerald-700">LIVE REGISTER OPEN</span> : <span className="text-slate-500">REGISTER CLOSED</span>}
           </div>
         </div>
 
         {/* Cash Sales Today */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs text-slate-500 font-bold uppercase tracking-wider">
+        <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-sm flex flex-col justify-between">
+          <div className="flex items-center justify-between text-[11px] text-slate-500 font-bold uppercase tracking-wider">
             <span>Counter Cash Sales</span>
-            <TrendingUp className="w-4 h-4 text-emerald-600" />
+            <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
           </div>
-          <div className="text-2xl font-black text-slate-900 mt-2">
+          <div className="text-xl font-black text-slate-900 mt-1">
             {formatMoney(summary.cash_sales)}
           </div>
           <div className="text-[10px] text-slate-500 mt-1 font-medium">

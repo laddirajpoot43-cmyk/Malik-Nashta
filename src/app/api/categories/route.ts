@@ -121,6 +121,15 @@ export async function DELETE(req: Request) {
       return NextResponse.json({ success: false, error: 'Category not found' }, { status: 404 });
     }
 
+    const categoryToDelete = store.categories[index];
+    const assignedProducts = (store.products || []).filter((p: any) => p.category_id === id);
+    if (assignedProducts.length > 0) {
+      return NextResponse.json({
+        success: false,
+        error: `Cannot delete category "${categoryToDelete.name}". It is currently assigned to ${assignedProducts.length} product(s) (${assignedProducts.slice(0, 3).map((p: any) => p.name).join(', ')}${assignedProducts.length > 3 ? '...' : ''}). Please reassign or remove these products first.`,
+      }, { status: 400 });
+    }
+
     const removed = store.categories.splice(index, 1)[0];
 
     await logAuditEvent({

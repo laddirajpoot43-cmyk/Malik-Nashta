@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { localStore, logAuditEvent } from '@/lib/db';
+import { insforgeAdmin } from '@/lib/insforge';
 
 export const dynamic = 'force-dynamic';
 
@@ -69,6 +70,15 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
     });
 
     localStore.save();
+
+    // Direct synchronous Cloud PostgreSQL persistence
+    try {
+      await insforgeAdmin.database.from('order_items').delete().eq('order_id', order.id);
+      await insforgeAdmin.database.from('order_payments').delete().eq('order_id', order.id);
+      await insforgeAdmin.database.from('orders').delete().eq('id', order.id);
+    } catch (e) {
+      console.warn('Cloud sync error for order delete:', e);
+    }
 
     return NextResponse.json({ success: true, message: `Order ${order.receipt_number} deleted successfully.`, deletedOrder: order });
   } catch (error: any) {

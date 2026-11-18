@@ -128,18 +128,13 @@ export default function OrdersPage() {
     }
 
     try {
-      const res = await fetch(`/api/orders/${order.id}/void`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          reason: 'Permanent deletion by admin',
-          admin_pin: '1234',
-        }),
+      const res = await fetch(`/api/orders/${order.id}?cashier_name=${encodeURIComponent(currentUser?.display_name || 'Admin')}`, {
+        method: 'DELETE',
       });
 
       const data = await res.json();
       if (data.success) {
-        setActionSuccess(`Order #${order.receipt_number} voided & deleted successfully.`);
+        setActionSuccess(`Order #${order.receipt_number} permanently deleted.`);
         setSelectedOrder(null);
         fetchOrders();
       } else {
@@ -256,35 +251,35 @@ export default function OrdersPage() {
   };
 
   return (
-    <div className="space-y-4 select-none">
+    <div className="space-y-3 select-none">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
-            <Receipt className="w-6 h-6" />
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-white border border-slate-200 p-3 rounded-2xl shadow-sm">
+        <div className="flex items-center gap-2.5">
+          <div className="p-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
+            <Receipt className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-lg font-black text-slate-900">Order History & Thermal Bills</h1>
+            <h1 className="text-base font-black text-slate-900">Order History & Thermal Bills</h1>
           </div>
         </div>
 
         {/* Filters */}
         <div className="flex items-center gap-2">
           <div className="relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5 pointer-events-none" />
+            <Search className="w-4 h-4 text-slate-400 absolute left-2.5 top-2 pointer-events-none" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Receipt / Order # / Name"
-              className="pl-9 pr-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-semibold focus:outline-none focus:border-emerald-600 w-56"
+              className="pl-8 pr-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-semibold focus:outline-none focus:border-emerald-600 w-52"
             />
           </div>
 
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none cursor-pointer"
+            className="px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none cursor-pointer"
           >
             <option value="all">All Statuses</option>
             <option value="completed">Completed</option>

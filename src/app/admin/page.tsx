@@ -80,15 +80,15 @@ function AdminDashboardContent() {
   }, [activeRegister]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Top Banner */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-xl font-extrabold text-slate-900 tracking-tight">
+            <h1 className="text-lg font-extrabold text-slate-900 tracking-tight">
               Admin Dashboard
             </h1>
-            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
               Active Supervisor
             </span>
           </div>
@@ -97,59 +97,59 @@ function AdminDashboardContent() {
         {/* GREEN BUTTON: Jump to POS */}
         <Link
           href="/pos"
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-extrabold text-xs rounded-xl shadow transition shrink-0 cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-extrabold text-xs rounded-xl shadow transition shrink-0 cursor-pointer"
         >
           <span>Open Cashier Counter (POS)</span>
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </div>
 
       {/* KPI Overview Cards (3 Cards cleanly formatted) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {/* Today's Net Sales */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Today&apos;s Sales</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
-              <TrendingUp className="w-4 h-4" />
+        <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-sm flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Today&apos;s Sales</span>
+            <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <TrendingUp className="w-3.5 h-3.5" />
             </div>
           </div>
-          <div className="text-2xl font-black text-slate-900">
+          <div className="text-xl font-black text-slate-900">
             {formatMoney(metrics.todaySales)}
           </div>
-          <p className="text-[11px] text-slate-600 mt-1">
+          <p className="text-[10px] text-slate-600 mt-0.5">
             Across <strong>{metrics.todayOrdersCount}</strong> completed orders today
           </p>
         </div>
 
         {/* Cash Drawer Shift Balance */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Drawer Cash</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
-              <DollarSign className="w-4 h-4" />
+        <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-sm flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Drawer Cash</span>
+            <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <DollarSign className="w-3.5 h-3.5" />
             </div>
           </div>
-          <div className="text-2xl font-black text-slate-900">
+          <div className="text-xl font-black text-slate-900">
             {formatMoney(metrics.drawerBalance)}
           </div>
-          <p className="text-[11px] text-slate-600 mt-1">
+          <p className="text-[10px] text-slate-600 mt-0.5">
             Status: {activeRegister ? <span className="text-emerald-700 font-bold">Shift Open</span> : <span className="text-slate-500 font-semibold">Shift Closed</span>}
           </p>
         </div>
 
         {/* Unpaid Vendor Udhaar */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Vendor Udhaar (Payable)</span>
-            <div className="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
-              <Truck className="w-4 h-4" />
+        <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-sm flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Vendor Udhaar (Payable)</span>
+            <div className="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
+              <Truck className="w-3.5 h-3.5" />
             </div>
           </div>
-          <div className="text-2xl font-black text-rose-600">
+          <div className="text-xl font-black text-rose-600">
             {formatMoney(metrics.unpaidVendorBalance)}
           </div>
-          <p className="text-[11px] text-slate-600 mt-1">
+          <p className="text-[10px] text-slate-600 mt-0.5">
             Pending Mandi & Supplier balances
           </p>
         </div>

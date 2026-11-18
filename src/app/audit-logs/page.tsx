@@ -52,15 +52,15 @@ function AuditLogsContent() {
   }, [actionFilter]);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 select-none">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white border border-slate-200 p-4 rounded-2xl shadow-sm">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-emerald-100 text-emerald-700 rounded-xl">
-            <ShieldAlert className="w-6 h-6" />
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-white border border-slate-200 p-3 rounded-2xl shadow-sm">
+        <div className="flex items-center gap-2.5">
+          <div className="p-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
+            <ShieldAlert className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-lg font-black text-slate-900">Immutable Security & Operation Audit Trail</h1>
+            <h1 className="text-base font-black text-slate-900">Immutable Security & Operation Audit Trail</h1>
           </div>
         </div>
 
@@ -69,7 +69,7 @@ function AuditLogsContent() {
           <select
             value={actionFilter}
             onChange={(e) => setActionFilter(e.target.value)}
-            className="px-3 py-1.5 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600 cursor-pointer"
           >
             <option value="all">All Actions ({logs.length})</option>
             <option value="SALE">SALE</option>
@@ -86,7 +86,7 @@ function AuditLogsContent() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
         {/* Logs Table (2 cols) */}
         <div className="lg:col-span-2 bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden flex flex-col">
           <div className="p-3.5 border-b border-slate-100 bg-slate-50 text-xs font-semibold text-slate-700">

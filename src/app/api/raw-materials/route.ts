@@ -141,6 +141,15 @@ export async function DELETE(req: Request) {
       return NextResponse.json({ success: false, error: 'Raw material not found' }, { status: 404 });
     }
 
+    const materialToDelete = store.raw_materials[index];
+    const usedInPurchases = (store.purchase_items || []).filter((pi: any) => pi.raw_material_id === id);
+    if (usedInPurchases.length > 0) {
+      return NextResponse.json({
+        success: false,
+        error: `Cannot delete raw material "${materialToDelete.name}". It is referenced in ${usedInPurchases.length} recorded purchase bill(s).`,
+      }, { status: 400 });
+    }
+
     const removed = store.raw_materials.splice(index, 1)[0];
 
     await logAuditEvent({
