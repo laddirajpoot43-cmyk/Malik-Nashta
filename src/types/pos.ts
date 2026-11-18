@@ -395,6 +395,34 @@ export interface ReceiptTemplateConfig {
   font_size: 'small' | 'medium' | 'large';
 }
 
+export interface PrinterConfig {
+  printer_id?: string;
+  printer_name: string;
+  connection_type: 'usb' | 'serial' | 'system' | 'network';
+  paper_width: '80mm' | '58mm';
+  direct_print_enabled: boolean;
+  baud_rate?: number;
+  vendor_id?: number;
+  product_id?: number;
+  auto_cut: boolean;
+  open_cash_drawer: boolean;
+}
+
+export interface ThermalPrinterDevice {
+  id: string;
+  name: string;
+  type: 'usb' | 'serial' | 'system' | 'network';
+  vendorId?: number;
+  productId?: number;
+  manufacturerName?: string;
+  productName?: string;
+  serialNumber?: string;
+  status: 'connected' | 'paired' | 'available' | 'disconnected';
+  paperWidth: '80mm' | '58mm';
+  isDefault?: boolean;
+  lastUsedAt?: string;
+}
+
 export interface PosSettings {
   id: string;
   business_name: string;
@@ -407,6 +435,7 @@ export interface PosSettings {
   default_tax_rate: number;
   max_cashier_discount_percent: number;
   receipt_template?: ReceiptTemplateConfig;
+  printer_config?: PrinterConfig;
   created_at?: string;
 }
 

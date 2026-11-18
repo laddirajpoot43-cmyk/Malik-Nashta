@@ -86,7 +86,7 @@ function getDefaultData(): SchemaStore {
           ntn_strn: 'NTN: 829104-5',
           header_message: 'Special Lahori Channay & Crispy Parathay',
           footer_message_urdu: 'شکریہ! دوبارہ تشریف لائیں',
-          footer_message_english: 'Thank you for visiting Malik Tasty Nashta Point!',
+          footer_message_english: 'Thank you for choosing Malik Tasty Nashta Point!',
           footer_credit_name: 'Buid by Ammar',
           footer_credit_phone: '03260603565',
           show_cashier_name: true,

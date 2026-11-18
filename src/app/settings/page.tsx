@@ -9,6 +9,7 @@ import { Product, Category, Profile } from '@/types/pos';
 import { formatMoney } from '@/lib/money';
 import { AdminGuard } from '@/components/auth/AdminGuard';
 import { ReceiptTemplateEditor } from '@/components/settings/ReceiptTemplateEditor';
+import { PrinterDeviceManager } from '@/components/settings/PrinterDeviceManager';
 import {
   Settings,
   ShieldCheck,
@@ -19,6 +20,7 @@ import {
   AlertTriangle,
   Store,
   Printer,
+  Usb,
   Plus,
   Trash2,
   Edit2,
@@ -45,12 +47,13 @@ function SettingsContent() {
   const { refreshPOSData } = usePOS();
 
   const [activeTab, setActiveTab] = useState<
-    'slip' | 'menu' | 'categories' | 'raw' | 'users' | 'business' | 'security'
+    'printer' | 'slip' | 'menu' | 'categories' | 'raw' | 'users' | 'business' | 'security'
   >('slip');
 
   useEffect(() => {
     const tab = searchParams.get('tab');
-    if (tab === 'products' || tab === 'menu') setActiveTab('menu');
+    if (tab === 'printer' || tab === 'printers' || tab === 'devices') setActiveTab('printer');
+    else if (tab === 'products' || tab === 'menu') setActiveTab('menu');
     else if (tab === 'receipt' || tab === 'slip') setActiveTab('slip');
     else if (tab === 'categories') setActiveTab('categories');
     else if (tab === 'raw') setActiveTab('raw');
@@ -396,6 +399,7 @@ function SettingsContent() {
   };
 
   const navTabs = [
+    { id: 'printer', label: 'Thermal Printers & Hardware', icon: Usb },
     { id: 'slip', label: 'Slip Template Customizer', icon: Printer },
     { id: 'menu', label: 'Menu Products', icon: Utensils },
     { id: 'categories', label: 'Categories', icon: Layers },
@@ -455,6 +459,9 @@ function SettingsContent() {
           <span>{notice.text}</span>
         </div>
       )}
+
+      {/* TAB 0: THERMAL PRINTER DEVICES & HARDWARE */}
+      {activeTab === 'printer' && <PrinterDeviceManager />}
 
       {/* TAB 1: SLIP TEMPLATE CUSTOMIZER */}
       {activeTab === 'slip' && <ReceiptTemplateEditor />}

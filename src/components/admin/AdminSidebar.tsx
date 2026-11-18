@@ -14,6 +14,7 @@ import {
   Receipt,
   BarChart3,
   Printer,
+  Usb,
   Users,
   ShieldAlert,
   Settings,
@@ -99,6 +100,7 @@ function AdminSidebarInner() {
     {
       title: 'System & Print Setup',
       items: [
+        { href: '/settings?tab=printer', label: 'Thermal Printer Devices', icon: Usb, tab: 'printer' },
         { href: '/settings?tab=receipt', label: 'Thermal Receipt Customizer', icon: Printer, tab: 'receipt' },
         { href: '/settings?tab=staff', label: 'Staff Accounts & PINs', icon: Users, tab: 'staff' },
         { href: '/settings?tab=hotel', label: 'General Hotel Settings', icon: Settings, tab: 'hotel' },

@@ -32,7 +32,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
     ntn_strn: 'NTN: 829104-5',
     header_message: 'Special Lahori Channay & Crispy Parathay',
     footer_message_urdu: 'شکریہ! دوبارہ تشریف لائیں',
-    footer_message_english: 'Thank you for visiting Malik Tasty Nashta Point!',
+    footer_message_english: 'Thank you for choosing Malik Tasty Nashta Point!',
     footer_credit_name: 'Buid by Ammar',
     footer_credit_phone: '03260603565',
     show_cashier_name: true,
@@ -344,7 +344,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-100">
                 <div>
                   <label className="block text-[11px] font-bold text-slate-700 mb-1">
-                    Receipt Footer Credit (Line 1)
+                    Footer Credit Name (Single-Line Display)
                   </label>
                   <input
                     type="text"
@@ -357,7 +357,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
 
                 <div>
                   <label className="block text-[11px] font-bold text-slate-700 mb-1">
-                    Receipt Footer Phone # (Line 2)
+                    Footer Phone Number (Single-Line Display)
                   </label>
                   <input
                     type="text"
@@ -368,6 +368,9 @@ export const ReceiptTemplateEditor: React.FC = () => {
                   />
                 </div>
               </div>
+              <p className="text-[10px] text-slate-500 font-medium mt-1">
+                Note: Both Developer Credit & Phone number print side-by-side on 1 single line on the receipt (e.g. Buid by Ammar - 03260603565).
+              </p>
             </div>
           </div>
 

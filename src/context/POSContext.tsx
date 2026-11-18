@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback, use
 import { Category, Product, ProductAddon, CartItem, Order, RegisterSession } from '@/types/pos';
 import { addMoney, subtractMoney, multiplyMoney, calculateRounding } from '@/lib/money';
 import { playSuccessChime } from '@/lib/audio';
+import { printDirect } from '@/lib/printer';
 import { useAuth } from './AuthContext';
 import { useSettings } from './SettingsContext';
 
@@ -51,7 +52,7 @@ interface POSContextType {
   // Thermal Print State
   currentOrderToPrint: Order | null;
   setCurrentOrderToPrint: (order: Order | null) => void;
-  printReceipt: (order?: Order) => void;
+  printReceipt: (order?: Order) => void | Promise<any>;
 
   // Register Operations
   refreshPOSData: () => Promise<void>;
@@ -231,13 +232,26 @@ export function POSProvider({ children }: { children: React.ReactNode }) {
     if (pin) setAdminPinForDiscount(pin);
   };
 
-  const printReceipt = (order?: Order) => {
+  const printReceipt = async (order?: Order) => {
     const targetOrder = order || currentOrderToPrint;
     if (targetOrder) {
       setCurrentOrderToPrint(targetOrder);
-      setTimeout(() => {
-        window.print();
-      }, 80);
+      const printerConfig = settings.printer_config;
+      const directPrintEnabled = printerConfig?.direct_print_enabled ?? true;
+
+      if (directPrintEnabled) {
+        await printDirect(targetOrder, {
+          autoCut: printerConfig?.auto_cut ?? true,
+          openDrawer: printerConfig?.open_cash_drawer ?? true,
+          businessName: settings.business_name,
+          phone: settings.phone,
+          address: settings.address,
+        });
+      } else {
+        setTimeout(() => {
+          window.print();
+        }, 80);
+      }
     }
   };
 
@@ -283,10 +297,8 @@ export function POSProvider({ children }: { children: React.ReactNode }) {
       if (data.success && data.order) {
         playSuccessChime();
         setCurrentOrderToPrint(data.order);
-        // Instant thermal print trigger with 80ms delay
-        setTimeout(() => {
-          window.print();
-        }, 80);
+        // Direct print via configured hardware printer or system fallback
+        printReceipt(data.order);
 
         clearCart();
         refreshPOSData();
@@ -335,9 +347,8 @@ export function POSProvider({ children }: { children: React.ReactNode }) {
       if (data.success && data.order) {
         playSuccessChime();
         setCurrentOrderToPrint(data.order);
-        setTimeout(() => {
-          window.print();
-        }, 80);
+        // Direct print via configured hardware printer or system fallback
+        printReceipt(data.order);
 
         clearCart();
         setOpenPaymentModal(false);

@@ -21,7 +21,7 @@ export const ThermalReceipt: React.FC<ThermalReceiptProps> = ({ order, customTem
     ntn_strn: 'NTN: 829104-5',
     header_message: 'Special Lahori Channay & Crispy Parathay',
     footer_message_urdu: 'شکریہ! دوبارہ تشریف لائیں',
-    footer_message_english: 'Thank you for visiting Malik Tasty Nashta Point!',
+    footer_message_english: 'Thank you for choosing Malik Tasty Nashta Point!',
     footer_credit_name: 'Buid by Ammar',
     footer_credit_phone: '03260603565',
     show_cashier_name: true,
@@ -150,11 +150,13 @@ export const ThermalReceipt: React.FC<ThermalReceiptProps> = ({ order, customTem
             <div className="flex justify-between font-medium">
               <div className="w-1/2 pr-1">
                 <span className="break-words font-semibold">{item.product_name_snapshot}</span>
-                {item.pricing_method && (
-                  <span className="block text-[8px] text-gray-700 font-medium">
-                    [{item.pricing_method}]
-                  </span>
-                )}
+                {item.pricing_method &&
+                  !item.pricing_method.toLowerCase().includes('full') &&
+                  item.pricing_method.toLowerCase() !== 'per plate' && (
+                    <span className="block text-[8px] text-gray-700 font-medium">
+                      [{item.pricing_method}]
+                    </span>
+                  )}
               </div>
               <span className="w-1/4 text-center">
                 {item.quantity}x @ {item.unit_price}
@@ -257,14 +259,22 @@ export const ThermalReceipt: React.FC<ThermalReceiptProps> = ({ order, customTem
           <p className="font-bold text-[11px] leading-tight text-center">{tpl.footer_message_urdu}</p>
         )}
         {tpl.footer_message_english && (
-          <p className="leading-tight text-center">{tpl.footer_message_english}</p>
+          <p
+            className="leading-tight text-center whitespace-nowrap overflow-hidden text-ellipsis"
+            style={{ fontSize: is58mm ? '7px' : '8px', letterSpacing: '-0.2px' }}
+            title={tpl.footer_message_english}
+          >
+            {tpl.footer_message_english}
+          </p>
         )}
         <div className="pt-1 mt-1 border-t border-dotted border-gray-400 text-center">
-          <p className="font-bold text-[9px] leading-tight text-center">
-            {tpl.footer_credit_name !== undefined ? tpl.footer_credit_name : 'Buid by Ammar'}
-          </p>
-          <p className="font-bold text-[9px] tracking-wider leading-tight text-center">
-            {tpl.footer_credit_phone !== undefined ? tpl.footer_credit_phone : '03260603565'}
+          <p className="font-bold text-[8.5px] leading-tight text-center whitespace-nowrap tracking-tight">
+            {[
+              tpl.footer_credit_name !== undefined ? tpl.footer_credit_name : 'Buid by Ammar',
+              tpl.footer_credit_phone !== undefined ? tpl.footer_credit_phone : '03260603565',
+            ]
+              .filter(Boolean)
+              .join(' - ')}
           </p>
         </div>
       </div>

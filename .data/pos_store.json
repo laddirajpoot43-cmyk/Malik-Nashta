@@ -50,6 +50,15 @@
         "paper_size": "80mm",
         "show_addons": true,
         "header_message": "Fresh Puri & Hot Chai Served Fast",
+        "printer_config": {
+          "auto_cut": true,
+          "printer_id": "pos-80-usb-default",
+          "paper_width": "80mm",
+          "printer_name": "POS-80 Thermal Printer",
+          "connection_type": "usb",
+          "open_cash_drawer": true,
+          "direct_print_enabled": true
+        },
         "show_cashier_name": true,
         "show_order_number": true,
         "footer_credit_name": "Buid by Ammar",
@@ -74,6 +83,204 @@
     }
   ],
   "products": [
+    {
+      "id": "76c76142-f211-4291-9265-d9af64fd5795",
+      "category_id": "4275bd2c-c47a-43b4-bedb-1c2cfe630815",
+      "name": "Paye",
+      "short_name": "Paye",
+      "selling_price": 1200,
+      "cost_price": 0,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 5,
+      "created_at": "2026-11-18T18:36:28.799995+00:00",
+      "pricing_config": {
+        "enable_by_plate": true,
+        "full_plate_price": 1200,
+        "half_plate_price": 660,
+        "enable_by_price": true,
+        "min_price": 10,
+        "enable_custom_price": true,
+        "custom_price_label": "Half Rate",
+        "custom_price": 660
+      }
+    },
+    {
+      "id": "71b5fcf6-5c7a-49f5-b37c-e499eddd6f32",
+      "category_id": "4275bd2c-c47a-43b4-bedb-1c2cfe630815",
+      "name": "Roghni Naan",
+      "short_name": "Roghni Naan",
+      "selling_price": 70,
+      "cost_price": 0,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 3,
+      "created_at": "2026-11-18T18:38:11.431744+00:00",
+      "pricing_config": {
+        "enable_by_plate": true,
+        "full_plate_price": 70,
+        "half_plate_price": 40,
+        "enable_by_price": true,
+        "min_price": 10,
+        "enable_custom_price": true,
+        "custom_price_label": "Half Rate",
+        "custom_price": 40
+      }
+    },
+    {
+      "id": "4319248a-552d-4778-bcc8-8c8f11bca3ce",
+      "category_id": "4275bd2c-c47a-43b4-bedb-1c2cfe630815",
+      "name": "Saada Naan",
+      "short_name": "Saada Naan",
+      "selling_price": 30,
+      "cost_price": 0,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 8,
+      "created_at": "2026-11-18T19:31:10.00185+00:00",
+      "pricing_config": {
+        "enable_by_plate": true,
+        "full_plate_price": 30,
+        "half_plate_price": 15,
+        "enable_by_price": true,
+        "min_price": 10,
+        "enable_custom_price": true,
+        "custom_price_label": "Half Rate",
+        "custom_price": 15
+      }
+    },
+    {
+      "id": "be299581-5f42-4b5a-b8b5-2e258ed188b7",
+      "category_id": "4275bd2c-c47a-43b4-bedb-1c2cfe630815",
+      "name": "Saada Paratha",
+      "short_name": "Saada Paratha",
+      "selling_price": 70,
+      "cost_price": 0,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 10,
+      "created_at": "2026-11-18T19:33:25.353923+00:00",
+      "pricing_config": {
+        "enable_by_plate": true,
+        "full_plate_price": 70,
+        "half_plate_price": 40,
+        "enable_by_price": true,
+        "min_price": 10,
+        "enable_custom_price": true,
+        "custom_price_label": "Half Rate",
+        "custom_price": 40
+      }
+    },
+    {
+      "id": "48d5c6af-5f45-44d6-a67b-50f0ec174d16",
+      "category_id": "4275bd2c-c47a-43b4-bedb-1c2cfe630815",
+      "name": "Anda Omelette",
+      "short_name": "Anda Omelette",
+      "selling_price": 60,
+      "cost_price": 0,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 11,
+      "created_at": "2026-11-18T19:33:50.36592+00:00",
+      "pricing_config": {
+        "enable_by_plate": true,
+        "full_plate_price": 60,
+        "half_plate_price": 35,
+        "enable_by_price": true,
+        "min_price": 10,
+        "enable_custom_price": true,
+        "custom_price_label": "Half Rate",
+        "custom_price": 35
+      }
+    },
+    {
+      "id": "6983dec6-6aac-4bef-985b-7c90e9b352de",
+      "category_id": "4275bd2c-c47a-43b4-bedb-1c2cfe630815",
+      "name": "Raita",
+      "short_name": "Raita",
+      "selling_price": 50,
+      "cost_price": 0,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 12,
+      "created_at": "2026-11-18T19:34:27.53355+00:00",
+      "pricing_config": {
+        "enable_by_plate": true,
+        "full_plate_price": 50,
+        "half_plate_price": 30,
+        "enable_by_price": true,
+        "min_price": 10,
+        "enable_custom_price": true,
+        "custom_price_label": "Half Rate",
+        "custom_price": 30
+      }
+    },
+    {
+      "id": "f8bc3be9-563f-4bde-9274-a6b04522459d",
+      "category_id": "4275bd2c-c47a-43b4-bedb-1c2cfe630815",
+      "name": "Chai",
+      "short_name": "Chai",
+      "selling_price": 70,
+      "cost_price": 0,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 13,
+      "created_at": "2026-11-18T19:35:03.659166+00:00",
+      "pricing_config": {
+        "enable_by_plate": true,
+        "full_plate_price": 70,
+        "half_plate_price": 40,
+        "enable_by_price": true,
+        "min_price": 10,
+        "enable_custom_price": true,
+        "custom_price_label": "Half Rate",
+        "custom_price": 40
+      }
+    },
+    {
+      "id": "6e93ecb0-8a19-463f-adda-b06927198de6",
+      "category_id": "4275bd2c-c47a-43b4-bedb-1c2cfe630815",
+      "name": "Ubaala Hua Anda",
+      "short_name": "Ubaala Hua Anda",
+      "selling_price": 50,
+      "cost_price": 0,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 14,
+      "created_at": "2026-11-18T19:35:55.88581+00:00",
+      "pricing_config": {
+        "enable_by_plate": true,
+        "full_plate_price": 50,
+        "half_plate_price": 30,
+        "enable_by_price": true,
+        "min_price": 10,
+        "enable_custom_price": true,
+        "custom_price_label": "Half Rate",
+        "custom_price": 30
+      }
+    },
+    {
+      "id": "6376053f-c26e-4855-b08b-d1e744c3c2e0",
+      "category_id": "4275bd2c-c47a-43b4-bedb-1c2cfe630815",
+      "name": "Alu Wala Paratha ",
+      "short_name": "Alu Wala Paratha ",
+      "selling_price": 100,
+      "cost_price": 0,
+      "availability": "available",
+      "is_active": true,
+      "sort_order": 9,
+      "created_at": "2026-11-18T19:32:23.532375+00:00",
+      "pricing_config": {
+        "enable_by_plate": true,
+        "full_plate_price": 100,
+        "half_plate_price": 55,
+        "enable_by_price": true,
+        "min_price": 10,
+        "enable_custom_price": true,
+        "custom_price_label": "Half Rate",
+        "custom_price": 55
+      }
+    },
     {
       "id": "7101fe7e-011e-4ebc-a7d2-467eaa0d7d7e",
       "category_id": "4275bd2c-c47a-43b4-bedb-1c2cfe630815",
@@ -183,50 +390,6 @@
         "custom_price_label": "Half Rate",
         "custom_price": 280
       }
-    },
-    {
-      "id": "76c76142-f211-4291-9265-d9af64fd5795",
-      "category_id": "4275bd2c-c47a-43b4-bedb-1c2cfe630815",
-      "name": "Paye",
-      "short_name": "Paye",
-      "selling_price": 1200,
-      "cost_price": 0,
-      "availability": "available",
-      "is_active": true,
-      "sort_order": 5,
-      "created_at": "2026-11-18T18:36:28.799995+00:00",
-      "pricing_config": {
-        "enable_by_plate": true,
-        "full_plate_price": 1200,
-        "half_plate_price": 660,
-        "enable_by_price": true,
-        "min_price": 10,
-        "enable_custom_price": true,
-        "custom_price_label": "Half Rate",
-        "custom_price": 660
-      }
-    },
-    {
-      "id": "71b5fcf6-5c7a-49f5-b37c-e499eddd6f32",
-      "category_id": "4275bd2c-c47a-43b4-bedb-1c2cfe630815",
-      "name": "Roghni Naan",
-      "short_name": "Roghni Naan",
-      "selling_price": 70,
-      "cost_price": 0,
-      "availability": "available",
-      "is_active": true,
-      "sort_order": 3,
-      "created_at": "2026-11-18T18:38:11.431744+00:00",
-      "pricing_config": {
-        "enable_by_plate": true,
-        "full_plate_price": 70,
-        "half_plate_price": 40,
-        "enable_by_price": true,
-        "min_price": 10,
-        "enable_custom_price": true,
-        "custom_price_label": "Half Rate",
-        "custom_price": 40
-      }
     }
   ],
   "product_addons": [],
@@ -235,14 +398,15 @@
       "id": "f4d14795-43e4-48b3-8240-b361b3e64be2",
       "user_id": null,
       "user_name_snapshot": "Malik Mavia Sultan",
-      "opened_at": "2026-11-18T19:23:51.283Z",
       "opening_amount": 5000,
-      "closed_at": null,
+      "opening_note": null,
       "expected_amount": null,
       "actual_amount": null,
       "difference": null,
       "closing_note": null,
-      "status": "open"
+      "status": "open",
+      "opened_at": "2026-11-18T19:23:51.283+00:00",
+      "closed_at": null
     },
     {
       "id": "1afe0a57-cda1-4bef-af2f-fb38600a9180",
@@ -256,7 +420,7 @@
       "closing_note": "Tested open and close",
       "status": "closed",
       "opened_at": "2026-11-18T19:23:32.285+00:00",
-      "closed_at": "2026-11-18T19:23:41.203Z"
+      "closed_at": "2026-11-18T19:23:41.203+00:00"
     }
   ],
   "register_transactions": [
@@ -270,7 +434,7 @@
       "reason": "Shift Opening Float",
       "note": "Opened by Malik Mavia Sultan",
       "user_name_snapshot": "Malik Mavia Sultan",
-      "created_at": "2026-11-18T19:23:51.283Z"
+      "created_at": "2026-11-18T19:23:51.283+00:00"
     },
     {
       "id": "dc3a51ff-0fc6-406c-a5f0-4417beb92632",
@@ -298,47 +462,85 @@
   "vendor_payments": [],
   "audit_logs": [
     {
-      "id": "864db463-0691-45c8-b01e-db13d893f8cb",
-      "user_id": null,
-      "user_name": "Malik Mavia Sultan",
-      "action": "REGISTER_OPEN",
-      "entity_type": "register_session",
-      "entity_id": "f4d14795-43e4-48b3-8240-b361b3e64be2",
-      "description": "Cash register shift opened with Rs. 5000 float by Malik Mavia Sultan",
-      "old_values": null,
-      "new_values": {
-        "opening_amount": 5000
-      },
-      "created_at": "2026-11-18T19:23:51.283Z"
-    },
-    {
-      "id": "30e89db4-1c2c-4a34-bd70-7b3414c04acb",
-      "user_id": null,
-      "user_name": "Malik Mavia Sultan",
-      "action": "REGISTER_CLOSE",
-      "entity_type": "register_session",
-      "entity_id": "1afe0a57-cda1-4bef-af2f-fb38600a9180",
-      "description": "Shift closed. Expected: Rs. 5000, Actual: Rs. 5000, Discrepancy: Rs. 0",
-      "old_values": null,
-      "new_values": {
-        "expected_amount": 5000,
-        "actual_amount": 5000,
-        "difference": 0,
-        "closing_note": "Tested open and close"
-      },
-      "created_at": "2026-11-18T19:23:41.203Z"
-    },
-    {
-      "id": "e0ceb504-e71a-43d2-af17-5e9de7912182",
+      "id": "1f297809-87c4-4914-892d-8b90b0c5ca47",
       "user_id": null,
       "user_name": "Admin",
-      "action": "USER_UPDATED",
-      "entity_type": "profile",
-      "entity_id": "11111111-1111-1111-1111-111111111102",
-      "description": "Staff account updated for Ammar Cashier Dynamic Test",
-      "old_values": null,
-      "new_values": null,
-      "created_at": "2026-11-17T18:36:09.903+00:00"
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0306-8068058",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025+00:00",
+        "updated_at": null,
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "footer_credit_name": "Buid by Ammar",
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_credit_phone": "03260603565",
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0306-8068058",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025+00:00",
+        "updated_at": null,
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "printer_config": {
+          "auto_cut": true,
+          "printer_id": "pos-80-usb-default",
+          "paper_width": "80mm",
+          "printer_name": "POS-80 Thermal Printer",
+          "connection_type": "usb",
+          "open_cash_drawer": true,
+          "direct_print_enabled": true
+        },
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "footer_credit_name": "Buid by Ammar",
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_credit_phone": "03260603565",
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-18T19:58:18.261+00:00"
     },
     {
       "id": "6601a4ec-5f19-40b5-96aa-76b43c5d8a16",
@@ -405,107 +607,6 @@
       "created_at": "2026-11-17T12:53:22.965+00:00"
     },
     {
-      "id": "b1bbe1fd-1a73-47c6-95d2-d512bab2b0cc",
-      "user_id": null,
-      "user_name": "Admin",
-      "action": "REGISTER_CLOSE",
-      "entity_type": "register_session",
-      "entity_id": "6e6a554d-92fd-4c23-a183-63cbef604f71",
-      "description": "Shift closed. Expected: Rs. 500, Actual: Rs. 500, Discrepancy: Rs. 0",
-      "old_values": null,
-      "new_values": {
-        "difference": 0,
-        "closing_note": "Automated test completed",
-        "actual_amount": 500,
-        "expected_amount": 500
-      },
-      "created_at": "2026-11-17T18:36:13.827+00:00"
-    },
-    {
-      "id": "10063fda-043f-4469-91fe-c54374c79824",
-      "user_id": null,
-      "user_name": "Admin",
-      "action": "USER_UPDATED",
-      "entity_type": "profile",
-      "entity_id": "11111111-1111-1111-1111-111111111101",
-      "description": "Staff account updated for Malik Ammar",
-      "old_values": null,
-      "new_values": null,
-      "created_at": "2026-11-17T18:36:13.341+00:00"
-    },
-    {
-      "id": "d1960d62-1945-4f9a-abf4-9c3521200931",
-      "user_id": null,
-      "user_name": "Counter Cashier",
-      "action": "SALE",
-      "entity_type": "order",
-      "entity_id": "b84999d1-30fb-4cf1-99af-96d8c2d3b109",
-      "description": "Order MTN-0001005 finalized for 100 PKR (Counter Cashier)",
-      "old_values": null,
-      "new_values": {
-        "grand_total": 100,
-        "items_count": 1,
-        "receipt_number": "MTN-0001005"
-      },
-      "created_at": "2026-11-17T18:38:48.97+00:00"
-    },
-    {
-      "id": "85109231-443f-476e-a7a2-15cdb2fe3215",
-      "user_id": null,
-      "user_name": "Admin",
-      "action": "USER_UPDATED",
-      "entity_type": "profile",
-      "entity_id": "11111111-1111-1111-1111-111111111102",
-      "description": "Staff account updated for Ammar Cashier Dynamic Test",
-      "old_values": null,
-      "new_values": null,
-      "created_at": "2026-11-17T18:38:47.414+00:00"
-    },
-    {
-      "id": "b02c08d5-a23c-47a0-93bb-e62b1ac9d541",
-      "user_id": null,
-      "user_name": "Admin",
-      "action": "PRODUCT_DELETED",
-      "entity_type": "product",
-      "entity_id": "8cd90d9e-c757-42c9-b11b-51965197a807",
-      "description": "Product \"Special Lahori Channay\" deleted by Admin",
-      "old_values": {
-        "id": "8cd90d9e-c757-42c9-b11b-51965197a807",
-        "name": "Special Lahori Channay",
-        "is_active": true,
-        "cost_price": 90,
-        "short_name": "Channay",
-        "sort_order": 1,
-        "category_id": "99932dff-993a-48d9-a725-7adf1747701a",
-        "availability": "available",
-        "selling_price": 180,
-        "pricing_config": {
-          "min_price": 10,
-          "custom_price": 100,
-          "enable_by_plate": true,
-          "enable_by_price": true,
-          "full_plate_price": 180,
-          "half_plate_price": 100,
-          "custom_price_label": "Half Rate",
-          "enable_custom_price": true
-        }
-      },
-      "new_values": null,
-      "created_at": "2026-11-17T12:53:22.642+00:00"
-    },
-    {
-      "id": "4331322d-53f0-479c-9e3a-fb0b2c19049a",
-      "user_id": null,
-      "user_name": "Admin",
-      "action": "USER_UPDATED",
-      "entity_type": "profile",
-      "entity_id": "11111111-1111-1111-1111-111111111102",
-      "description": "Staff account updated for Muhammad Bilal",
-      "old_values": null,
-      "new_values": null,
-      "created_at": "2026-11-17T18:36:12.84+00:00"
-    },
-    {
       "id": "8926a788-91e7-4c93-b170-43cf335ed780",
       "user_id": null,
       "user_name": "Counter Cashier",
@@ -520,18 +621,6 @@
         "receipt_number": "MTN-0001004"
       },
       "created_at": "2026-11-17T18:36:12.834+00:00"
-    },
-    {
-      "id": "9389bced-50e6-4ba7-af78-be9e0e0ca779",
-      "user_id": null,
-      "user_name": "Admin",
-      "action": "USER_UPDATED",
-      "entity_type": "profile",
-      "entity_id": "11111111-1111-1111-1111-111111111102",
-      "description": "Staff account updated for Malik Mavia Sultan",
-      "old_values": null,
-      "new_values": null,
-      "created_at": "2026-11-18T18:15:03.674+00:00"
     },
     {
       "id": "f63d9b5c-80a6-4f5e-b3fc-16d1a0c85db2",
@@ -598,6 +687,60 @@
       "created_at": "2026-11-17T18:36:12.517+00:00"
     },
     {
+      "id": "85109231-443f-476e-a7a2-15cdb2fe3215",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111102",
+      "description": "Staff account updated for Ammar Cashier Dynamic Test",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T18:38:47.414+00:00"
+    },
+    {
+      "id": "d1960d62-1945-4f9a-abf4-9c3521200931",
+      "user_id": null,
+      "user_name": "Counter Cashier",
+      "action": "SALE",
+      "entity_type": "order",
+      "entity_id": "b84999d1-30fb-4cf1-99af-96d8c2d3b109",
+      "description": "Order MTN-0001005 finalized for 100 PKR (Counter Cashier)",
+      "old_values": null,
+      "new_values": {
+        "grand_total": 100,
+        "items_count": 1,
+        "receipt_number": "MTN-0001005"
+      },
+      "created_at": "2026-11-17T18:38:48.97+00:00"
+    },
+    {
+      "id": "864db463-0691-45c8-b01e-db13d893f8cb",
+      "user_id": null,
+      "user_name": "Malik Mavia Sultan",
+      "action": "REGISTER_OPEN",
+      "entity_type": "register_session",
+      "entity_id": "f4d14795-43e4-48b3-8240-b361b3e64be2",
+      "description": "Cash register shift opened with Rs. 5000 float by Malik Mavia Sultan",
+      "old_values": null,
+      "new_values": {
+        "opening_amount": 5000
+      },
+      "created_at": "2026-11-18T19:23:51.283+00:00"
+    },
+    {
+      "id": "e0ceb504-e71a-43d2-af17-5e9de7912182",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111102",
+      "description": "Staff account updated for Ammar Cashier Dynamic Test",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T18:36:09.903+00:00"
+    },
+    {
       "id": "ca5d0d2e-8a89-4f43-ae21-eda35e4b0ee8",
       "user_id": null,
       "user_name": "Admin",
@@ -620,6 +763,122 @@
       "old_values": null,
       "new_values": null,
       "created_at": "2026-11-17T12:53:08.281+00:00"
+    },
+    {
+      "id": "e2a5b1fd-cb42-4992-ab40-f6a290522c46",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0306-8068058",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025+00:00",
+        "updated_at": null,
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "footer_credit_name": "Buid by Ammar",
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_credit_phone": "03260603565",
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0306-8068058",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025+00:00",
+        "updated_at": null,
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "footer_credit_name": "Buid by Ammar",
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_credit_phone": "03260603565",
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-18T19:57:19.731+00:00"
+    },
+    {
+      "id": "10063fda-043f-4469-91fe-c54374c79824",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111101",
+      "description": "Staff account updated for Malik Ammar",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T18:36:13.341+00:00"
+    },
+    {
+      "id": "b02c08d5-a23c-47a0-93bb-e62b1ac9d541",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "PRODUCT_DELETED",
+      "entity_type": "product",
+      "entity_id": "8cd90d9e-c757-42c9-b11b-51965197a807",
+      "description": "Product \"Special Lahori Channay\" deleted by Admin",
+      "old_values": {
+        "id": "8cd90d9e-c757-42c9-b11b-51965197a807",
+        "name": "Special Lahori Channay",
+        "is_active": true,
+        "cost_price": 90,
+        "short_name": "Channay",
+        "sort_order": 1,
+        "category_id": "99932dff-993a-48d9-a725-7adf1747701a",
+        "availability": "available",
+        "selling_price": 180,
+        "pricing_config": {
+          "min_price": 10,
+          "custom_price": 100,
+          "enable_by_plate": true,
+          "enable_by_price": true,
+          "full_plate_price": 180,
+          "half_plate_price": 100,
+          "custom_price_label": "Half Rate",
+          "enable_custom_price": true
+        }
+      },
+      "new_values": null,
+      "created_at": "2026-11-17T12:53:22.642+00:00"
     },
     {
       "id": "log-001",
@@ -743,6 +1002,18 @@
       "old_values": null,
       "new_values": null,
       "created_at": "2026-11-17T18:31:59.584+00:00"
+    },
+    {
+      "id": "4331322d-53f0-479c-9e3a-fb0b2c19049a",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111102",
+      "description": "Staff account updated for Muhammad Bilal",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-17T18:36:12.84+00:00"
     },
     {
       "id": "77e225c5-8796-42fa-b22e-20c2cf474d00",
@@ -891,6 +1162,250 @@
       "old_values": null,
       "new_values": null,
       "created_at": "2026-11-18T18:15:32.179+00:00"
+    },
+    {
+      "id": "30e89db4-1c2c-4a34-bd70-7b3414c04acb",
+      "user_id": null,
+      "user_name": "Malik Mavia Sultan",
+      "action": "REGISTER_CLOSE",
+      "entity_type": "register_session",
+      "entity_id": "1afe0a57-cda1-4bef-af2f-fb38600a9180",
+      "description": "Shift closed. Expected: Rs. 5000, Actual: Rs. 5000, Discrepancy: Rs. 0",
+      "old_values": null,
+      "new_values": {
+        "difference": 0,
+        "closing_note": "Tested open and close",
+        "actual_amount": 5000,
+        "expected_amount": 5000
+      },
+      "created_at": "2026-11-18T19:23:41.203+00:00"
+    },
+    {
+      "id": "e68e7101-9823-440e-a5bd-85fce3a82f7b",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0306-8068058",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025+00:00",
+        "updated_at": null,
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "printer_config": {
+            "auto_cut": true,
+            "printer_id": "pos-80-usb-default",
+            "paper_width": "80mm",
+            "printer_name": "POS-80 Thermal Printer",
+            "connection_type": "usb",
+            "open_cash_drawer": true,
+            "direct_print_enabled": true
+          },
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "footer_credit_name": "Buid by Ammar",
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_credit_phone": "03260603565",
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0306-8068058",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025+00:00",
+        "updated_at": null,
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "printer_config": {
+          "auto_cut": true,
+          "printer_id": "pos-80-usb-default",
+          "paper_width": "80mm",
+          "printer_name": "POS-80 Thermal Printer",
+          "connection_type": "usb",
+          "open_cash_drawer": true,
+          "direct_print_enabled": true
+        },
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "printer_config": {
+            "auto_cut": true,
+            "printer_id": "pos-80-usb-default",
+            "paper_width": "80mm",
+            "printer_name": "POS-80 Thermal Printer",
+            "connection_type": "usb",
+            "open_cash_drawer": true,
+            "direct_print_enabled": true
+          },
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "footer_credit_name": "Buid by Ammar",
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_credit_phone": "03260603565",
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-18T20:01:22.701+00:00"
+    },
+    {
+      "id": "b1bbe1fd-1a73-47c6-95d2-d512bab2b0cc",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "REGISTER_CLOSE",
+      "entity_type": "register_session",
+      "entity_id": "6e6a554d-92fd-4c23-a183-63cbef604f71",
+      "description": "Shift closed. Expected: Rs. 500, Actual: Rs. 500, Discrepancy: Rs. 0",
+      "old_values": null,
+      "new_values": {
+        "difference": 0,
+        "closing_note": "Automated test completed",
+        "actual_amount": 500,
+        "expected_amount": 500
+      },
+      "created_at": "2026-11-17T18:36:13.827+00:00"
+    },
+    {
+      "id": "9389bced-50e6-4ba7-af78-be9e0e0ca779",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "USER_UPDATED",
+      "entity_type": "profile",
+      "entity_id": "11111111-1111-1111-1111-111111111102",
+      "description": "Staff account updated for Malik Mavia Sultan",
+      "old_values": null,
+      "new_values": null,
+      "created_at": "2026-11-18T18:15:03.674+00:00"
+    },
+    {
+      "id": "63854db1-6946-45c9-9fe6-fa64ffb93eb9",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0306-8068058",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025+00:00",
+        "updated_at": null,
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "printer_config": {
+            "auto_cut": true,
+            "printer_id": "pos-80-usb-default",
+            "paper_width": "80mm",
+            "printer_name": "POS-80 Thermal Printer",
+            "connection_type": "usb",
+            "open_cash_drawer": true,
+            "direct_print_enabled": true
+          },
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "footer_credit_name": "Buid by Ammar",
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_credit_phone": "03260603565",
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "phone": "0306-8068058",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "admin_pin": "1234",
+        "created_at": "2026-11-10T09:52:55.025+00:00",
+        "updated_at": null,
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "printer_config": {
+          "auto_cut": true,
+          "printer_id": "pos-80-usb-default",
+          "paper_width": "80mm",
+          "printer_name": "POS-80 Thermal Printer",
+          "connection_type": "usb",
+          "open_cash_drawer": true,
+          "direct_print_enabled": true
+        },
+        "default_tax_rate": 0,
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "printer_config": {
+            "auto_cut": true,
+            "printer_id": "pos-80-usb-default",
+            "paper_width": "80mm",
+            "printer_name": "POS-80 Thermal Printer",
+            "connection_type": "usb",
+            "open_cash_drawer": true,
+            "direct_print_enabled": true
+          },
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "footer_credit_name": "Buid by Ammar",
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_credit_phone": "03260603565",
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "max_cashier_discount_percent": 15
+      },
+      "created_at": "2026-11-18T20:03:10.223+00:00"
     }
   ]
 }

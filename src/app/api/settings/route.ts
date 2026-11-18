@@ -31,6 +31,9 @@ export async function GET() {
       if (!settings.receipt_template.footer_credit_phone) {
         settings.receipt_template.footer_credit_phone = '03260603565';
       }
+      if (settings.receipt_template.printer_config) {
+        settings.printer_config = settings.receipt_template.printer_config;
+      }
     }
 
     return jsonResponse({ success: true, settings });
@@ -67,6 +70,14 @@ export async function PUT(req: Request) {
         ...body.receipt_template,
       };
     }
+    if (body.printer_config !== undefined) {
+      current.printer_config = {
+        ...(current.printer_config || {}),
+        ...body.printer_config,
+      };
+      if (!current.receipt_template) current.receipt_template = {};
+      current.receipt_template.printer_config = current.printer_config;
+    }
 
     await logAuditEvent({
       user_name: body.cashier_name || 'Admin',
@@ -80,9 +91,22 @@ export async function PUT(req: Request) {
 
     localStore.save();
 
-    // Direct synchronous Cloud PostgreSQL persistence
+    // Direct synchronous Cloud PostgreSQL persistence (only cloud columns to avoid PGRST204)
     try {
-      await insforgeAdmin.database.from('pos_settings').upsert([current], { onConflict: 'id' });
+      const cloudPayload: any = {
+        id: current.id,
+        business_name: current.business_name,
+        address: current.address,
+        phone: current.phone,
+        greeting_message: current.greeting_message,
+        admin_pin: current.admin_pin,
+        cash_rounding_enabled: current.cash_rounding_enabled,
+        require_admin_pin_refunds: current.require_admin_pin_refunds,
+        default_tax_rate: current.default_tax_rate,
+        max_cashier_discount_percent: current.max_cashier_discount_percent,
+        receipt_template: current.receipt_template,
+      };
+      await insforgeAdmin.database.from('pos_settings').upsert([cloudPayload], { onConflict: 'id' });
     } catch (e) {
       console.warn('Cloud sync error for pos_settings update:', e);
     }
