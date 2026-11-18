@@ -144,9 +144,9 @@ function SettingsContent() {
     setLoadingData(true);
     try {
       const [pRes, cRes, rRes] = await Promise.all([
-        fetch('/api/products').then((r) => r.json()),
-        fetch('/api/categories').then((r) => r.json()),
-        fetch('/api/raw-materials?include_inactive=true').then((r) => r.json()),
+        fetch('/api/products', { cache: 'no-store' }).then((r) => r.json()),
+        fetch('/api/categories', { cache: 'no-store' }).then((r) => r.json()),
+        fetch('/api/raw-materials?include_inactive=true', { cache: 'no-store' }).then((r) => r.json()),
       ]);
 
       if (pRes.success) setProducts(pRes.products || []);

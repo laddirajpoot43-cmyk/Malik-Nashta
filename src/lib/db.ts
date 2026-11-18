@@ -159,6 +159,7 @@ class StoreManager {
   private cloudConnected: boolean = false;
   private lastCloudSyncAt: string | null = null;
   private syncInProgress: boolean = false;
+  private lastFileLoadTime: number = 0;
 
   constructor() {
     this.data = this.loadData();
@@ -180,6 +181,8 @@ class StoreManager {
         fs.mkdirSync(DATA_DIR, { recursive: true });
       }
       if (fs.existsSync(DB_FILE)) {
+        const stat = fs.statSync(DB_FILE);
+        this.lastFileLoadTime = stat.mtimeMs;
         const raw = fs.readFileSync(DB_FILE, 'utf8');
         const parsed = JSON.parse(raw);
         return parsed;
@@ -232,34 +235,30 @@ class StoreManager {
 
               if (t === 'products') {
                 const existingProd = (this.data.products || []).find((p: any) => p.id === normalized.id);
-                if (existingProd?.pricing_config) {
-                  normalized.pricing_config = existingProd.pricing_config;
-                } else if (!normalized.pricing_config) {
-                  if (normalized.id === '44444444-4444-4444-4444-444444444401' || normalized.name?.includes('Channay') || normalized.name?.includes('Chana')) {
-                    normalized.pricing_config = {
-                      enable_by_plate: true,
-                      full_plate_price: 180.00,
-                      half_plate_price: 100.00,
-                      enable_by_price: true,
-                      min_price: 20.00,
-                      enable_custom_price: true,
-                      custom_price_label: 'Half Rate',
-                      custom_price: 100.00,
-                    };
-                  } else {
-                    const halfPrice = Math.round((Number(normalized.selling_price || 0) * 0.55) / 10) * 10;
-                    normalized.pricing_config = {
-                      enable_by_plate: true,
-                      full_plate_price: Number(normalized.selling_price || 0),
-                      half_plate_price: halfPrice,
-                      enable_by_price: true,
-                      min_price: 10.00,
-                      enable_custom_price: true,
-                      custom_price_label: 'Half Rate',
-                      custom_price: halfPrice,
-                    };
-                  }
-                }
+                const fullPrice = Number(normalized.selling_price || 0);
+                const defaultHalfPrice = Math.round((fullPrice * 0.55) / 5) * 5;
+
+                normalized.pricing_config = {
+                  enable_by_plate: existingProd?.pricing_config?.enable_by_plate ?? true,
+                  full_plate_price:
+                    existingProd?.pricing_config?.full_plate_price &&
+                    existingProd.pricing_config.full_plate_price > 0 &&
+                    existingProd.pricing_config.full_plate_price === fullPrice
+                      ? existingProd.pricing_config.full_plate_price
+                      : fullPrice,
+                  half_plate_price:
+                    existingProd?.pricing_config?.half_plate_price && existingProd.pricing_config.half_plate_price > 0
+                      ? existingProd.pricing_config.half_plate_price
+                      : defaultHalfPrice,
+                  enable_by_price: existingProd?.pricing_config?.enable_by_price ?? true,
+                  min_price: existingProd?.pricing_config?.min_price ?? 10.0,
+                  enable_custom_price: existingProd?.pricing_config?.enable_custom_price ?? true,
+                  custom_price_label: existingProd?.pricing_config?.custom_price_label ?? 'Half Rate',
+                  custom_price:
+                    existingProd?.pricing_config?.custom_price && existingProd.pricing_config.custom_price > 0
+                      ? existingProd.pricing_config.custom_price
+                      : defaultHalfPrice,
+                };
               }
 
               if (t === 'order_items') {
@@ -365,6 +364,9 @@ class StoreManager {
         fs.mkdirSync(DATA_DIR, { recursive: true });
       }
       fs.writeFileSync(DB_FILE, JSON.stringify(this.data, null, 2), 'utf8');
+      if (fs.existsSync(DB_FILE)) {
+        this.lastFileLoadTime = fs.statSync(DB_FILE).mtimeMs;
+      }
       if (syncCloud) {
         this.syncToCloud().catch(() => {});
       }
@@ -374,7 +376,39 @@ class StoreManager {
   }
 
   public getData(): SchemaStore {
+    try {
+      if (fs.existsSync(DB_FILE)) {
+        const stat = fs.statSync(DB_FILE);
+        if (stat.mtimeMs > this.lastFileLoadTime) {
+          this.lastFileLoadTime = stat.mtimeMs;
+          const raw = fs.readFileSync(DB_FILE, 'utf8');
+          const parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === 'object') {
+            this.data = parsed;
+          }
+        }
+      }
+    } catch (e) {
+      // Fallback to current memory data
+    }
     return this.data;
+  }
+
+  public async ensureFresh(maxAgeMs: number = 4000): Promise<SchemaStore> {
+    const store = this.getData();
+    const hasProducts = Array.isArray(store.products) && store.products.length > 0;
+    const hasCategories = Array.isArray(store.categories) && store.categories.length > 0;
+    const now = Date.now();
+    const isStale = !this.lastCloudSyncAt || (now - new Date(this.lastCloudSyncAt).getTime() > maxAgeMs);
+
+    if (!hasProducts || !hasCategories || isStale || !this.cloudConnected) {
+      try {
+        await this.hydrateFromCloud();
+      } catch (err) {
+        // Fallback gracefully
+      }
+    }
+    return this.getData();
   }
 
   public getCloudStatus() {
@@ -419,6 +453,7 @@ const storeManager = new StoreManager();
 export const localStore = {
   get: () => storeManager.getData(),
   save: () => storeManager.saveData(),
+  ensureFresh: (maxAgeMs?: number) => storeManager.ensureFresh(maxAgeMs),
   nextSeq: (type: any) => storeManager.getNextSequence(type),
   syncFromCloud: () => storeManager.hydrateFromCloud(),
   syncToCloud: () => storeManager.syncToCloud(),

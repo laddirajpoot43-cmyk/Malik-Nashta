@@ -99,14 +99,13 @@ export function POSProvider({ children }: { children: React.ReactNode }) {
 
   const refreshPOSData = useCallback(async () => {
     try {
-      setLoading(true);
-      const res = await fetch('/api/pos/init');
+      const res = await fetch('/api/pos/init', { cache: 'no-store' });
       const data = await res.json();
       if (data.success) {
-        setCategories(data.categories || []);
-        setProducts(data.products || []);
-        setAddons(data.addons || []);
-        setQuickNotes(data.quickNotes || []);
+        if (Array.isArray(data.categories)) setCategories(data.categories);
+        if (Array.isArray(data.products)) setProducts(data.products);
+        if (Array.isArray(data.addons)) setAddons(data.addons);
+        if (Array.isArray(data.quickNotes)) setQuickNotes(data.quickNotes);
         setActiveRegister(data.activeRegister || null);
         setHeldOrdersCount(data.heldOrdersCount || 0);
       }

@@ -1,12 +1,12 @@
-import { NextResponse } from 'next/server';
 import { localStore, logAuditEvent } from '@/lib/db';
 import { insforgeAdmin } from '@/lib/insforge';
+import { jsonResponse } from '@/lib/api-response';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const store = localStore.get();
+    const store = await localStore.ensureFresh();
     const settings = store.pos_settings?.[0] || {
       id: '33333333-3333-3333-3333-333333333301',
       business_name: 'MALIK TASTY NASHTA POINT',
@@ -33,9 +33,9 @@ export async function GET() {
       }
     }
 
-    return NextResponse.json({ success: true, settings });
+    return jsonResponse({ success: true, settings });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }
 
@@ -87,9 +87,9 @@ export async function PUT(req: Request) {
       console.warn('Cloud sync error for pos_settings update:', e);
     }
 
-    return NextResponse.json({ success: true, settings: current });
+    return jsonResponse({ success: true, settings: current });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }
 

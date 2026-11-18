@@ -1,16 +1,16 @@
-import { NextResponse } from 'next/server';
 import { localStore, logAuditEvent, generateUUID } from '@/lib/db';
 import { insforgeAdmin } from '@/lib/insforge';
+import { jsonResponse } from '@/lib/api-response';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const store = localStore.get();
+    const store = await localStore.ensureFresh();
     const categories = (store.categories || []).sort((a: any, b: any) => (a.display_order || 0) - (b.display_order || 0));
-    return NextResponse.json({ success: true, categories });
+    return jsonResponse({ success: true, categories });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }
 
@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     const { name, display_order, cashier_name = 'Admin' } = body;
 
     if (!name) {
-      return NextResponse.json({ success: false, error: 'Category name is required.' }, { status: 400 });
+      return jsonResponse({ success: false, error: 'Category name is required.' }, { status: 400 });
     }
 
     const store = localStore.get();
@@ -51,9 +51,9 @@ export async function POST(req: Request) {
       console.warn('Cloud sync error for category create:', e);
     }
 
-    return NextResponse.json({ success: true, category: newCat });
+    return jsonResponse({ success: true, category: newCat });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }
 
@@ -63,13 +63,13 @@ export async function PUT(req: Request) {
     const { id, name, display_order, is_active, cashier_name = 'Admin' } = body;
 
     if (!id) {
-      return NextResponse.json({ success: false, error: 'Category ID is required' }, { status: 400 });
+      return jsonResponse({ success: false, error: 'Category ID is required' }, { status: 400 });
     }
 
     const store = localStore.get();
     const category = (store.categories || []).find((c: any) => c.id === id);
     if (!category) {
-      return NextResponse.json({ success: false, error: 'Category not found' }, { status: 404 });
+      return jsonResponse({ success: false, error: 'Category not found' }, { status: 404 });
     }
 
     if (name !== undefined) category.name = name;
@@ -99,9 +99,9 @@ export async function PUT(req: Request) {
       console.warn('Cloud sync error for category update:', e);
     }
 
-    return NextResponse.json({ success: true, category });
+    return jsonResponse({ success: true, category });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }
 
@@ -112,19 +112,19 @@ export async function DELETE(req: Request) {
     const cashier_name = searchParams.get('cashier_name') || 'Admin';
 
     if (!id) {
-      return NextResponse.json({ success: false, error: 'Category ID is required' }, { status: 400 });
+      return jsonResponse({ success: false, error: 'Category ID is required' }, { status: 400 });
     }
 
     const store = localStore.get();
     const index = (store.categories || []).findIndex((c: any) => c.id === id);
     if (index === -1) {
-      return NextResponse.json({ success: false, error: 'Category not found' }, { status: 404 });
+      return jsonResponse({ success: false, error: 'Category not found' }, { status: 404 });
     }
 
     const categoryToDelete = store.categories[index];
     const assignedProducts = (store.products || []).filter((p: any) => p.category_id === id);
     if (assignedProducts.length > 0) {
-      return NextResponse.json({
+      return jsonResponse({
         success: false,
         error: `Cannot delete category "${categoryToDelete.name}". It is currently assigned to ${assignedProducts.length} product(s) (${assignedProducts.slice(0, 3).map((p: any) => p.name).join(', ')}${assignedProducts.length > 3 ? '...' : ''}). Please reassign or remove these products first.`,
       }, { status: 400 });
@@ -149,8 +149,8 @@ export async function DELETE(req: Request) {
       console.warn('Cloud sync error for category delete:', e);
     }
 
-    return NextResponse.json({ success: true, deletedCategory: removed });
+    return jsonResponse({ success: true, deletedCategory: removed });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }

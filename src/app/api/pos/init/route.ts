@@ -1,35 +1,32 @@
-import { NextResponse } from 'next/server';
 import { localStore } from '@/lib/db';
+import { jsonResponse } from '@/lib/api-response';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export async function GET() {
   try {
-    if (!localStore.getCloudStatus().connected) {
-      await localStore.syncFromCloud();
-    }
-    const store = localStore.get();
+    const store = await localStore.ensureFresh();
 
     // Active categories sorted by display_order
     const categories = (store.categories || [])
-      .filter((c: any) => c.is_active)
+      .filter((c: any) => c.is_active !== false)
       .sort((a: any, b: any) => (a.display_order || 0) - (b.display_order || 0));
 
     // Available products joined with category names
     const products = (store.products || [])
-      .filter((p: any) => p.is_active && p.availability !== 'inactive' && p.availability !== 'hidden')
+      .filter((p: any) => p.is_active !== false && p.availability !== 'inactive' && p.availability !== 'hidden')
       .map((p: any) => {
-        const cat = categories.find((c: any) => c.id === p.category_id);
+        const cat = (store.categories || []).find((c: any) => c.id === p.category_id);
         return {
           ...p,
-          category_name: cat ? cat.name : 'Other',
+          category_name: cat ? cat.name : (p.category_name || 'Nashta'),
         };
       })
       .sort((a: any, b: any) => (a.sort_order || 0) - (b.sort_order || 0));
 
     // Active addons
-    const addons = (store.product_addons || []).filter((a: any) => a.is_active);
+    const addons = (store.product_addons || []).filter((a: any) => a.is_active !== false);
 
     const quickNotes = [
       'Mirch kam',
@@ -59,7 +56,7 @@ export async function GET() {
     // Get current POS settings
     const settings = store.pos_settings?.[0] || null;
 
-    return NextResponse.json({
+    return jsonResponse({
       success: true,
       categories,
       products,
@@ -73,7 +70,7 @@ export async function GET() {
     });
   } catch (error: any) {
     console.error('POS Init error:', error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }
 

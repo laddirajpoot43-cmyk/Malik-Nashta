@@ -32,7 +32,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const refreshSettings = async () => {
     try {
       setLoading(true);
-      const res = await fetch('/api/settings');
+      const res = await fetch('/api/settings', { cache: 'no-store' });
       const data = await res.json();
       if (data.success && data.settings) {
         setSettings(data.settings);

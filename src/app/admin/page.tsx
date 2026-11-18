@@ -44,8 +44,8 @@ function AdminDashboardContent() {
     async function loadMetrics() {
       try {
         const [sumRes, vendRes] = await Promise.all([
-          fetch('/api/daily-summary'),
-          fetch('/api/vendors'),
+          fetch('/api/daily-summary', { cache: 'no-store' }),
+          fetch('/api/vendors', { cache: 'no-store' }),
         ]);
 
         const sumData = await sumRes.json();

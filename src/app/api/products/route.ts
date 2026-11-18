@@ -1,23 +1,23 @@
-import { NextResponse } from 'next/server';
 import { localStore, logAuditEvent, generateUUID } from '@/lib/db';
 import { insforgeAdmin } from '@/lib/insforge';
+import { jsonResponse } from '@/lib/api-response';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const store = localStore.get();
+    const store = await localStore.ensureFresh();
     const categories = store.categories || [];
     const products = (store.products || []).map((p: any) => {
       const cat = categories.find((c: any) => c.id === p.category_id);
       return {
         ...p,
-        category_name: cat?.name || 'Uncategorized',
+        category_name: cat?.name || p.category_name || 'Nashta',
       };
     });
-    return NextResponse.json({ success: true, products });
+    return jsonResponse({ success: true, products });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }
 
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
     } = body;
 
     if (!name || selling_price === undefined) {
-      return NextResponse.json({ success: false, error: 'Product name and selling price are required.' }, { status: 400 });
+      return jsonResponse({ success: false, error: 'Product name and selling price are required.' }, { status: 400 });
     }
 
     const numSellingPrice = Number(selling_price);
@@ -84,9 +84,9 @@ export async function POST(req: Request) {
       console.warn('Cloud sync for new product non-blocking error:', e);
     }
 
-    return NextResponse.json({ success: true, product: newProduct });
+    return jsonResponse({ success: true, product: newProduct });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }
 
@@ -96,14 +96,14 @@ export async function PUT(req: Request) {
     const { id, name, short_name, selling_price, cost_price, availability, is_active, category_id, pricing_config, cashier_name = 'Admin' } = body;
 
     if (!id) {
-      return NextResponse.json({ success: false, error: 'Product ID is required.' }, { status: 400 });
+      return jsonResponse({ success: false, error: 'Product ID is required.' }, { status: 400 });
     }
 
     const store = localStore.get();
     const product = (store.products || []).find((p: any) => p.id === id);
 
     if (!product) {
-      return NextResponse.json({ success: false, error: 'Product not found.' }, { status: 404 });
+      return jsonResponse({ success: false, error: 'Product not found.' }, { status: 404 });
     }
 
     const oldPrice = product.selling_price;
@@ -138,9 +138,9 @@ export async function PUT(req: Request) {
       console.warn('Cloud sync for updated product non-blocking error:', e);
     }
 
-    return NextResponse.json({ success: true, product });
+    return jsonResponse({ success: true, product });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }
 
@@ -151,13 +151,13 @@ export async function DELETE(req: Request) {
     const cashier_name = searchParams.get('cashier_name') || 'Admin';
 
     if (!id) {
-      return NextResponse.json({ success: false, error: 'Product ID is required' }, { status: 400 });
+      return jsonResponse({ success: false, error: 'Product ID is required' }, { status: 400 });
     }
 
     const store = localStore.get();
     const index = (store.products || []).findIndex((p: any) => p.id === id);
     if (index === -1) {
-      return NextResponse.json({ success: false, error: 'Product not found' }, { status: 404 });
+      return jsonResponse({ success: false, error: 'Product not found' }, { status: 404 });
     }
 
     const removed = store.products.splice(index, 1)[0];
@@ -179,8 +179,8 @@ export async function DELETE(req: Request) {
       console.warn('Cloud sync for deleted product non-blocking error:', e);
     }
 
-    return NextResponse.json({ success: true, deletedProduct: removed });
+    return jsonResponse({ success: true, deletedProduct: removed });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }

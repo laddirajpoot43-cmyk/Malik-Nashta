@@ -1,12 +1,12 @@
-import { NextResponse } from 'next/server';
 import { localStore, logAuditEvent, generateUUID } from '@/lib/db';
 import { insforgeAdmin } from '@/lib/insforge';
+import { jsonResponse } from '@/lib/api-response';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const store = localStore.get();
+    const store = await localStore.ensureFresh();
     const profiles = (store.profiles || []).map((p: any) => ({
       id: p.id,
       email: p.email,
@@ -17,9 +17,9 @@ export async function GET() {
       pin_code: p.pin_code,
       created_at: p.created_at,
     }));
-    return NextResponse.json({ success: true, users: profiles });
+    return jsonResponse({ success: true, users: profiles });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }
 
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     const { email, full_name, display_name, role = 'cashier', pin_code = '0000', cashier_name = 'Admin' } = body;
 
     if (!email || !full_name) {
-      return NextResponse.json({ success: false, error: 'Email and full name are required.' }, { status: 400 });
+      return jsonResponse({ success: false, error: 'Email and full name are required.' }, { status: 400 });
     }
 
     const store = localStore.get();
@@ -68,9 +68,9 @@ export async function POST(req: Request) {
       console.warn('Cloud sync error for user create:', e);
     }
 
-    return NextResponse.json({ success: true, user: newUser });
+    return jsonResponse({ success: true, user: newUser });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }
 
@@ -80,14 +80,14 @@ export async function PUT(req: Request) {
     const { id, full_name, display_name, role, status, pin_code, cashier_name = 'Admin' } = body;
 
     if (!id) {
-      return NextResponse.json({ success: false, error: 'User ID is required.' }, { status: 400 });
+      return jsonResponse({ success: false, error: 'User ID is required.' }, { status: 400 });
     }
 
     const store = localStore.get();
     const user = (store.profiles || []).find((u: any) => u.id === id);
 
     if (!user) {
-      return NextResponse.json({ success: false, error: 'User not found.' }, { status: 404 });
+      return jsonResponse({ success: false, error: 'User not found.' }, { status: 404 });
     }
 
     if (full_name !== undefined) {
@@ -127,9 +127,9 @@ export async function PUT(req: Request) {
       console.warn('Cloud sync error for user update:', e);
     }
 
-    return NextResponse.json({ success: true, user });
+    return jsonResponse({ success: true, user });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }
 
@@ -140,14 +140,14 @@ export async function DELETE(req: Request) {
     const cashier_name = searchParams.get('cashier_name') || 'Admin';
 
     if (!id) {
-      return NextResponse.json({ success: false, error: 'User ID is required' }, { status: 400 });
+      return jsonResponse({ success: false, error: 'User ID is required' }, { status: 400 });
     }
 
     const store = localStore.get();
     const userIndex = (store.profiles || []).findIndex((u: any) => u.id === id);
 
     if (userIndex === -1) {
-      return NextResponse.json({ success: false, error: 'User not found' }, { status: 404 });
+      return jsonResponse({ success: false, error: 'User not found' }, { status: 404 });
     }
 
     const targetUser = store.profiles[userIndex];
@@ -156,7 +156,7 @@ export async function DELETE(req: Request) {
     if (targetUser.role === 'admin') {
       const activeAdminCount = (store.profiles || []).filter((u: any) => u.role === 'admin' && u.id !== id).length;
       if (activeAdminCount === 0) {
-        return NextResponse.json({
+        return jsonResponse({
           success: false,
           error: 'Cannot delete the only remaining Admin account. Please assign another admin first.',
         }, { status: 400 });
@@ -183,8 +183,8 @@ export async function DELETE(req: Request) {
       console.warn('Cloud sync error for user delete:', e);
     }
 
-    return NextResponse.json({ success: true, deletedUser: removed });
+    return jsonResponse({ success: true, deletedUser: removed });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }

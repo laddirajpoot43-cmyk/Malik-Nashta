@@ -57,6 +57,7 @@ export default function POSPage() {
     holdCurrentOrder,
     activeRegister,
     setOpenRegisterModal,
+    loading,
   } = usePOS();
 
   const { currentUser } = useAuth();
@@ -92,7 +93,7 @@ export default function POSPage() {
 
   // Filtered products list for main grid
   const filteredProducts = useMemo(() => {
-    let list = products.filter((p) => p.is_active && p.availability !== 'inactive' && p.availability !== 'hidden');
+    let list = products.filter((p) => p.is_active !== false && p.availability !== 'inactive' && p.availability !== 'hidden');
 
     if (selectedCategory !== 'all') {
       list = list.filter((p) => p.category_id === selectedCategory);
@@ -111,12 +112,22 @@ export default function POSPage() {
     return list;
   }, [products, selectedCategory, searchQuery]);
 
+  // Safety: auto-reset selectedCategory if category was removed or ID mismatch
+  useEffect(() => {
+    if (selectedCategory !== 'all' && categories.length > 0) {
+      const exists = categories.some((c) => c.id === selectedCategory);
+      if (!exists) {
+        setSelectedCategory('all');
+      }
+    }
+  }, [categories, selectedCategory]);
+
   // Search dropdown matching products (dynamic as cashier types)
   const searchMatches = useMemo(() => {
     if (!searchQuery.trim()) return [];
     const q = searchQuery.toLowerCase().trim();
     return products
-      .filter((p) => p.is_active && p.availability !== 'inactive' && p.availability !== 'hidden')
+      .filter((p) => p.is_active !== false && p.availability !== 'inactive' && p.availability !== 'hidden')
       .filter(
         (p) =>
           p.name.toLowerCase().includes(q) ||
@@ -598,7 +609,17 @@ export default function POSPage() {
 
         {/* Product Cards Grid */}
         <div className="flex-1 overflow-y-auto pr-1 min-h-0">
-          {products.length === 0 ? (
+          {loading && products.length === 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2">
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+                <div key={n} className="bg-slate-50 border border-slate-200 rounded-xl p-3 animate-pulse">
+                  <div className="h-4 bg-slate-200 rounded w-3/4 mb-2"></div>
+                  <div className="h-3 bg-slate-200 rounded w-1/2 mb-4"></div>
+                  <div className="h-5 bg-slate-200 rounded w-1/3"></div>
+                </div>
+              ))}
+            </div>
+          ) : products.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-slate-500 py-10 text-center px-4">
               <div className="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 mb-2 shadow-sm">
                 <Utensils className="w-6 h-6" />
