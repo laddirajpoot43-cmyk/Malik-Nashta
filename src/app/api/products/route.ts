@@ -73,7 +73,7 @@ export async function POST(req: Request) {
       description: `New menu product "${name}" added at Rs. ${newProduct.selling_price}`,
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     try {
       const rowToInsert = { ...newProduct } as any;
@@ -127,7 +127,7 @@ export async function PUT(req: Request) {
       new_values: { selling_price: product.selling_price, availability: product.availability },
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     try {
       const rowToUpdate = { ...product } as any;
@@ -171,7 +171,7 @@ export async function DELETE(req: Request) {
       old_values: removed,
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     try {
       await insforgeAdmin.database.from('products').delete().eq('id', id);

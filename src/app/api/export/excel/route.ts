@@ -13,7 +13,7 @@ export async function GET(req: Request) {
 
     const targetDate = dateParam || new Date().toISOString().split('T')[0];
 
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(1500);
     const settings = store.pos_settings?.[0] || {
       business_name: 'MALIK TASTY NASHTA POINT',
       address: 'Vehari Road, Hasilpur, Punjab, Pakistan',

@@ -22,6 +22,9 @@ import {
   Lock,
   ShieldCheck,
   Store,
+  Wallet,
+  Package,
+  KeyRound,
 } from 'lucide-react';
 
 interface NavItem {
@@ -73,6 +76,7 @@ function AdminSidebarInner() {
       items: [
         { href: '/admin', label: 'Admin Dashboard', icon: LayoutDashboard, exact: true },
         { href: '/orders', label: 'All Orders & Invoices', icon: Receipt },
+        { href: '/register', label: 'Cash Register & Shifts', icon: Wallet },
         { href: '/daily-summary', label: 'Roozana Hisaab (Daily)', icon: FileText },
       ],
     },
@@ -84,10 +88,13 @@ function AdminSidebarInner() {
       ],
     },
     {
-      title: 'Inventory & Vendor Khata',
+      title: 'Inventory, Khata & Expenses',
       items: [
         { href: '/purchases', label: 'Maal Ka Khareedar (Purchases)', icon: Truck },
         { href: '/vendors', label: 'Vendor Khata (Mandi Ledger)', icon: BookOpen },
+        { href: '/customers', label: 'Customer Udhaar Khata', icon: Users },
+        { href: '/expenses', label: 'Hotel Expenses (اخراجات)', icon: Receipt },
+        { href: '/settings?tab=raw', label: 'Raw Materials (Mandi)', icon: Package, tab: 'raw' },
       ],
     },
     {
@@ -103,6 +110,7 @@ function AdminSidebarInner() {
         { href: '/settings?tab=printer', label: 'Thermal Printer Devices', icon: Usb, tab: 'printer' },
         { href: '/settings?tab=receipt', label: 'Thermal Receipt Customizer', icon: Printer, tab: 'receipt' },
         { href: '/settings?tab=staff', label: 'Staff Accounts & PINs', icon: Users, tab: 'staff' },
+        { href: '/settings?tab=security', label: 'Security & Admin PIN', icon: KeyRound, tab: 'security' },
         { href: '/settings?tab=hotel', label: 'General Hotel Settings', icon: Settings, tab: 'hotel' },
       ],
     },

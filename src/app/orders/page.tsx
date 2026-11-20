@@ -225,8 +225,9 @@ export default function OrdersPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          reason: voidReason.trim(),
+          void_reason: voidReason.trim(),
           admin_pin: voidPin.trim(),
+          cashier_name: currentUser?.display_name || 'Admin',
         }),
       });
 

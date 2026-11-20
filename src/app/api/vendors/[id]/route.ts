@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(1500);
     const vendor = (store.vendors || []).find((v: any) => v.id === id);
 
     if (!vendor) {
@@ -140,7 +140,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     const body = await req.json();
     const { name, phone, category, address, is_active, cashier_name = 'Admin' } = body;
 
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(1500);
     const vendor = (store.vendors || []).find((v: any) => v.id === id);
 
     if (!vendor) {
@@ -153,7 +153,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     if (address !== undefined) vendor.address = String(address).trim() || null;
     if (is_active !== undefined) vendor.is_active = Boolean(is_active);
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     try {
       const { insforgeAdmin } = await import('@/lib/insforge');
@@ -184,7 +184,7 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
     const { searchParams } = new URL(req.url);
     const cashier_name = searchParams.get('cashier_name') || 'Admin';
 
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(1500);
     const vendor = (store.vendors || []).find((v: any) => v.id === id);
 
     if (!vendor) {
@@ -198,7 +198,7 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
 
     if (hasInvoices || hasPayments) {
       vendor.is_active = false;
-      localStore.save();
+      await localStore.saveAndSync();
       try {
         await insforgeAdmin.database.from('vendors').upsert([{ id: vendor.id, is_active: false }]);
       } catch (e) {
@@ -209,7 +209,7 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
 
     const index = store.vendors.findIndex((v: any) => v.id === id);
     const removed = store.vendors.splice(index, 1)[0];
-    localStore.save();
+    await localStore.saveAndSync();
 
     try {
       await insforgeAdmin.database.from('vendors').delete().eq('id', id);

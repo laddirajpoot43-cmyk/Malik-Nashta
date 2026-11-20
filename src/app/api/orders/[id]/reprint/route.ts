@@ -9,7 +9,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     const body = await req.json().catch(() => ({}));
     const cashier_name = body.cashier_name || 'Counter Cashier';
 
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(1500);
     const order = (store.orders || []).find((o: any) => o.id === id || o.receipt_number === id);
 
     if (!order) {
@@ -27,7 +27,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
       new_values: { reprint_count: order.reprint_count },
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     const items = (order.items && order.items.length > 0)
       ? order.items

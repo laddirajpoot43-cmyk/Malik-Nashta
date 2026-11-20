@@ -89,7 +89,7 @@ export async function PUT(req: Request) {
       new_values: current,
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     // Direct synchronous Cloud PostgreSQL persistence (only cloud columns to avoid PGRST204)
     try {

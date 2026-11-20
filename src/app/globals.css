@@ -40,9 +40,29 @@ body {
     overflow: visible !important;
   }
 
-  /* Completely exclude entire web application tree from print calculations */
-  #app-root {
+  /* Exclude web app tree when printing thermal receipt, UNLESS print-page-mode is active */
+  body:not(.print-page-mode) #app-root {
     display: none !important;
+  }
+
+  body.print-page-mode #thermal-print-portal {
+    display: none !important;
+  }
+
+  body.print-page-mode #app-root {
+    display: block !important;
+  }
+
+  body.print-page-mode aside,
+  body.print-page-mode header,
+  body.print-page-mode .no-print {
+    display: none !important;
+  }
+
+  body.print-page-mode main {
+    padding: 12px !important;
+    margin: 0 !important;
+    width: 100% !important;
   }
 
   #thermal-print-portal {

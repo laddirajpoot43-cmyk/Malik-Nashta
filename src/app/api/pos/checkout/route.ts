@@ -15,6 +15,7 @@ export async function POST(req: Request) {
       customer_name,
       customer_phone,
       payments = [],
+      udhaar_customer_id,
       idempotency_key,
       cashier_id,
       cashier_name = 'Counter Cashier',
@@ -257,6 +258,34 @@ export async function POST(req: Request) {
       store.orders.unshift(newOrder);
       for (const it of orderItemsToInsert) store.order_items.push(it);
       for (const py of paymentsToInsert) store.order_payments.push(py);
+
+      // 8b. If paid via Udhaar Khata, update customer balance & ledger
+      const udhaarTotal = paymentsToInsert
+        .filter((p) => String(p.method_id).toLowerCase() === 'udhaar')
+        .reduce((acc, p) => addMoney(acc, p.amount), 0);
+
+      if (udhaarTotal > 0 && udhaar_customer_id) {
+        if (!Array.isArray(store.customers)) store.customers = [];
+        if (!Array.isArray(store.customer_transactions)) store.customer_transactions = [];
+        const custIdx = store.customers.findIndex((c: any) => c.id === udhaar_customer_id);
+        if (custIdx !== -1) {
+          const cust = store.customers[custIdx];
+          cust.current_balance = addMoney(Number(cust.current_balance || 0), udhaarTotal);
+          cust.updated_at = new Date().toISOString();
+          store.customer_transactions.unshift({
+            id: generateUUID(),
+            customer_id: cust.id,
+            voucher_number: receiptNumber,
+            type: 'UDHAAR',
+            amount: udhaarTotal,
+            payment_method: 'Udhaar',
+            order_receipt_number: receiptNumber,
+            note: `POS Bill #${receiptNumber}`,
+            cashier_name: resolvedCashierName,
+            created_at: new Date().toISOString(),
+          });
+        }
+      }
 
       // 9. If paid via Cash, create atomic drawer SALE transaction
       if (totalCashPaidPortion > 0) {

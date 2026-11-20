@@ -45,7 +45,7 @@ interface POSContextType {
 
   // Billing Actions
   quickCashCheckout: () => Promise<{ success: boolean; order?: Order; error?: string }>;
-  customCheckout: (payments: { method_id: string; amount: number; amount_tendered?: number }[], pin?: string) => Promise<{ success: boolean; order?: Order; error?: string }>;
+  customCheckout: (payments: { method_id: string; amount: number; amount_tendered?: number }[], pin?: string, extra?: { udhaar_customer_id?: string }) => Promise<{ success: boolean; order?: Order; error?: string }>;
   holdCurrentOrder: (name?: string) => Promise<{ success: boolean; error?: string }>;
   resumeHeldOrder: (heldId: string) => Promise<{ success: boolean; error?: string }>;
 
@@ -314,7 +314,8 @@ export function POSProvider({ children }: { children: React.ReactNode }) {
   // Custom checkout with payment breakdown & tender
   const customCheckout = async (
     payments: { method_id: string; amount: number; amount_tendered?: number }[],
-    pin?: string
+    pin?: string,
+    extra?: { udhaar_customer_id?: string }
   ): Promise<{ success: boolean; order?: Order; error?: string }> => {
     if (cart.length === 0) return { success: false, error: 'Cart is empty.' };
     if (!activeRegister) {
@@ -332,6 +333,7 @@ export function POSProvider({ children }: { children: React.ReactNode }) {
         customer_name: customerName || 'Walk-in Guest',
         customer_phone: customerPhone || undefined,
         payments,
+        udhaar_customer_id: extra?.udhaar_customer_id || undefined,
         idempotency_key: idempotencyKey,
         cashier_id: currentUser?.id,
         cashier_name: currentUser?.display_name || currentUser?.full_name || 'Counter Cashier',

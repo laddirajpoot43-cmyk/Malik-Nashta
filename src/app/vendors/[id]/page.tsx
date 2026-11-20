@@ -139,17 +139,38 @@ function VendorDetailContent({ params }: { params: Promise<{ id: string }> }) {
           </div>
         </div>
 
-        <button
-          onClick={() => {
-            setShowPayModal(true);
-            setErrorMsg('');
-            setSuccessMsg('');
-          }}
-          className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
-        >
-          <DollarSign className="w-3.5 h-3.5" />
-          <span>Pay Supplier (ادائیگی واؤچر)</span>
-        </button>
+        <div className="flex items-center gap-2 no-print">
+          <button
+            type="button"
+            onClick={() => {
+              document.body.classList.add('print-page-mode');
+              const cleanup = () => {
+                document.body.classList.remove('print-page-mode');
+                window.removeEventListener('afterprint', cleanup);
+              };
+              window.addEventListener('afterprint', cleanup);
+              setTimeout(() => window.print(), 50);
+              setTimeout(cleanup, 3000);
+            }}
+            className="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 font-bold text-xs rounded-xl transition flex items-center gap-1.5 cursor-pointer"
+            title="Print Supplier Khata Statement"
+          >
+            <Printer className="w-3.5 h-3.5" />
+            <span>Print Statement</span>
+          </button>
+
+          <button
+            onClick={() => {
+              setShowPayModal(true);
+              setErrorMsg('');
+              setSuccessMsg('');
+            }}
+            className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
+          >
+            <DollarSign className="w-3.5 h-3.5" />
+            <span>Pay Supplier (ادائیگی واؤچر)</span>
+          </button>
+        </div>
       </div>
 
       {successMsg && (

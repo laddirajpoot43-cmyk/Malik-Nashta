@@ -7,9 +7,9 @@
     "static/chunks/0cz1d0mv5g_q7.js"
   ],
   "lowPriorityFiles": [
-    "static/UNRZCtfnRoZ06Aog4fZdq/_buildManifest.js",
-    "static/UNRZCtfnRoZ06Aog4fZdq/_ssgManifest.js",
-    "static/UNRZCtfnRoZ06Aog4fZdq/_clientMiddlewareManifest.js"
+    "static/Gd6IgLrDHP4p2cqqhwC72/_buildManifest.js",
+    "static/Gd6IgLrDHP4p2cqqhwC72/_ssgManifest.js",
+    "static/Gd6IgLrDHP4p2cqqhwC72/_clientMiddlewareManifest.js"
   ],
   "rootMainFiles": [
     "static/chunks/310vm2bl3xxpt.js",
@@ -75,7 +75,29 @@
         94553
       ]
     },
+    "/customers/page": {
+      "otherChunks": [
+        "static/chunks/310vm2bl3xxpt.js",
+        "static/chunks/1wnov70f88xjy.js",
+        "static/chunks/0ohb6jwfe1-fr.js",
+        "static/chunks/0c1ad7rcpjghx.js"
+      ],
+      "runtimeModuleIds": [
+        94553
+      ]
+    },
     "/daily-summary/page": {
+      "otherChunks": [
+        "static/chunks/310vm2bl3xxpt.js",
+        "static/chunks/1wnov70f88xjy.js",
+        "static/chunks/0ohb6jwfe1-fr.js",
+        "static/chunks/0c1ad7rcpjghx.js"
+      ],
+      "runtimeModuleIds": [
+        94553
+      ]
+    },
+    "/expenses/page": {
       "otherChunks": [
         "static/chunks/310vm2bl3xxpt.js",
         "static/chunks/1wnov70f88xjy.js",

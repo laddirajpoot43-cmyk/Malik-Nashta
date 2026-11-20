@@ -42,7 +42,7 @@ export async function POST(req: Request) {
       description: `Category "${name}" created`,
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     // Direct synchronous Cloud PostgreSQL persistence
     try {
@@ -84,7 +84,7 @@ export async function PUT(req: Request) {
       description: `Category "${category.name}" updated`,
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     // Direct synchronous Cloud PostgreSQL persistence
     try {
@@ -140,7 +140,7 @@ export async function DELETE(req: Request) {
       description: `Category "${removed.name}" deleted by ${cashier_name}`,
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     // Direct synchronous Cloud PostgreSQL persistence
     try {

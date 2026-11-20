@@ -3,13 +3,22 @@
 import React, { useState, useEffect } from 'react';
 import { usePOS } from '@/context/POSContext';
 import { formatMoney, subtractMoney, addMoney } from '@/lib/money';
-import { CreditCard, DollarSign, Smartphone, Check, X, AlertTriangle } from 'lucide-react';
+import { CreditCard, DollarSign, Smartphone, Check, X, AlertTriangle, BookOpen } from 'lucide-react';
+
+interface KhataCustomer {
+  id: string;
+  name: string;
+  phone?: string;
+  current_balance: number;
+}
 
 export const PaymentModal: React.FC = () => {
   const { openPaymentModal, setOpenPaymentModal, grandTotal, customCheckout, customerName, setCustomerName, customerPhone, setCustomerPhone } = usePOS();
 
-  const [paymentMethod, setPaymentMethod] = useState<'cash' | 'jazzcash' | 'easypaisa' | 'bank'>('cash');
+  const [paymentMethod, setPaymentMethod] = useState<'cash' | 'jazzcash' | 'easypaisa' | 'bank' | 'udhaar'>('cash');
   const [tenderedAmount, setTenderedAmount] = useState<string>('');
+  const [customers, setCustomers] = useState<KhataCustomer[]>([]);
+  const [selectedCustomerId, setSelectedCustomerId] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>('');
 
@@ -18,6 +27,15 @@ export const PaymentModal: React.FC = () => {
       setTenderedAmount(String(grandTotal));
       setErrorMsg('');
       setLoading(false);
+      setSelectedCustomerId('');
+      fetch('/api/customers')
+        .then((r) => r.json())
+        .then((d) => {
+          if (d.success && Array.isArray(d.customers)) {
+            setCustomers(d.customers);
+          }
+        })
+        .catch(() => {});
     }
   }, [openPaymentModal, grandTotal]);
 
@@ -36,6 +54,11 @@ export const PaymentModal: React.FC = () => {
       return;
     }
 
+    if (paymentMethod === 'udhaar' && !selectedCustomerId) {
+      setErrorMsg('Please select a Customer Khata account for Udhaar billing.');
+      return;
+    }
+
     setLoading(true);
     setErrorMsg('');
 
@@ -47,7 +70,11 @@ export const PaymentModal: React.FC = () => {
       },
     ];
 
-    const result = await customCheckout(payments);
+    const result = await customCheckout(
+      payments,
+      undefined,
+      paymentMethod === 'udhaar' ? { udhaar_customer_id: selectedCustomerId } : undefined
+    );
     setLoading(false);
     if (!result.success) {
       setErrorMsg(result.error || 'Checkout failed');
@@ -111,12 +138,13 @@ export const PaymentModal: React.FC = () => {
           {/* Payment Method Selector */}
           <div>
             <label className="block text-xs font-semibold text-slate-700 mb-1.5">Payment Method:</label>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-5 gap-2">
               {[
                 { id: 'cash', label: 'Cash (نقدی)', icon: DollarSign },
                 { id: 'jazzcash', label: 'JazzCash', icon: Smartphone },
                 { id: 'easypaisa', label: 'EasyPaisa', icon: Smartphone },
                 { id: 'bank', label: 'Bank / Card', icon: CreditCard },
+                { id: 'udhaar', label: 'Udhaar (کھاتہ)', icon: BookOpen },
               ].map((m) => {
                 const Icon = m.icon;
                 return (
@@ -124,19 +152,53 @@ export const PaymentModal: React.FC = () => {
                     key={m.id}
                     type="button"
                     onClick={() => setPaymentMethod(m.id as any)}
-                    className={`p-2.5 rounded-xl border text-center transition flex flex-col items-center gap-1 ${
+                    className={`p-2 rounded-xl border text-center transition flex flex-col items-center gap-1 ${
                       paymentMethod === m.id
                         ? 'bg-indigo-50 border-indigo-500 text-indigo-800 shadow-sm font-bold ring-1 ring-indigo-500'
                         : 'bg-white border-slate-200 text-slate-600 hover:text-slate-900 hover:border-slate-300'
                     }`}
                   >
                     <Icon className="w-4 h-4 text-indigo-600" />
-                    <span className="text-[11px] font-bold">{m.label}</span>
+                    <span className="text-[10px] font-bold leading-tight">{m.label}</span>
                   </button>
                 );
               })}
             </div>
           </div>
+
+          {/* If Udhaar, Select Customer Khata */}
+          {paymentMethod === 'udhaar' && (
+            <div className="space-y-2 bg-amber-50 p-4 rounded-xl border border-amber-200">
+              <label className="block text-xs font-bold text-amber-900">
+                Select Customer Khata Account (کسٹمر منتخب کریں):
+              </label>
+              <select
+                value={selectedCustomerId}
+                onChange={(e) => {
+                  const cid = e.target.value;
+                  setSelectedCustomerId(cid);
+                  const found = customers.find((c) => c.id === cid);
+                  if (found) {
+                    setCustomerName(found.name);
+                    if (found.phone) setCustomerPhone(found.phone);
+                  }
+                }}
+                className="w-full px-3 py-2 bg-white border border-amber-300 rounded-lg text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                <option value="">-- Choose Customer --</option>
+                {customers.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.name} {c.phone ? `(${c.phone})` : ''} — Bal: Rs. {c.current_balance || 0}
+                  </option>
+                ))}
+              </select>
+              {customers.length === 0 && (
+                <p className="text-[11px] font-semibold text-amber-800">
+                  No customers found. Add customers from Admin &rarr; Customer Udhaar Khata first.
+                </p>
+              )}
+            </div>
+          )}
 
           {/* If Cash, Tender & Change Calculator */}
           {paymentMethod === 'cash' && (

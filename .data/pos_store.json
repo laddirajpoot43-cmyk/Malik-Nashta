@@ -5,7 +5,9 @@
     "refund_seq": 100,
     "hold_seq": 100,
     "purchase_seq": 100,
-    "vendor_pay_seq": 100
+    "vendor_pay_seq": 100,
+    "customer_pay_seq": 1,
+    "expense_seq": 1
   },
   "profiles": [
     {
@@ -70,7 +72,16 @@
         "show_duplicate_watermark": true
       },
       "created_at": "2026-11-10T09:52:55.025+00:00",
-      "updated_at": null
+      "updated_at": null,
+      "printer_config": {
+        "auto_cut": true,
+        "printer_id": "printer-black-copper-bc95ac",
+        "paper_width": "80mm",
+        "printer_name": "Black Copper BC-95AC (80mm ESC/POS)",
+        "connection_type": "system",
+        "open_cash_drawer": true,
+        "direct_print_enabled": true
+      }
     }
   ],
   "categories": [
@@ -474,6 +485,115 @@
   "purchase_items": [],
   "vendor_payments": [],
   "audit_logs": [
+    {
+      "id": "01463bc9-1596-4e59-acc8-9a57ce9c85f7",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "EXPENSE_DELETED",
+      "entity_type": "expense",
+      "entity_id": "ae5144ee-cedc-42f3-bee1-377c3bba6b31",
+      "description": "Expense \"__Test Bill__\" (Rs. 1200) deleted by Admin",
+      "old_values": {
+        "id": "ae5144ee-cedc-42f3-bee1-377c3bba6b31",
+        "voucher_no": "EXP-00001",
+        "title": "__Test Bill__",
+        "category": "Utilities & Bills",
+        "amount": 1200,
+        "expense_date": "2026-11-20",
+        "payment_method": "cash",
+        "deducted_from_register": false,
+        "note": "",
+        "recorded_by": "Admin",
+        "created_at": "2026-11-20T20:19:38.529Z"
+      },
+      "new_values": null,
+      "created_at": "2026-11-20T20:19:38.546Z"
+    },
+    {
+      "id": "c15b1142-1c28-4418-91f7-eb8ad8ad3a8c",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "EXPENSE_RECORDED",
+      "entity_type": "expense",
+      "entity_id": "ae5144ee-cedc-42f3-bee1-377c3bba6b31",
+      "description": "Expense \"__Test Bill__\" (Utilities & Bills) Rs. 1200 recorded by Admin",
+      "old_values": null,
+      "new_values": {
+        "id": "ae5144ee-cedc-42f3-bee1-377c3bba6b31",
+        "voucher_no": "EXP-00001",
+        "title": "__Test Bill__",
+        "category": "Utilities & Bills",
+        "amount": 1200,
+        "expense_date": "2026-11-20",
+        "payment_method": "cash",
+        "deducted_from_register": false,
+        "note": "",
+        "recorded_by": "Admin",
+        "created_at": "2026-11-20T20:19:38.529Z"
+      },
+      "created_at": "2026-11-20T20:19:38.529Z"
+    },
+    {
+      "id": "1945ee6e-6041-46bd-af0d-cbb1bb8952ac",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CUSTOMER_DELETED",
+      "entity_type": "customer",
+      "entity_id": "5aa6655b-6ff0-457f-826a-3346c8d73201",
+      "description": "Customer \"__Test Khata__\" removed by Admin",
+      "old_values": {
+        "id": "5aa6655b-6ff0-457f-826a-3346c8d73201",
+        "name": "__Test Khata__",
+        "phone": "03000000000",
+        "address": "",
+        "opening_balance": 500,
+        "current_balance": 0,
+        "credit_limit": 0,
+        "is_active": true,
+        "created_at": "2026-11-20T20:19:38.369Z"
+      },
+      "new_values": null,
+      "created_at": "2026-11-20T20:19:38.505Z"
+    },
+    {
+      "id": "5ed68dda-9d68-4c79-aa60-40d1134469be",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CUSTOMER_UDHAAR_PAID",
+      "entity_type": "customer",
+      "entity_id": "5aa6655b-6ff0-457f-826a-3346c8d73201",
+      "description": "Received Rs. 500 from __Test Khata__ (CPAY-00001)",
+      "old_values": {
+        "current_balance": 500
+      },
+      "new_values": {
+        "current_balance": 0,
+        "amount": 500
+      },
+      "created_at": "2026-11-20T20:19:38.466Z"
+    },
+    {
+      "id": "de30ca98-fc1b-49c0-bdaa-7cdf9ce0fa76",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "CUSTOMER_CREATED",
+      "entity_type": "customer",
+      "entity_id": "5aa6655b-6ff0-457f-826a-3346c8d73201",
+      "description": "Customer Khata \"__Test Khata__\" created with opening balance Rs. 500",
+      "old_values": null,
+      "new_values": {
+        "id": "5aa6655b-6ff0-457f-826a-3346c8d73201",
+        "name": "__Test Khata__",
+        "phone": "03000000000",
+        "address": "",
+        "opening_balance": 500,
+        "current_balance": 0,
+        "credit_limit": 0,
+        "is_active": true,
+        "created_at": "2026-11-20T20:19:38.369Z"
+      },
+      "created_at": "2026-11-20T20:19:38.370Z"
+    },
     {
       "id": "6601a4ec-5f19-40b5-96aa-76b43c5d8a16",
       "user_id": null,
@@ -1702,5 +1822,150 @@
       },
       "created_at": "2026-11-18T19:58:18.261+00:00"
     }
-  ]
+  ],
+  "customers": [],
+  "customer_transactions": [],
+  "expenses": [],
+  "product_pricing_map": {
+    "6983dec6-6aac-4bef-985b-7c90e9b352de": {
+      "enable_by_plate": true,
+      "full_plate_price": 50,
+      "half_plate_price": 30,
+      "enable_by_price": true,
+      "min_price": 10,
+      "enable_custom_price": true,
+      "custom_price_label": "Half Rate",
+      "custom_price": 30
+    },
+    "f8bc3be9-563f-4bde-9274-a6b04522459d": {
+      "enable_by_plate": true,
+      "full_plate_price": 70,
+      "half_plate_price": 40,
+      "enable_by_price": true,
+      "min_price": 10,
+      "enable_custom_price": true,
+      "custom_price_label": "Half Rate",
+      "custom_price": 40
+    },
+    "6e93ecb0-8a19-463f-adda-b06927198de6": {
+      "enable_by_plate": true,
+      "full_plate_price": 50,
+      "half_plate_price": 30,
+      "enable_by_price": true,
+      "min_price": 10,
+      "enable_custom_price": true,
+      "custom_price_label": "Half Rate",
+      "custom_price": 30
+    },
+    "6376053f-c26e-4855-b08b-d1e744c3c2e0": {
+      "enable_by_plate": true,
+      "full_plate_price": 100,
+      "half_plate_price": 55,
+      "enable_by_price": true,
+      "min_price": 10,
+      "enable_custom_price": true,
+      "custom_price_label": "Half Rate",
+      "custom_price": 55
+    },
+    "7101fe7e-011e-4ebc-a7d2-467eaa0d7d7e": {
+      "enable_by_plate": true,
+      "full_plate_price": 260,
+      "half_plate_price": 140,
+      "enable_by_price": true,
+      "min_price": 10,
+      "enable_custom_price": true,
+      "custom_price_label": "Half Rate",
+      "custom_price": 140
+    },
+    "e3cd37c2-09a2-4ab9-a20b-de1fdf84ec39": {
+      "enable_by_plate": true,
+      "full_plate_price": 260,
+      "half_plate_price": 140,
+      "enable_by_price": true,
+      "min_price": 10,
+      "enable_custom_price": true,
+      "custom_price_label": "Half Rate",
+      "custom_price": 140
+    },
+    "8cc1b61e-dba2-4593-bcd0-19692164f46b": {
+      "enable_by_plate": true,
+      "full_plate_price": 400,
+      "half_plate_price": 220,
+      "enable_by_price": true,
+      "min_price": 10,
+      "enable_custom_price": true,
+      "custom_price_label": "Half Rate",
+      "custom_price": 220
+    },
+    "a4bda3a7-0a8e-4f98-8fa0-ebf2d1943c84": {
+      "enable_by_plate": true,
+      "full_plate_price": 140,
+      "half_plate_price": 80,
+      "enable_by_price": true,
+      "min_price": 10,
+      "enable_custom_price": true,
+      "custom_price_label": "Half Rate",
+      "custom_price": 80
+    },
+    "68916a4b-a4dd-4fe5-8727-5b64ead7a6f7": {
+      "enable_by_plate": true,
+      "full_plate_price": 500,
+      "half_plate_price": 280,
+      "enable_by_price": true,
+      "min_price": 10,
+      "enable_custom_price": true,
+      "custom_price_label": "Half Rate",
+      "custom_price": 280
+    },
+    "76c76142-f211-4291-9265-d9af64fd5795": {
+      "enable_by_plate": true,
+      "full_plate_price": 1200,
+      "half_plate_price": 660,
+      "enable_by_price": true,
+      "min_price": 10,
+      "enable_custom_price": true,
+      "custom_price_label": "Half Rate",
+      "custom_price": 660
+    },
+    "71b5fcf6-5c7a-49f5-b37c-e499eddd6f32": {
+      "enable_by_plate": true,
+      "full_plate_price": 70,
+      "half_plate_price": 40,
+      "enable_by_price": true,
+      "min_price": 10,
+      "enable_custom_price": true,
+      "custom_price_label": "Half Rate",
+      "custom_price": 40
+    },
+    "4319248a-552d-4778-bcc8-8c8f11bca3ce": {
+      "enable_by_plate": true,
+      "full_plate_price": 30,
+      "half_plate_price": 15,
+      "enable_by_price": true,
+      "min_price": 10,
+      "enable_custom_price": true,
+      "custom_price_label": "Half Rate",
+      "custom_price": 15
+    },
+    "be299581-5f42-4b5a-b8b5-2e258ed188b7": {
+      "enable_by_plate": true,
+      "full_plate_price": 70,
+      "half_plate_price": 40,
+      "enable_by_price": true,
+      "min_price": 10,
+      "enable_custom_price": true,
+      "custom_price_label": "Half Rate",
+      "custom_price": 40
+    },
+    "48d5c6af-5f45-44d6-a67b-50f0ec174d16": {
+      "enable_by_plate": true,
+      "full_plate_price": 60,
+      "half_plate_price": 35,
+      "enable_by_price": true,
+      "min_price": 10,
+      "enable_custom_price": true,
+      "custom_price_label": "Half Rate",
+      "custom_price": 35
+    }
+  }
 }

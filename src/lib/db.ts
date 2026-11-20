@@ -36,6 +36,10 @@ interface SchemaStore {
   vendor_payments: any[];
   audit_logs: any[];
   pos_settings: any[];
+  customers?: any[];
+  customer_transactions?: any[];
+  expenses?: any[];
+  product_pricing_map?: Record<string, any>;
 }
 
 function getDefaultData(): SchemaStore {
@@ -47,6 +51,8 @@ function getDefaultData(): SchemaStore {
       hold_seq: 0,
       purchase_seq: 1000,
       vendor_pay_seq: 1000,
+      customer_pay_seq: 1000,
+      expense_seq: 1000,
     },
     profiles: [
       {
@@ -119,6 +125,10 @@ function getDefaultData(): SchemaStore {
     purchase_invoices: [],
     purchase_items: [],
     vendor_payments: [],
+    customers: [],
+    customer_transactions: [],
+    expenses: [],
+    product_pricing_map: {},
     audit_logs: [
       {
         id: 'log-001',
@@ -138,7 +148,6 @@ const CLOUD_TABLES: (keyof Omit<SchemaStore, 'sequences'>)[] = [
   'pos_settings',
   'categories',
   'products',
-  'product_addons',
   'vendors',
   'raw_materials',
   'register_sessions',
@@ -209,6 +218,26 @@ class StoreManager {
         if (!error && Array.isArray(rows)) {
           loaded++;
           if (rows.length > 0) {
+            if (t === 'pos_settings') {
+              const extRow = rows.find((r: any) => r.id === '44444444-4444-4444-4444-444444444402');
+              if (extRow && extRow.receipt_template) {
+                const ext = extRow.receipt_template;
+                if (Array.isArray(ext.customers)) this.data.customers = ext.customers;
+                if (Array.isArray(ext.customer_transactions)) this.data.customer_transactions = ext.customer_transactions;
+                if (Array.isArray(ext.expenses)) this.data.expenses = ext.expenses;
+                if (ext.product_pricing_map && typeof ext.product_pricing_map === 'object') {
+                  this.data.product_pricing_map = ext.product_pricing_map;
+                }
+              }
+              const mainRows = rows.filter((r: any) => r.id !== '44444444-4444-4444-4444-444444444402');
+              (this.data as any).pos_settings = mainRows.map((r: any) => ({
+                ...r,
+                default_tax_rate: r.default_tax_rate !== undefined && r.default_tax_rate !== null ? Number(r.default_tax_rate) : r.default_tax_rate,
+                max_cashier_discount_percent: r.max_cashier_discount_percent !== undefined && r.max_cashier_discount_percent !== null ? Number(r.max_cashier_discount_percent) : r.max_cashier_discount_percent,
+                printer_config: r.receipt_template?.printer_config || r.printer_config,
+              }));
+              continue;
+            }
             // Merge numeric fields back to numbers where appropriate (PostgREST returns NUMERIC as number or string)
             (this.data as any)[t] = rows.map((r: any) => {
               const normalized = { ...r };
@@ -237,28 +266,30 @@ class StoreManager {
 
               if (t === 'products') {
                 const existingProd = (this.data.products || []).find((p: any) => p.id === normalized.id);
+                const savedPricing = (this.data.product_pricing_map || {})[normalized.id];
+                const srcPricing = savedPricing || existingProd?.pricing_config;
                 const fullPrice = Number(normalized.selling_price || 0);
                 const defaultHalfPrice = Math.round((fullPrice * 0.55) / 5) * 5;
 
                 normalized.pricing_config = {
-                  enable_by_plate: existingProd?.pricing_config?.enable_by_plate ?? true,
+                  enable_by_plate: srcPricing?.enable_by_plate ?? true,
                   full_plate_price:
-                    existingProd?.pricing_config?.full_plate_price &&
-                    existingProd.pricing_config.full_plate_price > 0 &&
-                    existingProd.pricing_config.full_plate_price === fullPrice
-                      ? existingProd.pricing_config.full_plate_price
+                    srcPricing?.full_plate_price &&
+                    srcPricing.full_plate_price > 0 &&
+                    srcPricing.full_plate_price === fullPrice
+                      ? srcPricing.full_plate_price
                       : fullPrice,
                   half_plate_price:
-                    existingProd?.pricing_config?.half_plate_price && existingProd.pricing_config.half_plate_price > 0
-                      ? existingProd.pricing_config.half_plate_price
+                    srcPricing?.half_plate_price && srcPricing.half_plate_price > 0
+                      ? srcPricing.half_plate_price
                       : defaultHalfPrice,
-                  enable_by_price: existingProd?.pricing_config?.enable_by_price ?? true,
-                  min_price: existingProd?.pricing_config?.min_price ?? 10.0,
-                  enable_custom_price: existingProd?.pricing_config?.enable_custom_price ?? true,
-                  custom_price_label: existingProd?.pricing_config?.custom_price_label ?? 'Half Rate',
+                  enable_by_price: srcPricing?.enable_by_price ?? true,
+                  min_price: srcPricing?.min_price ?? 10.0,
+                  enable_custom_price: srcPricing?.enable_custom_price ?? true,
+                  custom_price_label: srcPricing?.custom_price_label ?? 'Half Rate',
                   custom_price:
-                    existingProd?.pricing_config?.custom_price && existingProd.pricing_config.custom_price > 0
-                      ? existingProd.pricing_config.custom_price
+                    srcPricing?.custom_price && srcPricing.custom_price > 0
+                      ? srcPricing.custom_price
                       : defaultHalfPrice,
                 };
               }
@@ -361,6 +392,17 @@ class StoreManager {
     if (this.syncInProgress) return;
     this.syncInProgress = true;
     try {
+      // Ensure product_pricing_map stays synced with products.pricing_config before pos_settings upserts
+      if (Array.isArray(this.data.products)) {
+        const nextMap: Record<string, any> = { ...(this.data.product_pricing_map || {}) };
+        for (const p of this.data.products) {
+          if (p && p.id && p.pricing_config !== undefined) {
+            nextMap[String(p.id)] = p.pricing_config;
+          }
+        }
+        this.data.product_pricing_map = nextMap;
+      }
+
       for (const t of CLOUD_TABLES) {
         try {
           const currentRows = ((this.data as any)[t] as any[]) || [];
@@ -370,6 +412,9 @@ class StoreManager {
           // Find deleted IDs
           const deletedIds: string[] = [];
           for (const oldId of prevIds) {
+            if (t === 'pos_settings' && oldId === '44444444-4444-4444-4444-444444444402') {
+              continue;
+            }
             if (!currentIds.has(oldId)) {
               deletedIds.push(oldId);
             }
@@ -404,6 +449,10 @@ class StoreManager {
               } else if (t === 'refunds') {
                 delete clean.items;
               } else if (t === 'products') {
+                if (clean.pricing_config) {
+                  if (!this.data.product_pricing_map) this.data.product_pricing_map = {};
+                  this.data.product_pricing_map[clean.id] = clean.pricing_config;
+                }
                 delete clean.category_name;
                 delete clean.pricing_config;
               } else if (t === 'pos_settings') {
@@ -413,6 +462,19 @@ class StoreManager {
               }
               return clean;
             });
+
+            if (t === 'pos_settings') {
+              rowsToUpsert.push({
+                id: '44444444-4444-4444-4444-444444444402',
+                business_name: '__EXTENDED_STORE__',
+                receipt_template: {
+                  customers: this.data.customers || [],
+                  customer_transactions: this.data.customer_transactions || [],
+                  expenses: this.data.expenses || [],
+                  product_pricing_map: this.data.product_pricing_map || {},
+                },
+              });
+            }
             await insforgeAdmin.database.from(t).upsert(rowsToUpsert, { onConflict: 'id' });
           }
 
@@ -497,7 +559,17 @@ class StoreManager {
     };
   }
 
-  public getNextSequence(type: 'receipt_seq' | 'order_seq' | 'refund_seq' | 'hold_seq' | 'purchase_seq' | 'vendor_pay_seq'): string {
+  public getNextSequence(
+    type:
+      | 'receipt_seq'
+      | 'order_seq'
+      | 'refund_seq'
+      | 'hold_seq'
+      | 'purchase_seq'
+      | 'vendor_pay_seq'
+      | 'customer_pay_seq'
+      | 'expense_seq'
+  ): string {
     if (!this.data.sequences) {
       this.data.sequences = getDefaultData().sequences;
     }
@@ -520,6 +592,10 @@ class StoreManager {
         return `PUR-${String(curr).padStart(5, '0')}`;
       case 'vendor_pay_seq':
         return `VPAY-${String(curr).padStart(5, '0')}`;
+      case 'customer_pay_seq':
+        return `CPAY-${String(curr).padStart(5, '0')}`;
+      case 'expense_seq':
+        return `EXP-${String(curr).padStart(5, '0')}`;
       default:
         return `${curr}`;
     }

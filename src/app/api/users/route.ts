@@ -59,7 +59,7 @@ export async function POST(req: Request) {
       new_values: { email: newUser.email, role: newUser.role, full_name: newUser.full_name },
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     // Direct synchronous Cloud PostgreSQL persistence
     try {
@@ -109,7 +109,7 @@ export async function PUT(req: Request) {
       description: `Staff account updated for ${user.full_name}`,
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     // Direct synchronous Cloud PostgreSQL persistence
     try {
@@ -174,7 +174,7 @@ export async function DELETE(req: Request) {
       old_values: removed,
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     // Direct synchronous Cloud PostgreSQL persistence
     try {

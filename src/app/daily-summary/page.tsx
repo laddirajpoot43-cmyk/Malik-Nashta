@@ -209,8 +209,17 @@ function DailySummaryContent() {
           </button>
 
           <button
-            onClick={() => window.print()}
-            className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg border border-slate-200 transition cursor-pointer"
+            onClick={() => {
+              document.body.classList.add('print-page-mode');
+              const cleanup = () => {
+                document.body.classList.remove('print-page-mode');
+                window.removeEventListener('afterprint', cleanup);
+              };
+              window.addEventListener('afterprint', cleanup);
+              setTimeout(() => window.print(), 50);
+              setTimeout(cleanup, 3000);
+            }}
+            className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg border border-slate-200 transition cursor-pointer no-print"
             title="Print Summary"
           >
             <Printer className="w-3.5 h-3.5 text-slate-600" />

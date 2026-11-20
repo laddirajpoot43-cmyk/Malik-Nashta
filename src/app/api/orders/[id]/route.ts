@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(1500);
     const order = (store.orders || []).find((o: any) => o.id === id || o.receipt_number === id);
 
     if (!order) {
@@ -43,7 +43,7 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
     const cashier_name = searchParams.get('cashier_name') || 'Admin';
     const reason = searchParams.get('reason') || 'Administrative Order Deletion';
 
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(1500);
     const orderIndex = (store.orders || []).findIndex((o: any) => o.id === id || o.receipt_number === id);
 
     if (orderIndex === -1) {
@@ -69,7 +69,7 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
       old_values: order,
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     // Direct synchronous Cloud PostgreSQL persistence
     try {
