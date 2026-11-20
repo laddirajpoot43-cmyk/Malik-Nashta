@@ -37,7 +37,7 @@ export default function RootLayout({
           referrerPolicy="no-referrer"
         />
       </head>
-      <body className="bg-slate-100 text-slate-900 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+      <body className="bg-[#F4F6FB] text-slate-900 min-h-screen flex flex-col antialiased selection:bg-indigo-600 selection:text-white">
         <AuthProvider>
           <SettingsProvider>
             <POSProvider>

@@ -56,7 +56,7 @@ function AuditLogsContent() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-white border border-slate-200 p-3 rounded-2xl shadow-sm">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
+          <div className="p-2 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-xl font-bold">
             <ShieldAlert className="w-5 h-5" />
           </div>
           <div>
@@ -69,7 +69,7 @@ function AuditLogsContent() {
           <select
             value={actionFilter}
             onChange={(e) => setActionFilter(e.target.value)}
-            className="px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600 cursor-pointer"
+            className="px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600 cursor-pointer"
           >
             <option value="all">All Actions ({logs.length})</option>
             <option value="SALE">SALE</option>
@@ -130,7 +130,7 @@ function AuditLogsContent() {
                         key={log.id}
                         onClick={() => setSelectedLog(log)}
                         className={`hover:bg-slate-50 transition cursor-pointer ${
-                          isSelected ? 'bg-emerald-50/70 border-l-4 border-l-emerald-600' : ''
+                          isSelected ? 'bg-indigo-50/70 border-l-4 border-l-emerald-600' : ''
                         }`}
                       >
                         <td className="px-4 py-3 text-slate-500 font-mono text-[11px] whitespace-nowrap">
@@ -143,7 +143,7 @@ function AuditLogsContent() {
                           <span
                             className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
                               log.action === 'SALE'
-                                ? 'bg-emerald-100 text-emerald-800'
+                                ? 'bg-indigo-100 text-indigo-800'
                                 : log.action.includes('VOID') || log.action.includes('REFUND')
                                 ? 'bg-rose-100 text-rose-800'
                                 : log.action.includes('REGISTER')
@@ -211,10 +211,10 @@ function AuditLogsContent() {
 
                 {selectedLog.new_values && (
                   <div className="mt-3">
-                    <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block mb-1">
+                    <span className="text-[10px] font-bold text-indigo-700 uppercase tracking-wider block mb-1">
                       Mutated State (New Values):
                     </span>
-                    <pre className="p-2.5 bg-emerald-50/50 rounded-xl border border-emerald-200 text-[10px] text-emerald-900 font-mono overflow-x-auto max-h-36">
+                    <pre className="p-2.5 bg-indigo-50/50 rounded-xl border border-indigo-200 text-[10px] text-indigo-900 font-mono overflow-x-auto max-h-36">
                       {JSON.stringify(selectedLog.new_values, null, 2)}
                     </pre>
                   </div>
@@ -227,7 +227,7 @@ function AuditLogsContent() {
             </div>
           ) : (
             <div className="h-full flex flex-col items-center justify-center text-slate-400 py-16 text-center">
-              <Activity className="w-10 h-10 mb-2 opacity-30 text-emerald-600" />
+              <Activity className="w-10 h-10 mb-2 opacity-30 text-indigo-600" />
               <p className="text-xs font-semibold">Select an audit log row to inspect transaction state and diffs</p>
             </div>
           )}

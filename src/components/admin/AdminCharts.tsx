@@ -166,7 +166,7 @@ export const AdminCharts: React.FC = () => {
   const getMethodTheme = (methodStr: string) => {
     const m = methodStr.toLowerCase();
     if (m.includes('cash') || m.includes('naqad')) {
-      return { color: '#10b981', bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-200' };
+      return { color: '#0D9488', bg: 'bg-indigo-50', text: 'text-indigo-700', border: 'border-indigo-200' };
     }
     if (m.includes('jazz')) {
       return { color: '#f59e0b', bg: 'bg-amber-50', text: 'text-amber-800', border: 'border-amber-200' };
@@ -217,7 +217,7 @@ export const AdminCharts: React.FC = () => {
       {/* Date Filter & Control Header */}
       <div className="bg-white border border-slate-200 rounded-2xl p-2.5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-2.5">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-lg font-bold">
+          <div className="p-1.5 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-lg font-bold">
             <BarChart3 className="w-4 h-4" />
           </div>
           <div>
@@ -238,7 +238,7 @@ export const AdminCharts: React.FC = () => {
                 onClick={() => setRange(btn.id)}
                 className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer font-bold text-xs ${
                   isActive
-                    ? 'bg-emerald-600 text-white shadow-sm'
+                    ? 'bg-indigo-600 text-white shadow-sm'
                     : 'text-slate-700 hover:text-slate-900 hover:bg-slate-200/70'
                 }`}
               >
@@ -251,9 +251,9 @@ export const AdminCharts: React.FC = () => {
             type="button"
             onClick={() => fetchChartData(range)}
             title="Refresh Data"
-            className="p-1 rounded-lg text-slate-600 hover:text-emerald-700 hover:bg-slate-200 transition cursor-pointer"
+            className="p-1 rounded-lg text-slate-600 hover:text-indigo-700 hover:bg-slate-200 transition cursor-pointer"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin text-emerald-600' : ''}`} />
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin text-indigo-600' : ''}`} />
           </button>
         </div>
       </div>
@@ -266,7 +266,7 @@ export const AdminCharts: React.FC = () => {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-100 mb-2.5">
               <div>
                 <div className="flex items-center gap-1.5">
-                  <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
+                  <TrendingUp className="w-3.5 h-3.5 text-indigo-600" />
                   <h3 className="font-extrabold text-xs text-slate-900">
                     1. Sales Overview & Revenue Trends
                   </h3>
@@ -280,7 +280,7 @@ export const AdminCharts: React.FC = () => {
                   onClick={() => setTrendMetric('revenue')}
                   className={`px-2 py-0.5 rounded transition cursor-pointer ${
                     trendMetric === 'revenue'
-                      ? 'bg-emerald-600 text-white shadow-xs'
+                      ? 'bg-indigo-600 text-white shadow-xs'
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
@@ -291,7 +291,7 @@ export const AdminCharts: React.FC = () => {
                   onClick={() => setTrendMetric('orders')}
                   className={`px-2 py-0.5 rounded transition cursor-pointer ${
                     trendMetric === 'orders'
-                      ? 'bg-emerald-600 text-white shadow-xs'
+                      ? 'bg-indigo-600 text-white shadow-xs'
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
@@ -304,7 +304,7 @@ export const AdminCharts: React.FC = () => {
             <div className="grid grid-cols-3 gap-2 mb-2 bg-slate-50 p-2 rounded-xl border border-slate-100 text-center">
               <div>
                 <span className="text-[9.5px] text-slate-500 font-bold uppercase block">Period Total</span>
-                <span className="text-xs font-black text-emerald-700">
+                <span className="text-xs font-black text-indigo-700">
                   {formatMoney(performance.total_sales)}
                 </span>
               </div>
@@ -343,9 +343,9 @@ export const AdminCharts: React.FC = () => {
                   >
                     <defs>
                       <linearGradient id="salesTrendGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#10b981" stopOpacity="0.35" />
-                        <stop offset="85%" stopColor="#10b981" stopOpacity="0.03" />
-                        <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
+                        <stop offset="0%" stopColor="#0D9488" stopOpacity="0.35" />
+                        <stop offset="85%" stopColor="#0D9488" stopOpacity="0.03" />
+                        <stop offset="100%" stopColor="#0D9488" stopOpacity="0.0" />
                       </linearGradient>
                     </defs>
 
@@ -390,7 +390,7 @@ export const AdminCharts: React.FC = () => {
                       <path
                         d={svgPathD}
                         fill="none"
-                        stroke="#059669"
+                        stroke="#4F46E5"
                         strokeWidth="2.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -414,7 +414,7 @@ export const AdminCharts: React.FC = () => {
                             cy={pt.y}
                             r={isHovered ? 5.5 : 3.5}
                             fill="#ffffff"
-                            stroke="#059669"
+                            stroke="#4F46E5"
                             strokeWidth={isHovered ? 3 : 2}
                             className="transition-all duration-150"
                           />
@@ -450,7 +450,7 @@ export const AdminCharts: React.FC = () => {
                       <div className="text-[10px] text-slate-300 font-semibold">
                         {trendPoints[hoveredPointIndex].fullDate || trendPoints[hoveredPointIndex].label}
                       </div>
-                      <div className="text-xs font-black text-emerald-400 mt-0.5">
+                      <div className="text-xs font-black text-indigo-400 mt-0.5">
                         {formatMoney(trendPoints[hoveredPointIndex].revenue)}
                       </div>
                       <div className="text-[10px] text-slate-300">
@@ -465,7 +465,7 @@ export const AdminCharts: React.FC = () => {
 
           <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
             <span>Periodic Trend</span>
-            <span className="text-emerald-700 font-bold">● Active Store Sync</span>
+            <span className="text-indigo-700 font-bold">● Active Store Sync</span>
           </div>
         </div>
 
@@ -474,12 +474,12 @@ export const AdminCharts: React.FC = () => {
           <div>
             <div className="flex items-center justify-between pb-2 border-b border-slate-100 mb-2.5">
               <div className="flex items-center gap-1.5">
-                <Award className="w-3.5 h-3.5 text-emerald-600" />
+                <Award className="w-3.5 h-3.5 text-indigo-600" />
                 <h3 className="font-extrabold text-xs text-slate-900">
                   2. Sales Performance Metrics
                 </h3>
               </div>
-              <span className="text-[9.5px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+              <span className="text-[9.5px] font-bold px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-800 border border-indigo-200">
                 AOV & Velocity
               </span>
             </div>
@@ -489,7 +489,7 @@ export const AdminCharts: React.FC = () => {
               {/* Total Sales Amount */}
               <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+                  <div className="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold">
                     <DollarSign className="w-4 h-4" />
                   </div>
                   <div>
@@ -501,7 +501,7 @@ export const AdminCharts: React.FC = () => {
                     </span>
                   </div>
                 </div>
-                <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-md border border-emerald-200">
+                <span className="text-[10px] font-bold text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded-md border border-indigo-200">
                   Net Rupee
                 </span>
               </div>
@@ -551,11 +551,11 @@ export const AdminCharts: React.FC = () => {
             <div className="mt-2.5 pt-2 border-t border-slate-100 space-y-1.5">
               <div className="flex justify-between items-center text-xs font-bold text-slate-700">
                 <span>Order Execution Rate</span>
-                <span className="text-emerald-700">{performance.completion_rate}% Valid</span>
+                <span className="text-indigo-700">{performance.completion_rate}% Valid</span>
               </div>
               <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
                 <div
-                  className="bg-emerald-600 h-full rounded-full transition-all duration-300"
+                  className="bg-indigo-600 h-full rounded-full transition-all duration-300"
                   style={{ width: `${Math.min(100, Math.max(0, performance.completion_rate))}%` }}
                 />
               </div>
@@ -580,7 +580,7 @@ export const AdminCharts: React.FC = () => {
           <div>
             <div className="flex items-center justify-between pb-2 border-b border-slate-100 mb-2.5">
               <div className="flex items-center gap-1.5">
-                <CreditCard className="w-3.5 h-3.5 text-emerald-600" />
+                <CreditCard className="w-3.5 h-3.5 text-indigo-600" />
                 <h3 className="font-extrabold text-xs text-slate-900">
                   3. Payment Methods Distribution
                 </h3>
@@ -687,7 +687,7 @@ export const AdminCharts: React.FC = () => {
 
           <div className="pt-2 border-t border-slate-100 text-[10px] text-slate-500 flex justify-between font-medium">
             <span>Tender Mix</span>
-            <span className="font-bold text-emerald-700">Cash & Digital</span>
+            <span className="font-bold text-indigo-700">Cash & Digital</span>
           </div>
         </div>
 
@@ -696,7 +696,7 @@ export const AdminCharts: React.FC = () => {
           <div>
             <div className="flex items-center justify-between pb-2 border-b border-slate-100 mb-2.5">
               <div className="flex items-center gap-1.5">
-                <Utensils className="w-3.5 h-3.5 text-emerald-600" />
+                <Utensils className="w-3.5 h-3.5 text-indigo-600" />
                 <h3 className="font-extrabold text-xs text-slate-900">
                   4. Top Selling Products (Menu Rankings)
                 </h3>
@@ -722,7 +722,7 @@ export const AdminCharts: React.FC = () => {
                   return (
                     <div
                       key={idx}
-                      className="p-1.5 rounded-lg border border-slate-200 hover:border-emerald-300 bg-slate-50/60 hover:bg-emerald-50/20 transition space-y-1"
+                      className="p-1.5 rounded-lg border border-slate-200 hover:border-indigo-300 bg-slate-50/60 hover:bg-indigo-50/20 transition space-y-1"
                     >
                       <div className="flex items-center justify-between text-xs">
                         <div className="flex items-center gap-1.5">
@@ -744,7 +744,7 @@ export const AdminCharts: React.FC = () => {
                           <span className="text-[10px] font-bold text-slate-600">
                             {item.quantity} Plates
                           </span>
-                          <span className="text-xs font-black text-emerald-700 min-w-14 text-right">
+                          <span className="text-xs font-black text-indigo-700 min-w-14 text-right">
                             {formatMoney(item.revenue)}
                           </span>
                         </div>
@@ -754,7 +754,7 @@ export const AdminCharts: React.FC = () => {
                       <div className="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
                         <div
                           className={`h-full rounded-full transition-all duration-300 ${
-                            isTopItem ? 'bg-emerald-600' : 'bg-emerald-500'
+                            isTopItem ? 'bg-indigo-600' : 'bg-indigo-500'
                           }`}
                           style={{ width: `${percentOfTop}%` }}
                         />

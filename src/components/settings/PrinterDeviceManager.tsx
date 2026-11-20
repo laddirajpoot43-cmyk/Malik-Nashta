@@ -187,21 +187,21 @@ export const PrinterDeviceManager: React.FC = () => {
       {/* Top Banner / Active Status */}
       <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl">
+          <div className="p-3 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-xl">
             <Printer className="w-6 h-6" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <h2 className="text-sm font-black text-slate-900">Thermal Printer Device Management</h2>
-              <span className="text-[10px] bg-emerald-100 text-emerald-800 font-extrabold px-2 py-0.5 rounded-full border border-emerald-300">
+              <span className="text-[10px] bg-indigo-100 text-indigo-800 font-extrabold px-2 py-0.5 rounded-full border border-indigo-300">
                 Direct Print Engine
               </span>
             </div>
             <p className="text-xs text-slate-600 mt-0.5 font-medium">
               Currently Active Printer:{' '}
-              <strong className="text-emerald-700 font-black">{activeDevice ? activeDevice.name : 'None Selected'}</strong>{' '}
+              <strong className="text-indigo-700 font-black">{activeDevice ? activeDevice.name : 'None Selected'}</strong>{' '}
               ({activeDevice?.paperWidth || '80mm'}) •{' '}
-              <span className={directPrint ? 'text-emerald-700 font-bold' : 'text-slate-500'}>
+              <span className={directPrint ? 'text-indigo-700 font-bold' : 'text-slate-500'}>
                 {directPrint ? 'Direct Print: ACTIVE' : 'Standard Dialog Print'}
               </span>
             </p>
@@ -214,7 +214,7 @@ export const PrinterDeviceManager: React.FC = () => {
             type="button"
             onClick={handleScanUsb}
             disabled={loadingScan}
-            className="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-xs rounded-xl shadow-sm transition flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+            className="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-bold text-xs rounded-xl shadow-sm transition flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
             title="Plug in your USB thermal printer and click to connect"
           >
             <Usb className="w-4 h-4" />
@@ -247,12 +247,12 @@ export const PrinterDeviceManager: React.FC = () => {
         <div
           className={`p-3 rounded-xl text-xs font-bold flex items-center gap-2 ${
             feedback.type === 'success'
-              ? 'bg-emerald-50 border border-emerald-300 text-emerald-800'
+              ? 'bg-indigo-50 border border-indigo-300 text-indigo-800'
               : 'bg-rose-50 border border-rose-300 text-rose-800'
           }`}
         >
           {feedback.type === 'success' ? (
-            <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+            <CheckCircle2 className="w-4 h-4 shrink-0 text-indigo-600" />
           ) : (
             <AlertTriangle className="w-4 h-4 shrink-0 text-rose-600" />
           )}
@@ -284,7 +284,7 @@ export const PrinterDeviceManager: React.FC = () => {
                 key={p.id}
                 className={`p-3.5 rounded-xl border transition flex flex-col justify-between ${
                   isSelected
-                    ? 'bg-emerald-50/50 border-emerald-500 ring-2 ring-emerald-500/20 shadow-sm'
+                    ? 'bg-indigo-50/50 border-indigo-500 ring-2 ring-indigo-500/20 shadow-sm'
                     : 'bg-slate-50 border-slate-200 hover:border-slate-300'
                 }`}
               >
@@ -293,7 +293,7 @@ export const PrinterDeviceManager: React.FC = () => {
                     <div className="flex items-center gap-2">
                       <div
                         className={`p-1.5 rounded-lg border ${
-                          isSelected ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-slate-600 border-slate-200'
+                          isSelected ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-600 border-slate-200'
                         }`}
                       >
                         <Printer className="w-4 h-4" />
@@ -309,8 +309,8 @@ export const PrinterDeviceManager: React.FC = () => {
                             {p.paperWidth}
                           </span>
                           <span className="text-slate-300">•</span>
-                          <span className="text-[9.5px] font-bold text-emerald-700 flex items-center gap-1">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                          <span className="text-[9.5px] font-bold text-indigo-700 flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
                             Ready
                           </span>
                         </div>
@@ -318,7 +318,7 @@ export const PrinterDeviceManager: React.FC = () => {
                     </div>
 
                     {isSelected ? (
-                      <span className="text-[10px] bg-emerald-600 text-white font-black px-2 py-0.5 rounded-full shadow-xs flex items-center gap-1 shrink-0">
+                      <span className="text-[10px] bg-indigo-600 text-white font-black px-2 py-0.5 rounded-full shadow-xs flex items-center gap-1 shrink-0">
                         <Check className="w-3 h-3" />
                         <span>ACTIVE</span>
                       </span>
@@ -326,7 +326,7 @@ export const PrinterDeviceManager: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => handleSelectActive(p)}
-                        className="text-[11px] bg-white border border-slate-300 hover:border-emerald-500 hover:text-emerald-700 text-slate-700 font-bold px-2.5 py-1 rounded-lg transition shadow-xs cursor-pointer shrink-0"
+                        className="text-[11px] bg-white border border-slate-300 hover:border-indigo-500 hover:text-indigo-700 text-slate-700 font-bold px-2.5 py-1 rounded-lg transition shadow-xs cursor-pointer shrink-0"
                       >
                         Select Printer
                       </button>
@@ -345,9 +345,9 @@ export const PrinterDeviceManager: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => handleTestPrint(p)}
-                    className="text-[11px] font-bold text-emerald-700 hover:text-emerald-800 bg-white border border-emerald-300 hover:bg-emerald-50 px-2.5 py-1 rounded-lg transition flex items-center gap-1 cursor-pointer"
+                    className="text-[11px] font-bold text-indigo-700 hover:text-indigo-800 bg-white border border-indigo-300 hover:bg-indigo-50 px-2.5 py-1 rounded-lg transition flex items-center gap-1 cursor-pointer"
                   >
-                    <Zap className="w-3 h-3 text-emerald-600" />
+                    <Zap className="w-3 h-3 text-indigo-600" />
                     <span>Test Print Slip (ٹیسٹ پرنٹ)</span>
                   </button>
 
@@ -372,7 +372,7 @@ export const PrinterDeviceManager: React.FC = () => {
         <div className="flex items-center justify-between pb-2 border-b border-slate-200">
           <div>
             <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
-              <Zap className="w-3.5 h-3.5 text-emerald-600" />
+              <Zap className="w-3.5 h-3.5 text-indigo-600" />
               <span>Direct Print & Hardware Preferences (بلا ڈائیلاگ فوری پرنٹ)</span>
             </h3>
             <p className="text-[11px] text-slate-500 font-medium">
@@ -383,7 +383,7 @@ export const PrinterDeviceManager: React.FC = () => {
             type="button"
             onClick={handleSavePreferences}
             disabled={savingConfig}
-            className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-xs rounded-xl shadow transition cursor-pointer"
+            className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-bold text-xs rounded-xl shadow transition cursor-pointer"
           >
             {savingConfig ? 'Saving...' : 'Save Preferences'}
           </button>
@@ -398,7 +398,7 @@ export const PrinterDeviceManager: React.FC = () => {
                 type="checkbox"
                 checked={directPrint}
                 onChange={(e) => setDirectPrint(e.target.checked)}
-                className="w-4 h-4 text-emerald-600 rounded cursor-pointer"
+                className="w-4 h-4 text-indigo-600 rounded cursor-pointer"
               />
             </div>
             <p className="text-[10px] text-slate-500 leading-relaxed font-medium">
@@ -417,7 +417,7 @@ export const PrinterDeviceManager: React.FC = () => {
                 type="checkbox"
                 checked={autoCut}
                 onChange={(e) => setAutoCut(e.target.checked)}
-                className="w-4 h-4 text-emerald-600 rounded cursor-pointer"
+                className="w-4 h-4 text-indigo-600 rounded cursor-pointer"
               />
             </div>
             <p className="text-[10px] text-slate-500 leading-relaxed font-medium">
@@ -429,14 +429,14 @@ export const PrinterDeviceManager: React.FC = () => {
           <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-slate-800 flex items-center gap-1">
-                <DollarSign className="w-3 h-3 text-emerald-600" />
+                <DollarSign className="w-3 h-3 text-indigo-600" />
                 <span>Kick Cash Drawer</span>
               </span>
               <input
                 type="checkbox"
                 checked={openDrawer}
                 onChange={(e) => setOpenDrawer(e.target.checked)}
-                className="w-4 h-4 text-emerald-600 rounded cursor-pointer"
+                className="w-4 h-4 text-indigo-600 rounded cursor-pointer"
               />
             </div>
             <p className="text-[10px] text-slate-500 leading-relaxed font-medium">
@@ -446,19 +446,19 @@ export const PrinterDeviceManager: React.FC = () => {
         </div>
 
         {/* Windows Silent Printing Setup Guide */}
-        <div className="p-3 bg-emerald-50/60 border border-emerald-200 rounded-xl text-xs space-y-1.5 mt-2">
-          <div className="flex items-center gap-1.5 font-bold text-emerald-900">
-            <Monitor className="w-4 h-4 text-emerald-700" />
+        <div className="p-3 bg-indigo-50/60 border border-indigo-200 rounded-xl text-xs space-y-1.5 mt-2">
+          <div className="flex items-center gap-1.5 font-bold text-indigo-900">
+            <Monitor className="w-4 h-4 text-indigo-700" />
             <span>Windows 1-Click Silent Printing Setup (No Dialog Box Prompt)</span>
           </div>
-          <p className="text-[11px] text-emerald-800 font-medium">
+          <p className="text-[11px] text-indigo-800 font-medium">
             To achieve zero-click instant printing on Windows with any thermal printer, create a desktop shortcut for Chrome or Edge with the{' '}
-            <code className="bg-white px-1.5 py-0.5 rounded border border-emerald-300 font-bold text-emerald-900">
+            <code className="bg-white px-1.5 py-0.5 rounded border border-indigo-300 font-bold text-indigo-900">
               --kiosk-printing
             </code>{' '}
             flag:
           </p>
-          <div className="bg-white p-2 rounded-lg border border-emerald-200 text-[10px] font-mono text-slate-800 select-all">
+          <div className="bg-white p-2 rounded-lg border border-indigo-200 text-[10px] font-mono text-slate-800 select-all">
             chrome.exe --kiosk-printing --app=http://localhost:3000/pos
           </div>
         </div>
@@ -470,7 +470,7 @@ export const PrinterDeviceManager: React.FC = () => {
           <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-5 shadow-2xl space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-2">
               <h3 className="font-extrabold text-sm text-slate-900 flex items-center gap-2">
-                <Printer className="w-4 h-4 text-emerald-600" />
+                <Printer className="w-4 h-4 text-indigo-600" />
                 <span>Add Thermal Printer Driver</span>
               </h3>
               <button
@@ -490,7 +490,7 @@ export const PrinterDeviceManager: React.FC = () => {
                   value={newDriverName}
                   onChange={(e) => setNewDriverName(e.target.value)}
                   placeholder="e.g. POS-80, XP-N160I, POS-58"
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 font-bold text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 font-bold text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
 
@@ -502,7 +502,7 @@ export const PrinterDeviceManager: React.FC = () => {
                     onClick={() => setNewDriverWidth('80mm')}
                     className={`py-2 text-xs font-bold rounded-lg border transition ${
                       newDriverWidth === '80mm'
-                        ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                        ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm'
                         : 'bg-slate-50 text-slate-700 border-slate-300 hover:bg-slate-100'
                     }`}
                   >
@@ -513,7 +513,7 @@ export const PrinterDeviceManager: React.FC = () => {
                     onClick={() => setNewDriverWidth('58mm')}
                     className={`py-2 text-xs font-bold rounded-lg border transition ${
                       newDriverWidth === '58mm'
-                        ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                        ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm'
                         : 'bg-slate-50 text-slate-700 border-slate-300 hover:bg-slate-100'
                     }`}
                   >
@@ -534,7 +534,7 @@ export const PrinterDeviceManager: React.FC = () => {
               <button
                 type="button"
                 onClick={handleAddSystemPrinter}
-                className="flex-1 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl shadow-sm transition"
+                className="flex-1 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm transition"
               >
                 Save & Add Printer
               </button>

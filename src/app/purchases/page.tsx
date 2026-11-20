@@ -205,7 +205,7 @@ function PurchasesContent() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-white border border-slate-200 p-3 rounded-2xl shadow-sm">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
+          <div className="p-2 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-xl font-bold">
             <Truck className="w-5 h-5" />
           </div>
           <div>
@@ -221,7 +221,7 @@ function PurchasesContent() {
             setFormError('');
             setFormSuccess('');
           }}
-          className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-black text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
+          className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-black text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>{showForm ? 'Close Entry Form' : 'New Purchase Bill (مال انٹری)'}</span>
@@ -229,12 +229,12 @@ function PurchasesContent() {
       </div>
 
       {formSuccess && (
-        <div className="p-3 bg-emerald-50 border border-emerald-300 rounded-xl text-emerald-800 text-xs font-bold flex items-center justify-between">
+        <div className="p-3 bg-indigo-50 border border-indigo-300 rounded-xl text-indigo-800 text-xs font-bold flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+            <CheckCircle2 className="w-4 h-4 shrink-0 text-indigo-600" />
             <span>{formSuccess}</span>
           </div>
-          <button onClick={() => setFormSuccess('')} className="text-emerald-700 font-bold">✕</button>
+          <button onClick={() => setFormSuccess('')} className="text-indigo-700 font-bold">✕</button>
         </div>
       )}
 
@@ -260,7 +260,7 @@ function PurchasesContent() {
               <select
                 value={selectedVendorId}
                 onChange={(e) => setSelectedVendorId(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
               >
                 {vendors.map((v) => (
                   <option key={v.id} value={v.id}>
@@ -277,7 +277,7 @@ function PurchasesContent() {
                 type="date"
                 value={invoiceDate}
                 onChange={(e) => setInvoiceDate(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
               />
             </div>
 
@@ -291,7 +291,7 @@ function PurchasesContent() {
                     e.target.value = '';
                   }
                 }}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-emerald-700 font-bold focus:outline-none focus:border-emerald-600 cursor-pointer"
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-indigo-700 font-bold focus:outline-none focus:border-indigo-600 cursor-pointer"
               >
                 <option value="">+ Choose Ingredient to Add...</option>
                 {rawMaterials.map((m) => (
@@ -347,7 +347,7 @@ function PurchasesContent() {
                           className="w-full px-2 py-1 bg-slate-50 border border-slate-300 rounded text-center text-slate-900 font-bold"
                         />
                       </td>
-                      <td className="px-3 py-2 text-right font-black text-emerald-700">
+                      <td className="px-3 py-2 text-right font-black text-indigo-700">
                         {formatMoney(it.line_total)}
                       </td>
                       <td className="px-3 py-2 text-center">
@@ -378,7 +378,7 @@ function PurchasesContent() {
                   value={paidAmount}
                   onChange={(e) => setPaidAmount(e.target.value)}
                   placeholder="0"
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-emerald-700 font-black text-lg focus:outline-none"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-indigo-700 font-black text-lg focus:outline-none"
                 />
               </div>
 
@@ -388,7 +388,7 @@ function PurchasesContent() {
                   type="checkbox"
                   checked={deductFromRegister}
                   onChange={(e) => setDeductFromRegister(e.target.checked)}
-                  className="w-4 h-4 text-emerald-600 rounded border-slate-300 cursor-pointer"
+                  className="w-4 h-4 text-indigo-600 rounded border-slate-300 cursor-pointer"
                 />
                 <span className="text-xs text-slate-800 font-medium">
                   Deduct this paid cash directly from the <strong>active counter cash drawer</strong> (CASH_OUT)
@@ -416,12 +416,12 @@ function PurchasesContent() {
                 {parseFloat(discountAmount) > 0 && (
                   <div className="flex justify-between text-slate-600">
                     <span>Discount:</span>
-                    <span className="text-emerald-700 font-bold">-{formatMoney(parseFloat(discountAmount))}</span>
+                    <span className="text-indigo-700 font-bold">-{formatMoney(parseFloat(discountAmount))}</span>
                   </div>
                 )}
                 <div className="flex justify-between font-black text-sm text-slate-900 pt-2 border-t border-slate-200">
                   <span>Total Bill Amount:</span>
-                  <span className="text-emerald-700">{formatMoney(totalBill)}</span>
+                  <span className="text-indigo-700">{formatMoney(totalBill)}</span>
                 </div>
                 <div className="flex justify-between text-xs text-slate-700">
                   <span>Cash Paid Now:</span>
@@ -446,7 +446,7 @@ function PurchasesContent() {
                 <button
                   type="submit"
                   disabled={submitting || items.length === 0}
-                  className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 disabled:opacity-50 text-white text-xs font-black rounded-xl shadow transition cursor-pointer"
+                  className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 disabled:opacity-50 text-white text-xs font-black rounded-xl shadow transition cursor-pointer"
                 >
                   {submitting ? 'Recording...' : 'Save Purchase Bill & Update Khata'}
                 </button>
@@ -460,7 +460,7 @@ function PurchasesContent() {
       <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
         <div className="p-4 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Receipt className="w-5 h-5 text-emerald-600" />
+            <Receipt className="w-5 h-5 text-indigo-600" />
             <h3 className="font-extrabold text-sm text-slate-900">Purchase Invoices History ({purchases.length})</h3>
           </div>
         </div>
@@ -512,7 +512,7 @@ function PurchasesContent() {
                       <span
                         className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase border ${
                           inv.payment_status === 'paid'
-                            ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                            ? 'bg-indigo-50 text-indigo-800 border-indigo-200'
                             : inv.payment_status === 'partial'
                             ? 'bg-amber-50 text-amber-800 border-amber-200'
                             : 'bg-rose-50 text-rose-800 border-rose-200'
@@ -522,7 +522,7 @@ function PurchasesContent() {
                       </span>
                     </td>
                     <td className="px-4 py-3 text-right font-black text-slate-900">{formatMoney(inv.total_amount)}</td>
-                    <td className="px-4 py-3 text-right font-bold text-emerald-700">{formatMoney(inv.paid_amount)}</td>
+                    <td className="px-4 py-3 text-right font-bold text-indigo-700">{formatMoney(inv.paid_amount)}</td>
                     <td className="px-4 py-3 text-right font-black text-rose-600">{formatMoney(inv.balance_amount)}</td>
                     <td className="px-4 py-3 text-right">
                       {/* RED BUTTON: Delete */}

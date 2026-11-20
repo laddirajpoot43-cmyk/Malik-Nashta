@@ -58,7 +58,7 @@ function ReportsContent() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-white border border-slate-200 p-3 rounded-2xl shadow-sm">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
+          <div className="p-2 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-xl font-bold">
             <BarChart3 className="w-5 h-5" />
           </div>
           <div>
@@ -79,7 +79,7 @@ function ReportsContent() {
               onClick={() => setRange(tab.id)}
               className={`px-2.5 py-1 rounded-lg transition cursor-pointer ${
                 range === tab.id
-                  ? 'bg-emerald-600 text-white font-bold shadow-sm'
+                  ? 'bg-indigo-600 text-white font-bold shadow-sm'
                   : 'text-slate-700 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
@@ -89,7 +89,7 @@ function ReportsContent() {
           <a
             href="/api/export/excel?type=all"
             download
-            className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition flex items-center gap-1 shadow-sm"
+            className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition flex items-center gap-1 shadow-sm"
           >
             <FileSpreadsheet className="w-3.5 h-3.5" />
             <span>Excel Export</span>
@@ -101,7 +101,7 @@ function ReportsContent() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-sm">
           <span className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">Net Sales Revenue</span>
-          <div className="text-xl font-black text-emerald-700 mt-0.5">
+          <div className="text-xl font-black text-indigo-700 mt-0.5">
             {formatMoney(summary.net_sales)}
           </div>
           <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Discounts: -{formatMoney(summary.total_discount)}</p>
@@ -124,7 +124,7 @@ function ReportsContent() {
 
         <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-sm">
           <span className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">Top Selling Category</span>
-          <div className="text-xl font-black text-emerald-800 mt-0.5 truncate">
+          <div className="text-xl font-black text-indigo-800 mt-0.5 truncate">
             {categories[0]?.name || 'Nashta Special'}
           </div>
           <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Revenue: {formatMoney(categories[0]?.revenue || 0)}</p>
@@ -136,7 +136,7 @@ function ReportsContent() {
         {/* Payment Channels Breakdown */}
         <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-sm space-y-2">
           <h3 className="font-bold text-xs text-slate-900 flex items-center gap-1.5">
-            <CreditCard className="w-3.5 h-3.5 text-emerald-600" />
+            <CreditCard className="w-3.5 h-3.5 text-indigo-600" />
             <span>Payment Channels Breakdown</span>
           </h3>
 
@@ -147,14 +147,14 @@ function ReportsContent() {
                 <div key={p.method} className="bg-slate-50 p-2.5 rounded-xl border border-slate-200 space-y-1">
                   <div className="flex justify-between items-center text-xs">
                     <span className="font-bold text-slate-900">{p.method}</span>
-                    <span className="font-black text-emerald-700">{formatMoney(p.total)}</span>
+                    <span className="font-black text-indigo-700">{formatMoney(p.total)}</span>
                   </div>
                   <div className="flex justify-between text-[10px] text-slate-500">
                     <span>{p.count} transactions</span>
                     <span>{pct}% of net sales</span>
                   </div>
                   <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
-                    <div className="bg-emerald-600 h-full rounded-full" style={{ width: `${pct}%` }} />
+                    <div className="bg-indigo-600 h-full rounded-full" style={{ width: `${pct}%` }} />
                   </div>
                 </div>
               );
@@ -179,9 +179,9 @@ function ReportsContent() {
 
               return (
                 <div key={h.hour} className="flex-1 flex flex-col items-center gap-1 h-full justify-end min-w-8">
-                  <span className="text-[9px] font-bold text-emerald-700">{h.revenue > 0 ? formatMoney(h.revenue).replace('Rs. ', '') : ''}</span>
+                  <span className="text-[9px] font-bold text-indigo-700">{h.revenue > 0 ? formatMoney(h.revenue).replace('Rs. ', '') : ''}</span>
                   <div
-                    className="w-full bg-slate-100 hover:bg-emerald-600 rounded-t transition cursor-pointer relative group border border-slate-200"
+                    className="w-full bg-slate-100 hover:bg-indigo-600 rounded-t transition cursor-pointer relative group border border-slate-200"
                     style={{ height: `${Math.max(8, heightPct)}%` }}
                   >
                     <div className="hidden group-hover:block absolute -top-7 left-1/2 -translate-x-1/2 bg-slate-900 border border-slate-700 px-1.5 py-0.5 rounded text-[9.5px] whitespace-nowrap z-10 text-white font-bold shadow-md">
@@ -200,7 +200,7 @@ function ReportsContent() {
       <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
         <div className="p-3 border-b border-slate-200 flex items-center justify-between bg-slate-50">
           <div className="flex items-center gap-2">
-            <TrendingUp className="w-4 h-4 text-emerald-600" />
+            <TrendingUp className="w-4 h-4 text-indigo-600" />
             <h3 className="font-bold text-xs text-slate-900">Top Menu Item Rankings</h3>
           </div>
         </div>
@@ -230,7 +230,7 @@ function ReportsContent() {
                     <td className="px-3 py-2 font-bold text-slate-900">{p.name}</td>
                     <td className="px-3 py-2 text-slate-600">{p.category}</td>
                     <td className="px-3 py-2 text-center font-bold text-slate-900">{p.quantity} portions</td>
-                    <td className="px-3 py-2 text-right font-black text-emerald-700">{formatMoney(p.revenue)}</td>
+                    <td className="px-3 py-2 text-right font-black text-indigo-700">{formatMoney(p.revenue)}</td>
                   </tr>
                 ))
               )}

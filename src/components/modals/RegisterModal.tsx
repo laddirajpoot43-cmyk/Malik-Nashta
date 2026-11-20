@@ -170,14 +170,14 @@ export const RegisterModal: React.FC = () => {
         {/* Modal Header */}
         <div className="px-5 py-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className={`p-2 rounded-lg ${activeRegister ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}>
+            <div className={`p-2 rounded-lg ${activeRegister ? 'bg-indigo-100 text-indigo-700' : 'bg-rose-100 text-rose-700'}`}>
               <DollarSign className="w-5 h-5" />
             </div>
             <div>
               <h2 className="text-base font-bold text-slate-900">Cash Register & Drawer Shift</h2>
               <p className="text-xs text-slate-500">
                 Status:{' '}
-                <span className={`font-semibold ${activeRegister ? 'text-emerald-600' : 'text-rose-600'}`}>
+                <span className={`font-semibold ${activeRegister ? 'text-indigo-600' : 'text-rose-600'}`}>
                   {activeRegister ? `OPEN (Opened by ${activeRegister.user_name_snapshot})` : 'CLOSED'}
                 </span>
               </p>
@@ -196,9 +196,9 @@ export const RegisterModal: React.FC = () => {
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-bold text-slate-700">دراز کی حالت منتخب کریں (Update Drawer Status):</span>
             <span className={`px-2.5 py-0.5 rounded-full text-xs font-black flex items-center gap-1.5 ${
-              activeRegister ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-rose-100 text-rose-800 border border-rose-300'
+              activeRegister ? 'bg-indigo-100 text-indigo-800 border border-indigo-300' : 'bg-rose-100 text-rose-800 border border-rose-300'
             }`}>
-              <span className={`w-2 h-2 rounded-full ${activeRegister ? 'bg-emerald-600 animate-pulse' : 'bg-rose-600'}`} />
+              <span className={`w-2 h-2 rounded-full ${activeRegister ? 'bg-indigo-600 animate-pulse' : 'bg-rose-600'}`} />
               <span>{activeRegister ? 'CURRENT: OPEN' : 'CURRENT: CLOSED'}</span>
             </span>
           </div>
@@ -210,11 +210,11 @@ export const RegisterModal: React.FC = () => {
               onClick={() => { setActiveTab('open'); setErrorMsg(''); setSuccessMsg(''); }}
               className={`p-2.5 rounded-xl border text-xs font-black transition flex items-center justify-center gap-2 cursor-pointer ${
                 activeTab === 'open'
-                  ? 'bg-emerald-600 text-white border-emerald-600 shadow-md ring-2 ring-emerald-500/30'
+                  ? 'bg-indigo-600 text-white border-indigo-600 shadow-md ring-2 ring-indigo-500/30'
                   : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
               }`}
             >
-              <CheckCircle2 className={`w-4 h-4 ${activeTab === 'open' ? 'text-white' : 'text-emerald-600'}`} />
+              <CheckCircle2 className={`w-4 h-4 ${activeTab === 'open' ? 'text-white' : 'text-indigo-600'}`} />
               <span>Option: OPEN (کھولیں)</span>
             </button>
 
@@ -248,7 +248,7 @@ export const RegisterModal: React.FC = () => {
               type="button"
               onClick={() => { setActiveTab('cash_in'); setErrorMsg(''); setSuccessMsg(''); }}
               className={`px-2.5 py-1 rounded-lg font-bold text-[11px] transition flex items-center gap-1 cursor-pointer ${
-                activeTab === 'cash_in' ? 'bg-emerald-700 text-white' : 'text-emerald-700 hover:bg-emerald-50'
+                activeTab === 'cash_in' ? 'bg-indigo-700 text-white' : 'text-indigo-700 hover:bg-indigo-50'
               }`}
             >
               <ArrowDownRight className="w-3 h-3" /> Cash In
@@ -275,8 +275,8 @@ export const RegisterModal: React.FC = () => {
           )}
 
           {successMsg && (
-            <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-800 text-xs flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+            <div className="p-3 bg-indigo-50 border border-indigo-200 rounded-lg text-indigo-800 text-xs flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 shrink-0 text-indigo-600" />
               <span>{successMsg}</span>
             </div>
           )}
@@ -286,7 +286,7 @@ export const RegisterModal: React.FC = () => {
             <div className="space-y-4">
               <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
                 <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Expected Cash in Drawer</span>
-                <div className="text-3xl font-black text-emerald-600 mt-1">
+                <div className="text-3xl font-black text-indigo-600 mt-1">
                   {formatMoney(registerSummary.expected_cash)}
                 </div>
                 <div className="text-[11px] text-slate-400 mt-1">
@@ -301,11 +301,11 @@ export const RegisterModal: React.FC = () => {
                 </div>
                 <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
                   <span className="text-slate-500">Cash Sales:</span>
-                  <p className="font-bold text-emerald-600 text-sm mt-0.5">{formatMoney(registerSummary.cash_sales)}</p>
+                  <p className="font-bold text-indigo-600 text-sm mt-0.5">{formatMoney(registerSummary.cash_sales)}</p>
                 </div>
                 <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
                   <span className="text-slate-500">Cash In (Added):</span>
-                  <p className="font-bold text-emerald-600 text-sm mt-0.5">{formatMoney(registerSummary.cash_in)}</p>
+                  <p className="font-bold text-indigo-600 text-sm mt-0.5">{formatMoney(registerSummary.cash_in)}</p>
                 </div>
                 <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
                   <span className="text-slate-500">Cash Out (Petty Expenses):</span>
@@ -327,18 +327,18 @@ export const RegisterModal: React.FC = () => {
           {activeTab === 'open' && (
             <div className="space-y-4">
               {activeRegister ? (
-                <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl space-y-3">
-                  <div className="flex items-center gap-2 text-emerald-800 font-black text-sm">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                <div className="p-4 bg-indigo-50 border border-indigo-200 rounded-xl space-y-3">
+                  <div className="flex items-center gap-2 text-indigo-800 font-black text-sm">
+                    <CheckCircle2 className="w-5 h-5 text-indigo-600 shrink-0" />
                     <span>Drawer Status is Currently OPEN & Active</span>
                   </div>
-                  <div className="grid grid-cols-2 gap-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-emerald-200">
+                  <div className="grid grid-cols-2 gap-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-indigo-200">
                     <div>Cashier: <strong className="text-slate-900">{activeRegister.user_name_snapshot}</strong></div>
-                    <div>Opening Float: <strong className="text-emerald-700">{formatMoney(activeRegister.opening_amount)}</strong></div>
+                    <div>Opening Float: <strong className="text-indigo-700">{formatMoney(activeRegister.opening_amount)}</strong></div>
                     <div>Opened At: <strong className="text-slate-900">{new Date(activeRegister.opened_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</strong></div>
-                    <div>Live Cash in Hand: <strong className="text-emerald-700">{registerSummary ? formatMoney(registerSummary.expected_cash) : formatMoney(activeRegister.opening_amount)}</strong></div>
+                    <div>Live Cash in Hand: <strong className="text-indigo-700">{registerSummary ? formatMoney(registerSummary.expected_cash) : formatMoney(activeRegister.opening_amount)}</strong></div>
                   </div>
-                  <p className="text-xs text-emerald-800 font-medium">
+                  <p className="text-xs text-indigo-800 font-medium">
                     The counter cash drawer is currently active. If you want to close this shift, select <strong>Option: CLOSE</strong> above.
                   </p>
                 </div>
@@ -357,7 +357,7 @@ export const RegisterModal: React.FC = () => {
                       value={openingAmount}
                       onChange={(e) => setOpeningAmount(e.target.value)}
                       placeholder="5000"
-                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 font-black text-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 font-black text-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
                   </div>
 
@@ -377,7 +377,7 @@ export const RegisterModal: React.FC = () => {
                   <button
                     onClick={handleOpenShift}
                     disabled={loading}
-                    className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-black rounded-xl shadow-md transition mt-2 cursor-pointer text-xs flex items-center justify-center gap-2"
+                    className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-black rounded-xl shadow-md transition mt-2 cursor-pointer text-xs flex items-center justify-center gap-2"
                   >
                     <CheckCircle2 className="w-4 h-4" />
                     <span>{loading ? 'Opening...' : 'Confirm Status: OPEN DRAWER (دراز کھولیں)'}</span>
@@ -400,7 +400,7 @@ export const RegisterModal: React.FC = () => {
                   value={inOutAmount}
                   onChange={(e) => setInOutAmount(e.target.value)}
                   placeholder="e.g. 2000"
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-emerald-600 font-bold text-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-indigo-600 font-bold text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
               <div>
@@ -410,13 +410,13 @@ export const RegisterModal: React.FC = () => {
                   value={inOutReason}
                   onChange={(e) => setInOutReason(e.target.value)}
                   placeholder="e.g. Change float from Malik Sahib / bank"
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
               <button
                 onClick={() => handleCashMovement('cash_in')}
                 disabled={loading}
-                className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg shadow-md transition"
+                className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg shadow-md transition"
               >
                 {loading ? 'Processing...' : 'Confirm Cash In'}
               </button>
@@ -477,7 +477,7 @@ export const RegisterModal: React.FC = () => {
                   <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs space-y-1">
                     <div className="flex justify-between items-center">
                       <span className="text-slate-600 font-medium">System Expected Cash in Drawer:</span>
-                      <span className="font-black text-emerald-700 text-sm">
+                      <span className="font-black text-indigo-700 text-sm">
                         {registerSummary ? formatMoney(registerSummary.expected_cash) : formatMoney(activeRegister.opening_amount)}
                       </span>
                     </div>
@@ -492,7 +492,7 @@ export const RegisterModal: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => setActualAmount(String(registerSummary.expected_cash || 0))}
-                          className="text-[10px] text-emerald-700 hover:text-emerald-800 font-bold underline cursor-pointer"
+                          className="text-[10px] text-indigo-700 hover:text-indigo-800 font-bold underline cursor-pointer"
                         >
                           Match Expected ({formatMoney(registerSummary.expected_cash)})
                         </button>
@@ -513,7 +513,7 @@ export const RegisterModal: React.FC = () => {
                       <span
                         className={`font-black text-sm ${
                           parseFloat(actualAmount) - registerSummary.expected_cash === 0
-                            ? 'text-emerald-600'
+                            ? 'text-indigo-600'
                             : parseFloat(actualAmount) - registerSummary.expected_cash < 0
                             ? 'text-rose-600'
                             : 'text-blue-600'

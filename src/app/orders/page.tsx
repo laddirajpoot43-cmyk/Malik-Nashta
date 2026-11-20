@@ -319,7 +319,7 @@ export default function OrdersPage() {
       {/* Page Header & Primary Tabs */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 bg-white border border-slate-200 p-3 rounded-2xl shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
+          <div className="p-2.5 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-xl font-bold">
             <Receipt className="w-5 h-5" />
           </div>
           <div>
@@ -339,7 +339,7 @@ export default function OrdersPage() {
             }}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-2 cursor-pointer ${
               activeTab === 'recent'
-                ? 'bg-emerald-600 text-white shadow-sm'
+                ? 'bg-indigo-600 text-white shadow-sm'
                 : 'text-slate-700 hover:text-slate-900 hover:bg-slate-200/60'
             }`}
           >
@@ -347,7 +347,7 @@ export default function OrdersPage() {
             <span>Recent Orders (آج کے بل)</span>
             <span
               className={`px-1.5 py-0.5 rounded-full text-[10px] font-extrabold ${
-                activeTab === 'recent' ? 'bg-emerald-700 text-white' : 'bg-slate-200 text-slate-800'
+                activeTab === 'recent' ? 'bg-indigo-700 text-white' : 'bg-slate-200 text-slate-800'
               }`}
             >
               {counts.recent}
@@ -362,7 +362,7 @@ export default function OrdersPage() {
             }}
             className={`px-3 py-1.5 rounded-lg transition flex items-center gap-2 cursor-pointer ${
               activeTab === 'history'
-                ? 'bg-emerald-600 text-white shadow-sm'
+                ? 'bg-indigo-600 text-white shadow-sm'
                 : 'text-slate-700 hover:text-slate-900 hover:bg-slate-200/60'
             }`}
           >
@@ -370,7 +370,7 @@ export default function OrdersPage() {
             <span>Order History (آرکائیو)</span>
             <span
               className={`px-1.5 py-0.5 rounded-full text-[10px] font-extrabold ${
-                activeTab === 'history' ? 'bg-emerald-700 text-white' : 'bg-slate-200 text-slate-800'
+                activeTab === 'history' ? 'bg-indigo-700 text-white' : 'bg-slate-200 text-slate-800'
               }`}
             >
               {counts.history}
@@ -385,7 +385,7 @@ export default function OrdersPage() {
             }}
             className={`px-2.5 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'all'
-                ? 'bg-emerald-600 text-white shadow-sm'
+                ? 'bg-indigo-600 text-white shadow-sm'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
             }`}
             title="View all orders combined"
@@ -407,7 +407,7 @@ export default function OrdersPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Receipt # / Customer / Phone"
-              className="pl-8 pr-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-semibold focus:outline-none focus:border-emerald-600 w-56"
+              className="pl-8 pr-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-semibold focus:outline-none focus:border-indigo-600 w-56"
             />
           </div>
 
@@ -457,7 +457,7 @@ export default function OrdersPage() {
             type="button"
             onClick={() => setShowDailyCloseModal(true)}
             disabled={orders.length === 0}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-black rounded-xl transition shadow-sm cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-black rounded-xl transition shadow-sm cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
             title="Move today's orders into Order History archive and start clean for tomorrow"
           >
             <Moon className="w-3.5 h-3.5" />
@@ -468,12 +468,12 @@ export default function OrdersPage() {
 
       {/* Global Alerts */}
       {actionSuccess && (
-        <div className="p-3 bg-emerald-50 border border-emerald-300 rounded-xl text-emerald-800 text-xs font-bold flex items-center justify-between">
+        <div className="p-3 bg-indigo-50 border border-indigo-300 rounded-xl text-indigo-800 text-xs font-bold flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+            <CheckCircle2 className="w-4 h-4 shrink-0 text-indigo-600" />
             <span>{actionSuccess}</span>
           </div>
-          <button onClick={() => setActionSuccess('')} className="text-emerald-700 hover:text-emerald-900 font-bold">
+          <button onClick={() => setActionSuccess('')} className="text-indigo-700 hover:text-indigo-900 font-bold">
             ✕
           </button>
         </div>
@@ -487,17 +487,17 @@ export default function OrdersPage() {
             <span className="flex items-center gap-2">
               {activeTab === 'recent' ? (
                 <>
-                  <Clock className="w-4 h-4 text-emerald-600" />
+                  <Clock className="w-4 h-4 text-indigo-600" />
                   <span>Recent Active Orders ({orders.length})</span>
                 </>
               ) : activeTab === 'history' ? (
                 <>
-                  <History className="w-4 h-4 text-emerald-600" />
+                  <History className="w-4 h-4 text-indigo-600" />
                   <span>Archived Order History ({orders.length})</span>
                 </>
               ) : (
                 <>
-                  <Layers className="w-4 h-4 text-emerald-600" />
+                  <Layers className="w-4 h-4 text-indigo-600" />
                   <span>All Orders & Invoices ({orders.length})</span>
                 </>
               )}
@@ -531,7 +531,7 @@ export default function OrdersPage() {
                     <td colSpan={6} className="py-12 px-4 text-center">
                       {activeTab === 'recent' ? (
                         <div className="max-w-sm mx-auto space-y-2 text-center">
-                          <div className="w-10 h-10 mx-auto rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center font-bold">
+                          <div className="w-10 h-10 mx-auto rounded-full bg-indigo-50 text-indigo-600 border border-indigo-200 flex items-center justify-center font-bold">
                             <CheckCheck className="w-5 h-5" />
                           </div>
                           <h4 className="text-sm font-black text-slate-900">Recent Orders is Clean!</h4>
@@ -542,7 +542,7 @@ export default function OrdersPage() {
                             <button
                               type="button"
                               onClick={() => setActiveTab('history')}
-                              className="text-xs text-emerald-700 font-bold hover:underline inline-flex items-center gap-1 cursor-pointer pt-1"
+                              className="text-xs text-indigo-700 font-bold hover:underline inline-flex items-center gap-1 cursor-pointer pt-1"
                             >
                               <History className="w-3.5 h-3.5" />
                               <span>View Past Order History ({counts.history})</span>
@@ -567,7 +567,7 @@ export default function OrdersPage() {
                         onClick={() => setSelectedOrder(o)}
                         className={`transition cursor-pointer ${
                           isSelected
-                            ? 'bg-emerald-50/70 border-l-4 border-emerald-600'
+                            ? 'bg-indigo-50/70 border-l-4 border-indigo-600'
                             : 'hover:bg-slate-50'
                         }`}
                       >
@@ -594,7 +594,7 @@ export default function OrdersPage() {
                           <span
                             className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase border ${
                               o.status === 'completed'
-                                ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                                ? 'bg-indigo-50 text-indigo-800 border-indigo-200'
                                 : o.status === 'voided'
                                 ? 'bg-rose-50 text-rose-800 border-rose-200'
                                 : 'bg-amber-50 text-amber-800 border-amber-200'
@@ -603,7 +603,7 @@ export default function OrdersPage() {
                             {o.status.replace('_', ' ')}
                           </span>
                         </td>
-                        <td className="px-4 py-3 text-right font-black text-emerald-700">
+                        <td className="px-4 py-3 text-right font-black text-indigo-700">
                           {formatMoney(o.grand_total)}
                         </td>
                         <td className="px-4 py-3 text-center">
@@ -615,7 +615,7 @@ export default function OrdersPage() {
                                 e.stopPropagation();
                                 handleReprint(o);
                               }}
-                              className="p-1.5 rounded-lg text-emerald-700 hover:bg-emerald-50 border border-transparent hover:border-emerald-200 transition cursor-pointer"
+                              className="p-1.5 rounded-lg text-indigo-700 hover:bg-indigo-50 border border-transparent hover:border-indigo-200 transition cursor-pointer"
                               title="Print Thermal Receipt"
                             >
                               <Printer className="w-4 h-4" />
@@ -628,7 +628,7 @@ export default function OrdersPage() {
                                 setSelectedOrder(o);
                                 openReceiptEditModal(o);
                               }}
-                              className="p-1.5 rounded-lg text-emerald-700 hover:bg-emerald-50 border border-transparent hover:border-emerald-200 transition cursor-pointer"
+                              className="p-1.5 rounded-lg text-indigo-700 hover:bg-indigo-50 border border-transparent hover:border-indigo-200 transition cursor-pointer"
                               title="Edit Receipt Details & Print"
                             >
                               <Edit className="w-4 h-4" />
@@ -657,7 +657,7 @@ export default function OrdersPage() {
                   <span
                     className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase border ${
                       selectedOrder.status === 'completed'
-                        ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                        ? 'bg-indigo-50 text-indigo-800 border-indigo-200'
                         : selectedOrder.status === 'voided'
                         ? 'bg-rose-50 text-rose-800 border-rose-200'
                         : 'bg-amber-50 text-amber-800 border-amber-200'
@@ -680,7 +680,7 @@ export default function OrdersPage() {
                             </span>
                           )}
                         </div>
-                        <span className="text-emerald-700 font-black">{formatMoney(it.line_total)}</span>
+                        <span className="text-indigo-700 font-black">{formatMoney(it.line_total)}</span>
                       </div>
                       <div className="flex justify-between text-[11px] text-slate-500 mt-0.5">
                         <span>{it.quantity} portion(s) @ {formatMoney(it.unit_price)}</span>
@@ -703,12 +703,12 @@ export default function OrdersPage() {
                   {selectedOrder.discount_amount > 0 && (
                     <div className="flex justify-between text-slate-600">
                       <span>Discount:</span>
-                      <span className="text-emerald-700 font-bold">-{formatMoney(selectedOrder.discount_amount)}</span>
+                      <span className="text-indigo-700 font-bold">-{formatMoney(selectedOrder.discount_amount)}</span>
                     </div>
                   )}
                   <div className="flex justify-between font-black text-sm text-slate-900 pt-1 border-t border-slate-200">
                     <span>Grand Total:</span>
-                    <span className="text-emerald-700">{formatMoney(selectedOrder.grand_total)}</span>
+                    <span className="text-indigo-700">{formatMoney(selectedOrder.grand_total)}</span>
                   </div>
                 </div>
 
@@ -725,7 +725,7 @@ export default function OrdersPage() {
                 <button
                   type="button"
                   onClick={() => handleReprint(selectedOrder)}
-                  className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white text-xs font-black rounded-xl shadow transition flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-xs font-black rounded-xl shadow transition flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <Printer className="w-4 h-4" /> Print Thermal Slip (1 Page)
                 </button>
@@ -734,7 +734,7 @@ export default function OrdersPage() {
                 <button
                   type="button"
                   onClick={() => openReceiptEditModal(selectedOrder)}
-                  className="w-full py-2 bg-emerald-50 hover:bg-emerald-100 active:bg-emerald-200 text-emerald-800 border border-emerald-300 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="w-full py-2 bg-indigo-50 hover:bg-indigo-100 active:bg-emerald-200 text-indigo-800 border border-indigo-300 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <Edit className="w-4 h-4" /> Edit & Customize Slip Details
                 </button>
@@ -779,7 +779,7 @@ export default function OrdersPage() {
             </div>
           ) : (
             <div className="h-full flex flex-col items-center justify-center text-slate-400 py-16 text-center">
-              <FileText className="w-10 h-10 mb-2 opacity-30 text-emerald-600" />
+              <FileText className="w-10 h-10 mb-2 opacity-30 text-indigo-600" />
               <p className="text-xs font-bold text-slate-600">Select an order from the list to view breakdown & print</p>
             </div>
           )}
@@ -792,7 +792,7 @@ export default function OrdersPage() {
           <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-lg shadow-2xl p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-slate-100">
               <div className="flex items-center gap-2 text-slate-900 font-extrabold text-sm">
-                <Edit className="w-5 h-5 text-emerald-600" />
+                <Edit className="w-5 h-5 text-indigo-600" />
                 <span>Customize Receipt Slip - #{selectedOrder.receipt_number}</span>
               </div>
               <button
@@ -814,7 +814,7 @@ export default function OrdersPage() {
                     onChange={(e) =>
                       setReceiptEditForm({ ...receiptEditForm, customer_name: e.target.value })
                     }
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-semibold focus:outline-none focus:border-emerald-600"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-semibold focus:outline-none focus:border-indigo-600"
                   />
                 </div>
                 <div>
@@ -825,7 +825,7 @@ export default function OrdersPage() {
                     onChange={(e) =>
                       setReceiptEditForm({ ...receiptEditForm, customer_phone: e.target.value })
                     }
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-semibold focus:outline-none focus:border-emerald-600"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-semibold focus:outline-none focus:border-indigo-600"
                   />
                 </div>
               </div>
@@ -841,7 +841,7 @@ export default function OrdersPage() {
                     setReceiptEditForm({ ...receiptEditForm, custom_receipt_note: e.target.value })
                   }
                   placeholder="e.g. VIP Guest / Special order / Paid via JazzCash"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 focus:outline-none focus:border-indigo-600"
                 />
               </div>
 
@@ -854,7 +854,7 @@ export default function OrdersPage() {
                       onClick={() => setReceiptEditForm({ ...receiptEditForm, paper_size: '80mm' })}
                       className={`py-1.5 px-2 rounded-lg border text-xs font-bold transition cursor-pointer ${
                         receiptEditForm.paper_size === '80mm'
-                          ? 'bg-emerald-600 text-white border-emerald-600'
+                          ? 'bg-indigo-600 text-white border-indigo-600'
                           : 'bg-slate-50 text-slate-700 border-slate-300'
                       }`}
                     >
@@ -865,7 +865,7 @@ export default function OrdersPage() {
                       onClick={() => setReceiptEditForm({ ...receiptEditForm, paper_size: '58mm' })}
                       className={`py-1.5 px-2 rounded-lg border text-xs font-bold transition cursor-pointer ${
                         receiptEditForm.paper_size === '58mm'
-                          ? 'bg-emerald-600 text-white border-emerald-600'
+                          ? 'bg-indigo-600 text-white border-indigo-600'
                           : 'bg-slate-50 text-slate-700 border-slate-300'
                       }`}
                     >
@@ -885,7 +885,7 @@ export default function OrdersPage() {
                           show_duplicate_watermark: e.target.checked,
                         })
                       }
-                      className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300 cursor-pointer"
+                      className="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 cursor-pointer"
                     />
                     <span>Show Duplicate Banner</span>
                   </label>
@@ -906,7 +906,7 @@ export default function OrdersPage() {
               <button
                 type="button"
                 onClick={handlePrintCustomReceipt}
-                className="flex-1 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl shadow transition flex items-center justify-center gap-1.5"
+                className="flex-1 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 rounded-xl shadow transition flex items-center justify-center gap-1.5"
               >
                 <Printer className="w-4 h-4" />
                 <span>Print Thermal Slip</span>
@@ -1033,7 +1033,7 @@ export default function OrdersPage() {
                         }}
                         className="w-20 px-2 py-1 bg-white border border-slate-300 rounded-lg text-center text-xs text-slate-900 font-black"
                       />
-                      <span className="text-xs text-emerald-700 font-black w-16 text-right">
+                      <span className="text-xs text-indigo-700 font-black w-16 text-right">
                         {formatMoney(currentRefundQty * it.unit_price)}
                       </span>
                     </div>
@@ -1093,7 +1093,7 @@ export default function OrdersPage() {
           <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-md shadow-2xl p-5 space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2 text-slate-900 font-black text-sm">
-                <Moon className="w-5 h-5 text-emerald-600" />
+                <Moon className="w-5 h-5 text-indigo-600" />
                 <span>Execute Daily Closing (روزانہ کلوزنگ)</span>
               </div>
               <button
@@ -1109,14 +1109,14 @@ export default function OrdersPage() {
               <p>
                 Closing the day will move all <strong>{orders.length} active order(s)</strong> into the <strong>Order History</strong> archive.
               </p>
-              <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1.5 text-emerald-950 font-medium">
+              <div className="p-3 bg-indigo-50 border border-indigo-200 rounded-xl space-y-1.5 text-emerald-950 font-medium">
                 <div className="flex justify-between">
                   <span>Active Orders to Archive:</span>
                   <span className="font-extrabold">{orders.length}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Total Sales Amount:</span>
-                  <span className="font-extrabold text-emerald-800">
+                  <span className="font-extrabold text-indigo-800">
                     {formatMoney(orders.reduce((sum, o) => sum + Number(o.grand_total || 0), 0))}
                   </span>
                 </div>
@@ -1138,7 +1138,7 @@ export default function OrdersPage() {
                 type="button"
                 onClick={handleExecuteDailyClose}
                 disabled={dailyClosingInProgress}
-                className="px-4 py-2 rounded-xl text-xs font-black bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white transition shadow flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                className="px-4 py-2 rounded-xl text-xs font-black bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white transition shadow flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
               >
                 {dailyClosingInProgress ? (
                   <span>Closing...</span>

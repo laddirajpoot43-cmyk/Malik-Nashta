@@ -153,7 +153,7 @@ function VendorsContent() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-white border border-slate-200 p-3 rounded-2xl shadow-sm">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
+          <div className="p-2 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-xl font-bold">
             <BookOpen className="w-5 h-5" />
           </div>
           <div>
@@ -175,7 +175,7 @@ function VendorsContent() {
             setErrorMsg('');
             setSuccessMsg('');
           }}
-          className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-black text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
+          className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-black text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Add New Supplier (نیا کھاتہ)</span>
@@ -200,19 +200,19 @@ function VendorsContent() {
 
         <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-sm">
           <span className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">Payment Vouchers Generated</span>
-          <div className="text-xl font-black text-emerald-700 mt-0.5">
+          <div className="text-xl font-black text-indigo-700 mt-0.5">
             VPAY System
           </div>
         </div>
       </div>
 
       {successMsg && (
-        <div className="p-3 bg-emerald-50 border border-emerald-300 rounded-xl text-emerald-800 text-xs font-bold flex items-center justify-between">
+        <div className="p-3 bg-indigo-50 border border-indigo-300 rounded-xl text-indigo-800 text-xs font-bold flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+            <CheckCircle2 className="w-4 h-4 shrink-0 text-indigo-600" />
             <span>{successMsg}</span>
           </div>
-          <button onClick={() => setSuccessMsg('')} className="text-emerald-700 font-bold">✕</button>
+          <button onClick={() => setSuccessMsg('')} className="text-indigo-700 font-bold">✕</button>
         </div>
       )}
 
@@ -230,11 +230,11 @@ function VendorsContent() {
           vendors.map((v) => (
             <div
               key={v.id}
-              className="bg-white border border-slate-200 hover:border-emerald-500 rounded-2xl p-4 shadow-sm flex flex-col justify-between transition group"
+              className="bg-white border border-slate-200 hover:border-indigo-500 rounded-2xl p-4 shadow-sm flex flex-col justify-between transition group"
             >
               <div>
                 <div className="flex items-start justify-between gap-2 mb-2">
-                  <h3 className="font-extrabold text-slate-900 text-base group-hover:text-emerald-700 transition">
+                  <h3 className="font-extrabold text-slate-900 text-base group-hover:text-indigo-700 transition">
                     {v.name}
                   </h3>
                   <span className="text-[10px] bg-slate-100 text-slate-700 font-bold px-2 py-0.5 rounded-full border border-slate-200">
@@ -263,7 +263,7 @@ function VendorsContent() {
                   <span className="text-xs text-slate-500 font-medium">Payable Balance:</span>
                   <span
                     className={`font-black text-base ${
-                      v.current_balance > 0 ? 'text-rose-600' : 'text-emerald-700'
+                      v.current_balance > 0 ? 'text-rose-600' : 'text-indigo-700'
                     }`}
                   >
                     {formatMoney(v.current_balance)}
@@ -274,7 +274,7 @@ function VendorsContent() {
                   {/* GREEN BUTTON: Open Khata */}
                   <Link
                     href={`/vendors/${v.id}`}
-                    className="flex-1 py-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5 shadow-sm"
+                    className="flex-1 py-2 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5 shadow-sm"
                   >
                     <span>Open Khata (کھاتہ)</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -283,7 +283,7 @@ function VendorsContent() {
                   <button
                     type="button"
                     onClick={() => handleOpenEditVendor(v)}
-                    className="p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-emerald-700 rounded-xl transition border border-slate-200 cursor-pointer"
+                    className="p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-indigo-700 rounded-xl transition border border-slate-200 cursor-pointer"
                     title="Edit supplier details"
                   >
                     <Edit2 className="w-4 h-4" />
@@ -310,7 +310,7 @@ function VendorsContent() {
           <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-md shadow-2xl p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-slate-100">
               <div className="flex items-center gap-2 text-slate-900 font-extrabold text-sm">
-                {editingVendor ? <Edit2 className="w-4 h-4 text-emerald-600" /> : <Plus className="w-5 h-5 text-emerald-600" />}
+                {editingVendor ? <Edit2 className="w-4 h-4 text-indigo-600" /> : <Plus className="w-5 h-5 text-indigo-600" />}
                 <span>{editingVendor ? `Edit Supplier: ${editingVendor.name}` : 'Onboard New Mandi Supplier'}</span>
               </div>
               <button onClick={() => setShowAddModal(false)} className="text-slate-400 hover:text-slate-700">✕</button>
@@ -331,7 +331,7 @@ function VendorsContent() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Madina Atta Chakki / Haji Ghee"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
                 />
               </div>
 
@@ -358,7 +358,7 @@ function VendorsContent() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="0300-1234567"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
                   />
                 </div>
               </div>
@@ -370,7 +370,7 @@ function VendorsContent() {
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   placeholder="e.g. Ghalla Mandi, Hasilpur"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 focus:outline-none focus:border-indigo-600"
                 />
               </div>
 
@@ -382,7 +382,7 @@ function VendorsContent() {
                     value={openingBalance}
                     onChange={(e) => setOpeningBalance(e.target.value)}
                     placeholder="0"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-black focus:outline-none focus:border-emerald-600"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 font-black focus:outline-none focus:border-indigo-600"
                   />
                 </div>
               )}
@@ -399,7 +399,7 @@ function VendorsContent() {
                 {/* GREEN BUTTON: Save */}
                 <button
                   type="submit"
-                  className="flex-1 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl shadow"
+                  className="flex-1 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 rounded-xl shadow"
                 >
                   {editingVendor ? 'Update Supplier' : 'Save Supplier'}
                 </button>

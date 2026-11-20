@@ -101,7 +101,7 @@ export const HeldOrdersModal: React.FC = () => {
                       <h4 className="font-bold text-slate-900 text-sm">{hold.customer_name}</h4>
                     </div>
                     <p className="text-xs text-slate-500">
-                      {cartItems.length} item(s) • Est: <strong className="text-emerald-600 font-bold">{formatMoney(totalEstimate)}</strong>
+                      {cartItems.length} item(s) • Est: <strong className="text-indigo-600 font-bold">{formatMoney(totalEstimate)}</strong>
                     </p>
                     <p className="text-[10px] text-slate-400">
                       Held by {hold.cashier_name} at {new Date(hold.created_at).toLocaleTimeString()}
@@ -118,7 +118,7 @@ export const HeldOrdersModal: React.FC = () => {
                     </button>
                     <button
                       onClick={() => handleResume(hold.id)}
-                      className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg shadow-sm transition"
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg shadow-sm transition"
                     >
                       <Play className="w-3.5 h-3.5 fill-current" /> Resume
                     </button>

@@ -51,7 +51,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
       <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-sm shadow-2xl p-5 space-y-4">
         <div className="flex items-center justify-between pb-2 border-b border-slate-100">
           <div className="flex items-center gap-2 text-slate-900 font-extrabold text-sm">
-            <Lock className="w-4 h-4 text-emerald-600" />
+            <Lock className="w-4 h-4 text-indigo-600" />
             <span>{title}</span>
           </div>
           <button
@@ -82,7 +82,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
               setErrorMsg('');
             }}
             placeholder="••••"
-            className="w-full py-2.5 px-3 bg-slate-50 border border-slate-300 rounded-xl text-center text-2xl font-black text-slate-900 tracking-[0.5em] focus:outline-none focus:border-emerald-600 shadow-inner"
+            className="w-full py-2.5 px-3 bg-slate-50 border border-slate-300 rounded-xl text-center text-2xl font-black text-slate-900 tracking-[0.5em] focus:outline-none focus:border-indigo-600 shadow-inner"
           />
 
           <div className="flex gap-2 pt-2">
@@ -98,7 +98,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl shadow transition disabled:opacity-50 cursor-pointer"
+              className="flex-1 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 rounded-xl shadow transition disabled:opacity-50 cursor-pointer"
             >
               {loading ? 'Verifying...' : 'Unlock Panel'}
             </button>

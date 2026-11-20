@@ -88,17 +88,18 @@ function AdminDashboardContent() {
             <h1 className="text-lg font-extrabold text-slate-900 tracking-tight">
               Admin Dashboard
             </h1>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
               Active Supervisor
             </span>
           </div>
         </div>
 
-        {/* GREEN BUTTON: Jump to POS */}
+        {/* TEAL BUTTON: Jump to POS */}
         <Link
           href="/pos"
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-extrabold text-xs rounded-xl shadow transition shrink-0 cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-teal-600 hover:bg-teal-700 active:bg-teal-800 text-white font-extrabold text-xs rounded-xl shadow transition shrink-0 cursor-pointer"
         >
+          <i className="fa-solid fa-cash-register" />
           <span>Open Cashier Counter (POS)</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </Link>
@@ -107,34 +108,34 @@ function AdminDashboardContent() {
       {/* KPI Overview Cards (3 Cards cleanly formatted) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {/* Today's Net Sales */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-sm flex flex-col justify-between">
+        <div className="bg-white border border-slate-200 rounded-2xl p-3.5 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between mb-1.5">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Today&apos;s Sales</span>
-            <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
-              <TrendingUp className="w-3.5 h-3.5" />
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Today&apos;s Sales</span>
+            <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <i className="fa-solid fa-chart-line" />
             </div>
           </div>
-          <div className="text-xl font-black text-slate-900">
+          <div className="text-2xl font-black text-slate-900">
             {formatMoney(metrics.todaySales)}
           </div>
-          <p className="text-[10px] text-slate-600 mt-0.5">
-            Across <strong>{metrics.todayOrdersCount}</strong> completed orders today
+          <p className="text-xs text-slate-600 mt-0.5">
+            Across <strong className="text-indigo-700">{metrics.todayOrdersCount}</strong> completed orders today
           </p>
         </div>
 
         {/* Cash Drawer Shift Balance */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-sm flex flex-col justify-between">
+        <div className="bg-white border border-slate-200 rounded-2xl p-3.5 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between mb-1.5">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Drawer Cash</span>
-            <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
-              <DollarSign className="w-3.5 h-3.5" />
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Drawer Cash</span>
+            <div className="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center">
+              <i className="fa-solid fa-wallet" />
             </div>
           </div>
-          <div className="text-xl font-black text-slate-900">
+          <div className="text-2xl font-black text-teal-700">
             {formatMoney(metrics.drawerBalance)}
           </div>
-          <p className="text-[10px] text-slate-600 mt-0.5">
-            Status: {activeRegister ? <span className="text-emerald-700 font-bold">Shift Open</span> : <span className="text-slate-500 font-semibold">Shift Closed</span>}
+          <p className="text-xs text-slate-600 mt-0.5">
+            Status: {activeRegister ? <span className="text-teal-700 font-bold">Shift Open</span> : <span className="text-slate-500 font-semibold">Shift Closed</span>}
           </p>
         </div>
 

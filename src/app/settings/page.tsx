@@ -414,7 +414,7 @@ function SettingsContent() {
       {/* Top Banner */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 bg-white border border-slate-200 p-3 rounded-2xl shadow-sm">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 bg-emerald-50 text-emerald-700 border border-emerald-200 font-black rounded-xl">
+          <div className="p-2 bg-indigo-50 text-indigo-700 border border-indigo-200 font-black rounded-xl">
             <Settings className="w-5 h-5" />
           </div>
           <div>
@@ -435,7 +435,7 @@ function SettingsContent() {
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`px-2.5 py-1 rounded-lg transition whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
                   isActive
-                    ? 'bg-emerald-600 text-white font-bold shadow-sm'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
                     : 'text-slate-700 hover:text-slate-900 hover:bg-slate-200/60'
                 }`}
               >
@@ -451,11 +451,11 @@ function SettingsContent() {
         <div
           className={`p-2.5 rounded-xl text-xs font-bold flex items-center gap-2 ${
             notice.type === 'success'
-              ? 'bg-emerald-50 border border-emerald-300 text-emerald-800'
+              ? 'bg-indigo-50 border border-indigo-300 text-indigo-800'
               : 'bg-rose-50 border border-rose-300 text-rose-800'
           }`}
         >
-          {notice.type === 'success' ? <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" /> : <AlertTriangle className="w-4 h-4 shrink-0 text-rose-600" />}
+          {notice.type === 'success' ? <CheckCircle2 className="w-4 h-4 shrink-0 text-indigo-600" /> : <AlertTriangle className="w-4 h-4 shrink-0 text-rose-600" />}
           <span>{notice.text}</span>
         </div>
       )}
@@ -471,7 +471,7 @@ function SettingsContent() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <Utensils className="w-4 h-4 text-emerald-600" />
+              <Utensils className="w-4 h-4 text-indigo-600" />
               <span>Menu Items & Portion Pricing ({products.length} Products)</span>
             </h3>
 
@@ -496,7 +496,7 @@ function SettingsContent() {
                 });
                 setShowProductModal(true);
               }}
-              className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
+              className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Add New Menu Product</span>
@@ -520,7 +520,7 @@ function SettingsContent() {
                   {products.length === 0 ? (
                     <tr>
                       <td colSpan={6} className="px-4 py-12 text-center text-slate-500 text-xs">
-                        <Utensils className="w-8 h-8 mx-auto mb-2 opacity-30 text-emerald-600" />
+                        <Utensils className="w-8 h-8 mx-auto mb-2 opacity-30 text-indigo-600" />
                         <p className="font-semibold text-slate-800">No menu products configured.</p>
                         <p className="text-[11px] text-slate-500 mt-1">All previous demo products have been removed. Click &quot;Add New Menu Product&quot; to add your real items.</p>
                       </td>
@@ -533,11 +533,11 @@ function SettingsContent() {
                           {p.short_name && <div className="text-[10px] text-slate-500 font-normal">Button: {p.short_name}</div>}
                         </td>
                         <td className="px-4 py-3 text-slate-600">{p.category_name}</td>
-                        <td className="px-4 py-3 font-bold text-emerald-600">{formatMoney(p.selling_price)}</td>
+                        <td className="px-4 py-3 font-bold text-indigo-600">{formatMoney(p.selling_price)}</td>
                         <td className="px-4 py-3">
                           <div className="flex flex-wrap gap-1">
                             {p.pricing_config?.enable_by_plate !== false && (
-                              <span className="px-1.5 py-0.5 rounded text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium">
+                              <span className="px-1.5 py-0.5 rounded text-[10px] bg-indigo-50 text-indigo-700 border border-indigo-200 font-medium">
                                 Plate: Full ({formatMoney(p.pricing_config?.full_plate_price || p.selling_price)})
                                 {p.pricing_config?.half_plate_price ? ` / Half (${formatMoney(p.pricing_config.half_plate_price)})` : ''}
                               </span>
@@ -559,7 +559,7 @@ function SettingsContent() {
                           <span
                             className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
                               p.availability === 'available'
-                                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                ? 'bg-indigo-50 text-indigo-700 border border-indigo-200'
                                 : p.availability === 'sold_out'
                                 ? 'bg-amber-50 text-amber-800 border border-amber-200'
                                 : 'bg-slate-100 text-slate-500'
@@ -618,7 +618,7 @@ function SettingsContent() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <Layers className="w-4 h-4 text-emerald-600" />
+              <Layers className="w-4 h-4 text-indigo-600" />
               <span>Menu Categories ({categories.length})</span>
             </h3>
 
@@ -629,7 +629,7 @@ function SettingsContent() {
                 setCategoryOrder(String(categories.length + 1));
                 setShowCategoryModal(true);
               }}
-              className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
+              className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Add New Category</span>
@@ -650,7 +650,7 @@ function SettingsContent() {
                 {categories.length === 0 ? (
                   <tr>
                     <td colSpan={4} className="px-4 py-12 text-center text-slate-500 text-xs">
-                      <Layers className="w-8 h-8 mx-auto mb-2 opacity-30 text-emerald-600" />
+                      <Layers className="w-8 h-8 mx-auto mb-2 opacity-30 text-indigo-600" />
                       <p className="font-semibold text-slate-800">No categories found.</p>
                       <p className="text-[11px] text-slate-500 mt-1">Click &quot;Add New Category&quot; to organize your menu items.</p>
                     </td>
@@ -699,7 +699,7 @@ function SettingsContent() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <Boxes className="w-4 h-4 text-emerald-600" />
+              <Boxes className="w-4 h-4 text-indigo-600" />
               <span>Raw Materials & Mandi Inventory Ingredients ({rawMaterials.length})</span>
             </h3>
 
@@ -709,7 +709,7 @@ function SettingsContent() {
                 setRawForm({ name: '', unit: 'kg', default_price: '', category: 'General' });
                 setShowRawModal(true);
               }}
-              className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
+              className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Add Raw Ingredient</span>
@@ -731,7 +731,7 @@ function SettingsContent() {
                 {rawMaterials.length === 0 ? (
                   <tr>
                     <td colSpan={5} className="px-4 py-12 text-center text-slate-500 text-xs">
-                      <Boxes className="w-8 h-8 mx-auto mb-2 opacity-30 text-emerald-600" />
+                      <Boxes className="w-8 h-8 mx-auto mb-2 opacity-30 text-indigo-600" />
                       <p className="font-semibold text-slate-800">No raw materials or mandi ingredients configured.</p>
                       <p className="text-[11px] text-slate-500 mt-1">Click &quot;Add Raw Ingredient&quot; to manage vendor purchases and mandi inventory.</p>
                     </td>
@@ -742,7 +742,7 @@ function SettingsContent() {
                       <td className="px-4 py-3 font-bold text-slate-900">{m.name}</td>
                       <td className="px-4 py-3 text-slate-600 font-mono">{m.unit}</td>
                       <td className="px-4 py-3 text-slate-600">{m.category}</td>
-                      <td className="px-4 py-3 font-black text-emerald-600">{formatMoney(m.default_price)}</td>
+                      <td className="px-4 py-3 font-black text-indigo-600">{formatMoney(m.default_price)}</td>
                       <td className="px-4 py-3 text-right space-x-2">
                         <button
                           onClick={() => {
@@ -782,7 +782,7 @@ function SettingsContent() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <Users className="w-4 h-4 text-emerald-600" />
+              <Users className="w-4 h-4 text-indigo-600" />
               <span>Staff Accounts & Roles ({users.length})</span>
             </h3>
 
@@ -798,7 +798,7 @@ function SettingsContent() {
                 });
                 setShowUserModal(true);
               }}
-              className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
+              className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Register New Staff</span>
@@ -830,7 +830,7 @@ function SettingsContent() {
                         className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
                           u.role === 'admin'
                             ? 'bg-amber-50 text-amber-800 border border-amber-200'
-                            : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            : 'bg-indigo-50 text-indigo-700 border border-indigo-200'
                         }`}
                       >
                         {u.role}
@@ -839,7 +839,7 @@ function SettingsContent() {
                     <td className="px-4 py-3 font-mono font-bold text-slate-800">
                       {u.pin_code ? `${u.pin_code}` : '••••'}
                     </td>
-                    <td className="px-4 py-3 text-emerald-700 font-bold uppercase text-[10px]">Active</td>
+                    <td className="px-4 py-3 text-indigo-700 font-bold uppercase text-[10px]">Active</td>
                     <td className="px-4 py-3 text-right space-x-2">
                       <button
                         onClick={() => {
@@ -886,7 +886,7 @@ function SettingsContent() {
                 type="text"
                 value={businessName}
                 onChange={(e) => setBusinessName(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
               />
             </div>
 
@@ -896,7 +896,7 @@ function SettingsContent() {
                 type="text"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
               />
             </div>
 
@@ -906,7 +906,7 @@ function SettingsContent() {
                 type="text"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
               />
             </div>
 
@@ -916,14 +916,14 @@ function SettingsContent() {
                 type="text"
                 value={greeting}
                 onChange={(e) => setGreeting(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
               />
             </div>
           </div>
 
           <button
             type="submit"
-            className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5 cursor-pointer"
+            className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5 cursor-pointer"
           >
             <Save className="w-4 h-4" /> Save Business Profile
           </button>
@@ -944,7 +944,7 @@ function SettingsContent() {
                   maxLength={6}
                   value={adminPin}
                   onChange={(e) => setAdminPin(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-amber-600 font-black text-xl tracking-widest text-center focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-amber-600 font-black text-xl tracking-widest text-center focus:outline-none focus:border-indigo-600"
                 />
                 <p className="text-[10px] text-slate-500 mt-1">
                   Master PIN to unlock Admin panel, modify prices, templates, and view ledgers
@@ -957,7 +957,7 @@ function SettingsContent() {
                   type="number"
                   value={maxDiscount}
                   onChange={(e) => setMaxDiscount(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
                 />
               </div>
             </div>
@@ -968,7 +968,7 @@ function SettingsContent() {
                   type="checkbox"
                   checked={cashRounding}
                   onChange={(e) => setCashRounding(e.target.checked)}
-                  className="w-4 h-4 text-emerald-600 rounded"
+                  className="w-4 h-4 text-indigo-600 rounded"
                 />
                 <div>
                   <span className="text-xs font-bold text-slate-900 block">Pakistani Cash Penny Rounding</span>
@@ -981,7 +981,7 @@ function SettingsContent() {
                   type="checkbox"
                   checked={requirePinRefunds}
                   onChange={(e) => setRequirePinRefunds(e.target.checked)}
-                  className="w-4 h-4 text-emerald-600 rounded"
+                  className="w-4 h-4 text-indigo-600 rounded"
                 />
                 <div>
                   <span className="text-xs font-bold text-slate-900 block">Require Admin PIN for All Refunds</span>
@@ -993,7 +993,7 @@ function SettingsContent() {
 
           <button
             type="submit"
-            className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5 cursor-pointer"
+            className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5 cursor-pointer"
           >
             <Save className="w-4 h-4" /> Save Security Policies
           </button>
@@ -1022,7 +1022,7 @@ function SettingsContent() {
                   value={productForm.name}
                   onChange={(e) => setProductForm({ ...productForm, name: e.target.value })}
                   placeholder="e.g. Special Lahori Channay"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
                 />
               </div>
 
@@ -1033,7 +1033,7 @@ function SettingsContent() {
                   value={productForm.short_name}
                   onChange={(e) => setProductForm({ ...productForm, short_name: e.target.value })}
                   placeholder="e.g. Channay"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
                 />
               </div>
 
@@ -1043,7 +1043,7 @@ function SettingsContent() {
                   <select
                     value={productForm.category_id}
                     onChange={(e) => setProductForm({ ...productForm, category_id: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600 cursor-pointer"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600 cursor-pointer"
                   >
                     {categories.length === 0 ? (
                       <option value="">No category created (General)</option>
@@ -1062,7 +1062,7 @@ function SettingsContent() {
                   <select
                     value={productForm.availability}
                     onChange={(e) => setProductForm({ ...productForm, availability: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600 cursor-pointer"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600 cursor-pointer"
                   >
                     <option value="available">Available</option>
                     <option value="sold_out">Sold Out</option>
@@ -1081,7 +1081,7 @@ function SettingsContent() {
                     value={productForm.selling_price}
                     onChange={(e) => setProductForm({ ...productForm, selling_price: e.target.value })}
                     placeholder="180"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-emerald-700 font-black focus:outline-none focus:border-emerald-600"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-indigo-700 font-black focus:outline-none focus:border-indigo-600"
                   />
                 </div>
 
@@ -1093,7 +1093,7 @@ function SettingsContent() {
                     value={productForm.cost_price}
                     onChange={(e) => setProductForm({ ...productForm, cost_price: e.target.value })}
                     placeholder="90"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-700 font-bold focus:outline-none focus:border-emerald-600"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-700 font-bold focus:outline-none focus:border-indigo-600"
                   />
                 </div>
               </div>
@@ -1111,7 +1111,7 @@ function SettingsContent() {
                       type="checkbox"
                       checked={productForm.enable_by_plate}
                       onChange={(e) => setProductForm({ ...productForm, enable_by_plate: e.target.checked })}
-                      className="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4 cursor-pointer"
+                      className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 w-4 h-4 cursor-pointer"
                     />
                     <span>Enable By Plate (Predefined Plate Rates)</span>
                   </label>
@@ -1126,7 +1126,7 @@ function SettingsContent() {
                           value={productForm.full_plate_price}
                           onChange={(e) => setProductForm({ ...productForm, full_plate_price: e.target.value })}
                           placeholder={productForm.selling_price || '180'}
-                          className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-500"
+                          className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-500"
                         />
                       </div>
                       <div>
@@ -1137,7 +1137,7 @@ function SettingsContent() {
                           value={productForm.half_plate_price}
                           onChange={(e) => setProductForm({ ...productForm, half_plate_price: e.target.value })}
                           placeholder="e.g. 100"
-                          className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-500"
+                          className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-500"
                         />
                       </div>
                     </div>
@@ -1151,7 +1151,7 @@ function SettingsContent() {
                       type="checkbox"
                       checked={productForm.enable_by_price}
                       onChange={(e) => setProductForm({ ...productForm, enable_by_price: e.target.checked })}
-                      className="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4 cursor-pointer"
+                      className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 w-4 h-4 cursor-pointer"
                     />
                     <span>Enable By Price (Cashier Enters Custom Amount)</span>
                   </label>
@@ -1165,7 +1165,7 @@ function SettingsContent() {
                         value={productForm.min_price}
                         onChange={(e) => setProductForm({ ...productForm, min_price: e.target.value })}
                         placeholder="e.g. 20 (min allowed price)"
-                        className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-500"
+                        className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-500"
                       />
                     </div>
                   )}
@@ -1178,7 +1178,7 @@ function SettingsContent() {
                       type="checkbox"
                       checked={productForm.enable_custom_price}
                       onChange={(e) => setProductForm({ ...productForm, enable_custom_price: e.target.checked })}
-                      className="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4 cursor-pointer"
+                      className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 w-4 h-4 cursor-pointer"
                     />
                     <span>Enable Custom / Half Rate (Configured Option)</span>
                   </label>
@@ -1192,7 +1192,7 @@ function SettingsContent() {
                           value={productForm.custom_price_label}
                           onChange={(e) => setProductForm({ ...productForm, custom_price_label: e.target.value })}
                           placeholder="e.g. Half Rate"
-                          className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-500"
+                          className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-500"
                         />
                       </div>
                       <div>
@@ -1203,7 +1203,7 @@ function SettingsContent() {
                           value={productForm.custom_price}
                           onChange={(e) => setProductForm({ ...productForm, custom_price: e.target.value })}
                           placeholder="e.g. 100"
-                          className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-500"
+                          className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-500"
                         />
                       </div>
                     </div>
@@ -1222,7 +1222,7 @@ function SettingsContent() {
               </button>
               <button
                 type="submit"
-                className="flex-1 py-2.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl shadow transition"
+                className="flex-1 py-2.5 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 rounded-xl shadow transition"
               >
                 {editingProduct ? 'Save Changes' : 'Create Product'}
               </button>
@@ -1253,7 +1253,7 @@ function SettingsContent() {
                   value={categoryName}
                   onChange={(e) => setCategoryName(e.target.value)}
                   placeholder="e.g. Paratha & Naan"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
                 />
               </div>
 
@@ -1263,7 +1263,7 @@ function SettingsContent() {
                   type="number"
                   value={categoryOrder}
                   onChange={(e) => setCategoryOrder(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
                 />
               </div>
             </div>
@@ -1278,7 +1278,7 @@ function SettingsContent() {
               </button>
               <button
                 type="submit"
-                className="flex-1 py-2.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl shadow transition"
+                className="flex-1 py-2.5 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 rounded-xl shadow transition"
               >
                 Save Category
               </button>
@@ -1309,7 +1309,7 @@ function SettingsContent() {
                   value={rawForm.name}
                   onChange={(e) => setRawForm({ ...rawForm, name: e.target.value })}
                   placeholder="e.g. Chakki Atta"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
                 />
               </div>
 
@@ -1322,7 +1322,7 @@ function SettingsContent() {
                     value={rawForm.unit}
                     onChange={(e) => setRawForm({ ...rawForm, unit: e.target.value })}
                     placeholder="e.g. bori (50kg)"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
                   />
                 </div>
 
@@ -1333,7 +1333,7 @@ function SettingsContent() {
                     value={rawForm.category}
                     onChange={(e) => setRawForm({ ...rawForm, category: e.target.value })}
                     placeholder="e.g. Flour"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
                   />
                 </div>
               </div>
@@ -1346,7 +1346,7 @@ function SettingsContent() {
                   value={rawForm.default_price}
                   onChange={(e) => setRawForm({ ...rawForm, default_price: e.target.value })}
                   placeholder="4800"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-emerald-700 font-black focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-indigo-700 font-black focus:outline-none focus:border-indigo-600"
                 />
               </div>
             </div>
@@ -1361,7 +1361,7 @@ function SettingsContent() {
               </button>
               <button
                 type="submit"
-                className="flex-1 py-2.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl shadow transition"
+                className="flex-1 py-2.5 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 rounded-xl shadow transition"
               >
                 Save Material
               </button>
@@ -1392,7 +1392,7 @@ function SettingsContent() {
                   value={userForm.full_name}
                   onChange={(e) => setUserForm({ ...userForm, full_name: e.target.value })}
                   placeholder="e.g. Muhammad Bilal"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
                 />
               </div>
 
@@ -1403,7 +1403,7 @@ function SettingsContent() {
                   value={userForm.display_name}
                   onChange={(e) => setUserForm({ ...userForm, display_name: e.target.value })}
                   placeholder="e.g. Bilal Cashier"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
                 />
               </div>
 
@@ -1415,7 +1415,7 @@ function SettingsContent() {
                   value={userForm.email}
                   onChange={(e) => setUserForm({ ...userForm, email: e.target.value })}
                   placeholder="bilal@maliknashta.pk"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
                 />
               </div>
 
@@ -1425,7 +1425,7 @@ function SettingsContent() {
                   <select
                     value={userForm.role}
                     onChange={(e) => setUserForm({ ...userForm, role: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600 cursor-pointer"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600 cursor-pointer"
                   >
                     <option value="cashier">Cashier</option>
                     <option value="admin">Admin</option>
@@ -1441,7 +1441,7 @@ function SettingsContent() {
                     value={userForm.pin_code}
                     onChange={(e) => setUserForm({ ...userForm, pin_code: e.target.value })}
                     placeholder="0000"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-emerald-700 font-black text-center focus:outline-none focus:border-emerald-600"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-indigo-700 font-black text-center focus:outline-none focus:border-indigo-600"
                   />
                 </div>
               </div>
@@ -1457,7 +1457,7 @@ function SettingsContent() {
               </button>
               <button
                 type="submit"
-                className="flex-1 py-2.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl shadow transition"
+                className="flex-1 py-2.5 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 rounded-xl shadow transition"
               >
                 Save Staff
               </button>

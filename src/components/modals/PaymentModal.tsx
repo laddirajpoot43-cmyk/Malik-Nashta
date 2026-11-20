@@ -60,12 +60,12 @@ export const PaymentModal: React.FC = () => {
         {/* Header */}
         <div className="px-5 py-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-emerald-100 text-emerald-700">
+            <div className="p-2 rounded-lg bg-indigo-100 text-indigo-700">
               <DollarSign className="w-5 h-5" />
             </div>
             <div>
               <h2 className="text-base font-bold text-slate-900">Settle Payment & Print Bill</h2>
-              <p className="text-xs text-slate-500">Total Due: <strong className="text-emerald-600 font-bold text-sm">{formatMoney(grandTotal)}</strong></p>
+              <p className="text-xs text-slate-500">Total Due: <strong className="text-indigo-600 font-bold text-sm">{formatMoney(grandTotal)}</strong></p>
             </div>
           </div>
           <button
@@ -93,7 +93,7 @@ export const PaymentModal: React.FC = () => {
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
                 placeholder="Walk-in / Table 4"
-                className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
             <div>
@@ -103,7 +103,7 @@ export const PaymentModal: React.FC = () => {
                 value={customerPhone}
                 onChange={(e) => setCustomerPhone(e.target.value)}
                 placeholder="0300-1234567"
-                className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
           </div>
@@ -126,11 +126,11 @@ export const PaymentModal: React.FC = () => {
                     onClick={() => setPaymentMethod(m.id as any)}
                     className={`p-2.5 rounded-xl border text-center transition flex flex-col items-center gap-1 ${
                       paymentMethod === m.id
-                        ? 'bg-emerald-50 border-emerald-500 text-emerald-800 shadow-sm font-bold ring-1 ring-emerald-500'
+                        ? 'bg-indigo-50 border-indigo-500 text-indigo-800 shadow-sm font-bold ring-1 ring-indigo-500'
                         : 'bg-white border-slate-200 text-slate-600 hover:text-slate-900 hover:border-slate-300'
                     }`}
                   >
-                    <Icon className="w-4 h-4 text-emerald-600" />
+                    <Icon className="w-4 h-4 text-indigo-600" />
                     <span className="text-[11px] font-bold">{m.label}</span>
                   </button>
                 );
@@ -149,7 +149,7 @@ export const PaymentModal: React.FC = () => {
                   type="number"
                   value={tenderedAmount}
                   onChange={(e) => setTenderedAmount(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-emerald-600 font-black text-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-indigo-600 font-black text-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
 
@@ -158,7 +158,7 @@ export const PaymentModal: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => handleQuickTender(grandTotal)}
-                  className="text-xs px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md font-bold transition"
+                  className="text-xs px-2.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md font-bold transition"
                 >
                   Exact (Rs. {grandTotal})
                 </button>
@@ -182,7 +182,7 @@ export const PaymentModal: React.FC = () => {
               {/* Change Returned Highlight */}
               <div className="flex justify-between items-center pt-2 border-t border-slate-200">
                 <span className="text-xs font-semibold text-slate-600">Change to Return (بقایا):</span>
-                <span className="font-black text-emerald-700 text-lg">{formatMoney(changeReturned)}</span>
+                <span className="font-black text-indigo-700 text-lg">{formatMoney(changeReturned)}</span>
               </div>
             </div>
           )}
@@ -198,7 +198,7 @@ export const PaymentModal: React.FC = () => {
             <button
               onClick={handleSubmit}
               disabled={loading}
-              className="flex-1 py-3 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white font-bold text-sm rounded-xl shadow-md transition flex items-center justify-center gap-2"
+              className="flex-1 py-3 bg-indigo-600 hover:bg-indigo-700 active:scale-[0.99] text-white font-bold text-sm rounded-xl shadow-md transition flex items-center justify-center gap-2"
             >
               <Check className="w-5 h-5" />
               {loading ? 'Processing Transaction...' : `Confirm & Print Receipt (${formatMoney(grandTotal)})`}

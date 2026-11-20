@@ -163,13 +163,13 @@ export const ReceiptTemplateEditor: React.FC = () => {
       {/* Header Info Banner */}
       <div className="flex flex-wrap items-center justify-between gap-2.5 p-3 rounded-2xl bg-white border border-slate-200 shadow-sm">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center font-bold">
+          <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-700 border border-indigo-200 flex items-center justify-center font-bold">
             <Printer className="w-5 h-5" />
           </div>
           <div>
             <h2 className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
               Thermal Receipt Slip Template Customizer (رسید ڈیزائن)
-              <span className="text-[9.5px] px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold">
+              <span className="text-[9.5px] px-1.5 py-0.5 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-200 font-bold">
                 Live Preview
               </span>
             </h2>
@@ -192,7 +192,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
           <button
             type="button"
             onClick={handlePrintTest}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white text-xs font-bold transition shadow-sm cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-xs font-bold transition shadow-sm cursor-pointer"
           >
             <Printer className="w-3.5 h-3.5" />
             <span>Test Print (1 Page)</span>
@@ -203,7 +203,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
             type="button"
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white font-extrabold text-xs shadow transition disabled:opacity-50 cursor-pointer"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-indigo-700 hover:bg-indigo-800 active:bg-emerald-900 text-white font-extrabold text-xs shadow transition disabled:opacity-50 cursor-pointer"
           >
             {saving ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
             <span>{saving ? 'Saving...' : 'Save Template'}</span>
@@ -215,12 +215,12 @@ export const ReceiptTemplateEditor: React.FC = () => {
         <div
           className={`p-2.5 rounded-xl text-xs font-bold flex items-center gap-2 ${
             feedback.type === 'success'
-              ? 'bg-emerald-50 text-emerald-800 border border-emerald-300'
+              ? 'bg-indigo-50 text-indigo-800 border border-indigo-300'
               : 'bg-rose-50 text-rose-800 border border-rose-300'
           }`}
         >
           {feedback.type === 'success' ? (
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-indigo-600 shrink-0" />
           ) : (
             <Sliders className="w-4 h-4 text-rose-600 shrink-0" />
           )}
@@ -235,7 +235,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
           {/* Section 1: Business Header Branding */}
           <div className="p-3 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2.5">
             <h3 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-1.5">
-              <Type className="w-3.5 h-3.5 text-emerald-600" />
+              <Type className="w-3.5 h-3.5 text-indigo-600" />
               <span>Header Branding & Business Details</span>
             </h3>
 
@@ -246,7 +246,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
                   type="text"
                   value={businessName}
                   onChange={(e) => setBusinessName(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
                 />
               </div>
 
@@ -257,7 +257,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
                   value={template.tagline || ''}
                   onChange={(e) => handleTextChange('tagline', e.target.value)}
                   placeholder="e.g. Fresh & Crispy Nashta Everyday"
-                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:border-indigo-600"
                 />
               </div>
 
@@ -267,7 +267,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
                   type="text"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:border-indigo-600"
                 />
               </div>
 
@@ -278,7 +278,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
                   value={template.ntn_strn || ''}
                   onChange={(e) => handleTextChange('ntn_strn', e.target.value)}
                   placeholder="e.g. NTN: 829104-5"
-                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:border-indigo-600"
                 />
               </div>
 
@@ -288,7 +288,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
                   type="text"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:border-indigo-600"
                 />
               </div>
 
@@ -301,7 +301,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
                   value={template.header_message || ''}
                   onChange={(e) => handleTextChange('header_message', e.target.value)}
                   placeholder="e.g. Special Lahori Channay & Crispy Parathay"
-                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:border-indigo-600"
                 />
               </div>
             </div>
@@ -310,7 +310,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
           {/* Section 2: Footers & Urdu Greeting */}
           <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4">
             <h3 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-2">
-              <FileCheck className="w-4 h-4 text-emerald-600" />
+              <FileCheck className="w-4 h-4 text-indigo-600" />
               <span>Bottom Greetings & Urdu Messages</span>
             </h3>
 
@@ -325,7 +325,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
                   value={template.footer_message_urdu || ''}
                   onChange={(e) => handleTextChange('footer_message_urdu', e.target.value)}
                   placeholder="شکریہ! دوبارہ تشریف لائیں"
-                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
                 />
               </div>
 
@@ -336,7 +336,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
                   value={template.footer_message_english || ''}
                   onChange={(e) => handleTextChange('footer_message_english', e.target.value)}
                   placeholder="Thank you for visiting Malik Tasty Nashta Point!"
-                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:border-indigo-600"
                 />
               </div>
 
@@ -351,7 +351,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
                     value={template.footer_credit_name !== undefined ? template.footer_credit_name : 'Buid by Ammar'}
                     onChange={(e) => handleTextChange('footer_credit_name', e.target.value)}
                     placeholder="Buid by Ammar"
-                    className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                    className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
                   />
                 </div>
 
@@ -364,7 +364,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
                     value={template.footer_credit_phone !== undefined ? template.footer_credit_phone : '03260603565'}
                     onChange={(e) => handleTextChange('footer_credit_phone', e.target.value)}
                     placeholder="03260603565"
-                    className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
+                    className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 font-bold focus:outline-none focus:border-indigo-600"
                   />
                 </div>
               </div>
@@ -377,7 +377,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
           {/* Section 3: Paper Size, Font Size & Toggle Switches */}
           <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4">
             <h3 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-2">
-              <Sliders className="w-4 h-4 text-emerald-600" />
+              <Sliders className="w-4 h-4 text-indigo-600" />
               <span>Printer Geometry & Visibility Toggles</span>
             </h3>
 
@@ -390,7 +390,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
                     onClick={() => handleTextChange('paper_size', '80mm')}
                     className={`py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
                       template.paper_size === '80mm'
-                        ? 'bg-emerald-600 text-white border-emerald-600 shadow'
+                        ? 'bg-indigo-600 text-white border-indigo-600 shadow'
                         : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
                     }`}
                   >
@@ -403,7 +403,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
                     onClick={() => handleTextChange('paper_size', '58mm')}
                     className={`py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
                       template.paper_size === '58mm'
-                        ? 'bg-emerald-600 text-white border-emerald-600 shadow'
+                        ? 'bg-indigo-600 text-white border-indigo-600 shadow'
                         : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
                     }`}
                   >
@@ -423,7 +423,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
                       onClick={() => handleTextChange('font_size', size)}
                       className={`py-2 px-2 rounded-xl border text-xs font-bold capitalize transition cursor-pointer ${
                         template.font_size === size
-                          ? 'bg-emerald-600 text-white border-emerald-600 shadow'
+                          ? 'bg-indigo-600 text-white border-indigo-600 shadow'
                           : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
                       }`}
                     >
@@ -457,7 +457,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
                         type="checkbox"
                         checked={isChecked}
                         onChange={() => handleToggle(key as keyof ReceiptTemplateConfig)}
-                        className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300 cursor-pointer"
+                        className="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 cursor-pointer"
                       />
                       <span className="text-xs text-slate-800 font-semibold">{label}</span>
                     </label>
@@ -473,7 +473,7 @@ export const ReceiptTemplateEditor: React.FC = () => {
           <div className="sticky top-20 bg-white border border-slate-200 rounded-2xl p-4 shadow-sm space-y-3">
             <div className="flex items-center justify-between pb-2 border-b border-slate-100">
               <div className="flex items-center gap-2 text-xs font-extrabold text-slate-900">
-                <Eye className="w-4 h-4 text-emerald-600" />
+                <Eye className="w-4 h-4 text-indigo-600" />
                 <span>Live Thermal Slip Preview</span>
               </div>
               <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 font-bold">

@@ -62,7 +62,7 @@ export const DiscountModal: React.FC = () => {
       <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-md shadow-2xl overflow-hidden flex flex-col">
         <div className="px-5 py-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-emerald-100 text-emerald-700">
+            <div className="p-2 rounded-lg bg-indigo-100 text-indigo-700">
               <Percent className="w-5 h-5" />
             </div>
             <div>
@@ -90,14 +90,14 @@ export const DiscountModal: React.FC = () => {
             <button
               type="button"
               onClick={() => setType('percentage')}
-              className={`py-2 rounded-lg transition ${type === 'percentage' ? 'bg-emerald-600 text-white font-bold shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
+              className={`py-2 rounded-lg transition ${type === 'percentage' ? 'bg-indigo-600 text-white font-bold shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
             >
               Percentage (%)
             </button>
             <button
               type="button"
               onClick={() => setType('fixed')}
-              className={`py-2 rounded-lg transition ${type === 'fixed' ? 'bg-emerald-600 text-white font-bold shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
+              className={`py-2 rounded-lg transition ${type === 'fixed' ? 'bg-indigo-600 text-white font-bold shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
             >
               Fixed Rupees (Rs)
             </button>
@@ -112,7 +112,7 @@ export const DiscountModal: React.FC = () => {
               type="number"
               value={value}
               onChange={(e) => { setValue(e.target.value); setErrorMsg(''); }}
-              className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 font-bold text-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 font-bold text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
@@ -126,7 +126,7 @@ export const DiscountModal: React.FC = () => {
                   onClick={() => { setValue(String(pct)); setErrorMsg(''); }}
                   className={`text-xs px-2.5 py-1.5 rounded-md font-semibold border transition ${
                     numVal === pct
-                      ? 'bg-emerald-600 text-white border-emerald-600'
+                      ? 'bg-indigo-600 text-white border-indigo-600'
                       : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
                   }`}
                 >
@@ -165,7 +165,7 @@ export const DiscountModal: React.FC = () => {
             <button
               type="button"
               onClick={handleApply}
-              className="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg shadow-md transition flex items-center gap-1.5"
+              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg shadow-md transition flex items-center gap-1.5"
             >
               <Check className="w-4 h-4" /> Apply Discount
             </button>

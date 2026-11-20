@@ -64,7 +64,7 @@ export default function RegisterPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-white border border-slate-200 p-3 rounded-2xl shadow-sm">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-bold">
+          <div className="p-2 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-xl font-bold">
             <DollarSign className="w-5 h-5" />
           </div>
           <div>
@@ -75,7 +75,7 @@ export default function RegisterPage() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setOpenRegisterModal(true)}
-            className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
+            className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
           >
             {activeRegister ? <Lock className="w-3.5 h-3.5" /> : <Unlock className="w-3.5 h-3.5" />}
             <span>{activeRegister ? 'Manage Shift / Close Drawer' : 'Open Register Shift'}</span>
@@ -89,13 +89,13 @@ export default function RegisterPage() {
         <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between text-[11px] text-slate-500 font-bold uppercase tracking-wider">
             <span>Expected Cash in Hand</span>
-            <span className={`w-2 h-2 rounded-full ${activeRegister ? 'bg-emerald-500 animate-pulse' : 'bg-rose-500'}`} />
+            <span className={`w-2 h-2 rounded-full ${activeRegister ? 'bg-indigo-500 animate-pulse' : 'bg-rose-500'}`} />
           </div>
-          <div className="text-xl font-black text-emerald-700 mt-1">
+          <div className="text-xl font-black text-indigo-700 mt-1">
             {formatMoney(summary.expected_cash)}
           </div>
           <div className="text-[10px] text-slate-500 mt-0.5 font-semibold">
-            Status: {activeRegister ? <span className="text-emerald-700">LIVE REGISTER OPEN</span> : <span className="text-slate-500">REGISTER CLOSED</span>}
+            Status: {activeRegister ? <span className="text-indigo-700">LIVE REGISTER OPEN</span> : <span className="text-slate-500">REGISTER CLOSED</span>}
           </div>
         </div>
 
@@ -103,7 +103,7 @@ export default function RegisterPage() {
         <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between text-[11px] text-slate-500 font-bold uppercase tracking-wider">
             <span>Counter Cash Sales</span>
-            <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
+            <TrendingUp className="w-3.5 h-3.5 text-indigo-600" />
           </div>
           <div className="text-xl font-black text-slate-900 mt-1">
             {formatMoney(summary.cash_sales)}
@@ -146,12 +146,12 @@ export default function RegisterPage() {
       <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
         <div className="p-4 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <History className="w-5 h-5 text-emerald-600" />
+            <History className="w-5 h-5 text-indigo-600" />
             <h3 className="font-extrabold text-sm text-slate-900">Current Shift Cash Movements ({txs.length})</h3>
           </div>
           <button
             onClick={() => setOpenRegisterModal(true)}
-            className="text-xs text-emerald-700 hover:text-emerald-800 font-bold flex items-center gap-1 cursor-pointer"
+            className="text-xs text-indigo-700 hover:text-indigo-800 font-bold flex items-center gap-1 cursor-pointer"
           >
             <Plus className="w-3.5 h-3.5" /> Record Movement
           </button>
@@ -187,7 +187,7 @@ export default function RegisterPage() {
                         <span
                           className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
                             tx.type === 'SALE'
-                              ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                              ? 'bg-indigo-50 text-indigo-700 border border-indigo-200'
                               : tx.type === 'CASH_IN' || tx.type === 'OPENING'
                               ? 'bg-teal-50 text-teal-700 border border-teal-200'
                               : tx.type === 'REFUND'
@@ -198,7 +198,7 @@ export default function RegisterPage() {
                           {tx.type}
                         </span>
                       </td>
-                      <td className={`px-4 py-3 font-black text-sm ${isPositive ? 'text-emerald-700' : 'text-rose-600'}`}>
+                      <td className={`px-4 py-3 font-black text-sm ${isPositive ? 'text-indigo-700' : 'text-rose-600'}`}>
                         {isPositive ? `+${formatMoney(Math.abs(tx.amount))}` : `-${formatMoney(Math.abs(tx.amount))}`}
                       </td>
                       <td className="px-4 py-3">
