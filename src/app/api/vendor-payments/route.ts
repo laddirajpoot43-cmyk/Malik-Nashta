@@ -9,7 +9,7 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const vendor_id = searchParams.get('vendor_id');
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(2000);
 
     let list = store.vendor_payments || [];
     if (vendor_id) {
@@ -100,7 +100,7 @@ export async function POST(req: Request) {
       new_values: { payment_number: paymentNumber, amount: payAmt, current_balance: vendor.current_balance },
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     // Direct synchronous Cloud PostgreSQL persistence
     try {

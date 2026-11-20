@@ -9,7 +9,7 @@ export async function GET(req: Request) {
     const limit = parseInt(searchParams.get('limit') || '100', 10);
     const action = searchParams.get('action');
 
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(2000);
     let logs = [...(store.audit_logs || [])];
 
     if (action) {

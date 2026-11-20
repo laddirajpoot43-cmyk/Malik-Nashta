@@ -24,7 +24,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, error: 'Cart cannot be empty' }, { status: 400 });
     }
 
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(2000);
 
     // 1. Idempotency Key check: prevent double-spend or duplicate billing
     if (idempotency_key) {

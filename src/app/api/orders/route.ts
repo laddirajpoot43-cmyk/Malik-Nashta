@@ -1,6 +1,6 @@
-import { NextResponse } from 'next/server';
 import { localStore, logAuditEvent } from '@/lib/db';
 import { insforgeAdmin } from '@/lib/insforge';
+import { jsonResponse } from '@/lib/api-response';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,7 +16,7 @@ export async function GET(req: Request) {
     const dateTo = searchParams.get('date_to');
     const limit = parseInt(searchParams.get('limit') || '100', 10);
 
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(1500);
     const allStoreOrders = store.orders || [];
 
     // Precalculate counts across entire order dataset
@@ -75,7 +75,7 @@ export async function GET(req: Request) {
       payments: (o.payments && o.payments.length > 0) ? o.payments : orderPayments.filter((p: any) => p.order_id === o.id),
     }));
 
-    return NextResponse.json({
+    return jsonResponse({
       success: true,
       orders: fullOrders,
       total: fullOrders.length,
@@ -86,7 +86,7 @@ export async function GET(req: Request) {
       },
     });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }
 
@@ -119,18 +119,18 @@ export async function POST(req: Request) {
         new_values: { targetDate, closedCount },
       });
 
-      localStore.save();
+      await localStore.saveAndSync();
 
-      return NextResponse.json({
+      return jsonResponse({
         success: true,
         message: `Daily closing completed. ${closedCount} order(s) moved to Order History.`,
         closedCount,
       });
     }
 
-    return NextResponse.json({ success: false, error: 'Unknown action' }, { status: 400 });
+    return jsonResponse({ success: false, error: 'Unknown action' }, { status: 400 });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }
 
@@ -142,14 +142,14 @@ export async function DELETE(req: Request) {
     const reason = searchParams.get('reason') || 'Administrative Order Deletion';
 
     if (!id) {
-      return NextResponse.json({ success: false, error: 'Order ID is required' }, { status: 400 });
+      return jsonResponse({ success: false, error: 'Order ID is required' }, { status: 400 });
     }
 
     const store = localStore.get();
     const orderIndex = (store.orders || []).findIndex((o: any) => o.id === id || o.receipt_number === id);
 
     if (orderIndex === -1) {
-      return NextResponse.json({ success: false, error: 'Order not found' }, { status: 404 });
+      return jsonResponse({ success: false, error: 'Order not found' }, { status: 404 });
     }
 
     const order = store.orders[orderIndex];
@@ -168,7 +168,7 @@ export async function DELETE(req: Request) {
       old_values: order,
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     // Direct synchronous Cloud PostgreSQL persistence
     try {
@@ -179,9 +179,9 @@ export async function DELETE(req: Request) {
       console.warn('Cloud sync error for order delete:', e);
     }
 
-    return NextResponse.json({ success: true, message: `Order ${order.receipt_number} deleted successfully.`, deletedOrder: order });
+    return jsonResponse({ success: true, message: `Order ${order.receipt_number} deleted successfully.`, deletedOrder: order });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }
 

@@ -10,7 +10,7 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const includeInactive = searchParams.get('include_inactive') === 'true';
 
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(2000);
     const vendors = (store.vendors || []).filter((v: any) => includeInactive || v.is_active !== false);
 
     let totalPayables = 0;
@@ -78,7 +78,7 @@ export async function POST(req: Request) {
       new_values: { name: newVendor.name, opening_balance: openBal },
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     // Direct synchronous Cloud PostgreSQL persistence
     try {
@@ -127,7 +127,7 @@ export async function PUT(req: Request) {
       new_values: vendor,
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     // Direct synchronous Cloud PostgreSQL persistence
     try {
@@ -183,7 +183,7 @@ export async function DELETE(req: Request) {
         entity_id: id,
         description: `Vendor "${vendor.name}" deactivated (preserved for ledger history)`,
       });
-      localStore.save();
+      await localStore.saveAndSync();
 
       try {
         await insforgeAdmin.database.from('vendors').upsert([{ id: vendor.id, is_active: false }]);
@@ -207,7 +207,7 @@ export async function DELETE(req: Request) {
       old_values: removed,
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     try {
       await insforgeAdmin.database.from('vendors').delete().eq('id', id);

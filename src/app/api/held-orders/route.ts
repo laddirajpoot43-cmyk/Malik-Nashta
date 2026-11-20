@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(2000);
     const held = (store.held_orders || []).filter((h: any) => h.status === 'held');
     return NextResponse.json({ success: true, heldOrders: held });
   } catch (error: any) {
@@ -47,7 +47,7 @@ export async function POST(req: Request) {
       new_values: { hold_number: holdNumber, items_count: cartList.length },
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     return NextResponse.json({ success: true, heldOrder: newHold });
   } catch (error: any) {
@@ -74,7 +74,7 @@ export async function PUT(req: Request) {
     }
 
     hold.status = action === 'cancel' ? 'cancelled' : 'resumed';
-    localStore.save();
+    await localStore.saveAndSync();
 
     return NextResponse.json({ success: true, heldOrder: hold });
   } catch (error: any) {

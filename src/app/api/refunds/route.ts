@@ -24,7 +24,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, error: 'A valid refund reason is mandatory.' }, { status: 400 });
     }
 
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(2000);
     const settings = store.pos_settings?.[0] || { require_admin_pin_refunds: true, admin_pin: '1234' };
 
     // Check PIN requirement if enabled in settings
@@ -161,7 +161,7 @@ export async function POST(req: Request) {
       new_values: { refund_number: refundNumber, amount: targetRefundAmt, status: order.status },
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     return NextResponse.json({
       success: true,

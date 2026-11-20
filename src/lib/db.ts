@@ -1,5 +1,6 @@
 import { Pool, PoolClient } from 'pg';
 import fs from 'fs';
+import os from 'os';
 import path from 'path';
 import crypto from 'crypto';
 import { insforgeAdmin, INSFORGE_BASE_URL } from './insforge';
@@ -10,7 +11,8 @@ export interface QueryResult<T = any> {
 }
 
 // Fallback in-memory and disk-persisted data store for zero-downtime reliability
-const DATA_DIR = path.join(process.cwd(), '.data');
+// On serverless (e.g. Vercel), process.cwd() is read-only, so fall back to os.tmpdir()
+const DATA_DIR = process.env.VERCEL ? path.join(os.tmpdir(), '.malik_pos_data') : path.join(process.cwd(), '.data');
 const DB_FILE = path.join(DATA_DIR, 'pos_store.json');
 
 interface SchemaStore {
@@ -308,13 +310,45 @@ class StoreManager {
       }
 
       if (loaded > 0) {
+        // Hydrate joined items/payments onto orders and sort newest-first
+        const allItems = this.data.order_items || [];
+        const allPayments = this.data.order_payments || [];
+        if (Array.isArray(this.data.orders)) {
+          this.data.orders = this.data.orders
+            .map((o: any) => ({
+              ...o,
+              items: Array.isArray(o.items) && o.items.length > 0 ? o.items : allItems.filter((i: any) => i.order_id === o.id),
+              payments: Array.isArray(o.payments) && o.payments.length > 0 ? o.payments : allPayments.filter((p: any) => p.order_id === o.id),
+            }))
+            .sort((a: any, b: any) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
+
+          // Keep receipt & order sequences ahead of highest existing cloud records
+          if (!this.data.sequences) this.data.sequences = getDefaultData().sequences;
+          for (const o of this.data.orders) {
+            const recMatch = String(o.receipt_number || '').match(/(\d+)$/);
+            if (recMatch) {
+              const num = parseInt(recMatch[1], 10);
+              if (num > (this.data.sequences.receipt_seq || 0)) this.data.sequences.receipt_seq = num;
+            }
+            const ordMatch = String(o.order_number || '').match(/(\d+)$/);
+            if (ordMatch) {
+              const num = parseInt(ordMatch[1], 10);
+              if (num > (this.data.sequences.order_seq || 0)) this.data.sequences.order_seq = num;
+            }
+          }
+        }
+
         this.cloudConnected = true;
         this.lastCloudSyncAt = new Date().toISOString();
         this.recordSnapshotIds();
-        if (!fs.existsSync(DATA_DIR)) {
-          fs.mkdirSync(DATA_DIR, { recursive: true });
+        try {
+          if (!fs.existsSync(DATA_DIR)) {
+            fs.mkdirSync(DATA_DIR, { recursive: true });
+          }
+          fs.writeFileSync(DB_FILE, JSON.stringify(this.data, null, 2), 'utf8');
+        } catch {
+          // Ignore disk write failure on read-only serverless filesystems
         }
-        fs.writeFileSync(DB_FILE, JSON.stringify(this.data, null, 2), 'utf8');
       }
 
       return { connected: loaded > 0, tablesLoaded: loaded, baseUrl: INSFORGE_BASE_URL };
@@ -397,8 +431,8 @@ class StoreManager {
   }
 
   public saveData(data?: SchemaStore, syncCloud: boolean = true) {
+    if (data) this.data = data;
     try {
-      if (data) this.data = data;
       if (!fs.existsSync(DATA_DIR)) {
         fs.mkdirSync(DATA_DIR, { recursive: true });
       }
@@ -406,12 +440,17 @@ class StoreManager {
       if (fs.existsSync(DB_FILE)) {
         this.lastFileLoadTime = fs.statSync(DB_FILE).mtimeMs;
       }
-      if (syncCloud) {
-        this.syncToCloud().catch(() => {});
-      }
     } catch (e) {
-      console.error('Failed to save store file:', e);
+      // Do not block cloud sync if local disk is read-only
     }
+    if (syncCloud) {
+      this.syncToCloud().catch(() => {});
+    }
+  }
+
+  public async saveAndSync(data?: SchemaStore): Promise<void> {
+    this.saveData(data, false);
+    await this.syncToCloud();
   }
 
   public getData(): SchemaStore {
@@ -492,6 +531,7 @@ const storeManager = new StoreManager();
 export const localStore = {
   get: () => storeManager.getData(),
   save: () => storeManager.saveData(),
+  saveAndSync: () => storeManager.saveAndSync(),
   ensureFresh: (maxAgeMs?: number) => storeManager.ensureFresh(maxAgeMs),
   nextSeq: (type: any) => storeManager.getNextSequence(type),
   syncFromCloud: () => storeManager.hydrateFromCloud(),
@@ -554,11 +594,11 @@ export async function withTransaction<T>(callback: (client: any) => Promise<T>):
     }
   }
 
-  // Atomic local transaction with snapshot & rollback
+  // Atomic local transaction with snapshot & rollback + synchronous cloud sync
   const snapshot = JSON.parse(JSON.stringify(storeManager.getData()));
   try {
     const result = await callback({ isLocal: true, store: storeManager.getData() });
-    storeManager.saveData();
+    await storeManager.saveAndSync();
     return result;
   } catch (err) {
     storeManager.saveData(snapshot);

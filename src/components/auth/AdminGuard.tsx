@@ -47,7 +47,7 @@ export const AdminGuard: React.FC<AdminGuardProps> = ({
   return (
     <div className="min-h-[75vh] flex items-center justify-center p-4 select-none">
       <div className="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6 text-center animate-in fade-in">
-        <div className="mx-auto w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600">
+        <div className="mx-auto w-16 h-16 rounded-2xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600">
           <Lock className="w-8 h-8" />
         </div>
 
@@ -74,7 +74,7 @@ export const AdminGuard: React.FC<AdminGuardProps> = ({
                 setErrorMsg('');
               }}
               placeholder="••••"
-              className="w-full py-3 px-4 bg-slate-50 border border-slate-300 rounded-2xl text-center text-3xl font-black text-slate-900 tracking-[0.5em] focus:outline-none focus:border-emerald-600 placeholder:text-slate-400 shadow-inner"
+              className="w-full py-3 px-4 bg-slate-50 border border-slate-300 rounded-2xl text-center text-3xl font-black text-slate-900 tracking-[0.5em] focus:outline-none focus:border-indigo-600 placeholder:text-slate-400 shadow-inner"
             />
           </div>
 

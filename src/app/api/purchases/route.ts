@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(2000);
     const invoices = (store.purchase_invoices || []).map((inv: any) => {
       const items = (store.purchase_items || []).filter((item: any) => item.purchase_invoice_id === inv.id);
       return { ...inv, items };
@@ -131,7 +131,7 @@ export async function POST(req: Request) {
       new_values: { invoice_number: invoiceNumber, total_amount: totalAmount, balance_amount: balance },
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     // Direct synchronous Cloud PostgreSQL persistence
     try {
@@ -209,7 +209,7 @@ export async function DELETE(req: Request) {
       old_values: removed,
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     // Direct synchronous Cloud PostgreSQL persistence
     try {

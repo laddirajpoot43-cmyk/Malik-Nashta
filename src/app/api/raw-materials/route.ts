@@ -9,7 +9,7 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const includeInactive = searchParams.get('include_inactive') === 'true';
 
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(2000);
     const materials = (store.raw_materials || []).filter((m: any) => includeInactive || m.is_active !== false);
     return NextResponse.json({ success: true, rawMaterials: materials });
   } catch (error: any) {
@@ -52,7 +52,7 @@ export async function POST(req: Request) {
       new_values: newMaterial,
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     // Direct synchronous Cloud PostgreSQL persistence
     try {
@@ -101,7 +101,7 @@ export async function PUT(req: Request) {
       new_values: material,
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     // Direct synchronous Cloud PostgreSQL persistence
     try {
@@ -161,7 +161,7 @@ export async function DELETE(req: Request) {
       old_values: removed,
     });
 
-    localStore.save();
+    await localStore.saveAndSync();
 
     // Direct synchronous Cloud PostgreSQL persistence
     try {

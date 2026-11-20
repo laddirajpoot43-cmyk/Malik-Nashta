@@ -102,7 +102,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { action, opening_amount, amount, reason, note, actual_amount, closing_note, cashier_name = 'Admin' } = body;
 
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(1500);
 
     if (action === 'open') {
       // Check if already open
@@ -156,7 +156,7 @@ export async function POST(req: Request) {
         new_values: { opening_amount: openingFloat },
       });
 
-      localStore.save();
+      await localStore.saveAndSync();
       return jsonResponse({ success: true, session: newSession, transaction: openingTx });
     }
 
@@ -199,7 +199,7 @@ export async function POST(req: Request) {
         new_values: { amount: inAmt, reason },
       });
 
-      localStore.save();
+      await localStore.saveAndSync();
       return jsonResponse({ success: true, transaction: tx });
     }
 
@@ -233,7 +233,7 @@ export async function POST(req: Request) {
         new_values: { amount: outAmt, reason },
       });
 
-      localStore.save();
+      await localStore.saveAndSync();
       return jsonResponse({ success: true, transaction: tx });
     }
 
@@ -301,7 +301,7 @@ export async function POST(req: Request) {
         },
       });
 
-      localStore.save();
+      await localStore.saveAndSync();
       return jsonResponse({
         success: true,
         session: activeRegister,

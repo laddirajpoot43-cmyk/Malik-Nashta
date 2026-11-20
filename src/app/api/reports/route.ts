@@ -45,7 +45,7 @@ export async function GET(req: Request) {
     const startTs = startDate.getTime();
     const endTs = endDate.getTime();
 
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(1500);
 
     // Filter orders in date range
     const orders = (store.orders || []).filter((o: any) => {
@@ -65,7 +65,8 @@ export async function GET(req: Request) {
     };
 
     for (const o of completedOrders) {
-      for (const p of o.payments || []) {
+      const oPayments = (o.payments && o.payments.length > 0) ? o.payments : (store.order_payments || []).filter((pay: any) => pay.order_id === o.id);
+      for (const p of oPayments) {
         const m = p.method_id || 'cash';
         if (!paymentBreakdown[m]) {
           paymentBreakdown[m] = { method: m, count: 0, total: 0 };
@@ -80,7 +81,8 @@ export async function GET(req: Request) {
     const categorySalesMap: Record<string, { name: string; revenue: number; itemsSold: number }> = {};
 
     for (const o of completedOrders) {
-      for (const item of o.items || []) {
+      const oItems = (o.items && o.items.length > 0) ? o.items : (store.order_items || []).filter((it: any) => it.order_id === o.id);
+      for (const item of oItems) {
         const pName = item.product_name_snapshot || 'Item';
         const pId = item.product_id;
         const prod = (store.products || []).find((p: any) => p.id === pId);

@@ -1,6 +1,6 @@
-import { NextResponse } from 'next/server';
 import { localStore } from '@/lib/db';
 import { addMoney, subtractMoney } from '@/lib/money';
+import { jsonResponse } from '@/lib/api-response';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,7 +9,7 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const dateParam = searchParams.get('date') || new Date().toISOString().slice(0, 10);
 
-    const store = localStore.get();
+    const store = await localStore.ensureFresh(1500);
 
     // 1. Filter Orders for today
     const orders = (store.orders || []).filter((o: any) => {
@@ -30,7 +30,8 @@ export async function GET(req: Request) {
       discounts = addMoney(discounts, Number(o.discount_amount || 0));
       netSales = addMoney(netSales, Number(o.grand_total || 0));
 
-      for (const p of o.payments || []) {
+      const oPayments = (o.payments && o.payments.length > 0) ? o.payments : (store.order_payments || []).filter((pay: any) => pay.order_id === o.id);
+      for (const p of oPayments) {
         if (p.method_id === 'cash') {
           cashSales = addMoney(cashSales, Number(p.amount || 0));
         } else {
@@ -141,7 +142,7 @@ export async function GET(req: Request) {
       digital_sales: digitalSales,
     };
 
-    return NextResponse.json({
+    return jsonResponse({
       success: true,
       date: dateParam,
       sales: salesSummary,
@@ -180,7 +181,7 @@ export async function GET(req: Request) {
     });
   } catch (error: any) {
     console.error('Daily summary error:', error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return jsonResponse({ success: false, error: error.message }, { status: 500 });
   }
 }
 
