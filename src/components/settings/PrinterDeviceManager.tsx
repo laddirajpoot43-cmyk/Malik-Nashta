@@ -40,7 +40,7 @@ export const PrinterDeviceManager: React.FC = () => {
   const [activePrinterId, setActivePrinterId] = useState<string>('');
   const [loadingScan, setLoadingScan] = useState<boolean>(false);
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
-  const [newDriverName, setNewDriverName] = useState<string>('POS-80 Thermal Printer');
+  const [newDriverName, setNewDriverName] = useState<string>('Black Copper BC-95AC');
   const [newDriverWidth, setNewDriverWidth] = useState<'80mm' | '58mm'>('80mm');
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 

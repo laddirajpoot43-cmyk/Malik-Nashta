@@ -51,13 +51,13 @@
         "show_addons": true,
         "header_message": "Fresh Puri & Hot Chai Served Fast",
         "printer_config": {
-          "auto_cut": true,
-          "printer_id": "usb-1155-22339-1795079431528",
+          "printer_id": "printer-black-copper-bc95ac",
+          "printer_name": "Black Copper BC-95AC (80mm ESC/POS)",
+          "connection_type": "system",
           "paper_width": "80mm",
-          "printer_name": "USB Printer P",
-          "connection_type": "usb",
-          "open_cash_drawer": true,
-          "direct_print_enabled": true
+          "direct_print_enabled": true,
+          "auto_cut": true,
+          "open_cash_drawer": true
         },
         "show_cashier_name": true,
         "show_order_number": true,
@@ -72,13 +72,13 @@
       "created_at": "2026-11-10T09:52:55.025+00:00",
       "updated_at": null,
       "printer_config": {
-        "auto_cut": true,
-        "printer_id": "usb-1155-22339-1795079431528",
+        "printer_id": "printer-black-copper-bc95ac",
+        "printer_name": "Black Copper BC-95AC (80mm ESC/POS)",
+        "connection_type": "system",
         "paper_width": "80mm",
-        "printer_name": "USB Printer P",
-        "connection_type": "usb",
-        "open_cash_drawer": true,
-        "direct_print_enabled": true
+        "direct_print_enabled": true,
+        "auto_cut": true,
+        "open_cash_drawer": true
       }
     }
   ],
@@ -483,6 +483,105 @@
   "purchase_items": [],
   "vendor_payments": [],
   "audit_logs": [
+    {
+      "id": "7c24a9a1-e273-436e-9573-31fc6fd9783d",
+      "user_id": null,
+      "user_name": "Admin",
+      "action": "SETTINGS_UPDATE",
+      "entity_type": "pos_settings",
+      "entity_id": "33333333-3333-3333-3333-333333333301",
+      "description": "POS Settings updated by Admin",
+      "old_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "phone": "0306-8068058",
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "admin_pin": "1234",
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "default_tax_rate": 0,
+        "max_cashier_discount_percent": 15,
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "printer_config": {
+            "printer_id": "printer-black-copper-bc95ac",
+            "printer_name": "Black Copper BC-95AC (80mm ESC/POS)",
+            "connection_type": "system",
+            "paper_width": "80mm",
+            "direct_print_enabled": true,
+            "auto_cut": true,
+            "open_cash_drawer": true
+          },
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "footer_credit_name": "Buid by Ammar",
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_credit_phone": "03260603565",
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "created_at": "2026-11-10T09:52:55.025+00:00",
+        "updated_at": null
+      },
+      "new_values": {
+        "id": "33333333-3333-3333-3333-333333333301",
+        "business_name": "MALIK TASTY NASHTA POINT",
+        "address": "Vehari Road, Hasilpur, Punjab, Pakistan",
+        "phone": "0306-8068058",
+        "greeting_message": "Fresh & Crispy Nashta Everyday",
+        "admin_pin": "1234",
+        "cash_rounding_enabled": true,
+        "require_admin_pin_refunds": true,
+        "default_tax_rate": 0,
+        "max_cashier_discount_percent": 15,
+        "receipt_template": {
+          "tagline": "Super Crispy Nashta Everyday",
+          "ntn_strn": "NTN: 998877-6",
+          "font_size": "medium",
+          "paper_size": "80mm",
+          "show_addons": true,
+          "header_message": "Fresh Puri & Hot Chai Served Fast",
+          "printer_config": {
+            "printer_id": "printer-black-copper-bc95ac",
+            "printer_name": "Black Copper BC-95AC (80mm ESC/POS)",
+            "connection_type": "system",
+            "paper_width": "80mm",
+            "direct_print_enabled": true,
+            "auto_cut": true,
+            "open_cash_drawer": true
+          },
+          "show_cashier_name": true,
+          "show_order_number": true,
+          "footer_credit_name": "Buid by Ammar",
+          "show_customer_info": true,
+          "show_kitchen_notes": true,
+          "footer_credit_phone": "03260603565",
+          "footer_message_urdu": "بہت شکریہ! آپ کا دن خوشگوار گزرے",
+          "footer_message_english": "Thank you for choosing Malik Tasty Nashta Point!",
+          "show_duplicate_watermark": true
+        },
+        "created_at": "2026-11-10T09:52:55.025+00:00",
+        "updated_at": null,
+        "printer_config": {
+          "printer_id": "printer-black-copper-bc95ac",
+          "printer_name": "Black Copper BC-95AC (80mm ESC/POS)",
+          "connection_type": "system",
+          "paper_width": "80mm",
+          "direct_print_enabled": true,
+          "auto_cut": true,
+          "open_cash_drawer": true
+        }
+      },
+      "created_at": "2026-11-20T19:04:41.074Z"
+    },
     {
       "id": "1f297809-87c4-4914-892d-8b90b0c5ca47",
       "user_id": null,

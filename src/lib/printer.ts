@@ -8,12 +8,20 @@ const ACTIVE_PRINTER_KEY = 'malik_pos_active_printer_id';
 
 const DEFAULT_PRINTERS: ThermalPrinterDevice[] = [
   {
+    id: 'printer-black-copper-bc95ac',
+    name: 'Black Copper BC-95AC (80mm ESC/POS)',
+    type: 'system',
+    status: 'connected',
+    paperWidth: '80mm',
+    isDefault: true,
+  },
+  {
     id: 'printer-usb-pos80',
     name: 'POS-80 USB Thermal Printer',
     type: 'usb',
     status: 'available',
     paperWidth: '80mm',
-    isDefault: true,
+    isDefault: false,
   },
   {
     id: 'printer-sys-default',
